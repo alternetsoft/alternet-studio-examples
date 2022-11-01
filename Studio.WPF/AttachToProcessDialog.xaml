@@ -1,0 +1,43 @@
+﻿<Window x:Class="AlternetStudio.Wpf.AttachToProcessDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+        TextOptions.TextFormattingMode="Display"
+        Title="Attach to Process" Height="563" Width="617">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="Available processes">
+            <Grid Margin="7">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <ListView x:Name="processesListView" Grid.Row="0" MouseDoubleClick="ProcessesListView_MouseDoubleClick" SelectionChanged="ProcessesListView_SelectionChanged">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Process" DisplayMemberBinding="{Binding ProcessName}" Width="Auto"/>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="Auto"/>
+                            <GridViewColumn Header="Title" DisplayMemberBinding="{Binding MainWindowTitle}" Width="Auto"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button Grid.Row="1" HorizontalAlignment="Right" Content="Refresh" Name="refreshButton" Click="RefreshButton_Click" Margin="10,10,0,0" Padding="15,5,15,5"/>
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Content="Attach" Name="attachButton" Click="AttachButton_Click" Margin="10,10,0,0" Padding="15,5,15,5" IsDefault="True"/>
+            <Button Grid.Column="2" Content="Cancel" Name="cancelButton" Click="CancelButton_Click" Margin="10,10,0,0" Padding="15,5,15,5" IsCancel="True"/>
+        </Grid>
+    </Grid>
+</Window>

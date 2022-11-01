@@ -1,0 +1,5 @@
+<ContextMenu x:Class="FormDesigner.Wpf.CustomEditContextMenu"
+             xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <MenuItem Name="CustomHeader"  Header="Display Custom Editor" Click="Click_DisplayCustomEditor" />
+</ContextMenu>

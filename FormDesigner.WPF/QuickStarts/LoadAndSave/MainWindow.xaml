@@ -1,0 +1,60 @@
+<Window x:Class="LoadAndSave.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LoadAndSave"
+        xmlns:pg="clr-namespace:Alternet.FormDesigner.Wpf.PropertyGrid;assembly=Alternet.FormDesigner.Wpf.v8"
+        xmlns:tb="clr-namespace:Alternet.FormDesigner.Wpf.Toolbox;assembly=Alternet.FormDesigner.Wpf.v8"
+        xmlns:designer="clr-namespace:Alternet.FormDesigner.Wpf;assembly=Alternet.FormDesigner.Wpf.v8"
+        mc:Ignorable="d"
+        Icon="Images/Icon.ico" 
+        Title="Load\Save Designer" Height="447" Width="779" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="34"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="108"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="laDescription" Grid.Column="0" Grid.Row="0">
+                    <AccessText TextWrapping="Wrap" Text="From Designer can load and save its content."/>
+                </Label>
+                <Button Height="21" Grid.Column="1" Content="Load..." HorizontalAlignment="Right" Margin="10,0,0,0" Width="85" HorizontalContentAlignment="Center" Command="{Binding LoadCommand}" ToolTip=""/>
+                <Button Height="21" Grid.Column="2" Content="Save" HorizontalAlignment="Right" Margin="10,0,10,0" Width="85" HorizontalContentAlignment="Center" Command="{Binding SaveCommand}" ToolTip=""/>
+            </Grid>
+        </DockPanel>
+        <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="2">
+            <DockPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="171"/>
+                        <ColumnDefinition Width="4"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="4"/>
+                        <ColumnDefinition Width="187"/>
+                    </Grid.ColumnDefinitions>
+                    <pg:PropertyGridControl Grid.Column="0" Name="propertyGrid" FormDesigner="{Binding ElementName=formDesignerControl, Mode=OneWay}"/>
+                    <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" ShowsPreview="False"/>
+                    
+                    <designer:FormDesignerControl
+                        Name="formDesignerControl"
+                        AutoSaveToSource="False"
+                        Content="FormDesignerControl"
+                        Grid.Column="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Margin="0,0,0,0"/>
+                    
+                    <GridSplitter Grid.Column="3" HorizontalAlignment="Stretch" ShowsPreview="False"/>
+                    <tb:ToolboxControl Grid.Column="4" Name="toolboxControl" FormDesigner="{Binding ElementName=formDesignerControl, Mode=OneWay}"/>
+                </Grid>
+            </DockPanel>
+        </Border>
+    </Grid>
+</Window>

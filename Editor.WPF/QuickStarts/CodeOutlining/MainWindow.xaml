@@ -1,0 +1,41 @@
+<Window x:Class="CodeOutlining.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v8"
+        xmlns:local="clr-namespace:CodeOutlining"
+        Icon="/CodeOutlining.Wpf;component/Images/Icon.ico"
+        Title="Code Outlining" Height="396" Width="679">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="74"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="laDescription" Grid.Row="0">
+            <AccessText TextWrapping="Wrap" Text="Code outlining is a text navigation feature that can make navigation of large structured texts more comfortable and effective."/>
+        </Label>
+        <GroupBox Grid.Row="1" Header="Code Outlining" x:Name="gbCodeOutlining" Margin="0,0,0,0" BorderThickness="1.5" Padding="0" Width="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="24"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="110"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Row="0" Grid.Column="0" Name="Automatic" Margin="5,5,0,0" ItemsSource="{Binding Path=Automatics}"  SelectedItem="{Binding Automatic}" ToolTip="Choose outlining mode: automatic or custom"/>
+                <CheckBox Grid.Row="1" Grid.Column="0" Name="chbAllowOutlining" Content="Allow Outlining" Margin="5,5,0,0" IsChecked="{Binding AllowOutlining, Mode=TwoWay}" ToolTip="Enable outlining"/>
+                <CheckBox Grid.Row="0" Grid.Column="1" Name="chbDrawOnGutter" Content="Draw on Gutter" Margin="5,5,0,0" IsChecked="{Binding DrawOnGutter, Mode=TwoWay}"/>
+                <CheckBox Grid.Row="1" Grid.Column="1" Name="chbDrawLines" Content="Draw Lines" Margin="5,5,0,0" IsChecked="{Binding DrawLines, Mode=TwoWay}"/>
+                <CheckBox Grid.Row="0" Grid.Column="2" Name="chbDrawButtons" Content="Draw Buttons" Margin="5,5,0,0" IsChecked="{Binding DrawButtons, Mode=TwoWay}" ToolTip="Draw the outline buttons substituting content of the collapsed section"/>
+                <CheckBox Grid.Row="1" Grid.Column="2" Name="chbShowHints" Content="Show Hints" Margin="5,5,0,0" IsChecked="{Binding ShowHints, Mode=TwoWay}" ToolTip="Display text of the collapsed outline section in the popup window when mouse pointer is over the outline button"/>
+            </Grid>
+        </GroupBox>
+        <Border Grid.Column="0" Grid.Row="2" BorderBrush="Gray" BorderThickness="2" Margin="0,5,0,0">
+            <Wpf:TextEditor x:Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
+        </Border>
+    </Grid>
+</Window>

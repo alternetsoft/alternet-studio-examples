@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup Condition="'$(FastBuildTargets)'!=''">
+    <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(FastBuildTargets)'==''">
+    <TargetFrameworks>net452;net461;netcoreapp3.1;net5.0-windows;net6.0-windows</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <UseWPF>true</UseWPF>
+    <OutputType>WinExe</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyName>CallMethod.Wpf</AssemblyName>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <EnableDefaultPageItems>false</EnableDefaultPageItems>
+    <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>..\..\..\..\bin\Release\Demos.Scripter.Wpf\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Alternet.Studio.RoslynDependencies">
+      <Version>8.1.4</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="StyleCop.Cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Common" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="ViewModel.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DisplayPanel.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="app.ico" />
+  </ItemGroup>
+  <ItemGroup />
+</Project>

@@ -1,0 +1,34 @@
+﻿<Window x:Class="DebugWpfScript.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        TextOptions.TextFormattingMode="Display"
+        xmlns:local="clr-namespace:DebugWpfScript"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Icon="/DebugWpfScript;component/Images/Icon.Ico" 
+        Title="Debug Wpf Script" Height="350" Width="525" Loaded="Window_Loaded">
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="160"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Content="This demo shows how to debug script with external debugger."/>
+        <TextBox x:Name="textBox1" Grid.Row="2" HorizontalAlignment="Left" Height="23" Margin="194,3,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Label Content="Language:" HorizontalAlignment="Right" Margin="120,0,8,0"/>
+            <ComboBox Height="23" Name="cbLanguages" Margin="0,0,0,0" Width="97" HorizontalAlignment="Left" ToolTip="Choose programming language" SelectionChanged="LanguagesComboBox_SelectionChanged">
+                <sys:String>C#</sys:String>
+                <sys:String>VB</sys:String>
+            </ComboBox>
+        </StackPanel>
+        <Button x:Name="runScriptButton" Grid.Row="3" Content="Run Script" HorizontalAlignment="Left" Margin="194,6,0,0" VerticalAlignment="Top" Width="97" Click="RunScriptButton_Click"/>
+        <Button x:Name="startDebuggerButton" Grid.Row="4" Content="Start Debugger" HorizontalAlignment="Left" Margin="194,3,0,0" VerticalAlignment="Top" Width="97" Click="StartDebuggerButton_Click"/>
+    </Grid>
+</Window>

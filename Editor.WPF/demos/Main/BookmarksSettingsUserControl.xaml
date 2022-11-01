@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Alternet.Editor.Wpf.MainDemo_Wpf.BookmarksSettingsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="104" d:DesignWidth="353"
+             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+    <Grid Margin="23,13,13,13">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+
+        <Button Content="Toggle Bookmark" Grid.Column="0" Grid.Row="0" Margin="3" Click="ToggleBookmarkButton_Click" ToolTip="Toggle (set or remove) an unnumbered bookmark on the current line in the control's text"/>
+        <Button Content="Goto Next Bookmark" Grid.Column="0" Grid.Row="1" Margin="3" Click="GotoNextBookmarkButton_Click" ToolTip="Moves Edit control's caret to the location of the next unnumbered bookmark"/>
+
+    </Grid>
+</UserControl>

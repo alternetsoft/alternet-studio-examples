@@ -1,0 +1,33 @@
+<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v8"
+        xmlns:local="clr-namespace:CodeCompletion"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="CodeCompletion.MainWindow"
+        Icon="/CodeCompletion.Wpf;component/Images/Icon.ico"
+        Title="Code Completion" Height="408" Width="679">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="44"/>
+            <RowDefinition Height="66"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="laDescription" Grid.Row="0">
+            <AccessText TextWrapping="Wrap" Text="The demo project shows ability to display intellisense listboxes and hints. Type Ctrl + Space somewhere in the code, or type '.' or '(' after identifier."/>
+        </Label>
+        <GroupBox Grid.Row="1" Header="Code Completion" x:Name="gbCodeCompletion" Margin="0,0,0,0" BorderThickness="1.5" Padding="0" Width="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="24"/>
+                </Grid.RowDefinitions>
+                <RadioButton Grid.Row="0" Content="Auto" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" IsChecked="{Binding Auto, Mode=TwoWay}" ToolTip="Code completion by parser"/>
+                <RadioButton Grid.Row="1" Content="Custom" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" IsChecked="{Binding Manual, Mode=TwoWay}" ToolTip="Code completion by NeedCodeCompletion event handler"/>
+            </Grid>
+        </GroupBox>
+        <Border Grid.Column="0" Grid.Row="2" BorderBrush="Gray" BorderThickness="2" Margin="0,5,0,0">
+            <Wpf:TextEditor x:Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" AllowOutlining="True">
+            </Wpf:TextEditor>
+        </Border>
+    </Grid>
+</Window>

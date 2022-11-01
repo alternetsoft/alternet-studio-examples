@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="Alternet.Editor.Wpf.MainDemo_Wpf.AboutBoxUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="600">
+    <Grid>
+        <Image Height="66" SnapsToDevicePixels="True"  HorizontalAlignment="Left" Margin="22,13,0,0" Name="image1" Stretch="None" VerticalAlignment="Top" Width="137" Source="/CodeEditor.Wpf;component/Images/logo.png" />
+        <TextBox Height="102" HorizontalAlignment="Left" Name="textBox1" Margin="22, 103,0,0" VerticalAlignment="Top" Width="436" Text="AlterNET Code Editor is a .NET component library that brings efficient code editing functionality into your WinForms and WPF .NET applications. &#xD;&#xA;It provides code editing capabilities such as syntax highlighting, code completion and code outlining, visual indicators for bookmarks, line styles, syntax errors and much more, matching the speed and convenience of the Microsoft Visual Studio/Visual Studio Code text editor." TextWrapping="Wrap" BorderThickness="0" />
+        <Label Content="WWW:" Height="28" HorizontalAlignment="Left" Margin="213,13,0,0" Name="label1" VerticalAlignment="Top" />
+        <Label Content="http://www.alternetsoft.com" Height="28" HorizontalAlignment="Left" Margin="263,13,0,0" Name="laAdress" VerticalAlignment="Top" Cursor="Hand" Foreground="Blue" MouseDown="AdressLabel_Click" />
+        <Label Content="e-mail:" Height="28" HorizontalAlignment="Left" Margin="213,38,0,0" Name="label3" VerticalAlignment="Top" />
+        <Label Content="contact@alternetsoft.com" Height="28" HorizontalAlignment="Left" Margin="263,38,0,0" Name="laMailTo" VerticalAlignment="Top" Cursor="Hand" FontStyle="Normal" Foreground="Blue" MouseDown="MailToLabel_Click" />
+        <Label Content="AlterNET Code Editor Library" Height="28" HorizontalAlignment="Left" Margin="22,221,0,0" Name="label6" Visibility="Hidden" VerticalAlignment="Top" />
+    </Grid>
+</UserControl>

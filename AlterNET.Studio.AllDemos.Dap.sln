@@ -1,0 +1,72 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QuickStarts", "QuickStarts", "{4F38AF26-C3CB-4999-8EC9-46F23C30720E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PythonDapDebugger", "Debugger.Dap\QuickStarts\PythonDapDebugger\PythonDapDebugger.csproj", "{7650174F-7C50-4F69-A054-160E9B67A0EF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CppLlvmDapDebugger", "Debugger.Dap\QuickStarts\CppLlvmDapDebugger\CppLlvmDapDebugger.csproj", "{943092A9-87A3-46DB-A332-3DA0C8F84FFF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9788A977-FC00-4384-A97C-E2671C226AFB}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+		Runtime|Any CPU = Runtime|Any CPU
+		Runtime|x86 = Runtime|x86
+		Trial|Any CPU = Trial|Any CPU
+		Trial|x86 = Trial|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7650174F-7C50-4F69-A054-160E9B67A0EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7650174F-7C50-4F69-A054-160E9B67A0EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7650174F-7C50-4F69-A054-160E9B67A0EF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7650174F-7C50-4F69-A054-160E9B67A0EF}.Debug|x86.Build.0 = Debug|Any CPU
+		{7650174F-7C50-4F69-A054-160E9B67A0EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7650174F-7C50-4F69-A054-160E9B67A0EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7650174F-7C50-4F69-A054-160E9B67A0EF}.Release|x86.ActiveCfg = Release|Any CPU
+		{7650174F-7C50-4F69-A054-160E9B67A0EF}.Release|x86.Build.0 = Release|Any CPU
+		{7650174F-7C50-4F69-A054-160E9B67A0EF}.Runtime|Any CPU.ActiveCfg = Release|Any CPU
+		{7650174F-7C50-4F69-A054-160E9B67A0EF}.Runtime|Any CPU.Build.0 = Release|Any CPU
+		{7650174F-7C50-4F69-A054-160E9B67A0EF}.Runtime|x86.ActiveCfg = Release|Any CPU
+		{7650174F-7C50-4F69-A054-160E9B67A0EF}.Runtime|x86.Build.0 = Release|Any CPU
+		{7650174F-7C50-4F69-A054-160E9B67A0EF}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
+		{7650174F-7C50-4F69-A054-160E9B67A0EF}.Trial|Any CPU.Build.0 = Debug|Any CPU
+		{7650174F-7C50-4F69-A054-160E9B67A0EF}.Trial|x86.ActiveCfg = Debug|Any CPU
+		{7650174F-7C50-4F69-A054-160E9B67A0EF}.Trial|x86.Build.0 = Debug|Any CPU
+		{943092A9-87A3-46DB-A332-3DA0C8F84FFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{943092A9-87A3-46DB-A332-3DA0C8F84FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{943092A9-87A3-46DB-A332-3DA0C8F84FFF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{943092A9-87A3-46DB-A332-3DA0C8F84FFF}.Debug|x86.Build.0 = Debug|Any CPU
+		{943092A9-87A3-46DB-A332-3DA0C8F84FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{943092A9-87A3-46DB-A332-3DA0C8F84FFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{943092A9-87A3-46DB-A332-3DA0C8F84FFF}.Release|x86.ActiveCfg = Release|Any CPU
+		{943092A9-87A3-46DB-A332-3DA0C8F84FFF}.Release|x86.Build.0 = Release|Any CPU
+		{943092A9-87A3-46DB-A332-3DA0C8F84FFF}.Runtime|Any CPU.ActiveCfg = Release|Any CPU
+		{943092A9-87A3-46DB-A332-3DA0C8F84FFF}.Runtime|Any CPU.Build.0 = Release|Any CPU
+		{943092A9-87A3-46DB-A332-3DA0C8F84FFF}.Runtime|x86.ActiveCfg = Release|Any CPU
+		{943092A9-87A3-46DB-A332-3DA0C8F84FFF}.Runtime|x86.Build.0 = Release|Any CPU
+		{943092A9-87A3-46DB-A332-3DA0C8F84FFF}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
+		{943092A9-87A3-46DB-A332-3DA0C8F84FFF}.Trial|Any CPU.Build.0 = Debug|Any CPU
+		{943092A9-87A3-46DB-A332-3DA0C8F84FFF}.Trial|x86.ActiveCfg = Debug|Any CPU
+		{943092A9-87A3-46DB-A332-3DA0C8F84FFF}.Trial|x86.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7650174F-7C50-4F69-A054-160E9B67A0EF} = {4F38AF26-C3CB-4999-8EC9-46F23C30720E}
+		{943092A9-87A3-46DB-A332-3DA0C8F84FFF} = {4F38AF26-C3CB-4999-8EC9-46F23C30720E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F273BD5C-AD6F-4106-A530-507C5A115BBC}
+	EndGlobalSection
+EndGlobal

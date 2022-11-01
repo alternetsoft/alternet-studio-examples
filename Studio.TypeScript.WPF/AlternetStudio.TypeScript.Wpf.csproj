@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup Condition="'$(FastBuildTargets)'!=''">
+    <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(FastBuildTargets)'==''">
+    <TargetFrameworks>net452;net461;net6.0-windows</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <OutputType>WinExe</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyName>AlternetStudio.TypeScript.Wpf</AssemblyName>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <EnableDefaultPageItems>false</EnableDefaultPageItems>
+    <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <RootNamespace>AlternetStudio.TypeScript.Wpf.Demo</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>..\..\bin\Release\Demos.Studio.TypeScript.Wpf\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ClearScript" Version="7.2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Images\DotNetImages.png" />
+    <None Remove="Images\DotNetImagesHighDpi.png" />
+    <None Remove="Images\JSFileNode.png" />
+    <None Remove="Images\JSProjectNode.png" />
+    <None Remove="Images\tsbSaveAll.Image.png" />
+    <None Remove="Images\TSFileNode.png" />
+    <None Remove="Images\TSProjectNode.png" />
+    <None Remove="Resources\Backwards.png" />
+    <None Remove="Resources\Backwards_HighDpi.png" />
+    <None Remove="Resources\Copy.png" />
+    <None Remove="Resources\Copy_HighDpi.png" />
+    <None Remove="Resources\Cut.png" />
+    <None Remove="Resources\Cut_HighDpi.png" />
+    <None Remove="Resources\Exit.png" />
+    <None Remove="Resources\Exit_HighDpi.png" />
+    <None Remove="Resources\FindInFile.png" />
+    <None Remove="Resources\FindInFile_HighDpi.png" />
+    <None Remove="Resources\Forwards.png" />
+    <None Remove="Resources\Forwards_HighDpi.png" />
+    <None Remove="Resources\GoToDefinition.png" />
+    <None Remove="Resources\GoToDefinition_HighDpi.png" />
+    <None Remove="Resources\NewFile.png" />
+    <None Remove="Resources\NewFile_HighDpi.png" />
+    <None Remove="Resources\OpenFile.png" />
+    <None Remove="Resources\OpenFile_HighDpi.png" />
+    <None Remove="Resources\Paste.png" />
+    <None Remove="Resources\Paste_HighDpi.png" />
+    <None Remove="Resources\Print.png" />
+    <None Remove="Resources\PrintPreview.png" />
+    <None Remove="Resources\PrintPreview_HighDpi.png" />
+    <None Remove="Resources\Print_HighDpi.png" />
+    <None Remove="Resources\Redo.png" />
+    <None Remove="Resources\Redo_HighDpi.png" />
+    <None Remove="Resources\ReplaceInFiles.png" />
+    <None Remove="Resources\ReplaceInFiles_HighDpi.png" />
+    <None Remove="Resources\Save.png" />
+    <None Remove="Resources\SaveAll.png" />
+    <None Remove="Resources\SaveAll_HighDpi.png" />
+    <None Remove="Resources\SaveAs.png" />
+    <None Remove="Resources\SaveAs_HighDpi.png" />
+    <None Remove="Resources\Save_HighDpi.png" />
+    <None Remove="Resources\SelectAll.png" />
+    <None Remove="Resources\SelectAll_HighDpi.png" />
+    <None Remove="Resources\StartWithoutDebug.png" />
+    <None Remove="Resources\StartWithoutDebug_HighDpi.png" />
+    <None Remove="Resources\Undo.png" />
+    <None Remove="Resources\Undo_HighDpi.png" />
+    <None Remove="StyleCop.Cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Editor.TypeScript.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Common" Version="8.1.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="AboutBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AboutBox.xaml.cs">
+      <DependentUpon>AboutBox.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CodeNavigationBar.cs" />
+    <Compile Include="ImageConverter\ImageConverter.cs" />
+    <Compile Include="MainForm.NavigationHistory.cs" />
+    <Compile Include="MainWindow.CodeNavigation.cs" />
+    <Compile Include="MainWindow.CodeSearch.cs" />
+    <Compile Include="MainWindow.Debugger.cs" />
+    <Compile Include="MainWindow.EditorCommands.cs" />
+    <Compile Include="MainWindow.ExplorerTree.cs" />
+    <Compile Include="MainWindow.Files.cs" />
+    <Compile Include="MainWindow.Project.cs" />
+    <Compile Include="MainWindow.Scripter.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Images\DotNetImages.png" />
+    <EmbeddedResource Include="Images\DotNetImagesHighDpi.png" />
+    <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Backwards.png" />
+    <EmbeddedResource Include="Resources\Backwards_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Copy.png" />
+    <EmbeddedResource Include="Resources\Copy_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Cut.png" />
+    <EmbeddedResource Include="Resources\Cut_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Exit.png" />
+    <EmbeddedResource Include="Resources\Exit_HighDpi.png" />
+    <EmbeddedResource Include="Resources\FindInFile.png" />
+    <EmbeddedResource Include="Resources\FindInFile_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Forwards.png" />
+    <EmbeddedResource Include="Resources\Forwards_HighDpi.png" />
+    <EmbeddedResource Include="Resources\GoToDefinition.png" />
+    <EmbeddedResource Include="Resources\GoToDefinition_HighDpi.png" />
+    <EmbeddedResource Include="Resources\NewFile.png" />
+    <EmbeddedResource Include="Resources\NewFile_HighDpi.png" />
+    <EmbeddedResource Include="Resources\OpenFile.png" />
+    <EmbeddedResource Include="Resources\OpenFile_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Paste.png" />
+    <EmbeddedResource Include="Resources\Paste_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Print.png" />
+    <EmbeddedResource Include="Resources\PrintPreview.png" />
+    <EmbeddedResource Include="Resources\PrintPreview_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Print_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Redo.png" />
+    <EmbeddedResource Include="Resources\Redo_HighDpi.png" />
+    <EmbeddedResource Include="Resources\ReplaceInFiles.png" />
+    <EmbeddedResource Include="Resources\ReplaceInFiles_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Save.png" />
+    <EmbeddedResource Include="Resources\SaveAll.png" />
+    <EmbeddedResource Include="Resources\SaveAll_HighDpi.png" />
+    <EmbeddedResource Include="Resources\SaveAs.png" />
+    <EmbeddedResource Include="Resources\SaveAs_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Save_HighDpi.png" />
+    <EmbeddedResource Include="Resources\SelectAll.png" />
+    <EmbeddedResource Include="Resources\SelectAll_HighDpi.png" />
+    <EmbeddedResource Include="Resources\StartWithoutDebug.png" />
+    <EmbeddedResource Include="Resources\StartWithoutDebug_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Undo.png" />
+    <EmbeddedResource Include="Resources\Undo_HighDpi.png" />
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icon.ico" />
+    <Resource Include="Images\Icon.png" />
+    <Resource Include="Images\JSProjectNode.png" />
+    <Resource Include="Images\JSFileNode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Reference_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Property_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GenerateFile_16x.png" />
+    <Resource Include="Images\TSFileNode.png" />
+    <Resource Include="Images\TSProjectNode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WindowsForm_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\FileGroup_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder_Closed_16xLG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder_Open_16xLG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\StatusCriticalError_12x_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\StatusWarning_12x_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WPFApplication_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="app.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\info.ico" />
+  </ItemGroup>
+  <ItemGroup />
+</Project>

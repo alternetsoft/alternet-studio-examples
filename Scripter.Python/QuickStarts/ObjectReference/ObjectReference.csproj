@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>ObjectReference.Python</AssemblyName>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <RootNamespace>ObjectReference</RootNamespace>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(FastBuildTargets)'!=''">
+    <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(FastBuildTargets)'==''">
+    <TargetFrameworks>net461;netcoreapp3.1;net5.0-windows;net6.0-windows</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>..\..\..\..\bin\Release\Demos.Scripter.Python\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net461|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="MainForm.cs" />
+    <Compile Include="MainForm.Designer.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MainForm.resx" />
+    <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Alternet.Studio.Common" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python.Embedded" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.4" />
+  </ItemGroup>
+  <ItemGroup />
+</Project>

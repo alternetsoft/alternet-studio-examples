@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>DebuggerIntegration.Wpf</AssemblyName>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <EnableDefaultPageItems>false</EnableDefaultPageItems>
+    <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <RootNamespace>DebuggerIntegration</RootNamespace>
+    <LangVersion>6</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(FastBuildTargets)'!=''">
+    <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(FastBuildTargets)'==''">
+    <TargetFrameworks>net452;net461;netcoreapp3.1;net5.0-windows;net6.0-windows</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>..\..\..\..\..\bin\Release\Demos.Scripter.Wpf\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="App.xaml" />
+    <None Remove="Images\Icon.ico" />
+    <None Remove="MainWindow.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs" />
+    <Compile Include="MainWindow.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MainWindow.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Alternet.Studio.RoslynDependencies">
+      <Version>8.1.4</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Alternet.Studio.Common" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="8.1.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icon.ico" />
+  </ItemGroup>
+  <ItemGroup />
+</Project>

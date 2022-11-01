@@ -1,0 +1,26 @@
+<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v8" x:Class="LuaSyntaxParsing.MainWindow"
+        xmlns:local="clr-namespace:LuaSyntaxParsing"
+        Icon="/LuaSyntaxParsing.Wpf;component/Images/Icon.ico"
+        Title="Lua Parsing" Height="400" Width="679" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label x:Name="laDescription" Grid.Column="0" Grid.Row="0">
+            <AccessText TextWrapping="Wrap" Text="This demo shows how to use LSP parser for Lua language based on Lua Language Server. This parser supports automatic code completion and syntax error underlining."/>
+        </Label>
+        <Button Height="21" Grid.Column="0" Grid.Row="1" Content="Load" HorizontalAlignment="Right"  Margin="400,0,10,0" Width="85" HorizontalContentAlignment="Center" Command="{Binding LoadCommand}" ToolTip="Load code file"/>
+        <Border Grid.Column="0" Grid.Row="3" BorderBrush="Gray" BorderThickness="2">
+            <Wpf:TextEditor Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" AllowOutlining="True"/>
+        </Border>
+    </Grid>
+</Window>

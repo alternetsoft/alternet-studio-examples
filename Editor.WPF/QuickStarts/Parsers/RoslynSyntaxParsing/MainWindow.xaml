@@ -1,0 +1,30 @@
+<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v8" x:Class="RoslynSyntaxParsing.MainWindow"
+        xmlns:local="clr-namespace:RoslynSyntaxParsing"
+        Icon="/RoslynSyntaxParsing.Wpf;component/Images/Icon.ico"
+        Title="Roslyn-Based Parsing" Height="400" Width="679" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label x:Name="laDescription" Grid.Column="0" Grid.Row="0">
+            <AccessText TextWrapping="Wrap" Text="This demo shows how to use the dedicated parsers for C# and VB.NET languages based on .NET Compiler Platform ('Roslyn'). These parsers support automatic code completion, code outlining, smart formatting, and syntax error underlining."/>
+        </Label>
+        <Label Grid.Column="0" Grid.Row="1" Content="Language:"  />
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" Margin="70,0,0,0">
+            <ComboBox Width="121" Height="21" ItemsSource="{Binding Path=Languages}" SelectedItem="{Binding Language}" ToolTip="Choose programming language"/>
+        </StackPanel>
+        <Button Height="21" Grid.Column="0" Grid.Row="1" Content="Load" HorizontalAlignment="Right"  Margin="400,0,10,0" Width="85" HorizontalContentAlignment="Center" Command="{Binding LoadCommand}" ToolTip="Load code file"/>
+        <Border Grid.Column="0" Grid.Row="3" BorderBrush="Gray" BorderThickness="2">
+            <Wpf:TextEditor Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" AllowOutlining="True"/>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,52 @@
+<Window x:Class="CustomizeToolbox.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tb="clr-namespace:Alternet.FormDesigner.Wpf.Toolbox;assembly=Alternet.FormDesigner.Wpf.v8"
+        xmlns:designer="clr-namespace:Alternet.FormDesigner.Wpf;assembly=Alternet.FormDesigner.Wpf.v8"
+        xmlns:local="clr-namespace:CustomizeToolbox"
+        mc:Ignorable="d"
+        Title="Customize Toolbox" Height="447" Width="779" WindowStartupLocation="CenterScreen" Icon="Images/Icon.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="120"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                </Grid.RowDefinitions>
+                <Label x:Name="laDescription" Grid.Column="0" Grid.Row="0">
+                    <AccessText TextWrapping="Wrap" Text="Toolbox control can be customized by adding new categories and toolbox items."/>
+                </Label>
+                <Button Height="21" Grid.Column="1" Grid.Row="0" Content="Add New Library..." HorizontalAlignment="Right" Margin="10,0,0,0" Width="105" HorizontalContentAlignment="Center" Command="{Binding AddLibraryCommand}" ToolTip="Open add assembly dialog"/>
+                <Button Height="21" Grid.Column="2" Grid.Row="0" Content="Customize Tabs" HorizontalAlignment="Right" Margin="10,0,10,0" Width="95" HorizontalContentAlignment="Center" Command="{Binding CustomizeCommand}" ToolTip="Customize Toolbox content"/>
+
+                <Button Height="21" Grid.Column="1" Grid.Row="1" Content="Save Toobox" HorizontalAlignment="Right" Margin="10,0,0,0" Width="105" HorizontalContentAlignment="Center" Command="{Binding SaveCommand}" ToolTip="Save Toolbox content to file"/>
+                <Button Height="21" Grid.Column="2" Grid.Row="2" Content="Load Toolbox" HorizontalAlignment="Right" Margin="10,0,10,0" Width="95" HorizontalContentAlignment="Center" Command="{Binding LoadCommand}" ToolTip="Load Toolbox content from file"/>
+            </Grid>
+        </DockPanel>
+        <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="2">
+            <DockPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="280"/>
+                        <ColumnDefinition Width="4"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <local:CustomToolboxControl Grid.Column="0" x:Name="toolboxControl"/>
+                    <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" ShowsPreview="False"/>
+                    <designer:FormDesignerControl Name="formDesignerControl" Content="FormDesignerControl" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
+                </Grid>
+            </DockPanel>
+        </Border>
+    </Grid>
+</Window>

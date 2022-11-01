@@ -1,0 +1,27 @@
+﻿<Window x:Class="ExpressionEvaluation.TypeScript.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Icon="/ExpressionEvaluation.TypeScript.Wpf;component/Images/Icon.Ico" 
+        Title="Evaluate Expression - TypeScript" Height="203" Width="544" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="34"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="280"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="65"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="This demo shows how to execute script expressions." Grid.Column="0" Width="283" HorizontalAlignment="Left" Margin="0,0,0,0"/>
+                <Button Name="ScriptButton" Content="Evaluate" Grid.Column="1" Width="80" Height="21" Margin="0,3,0,6" Command="{Binding RunScript}"/>
+                <Label Content="Language:" Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,0,0"/>
+                <ComboBox Height="23" Name="cbLanguages" Grid.Column="3" Margin="0,0,4,0" Width="98" HorizontalAlignment="Right"  ItemsSource="{Binding Path=Languages}" SelectedItem="{Binding Language}" ToolTip="Choose programming language"/>
+            </Grid>
+        </DockPanel>
+        <TextBox Name="Expression" Grid.Row="1" Text="(5+4)*2 - 9/3 + 10 + tbExpression.Text.Length" Margin="10,10,10,0"/>
+    </Grid>
+</Window>

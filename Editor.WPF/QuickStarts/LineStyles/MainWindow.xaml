@@ -1,0 +1,59 @@
+<Window x:Class="LineStyles.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v8"        
+        xmlns:cp="clr-namespace:ColorPicker"
+        Icon="/LineStyles.Wpf;component/Images/Icon.ico"
+        Title="Line Styles" Height="417" Width="679">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="44"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="laDescription" Grid.Row="0">
+            <AccessText TextWrapping="Wrap" Text="Single line or continuous text range can be associated with the line style represented by visual indicator in gutter area and different background color."/>
+        </Label>
+        <GroupBox Grid.Row="1">
+            <GroupBox.Header>
+                Line Styles
+            </GroupBox.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="54"/>
+                    <RowDefinition Height="2"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Row="0" Grid.Column="0" Content="{Binding StartText}" Command="{Binding StartDebug}" Width="90" Height="24" ToolTip="Display line style"/>
+                <Button Grid.Row="0" Grid.Column="1" Content="Step Over" Command="{Binding StepOver}" IsEnabled="{Binding StepOverEnabled}" Width="90" Height="24" ToolTip="Move line style to the next line"/>
+                <Button Grid.Row="0" Grid.Column="2" Content="Toggle Breakpoint" Command="{Binding SetBreakpoint}" Width="100" Height="24" ToolTip="Set breakpoint bookmark"/>
+                
+                <CheckBox Grid.Row="0" Grid.Column="3" Content="Line Style Beyond Eol" IsChecked="{Binding LineStyleBeyond}" Margin="0,5,0,0" Visibility="Hidden"/>
+                <StackPanel Grid.Row="0" Grid.Column="3" Orientation="Horizontal">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="26"/>
+                            <RowDefinition Height="26"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="138"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Grid.Row="0" Grid.Column="0" Content="Line Style Beyond Eol" IsChecked="{Binding LineStyleBeyond}" Margin="0,3,0,0" ToolTip="Line style applicable beyond end of line"/>
+                        <Label Grid.Row="1" Grid.Column="0" Content="Line Style Color:"/>
+                        <cp:ColorComboBox x:Name="cbGutterColor" Grid.Row="1" Grid.Column="1" MinWidth="90" SelectedColor="{Binding LineStyleColor, Mode=TwoWay}" ToolTip="Line style color"/>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="2" Margin="0,5,0,0">
+            <Wpf:TextEditor x:Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
+        </Border>
+
+    </Grid>
+</Window>

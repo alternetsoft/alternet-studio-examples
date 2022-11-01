@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup Condition="'$(FastBuildTargets)'!=''">
+    <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(FastBuildTargets)'==''">
+    <TargetFrameworks>net452;net461;netcoreapp3.1;net5.0-windows;net6.0-windows</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <OutputType>WinExe</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RootNamespace>Alternet.Editor.Wpf.MainDemo_Wpf</RootNamespace>
+    <AssemblyName>CodeEditor.Wpf</AssemblyName>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <EnableDefaultPageItems>false</EnableDefaultPageItems>
+    <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>..\..\..\..\bin\Release\Demos.Editor.Wpf\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="app.ico" />
+    <None Remove="Images\logo.png" />
+    <None Remove="Settings.StyleCop" />
+    <None Remove="StyleCop.Cache" />
+    <None Remove="ThemeSettingsUserControl.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Alternet.Studio.Common" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="8.1.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Content Include="..\..\..\Resources\Miscellaneous\Hunspell\en_US.aff">
+      <Link>en_US.aff</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\Resources\Miscellaneous\Hunspell\en_US.dic">
+      <Link>en_US.dic</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="app.config" />
+    <None Include="Resources\sky.bin" />
+    <Page Include="AboutBoxUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ColorPicker\Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BookmarksSettingsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BackgroundAndBorderSettingsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AppearanceCustomizationSettingsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ThemeSettingsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExportingAndPrintingSettingsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LineStylesSettingsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="HitTestDemoUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OtherSettingsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ScrollBarAnnotationsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WordWrapSettingsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OutliningSettingsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GutterSettingsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NumericUpDown\Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SelectionSettingsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FontSettingsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DialogsSettingsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="AboutBoxUserControl.xaml.cs">
+      <DependentUpon>AboutBoxUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ColorPicker\BindOnEnterTextBox.cs" />
+    <Compile Include="ColorPicker\ColorComboBox.cs" />
+    <Compile Include="ColorPicker\ColorPicker.cs" />
+    <Compile Include="ColorPicker\ColorSlider.cs" />
+    <Compile Include="ColorPicker\ColorUtils.cs" />
+    <Compile Include="ColorPicker\HsvControl.cs" />
+    <Compile Include="ColorPicker\SpectrumSlider.cs" />
+    <Compile Include="BookmarksSettingsUserControl.xaml.cs">
+      <DependentUpon>BookmarksSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BackgroundAndBorderSettingsUserControl.xaml.cs">
+      <DependentUpon>BackgroundAndBorderSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppearanceCustomizationSettingsUserControl.xaml.cs">
+      <DependentUpon>AppearanceCustomizationSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExportingAndPrintingSettingsUserControl.xaml.cs">
+      <DependentUpon>ExportingAndPrintingSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LineStylesSettingsUserControl.xaml.cs">
+      <DependentUpon>LineStylesSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HitTestDemoUserControl.xaml.cs">
+      <DependentUpon>HitTestDemoUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OtherSettingsUserControl.xaml.cs">
+      <DependentUpon>OtherSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ScrollBarAnnotationsUserControl.xaml.cs">
+      <DependentUpon>ScrollBarAnnotationsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ThemeSettingsUserControl.xaml.cs" />
+    <Compile Include="WordWrapSettingsUserControl.xaml.cs">
+      <DependentUpon>WordWrapSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OutliningSettingsUserControl.xaml.cs">
+      <DependentUpon>OutliningSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GutterSettingsUserControl.xaml.cs">
+      <DependentUpon>GutterSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NumericUpDown\NumericUpDown.cs" />
+    <Compile Include="SelectionSettingsUserControl.xaml.cs">
+      <DependentUpon>SelectionSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FontSettingsUserControl.xaml.cs">
+      <DependentUpon>FontSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DialogsSettingsUserControl.xaml.cs">
+      <DependentUpon>DialogsSettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProgrammingLanguagesDemoInitializer.cs" />
+    <Compile Include="IDemoSettingsControl.cs" />
+    <Compile Include="DemoItemsGroup.cs" />
+    <Compile Include="DemoItem.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Resource Include="Images\logo.png" />
+    <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="app.ico" />
+    <Resource Include="Images\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Alternet.Studio.RoslynDependencies">
+      <Version>8.1.4</Version>
+    </PackageReference>
+    <PackageReference Include="WeCantSpell.Hunspell" Version="3.0.1" />
+  </ItemGroup>
+  <ItemGroup Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))">
+    <Reference Include="ReachFramework" />
+    <Reference Include="System.Printing" />
+  </ItemGroup>
+  <ItemGroup />
+</Project>

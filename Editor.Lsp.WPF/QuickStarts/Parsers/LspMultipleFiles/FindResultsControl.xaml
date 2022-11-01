@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="LspMultipleFiles.FindResultsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LspMultipleFiles"
+             mc:Ignorable="d" 
+             d:DesignHeight="174" d:DesignWidth="626">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Content="Find Reference Results"></Label>
+        <ListView Grid.Row="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0,0,0,0" Name="findResultsListView" VerticalAlignment="Stretch" Width="Auto" MouseDoubleClick="FindResultsListView_MouseDoubleClick">
+            <ListView.Resources>
+                <DataTemplate x:Key="Templ">
+                    <TextBlock HorizontalAlignment="Left" Text="{Binding}"/>
+                </DataTemplate>
+                <Style x:Key="HeaderStyle" TargetType="GridViewColumnHeader">
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn x:Name="fileColumnHeader" HeaderTemplate="{StaticResource Templ}" HeaderContainerStyle="{StaticResource HeaderStyle}" DisplayMemberBinding="{Binding Path=File}" Width="100">File</GridViewColumn>
+                    <GridViewColumn x:Name="lineColumnHeader" HeaderTemplate="{StaticResource Templ}" HeaderContainerStyle="{StaticResource HeaderStyle}" DisplayMemberBinding="{Binding Path=Line}" Width="60">Line</GridViewColumn>
+                    <GridViewColumn x:Name="codeColumnHeader" HeaderTemplate="{StaticResource Templ}" HeaderContainerStyle="{StaticResource HeaderStyle}" DisplayMemberBinding="{Binding Path=Code}" Width="500">Code</GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

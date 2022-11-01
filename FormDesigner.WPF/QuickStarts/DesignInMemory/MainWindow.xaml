@@ -1,0 +1,127 @@
+<Window x:Class="FormDesigner.InMemory.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FormDesigner.InMemory.Wpf"
+        xmlns:designer="clr-namespace:Alternet.FormDesigner.Wpf;assembly=Alternet.FormDesigner.Wpf.v8"
+        xmlns:pg="clr-namespace:Alternet.FormDesigner.Wpf.PropertyGrid;assembly=Alternet.FormDesigner.Wpf.v8"
+        xmlns:toolbox="clr-namespace:Alternet.FormDesigner.Wpf.Toolbox;assembly=Alternet.FormDesigner.Wpf.v8"
+        xmlns:outline="clr-namespace:Alternet.FormDesigner.Wpf.Outline;assembly=Alternet.FormDesigner.Wpf.v8"
+        WindowStartupLocation="CenterScreen"
+        TextOptions.TextFormattingMode="Display"
+        mc:Ignorable="d"
+        Icon="/FormDesigner.InMemory.Wpf;component/Images/Icon.Ico" 
+        Title="In-Memory Form Designer" Height="700" Width="1200">
+    <Window.CommandBindings>
+        <CommandBinding Command="Open" Executed="Open_Executed" />
+        <CommandBinding Command="Save" Executed="Save_Executed" />
+        <CommandBinding Command="Close" Executed="Close_Executed" />
+        <CommandBinding Command="Undo" Executed="Undo_Executed" CanExecute="CanUndo"/>
+        <CommandBinding Command="Redo" Executed="Redo_Executed" CanExecute="CanRedo"/>
+        <CommandBinding Command="Cut" Executed="Cut_Executed" CanExecute="CanCut"/>
+        <CommandBinding Command="Copy" Executed="Copy_Executed" CanExecute="CanCopy"/>
+        <CommandBinding Command="Paste" Executed="Paste_Executed" CanExecute="CanPaste"/>
+        <CommandBinding Command="Delete" Executed="Delete_Executed" CanExecute="CanDelete"/>
+        <CommandBinding Command="SelectAll" Executed="SelectAll_Executed" CanExecute="CanSelectAll"/>
+        <CommandBinding Command="local:Commands.AlignLeft" Executed="AlignLeft_Executed" CanExecute="CanAlignLeft"/>
+        <CommandBinding Command="local:Commands.AlignCenter" Executed="AlignCenter_Executed" CanExecute="CanAlignCenter"/>
+        <CommandBinding Command="local:Commands.AlignRight" Executed="AlignRight_Executed" CanExecute="CanAlignRight"/>
+        <CommandBinding Command="local:Commands.AlignTop" Executed="AlignTop_Executed" CanExecute="CanAlignTop"/>
+        <CommandBinding Command="local:Commands.AlignMiddle" Executed="AlignMiddle_Executed" CanExecute="CanAlignMiddle"/>
+        <CommandBinding Command="local:Commands.AlignBottom" Executed="AlignBottom_Executed" CanExecute="CanAlignBottom"/>
+        <CommandBinding Command="local:Commands.StretchToSameWidth" Executed="StretchToSameWidth_Executed" CanExecute="CanStretchToSameWidth"/>
+        <CommandBinding Command="local:Commands.StretchToSameHeight" Executed="StretchToSameHeight_Executed" CanExecute="CanStretchToSameHeight"/>
+        <CommandBinding Command="local:Commands.BringToFront" Executed="BringToFront_Executed" CanExecute="CanBringToFont"/>
+        <CommandBinding Command="local:Commands.SendToBack" Executed="SendToBack_Executed" CanExecute="CanSendToBack"/>
+        <CommandBinding Command="local:Commands.LockControls" Executed="LockControls_Executed" CanExecute="CanLockControls"/>
+        <CommandBinding Command="local:Commands.Run" Executed="Run_Executed"/>
+        <CommandBinding Command="local:Commands.AddControlsFromAssembly" Executed="AddControlsFromAssembly_Executed" />
+        <CommandBinding Command="local:Commands.ResetToolbox" Executed="ResetToolbox_Executed" />
+        <CommandBinding Command="local:Commands.SaveToolboxToFile" Executed="SaveToolboxToFile_Executed" />
+        <CommandBinding Command="local:Commands.LoadToolboxFromFile" Executed="LoadToolboxFromFile_Executed" />
+        <CommandBinding Command="local:Commands.RasterPlacement" Executed="RasterPlacement_Executed" />
+        <CommandBinding Command="local:Commands.SnaplinePlacement" Executed="SnaplinePlacement_Executed" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="O" Modifiers="Control" Command="Open"/>
+        <KeyBinding Key="S" Modifiers="Control" Command="Save"/>
+        <KeyBinding Key="F5" Command="local:Commands.Run"/>
+        <KeyBinding Key="F4" Modifiers="Control" Command="Close"/>
+    </Window.InputBindings>
+    <DockPanel LastChildFill="True">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Open..." Command="Open" />
+                <MenuItem Header="Save" Command="Save" />
+                <MenuItem Header="Close" Command="Close" />
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Undo" Command="Undo" />
+                <MenuItem Header="Redo" Command="Redo" />
+                <Separator />
+                <MenuItem Header="Cut" Command="Cut" />
+                <MenuItem Header="Copy" Command="Copy" />
+                <MenuItem Header="Paste" Command="Paste" />
+                <MenuItem Header="Delete" Command="Delete" />
+                <Separator />
+                <MenuItem Header="Select All" Command="SelectAll" />
+            </MenuItem>
+            <MenuItem Header="Format">
+                <MenuItem Header="Align">
+                    <MenuItem Header="Lefts" Command="local:Commands.AlignLeft" />
+                    <MenuItem Header="Centers" Command="local:Commands.AlignCenter" />
+                    <MenuItem Header="Rights" Command="local:Commands.AlignRight" />
+                    <Separator/>
+                    <MenuItem Header="Tops" Command="local:Commands.AlignTop" />
+                    <MenuItem Header="Middles" Command="local:Commands.AlignMiddle" />
+                    <MenuItem Header="Bottoms" Command="local:Commands.AlignBottom" />
+                </MenuItem>
+                <MenuItem Header="Make Same Size">
+                    <MenuItem Header="Width" Command="local:Commands.StretchToSameWidth" />
+                    <MenuItem Header="Height" Command="local:Commands.StretchToSameHeight" />
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Order">
+                    <MenuItem Header="Bring to Front" Command="local:Commands.BringToFront" />
+                    <MenuItem Header="Send to Back" Command="local:Commands.SendToBack" />
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Options">
+                <MenuItem Name="chbUseRasterPlacement" Header="Use Raster Placement" Command="local:Commands.RasterPlacement" IsCheckable="True"/>
+                <MenuItem Name="chbUseSnaplinePlacement" Header="Use Snapline Placement" Command="local:Commands.SnaplinePlacement" IsCheckable="True"/>
+            </MenuItem>
+            <MenuItem Header="Run">
+                <MenuItem Header="Run Active Form" Command="local:Commands.Run" />
+            </MenuItem>
+            <MenuItem Header="Tools">
+                <MenuItem Header="Add Controls from Assembly..." Command="local:Commands.AddControlsFromAssembly" />
+                <MenuItem Header="Reset Toolbox" Command="local:Commands.ResetToolbox" />
+                <MenuItem Header="Save Toolbox To File..." Command="local:Commands.SaveToolboxToFile" />
+                <MenuItem Header="Load Toolbox From File..." Command="local:Commands.LoadToolboxFromFile" />
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="250"/>
+            </Grid.ColumnDefinitions>
+
+            <TabControl Name="documentsTabControl" Grid.Column="0" SelectionChanged="DocumentsTabControl_SelectionChanged"/>
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
+
+            <TabControl Grid.Column="2" TabStripPlacement="Bottom">
+                <TabItem Header="Properties">
+                    <pg:PropertyGridControl Name="propertyGrid"/>
+                </TabItem>
+                <TabItem Header="Toolbox">
+                    <local:CustomToolboxControl x:Name="toolbox"/>
+                </TabItem>
+                <TabItem Header="Outline">
+                    <outline:OutlineControl x:Name="outline" />
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </DockPanel>
+</Window>

@@ -1,0 +1,57 @@
+<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v8" x:Class="LspMultipleFiles.MainWindow"
+        xmlns:local="clr-namespace:LspMultipleFiles"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        Icon="/LspMultipleFiles.Wpf;component/Images/Icon.ico"
+        Title="LSP Multiple Files Demo" Height="839" Width="1216">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="156"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Menu Grid.Row="0" IsMainMenu="True" Height="26" VerticalAlignment="Top">
+            <MenuItem Header="_File">
+                <MenuItem x:Name="exitMenuItem" Header="_Exit" Click="ExitMenuItem_Click">
+                </MenuItem>
+            </MenuItem>
+            <MenuItem x:Name="helpMenuItem" Header="_Help">
+                <MenuItem x:Name="aboutMenuItem" Header="_About AlterNET Studio" Click="AboutMenuItem_Click">
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <DockPanel Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="210"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Programming Language (LSP Server):"></Label>
+                <ComboBox Grid.Column="1" HorizontalAlignment="Left" Name="lspServerComboBox" Width="121" Height="25" SelectionChanged="LspServerComboBox_SelectionChanged"></ComboBox>
+            </Grid>
+        </DockPanel>
+        <Label Grid.Row="2" Content="This demo shows how to use several LSP parsers together to edit code from the same workspace"></Label>
+        <DockPanel Grid.Row="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="185"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <local:FilesControl x:Name="filesControl" Grid.Column="0" OpenFileRequested="FilesControl_OpenFileRequested">
+                </local:FilesControl>
+                <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch" ShowsPreview="False"/>
+                <TabControl Name="editorsTabControl" Grid.Column="2">
+                </TabControl>
+            </Grid>
+        </DockPanel>
+        <local:FindResultsControl x:Name="findReferencesResultsControl" Grid.Row="4"></local:FindResultsControl>
+    </Grid>
+</Window>

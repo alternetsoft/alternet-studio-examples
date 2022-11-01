@@ -1,0 +1,15 @@
+﻿<Window x:Class="SyntaxEditor_Wpf.AboutBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Icon="/CodeEditorSyntax.Wpf;component/Images/Icon.ico"
+        Title="About this demo" Height="266" Width="480" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Deactivated="Window_Deactivated">
+    <Grid>
+        <Image Height="66" SnapsToDevicePixels="True"  HorizontalAlignment="Left" Margin="23,13,0,0" Name="image1" Stretch="None" VerticalAlignment="Top" Width="137" Source="/CodeEditorSyntax.Wpf;component/Images/logo.png" />
+        <TextBox Height="56" HorizontalAlignment="Left" Name="textBox1" Margin="22, 103,0,0" VerticalAlignment="Top" Width="436" Text="This demo is designed to show how Alternet Editor can display code in different programming languages and provide advanced code editing capabilities for C# and Visual Basic code files." TextWrapping="Wrap" BorderThickness="0" />
+        <Label Content="WWW:" Height="28" HorizontalAlignment="Left" Margin="213,13,0,0" Name="label1" VerticalAlignment="Top" />
+        <Label Content="http://www.alternetsoft.com" Height="28" HorizontalAlignment="Left" Margin="263,13,0,0" Name="laAdress" VerticalAlignment="Top" Cursor="Hand" Foreground="Blue" MouseDown="AdressLabel_Click" />
+        <Label Content="e-mail:" Height="28" HorizontalAlignment="Left" Margin="213,38,0,0" Name="label3" VerticalAlignment="Top" />
+        <Label Content="contact@alternetsoft.com" Height="28" HorizontalAlignment="Left" Margin="263,38,0,0" Name="laMailTo" VerticalAlignment="Top" Cursor="Hand" FontStyle="Normal" Foreground="Blue" MouseDown="MailToLabel_Click" />
+        <Button Content="Close" Height="23" HorizontalAlignment="Left" Margin="354,179,0,0" Name="btClose" VerticalAlignment="Top" Width="75" Click="CloseButton_Click" />
+    </Grid>
+</Window>

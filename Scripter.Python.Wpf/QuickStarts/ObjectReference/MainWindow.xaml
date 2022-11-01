@@ -1,0 +1,27 @@
+﻿<Window x:Class="ObjectReference.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Icon="/ObjectReference.Python.Wpf;component/Images/Icon.Ico" 
+        Title="Object reference" Height="480" Width="734" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="340"/>
+                    <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="This demo shows how to access application objects from script." Grid.Column="0" Width="360" HorizontalAlignment="Left" Margin="0,0,0,0"/>
+                <Button Name="ScriptButton" Content="Run Script" Grid.Column="1" Height="21" Width="70" Margin="0,3,0,6" Command="{Binding RunScript}"/>
+            </Grid>
+        </DockPanel>
+        <Button Name="TestButton" Content="Test Button" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="340,10,0,0" Grid.Row="1" Height="21" Width="120" Command="{Binding StopScript}"/>
+        <Border Name="EditBorder" BorderBrush="Gray" Grid.Row="2" BorderThickness="2" Margin="0,5,0,0"/>
+    </Grid>
+</Window>

@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="Alternet.Editor.Wpf.MainDemo_Wpf.OtherSettingsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:cp="clr-namespace:ColorPicker" 
+             xmlns:local="clr-namespace:Alternet.Editor.Wpf.MainDemo_Wpf" 
+             d:DesignHeight="104" d:DesignWidth="982"
+             Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+    <Grid Margin="20,10,10,10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="525*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <CheckBox Name="WhitespaceVisibleCheckBox" Content="Whitespace Visible" VerticalAlignment="Center"
+            Checked="WhitespaceVisibleCheckBox_CheckedChanged" Unchecked="WhitespaceVisibleCheckBox_CheckedChanged" ToolTip="Display white-space symbols such as spaces, tabs, end-of line or end-of-file markers"/>
+
+        <CheckBox Name="HighlightUrlsCheckBox" Content="Hightlight URLs" VerticalAlignment="Center" Grid.Row="1" Margin="0, 10, 0, 0"
+            Checked="HighlightUrlsCheckBox_CheckedChanged" Unchecked="HighlightUrlsCheckBox_CheckedChanged" ToolTip="Highlight hyperlinks in the text"/>
+
+        <CheckBox Name="CheckSpellingCheckBox" Content="Check Spelling" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="20, 0, 0, 0"
+            Checked="CheckSpellingCheckBox_CheckedChanged" Unchecked="CheckSpellingCheckBox_CheckedChanged" ToolTip="Perform spelling check of the text content in the editor"/>
+
+        <CheckBox Name="DisplayContentDividersCheckBox" Content="Display Content Dividers" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="20, 10, 0, 0"
+            Checked="DisplayContentDividersCheckBox_CheckedChanged" Unchecked="DisplayContentDividersCheckBox_CheckedChanged" ToolTip="Display horizontal line separates Editor content"/>
+
+
+        <CheckBox Name="UserMarginVisibleCheckBox" Content="Display User Margin" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" Margin="20, 0, 0, 0"
+            Checked="UserMarginVisibleCheckBox_CheckedChanged" Unchecked="UserMarginVisibleCheckBox_CheckedChanged" ToolTip="Draw margin area with user-defined content"/>
+        <CheckBox Name="SeparateLinesCheckBox" Content="Separate Lines" Grid.Column="3" HorizontalAlignment="Left" Margin="20,0,0,0"
+                  VerticalAlignment="Center" Checked="SeparateLinesCheckBox_CheckedChanged" Unchecked="SeparateLinesCheckBox_CheckedChanged" ToolTip="Draw horizontal lines to visualy separate lines in Edit control"/>
+        <CheckBox Content="Highlight Current Line" HorizontalAlignment="Left" Margin="20,10,0,0" Name="HighlightCurrentLineCheckBox" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1" 
+                  Checked="HighlightCurrentLineCheckBox_CheckedChanged" Unchecked="HighlightCurrentLineCheckBox_CheckedChanged" ToolTip="Current line in Edit control should be highlighted"/>
+        <CheckBox Content="Highlight References" HorizontalAlignment="Left" Margin="20,10,0,0" Name="HighlightReferencesCheckBox" VerticalAlignment="Center" Grid.Column="4" Grid.Row="1" 
+                  Checked="HighlightReferencesCheckBox_CheckedChanged" Unchecked="HighlightReferencesCheckBox_CheckedChanged" ToolTip="Highlight found references"/>
+        <CheckBox Name="HighlightBracesCheckBox" Content="Highlight Braces" Grid.Column="4" HorizontalAlignment="Left" Margin="20,0,0,0"
+                  VerticalAlignment="Center" Checked="HighlightBracesCheckBox_CheckedChanged" Unchecked="HighlightBracesCheckBox_CheckedChanged" ToolTip="Highlight matching braces in the text"/>
+    </Grid>
+</UserControl>

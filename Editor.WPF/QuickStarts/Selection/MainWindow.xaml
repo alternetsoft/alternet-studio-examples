@@ -1,0 +1,57 @@
+<Window x:Class="Selection.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v8"
+        xmlns:cp="clr-namespace:ColorPicker"         
+        xmlns:local="clr-namespace:Selection"
+        Icon="/Selection.Wpf;component/Images/Icon.ico"
+        Title="Selection" Height="426" Width="679">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="104"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="laDescription" Grid.Row="0">
+            <AccessText TextWrapping="Wrap" Text="This demo shows how to customize appearance and behavior of selected text within the edit control content"/>
+        </Label>
+        <GroupBox Grid.Row="1" Header="Code Outlining" x:Name="gbCodeOutlining" Margin="0,0,0,0" BorderThickness="1.5" Padding="0" Width="Auto">
+            <Grid Margin="-2,0,2,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="130"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Row="0" Grid.Column="0" Name="chbDisableSelection" Content="Disable Selection" Margin="5,5,0,0" IsChecked="{Binding DisableSelection, Mode=TwoWay}" ToolTip="Disables to select any text"/>
+                <CheckBox Grid.Row="1" Grid.Column="0" Name="chbDisableDragging" Content="Disable Dragging" Margin="5,5,0,0" IsChecked="{Binding DisableDragging, Mode=TwoWay}" ToolTip="Disables dragging the selected text"/>
+                <CheckBox Grid.Row="2" Grid.Column="0" Name="chbSelectBeyondEol" Content="Select Beyond EOL" Margin="5,5,0,0" IsChecked="{Binding SelectBeyondEol, Mode=TwoWay}" ToolTip="Specifies that selection is drawn beyond end of line" Visibility="Visible"/>
+
+                <CheckBox Grid.Row="0" Grid.Column="1" Name="chbUseColors" Content="Use Colors" Margin="5,5,0,0" IsChecked="{Binding UseColors, Mode=TwoWay}" ToolTip="Specifies that selection should paint preserving colors of the text fragments"/>
+                <CheckBox Grid.Row="1" Grid.Column="1" Name="chbHideSelection" Content="Hide Selection" Margin="5,5,0,0" IsChecked="{Binding HideSelection, Mode=TwoWay}" ToolTip="Specifies that selected text should be draw as unselected text when control lost focus"/>
+                <CheckBox Grid.Row="2" Grid.Column="1" Name="chbSelectLineOnDblClick" Content="Select Line on Double Click" Margin="5,5,0,0" IsChecked="{Binding SelectLineOnDblClick, Mode=TwoWay}" ToolTip="Specifies that whole line should be selected instead of single word when user double clicks on some text"/>
+
+                <CheckBox Grid.Row="0" Grid.Column="2" Name="chbDeselectOnCopy" Content="Deselect On Copy" Margin="5,5,0,0" IsChecked="{Binding DeselectOnCopy, Mode=TwoWay}" ToolTip="Specifies that selection should be unselected when selected text copies to the Clipboard"/>
+                <CheckBox Grid.Row="1" Grid.Column="2" Name="chbPersistentBlocks" Content="Persistent Blocks" Margin="5,5,0,0" IsChecked="{Binding PersistentBlocks, Mode=TwoWay}" ToolTip="Specifies that selected text should be retained even when the cursor is moved, until a new block is selected"/>
+                <CheckBox Grid.Row="2" Grid.Column="2" Name="chbOverwriteBlocks" Content="Overwrite Blocks" Margin="5,5,0,0" IsChecked="{Binding OverwriteBlocks, Mode=TwoWay}" ToolTip="Specifies that selected text should be replaced of text with whatever is typed next"/>
+
+                <Label Grid.Row="0" Grid.Column="3" Content="Fore Color:"/>
+                <Label Grid.Row="1" Grid.Column="3" Content="Back Color:"/>
+                <Label Grid.Row="2" Grid.Column="3" Content="Border Color:"/>
+
+                <cp:ColorComboBox x:Name="cbSelectionForeColor" Grid.Row="0" Grid.Column="4" MinWidth="120" SelectedColor="{Binding SelectForeColor, Mode=TwoWay}" Margin="0,0,5,0" HorizontalAlignment="Right"  ToolTip="Foreground color of the selected text when owner control has input focus"/>
+                <cp:ColorComboBox x:Name="cbSelectionBackColor" Grid.Row="1" Grid.Column="4" MinWidth="120" SelectedColor="{Binding SelectBackColor, Mode=TwoWay}" HorizontalAlignment="Right" Margin="0,0,5,0" ToolTip="Background color of the selected text when owner control has input focus"/>
+                <cp:ColorComboBox x:Name="cbSelectionBorderColor" Grid.Row="2" Grid.Column="4" MinWidth="120" SelectedColor="{Binding SelectBorderColor, Mode=TwoWay}" HorizontalAlignment="Right" Margin="0,0,5,0" ToolTip="Color of the selection border"/>
+            </Grid>            
+        </GroupBox>
+        <Border Grid.Column="0" Grid.Row="2" BorderBrush="Gray" BorderThickness="2" Margin="0,5,0,0">
+            <Wpf:TextEditor x:Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
+        </Border>
+    </Grid>
+</Window>

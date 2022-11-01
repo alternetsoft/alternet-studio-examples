@@ -1,0 +1,46 @@
+<Window x:Class="Bookmarks.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v8"
+        xmlns:local="clr-namespace:Bookmarks"
+        Icon="/Bookmarks.Wpf;component/Images/Icon.ico" 
+        Title="Bookmarks" Height="406" Width="679">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="28"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="laDescription" Grid.Row="0">
+            <AccessText TextWrapping="Wrap" Text="Bookmarks are used to simplify navigation through the text."/>
+        </Label>
+        <GroupBox Grid.Row="1" Header="Bookmarks" x:Name="gbBookmarks" Margin="0,0,0,0" BorderThickness="1.5" Padding="0" Width="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="162"/>
+                    <ColumnDefinition Width="162"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Name="chbDrawBookmarks" Content="Draw Bookmarks" Grid.Row="0" Grid.Column="0" IsChecked="{Binding DrawBookmarks}" Margin="0,5,0,0" ToolTip="Show or hide bookmarks"/>
+                <CheckBox Name="chbDrawLineBookmarks" Content="Draw Line Bookmarks" Grid.Row="1" Grid.Column="0" IsChecked="{Binding DrawLineBookmarks}" Margin="0,5,0,0" ToolTip="Display triangle at bookmark position inside the text"/>
+
+                <Button Name="btSetBookmark" Content="Set Indexed Bookmark" Grid.Row="0" Grid.Column="1" Command="{Binding SetIndexBookmark}" Width="150" Height="24" Margin="4,0,0,0"/>
+                <Button Name="btClearBookmarks" Content="Clear Bookmarks" Grid.Row="1" Grid.Column="1" Command="{Binding ClearBookmarks}" Width="150" Height="24" Margin="4,2,0,0" ToolTip="Clear all bookmarks"/>
+
+                <Button Name="btSetUnindexedBookmark" Content="Set Unindexed Bookmark" Grid.Row="0" Grid.Column="2" Command="{Binding SetBookmark}" Width="150" Height="24" HorizontalAlignment="Left"  Margin="10,0,0,0" ToolTip="Sets an unindexed bookmark at the current Edit position"/>
+                <Button Name="btSetCustomBookmarks" Content="Set Custom Bookmarks" Grid.Row="1" Grid.Column="2" Command="{Binding SetCustomBookmark}" Width="150" Height="24" HorizontalAlignment="Left" Margin="10,2,0,0" ToolTip="Sets a bookmark with url and description at the current Edit position"/>
+
+                <Button Name="btNextBookmark" Content="Next Bookmark" Grid.Row="0" Grid.Column="3" Command="{Binding NextBookmark}" Width="150" Height="24" HorizontalAlignment="Left"  Margin="10,0,0,0" ToolTip="Moves Edit control's caret to the location of the next unnumbered bookmark"/>
+                <Button Name="btPrevBookmark" Content="Previous Bookmark" Grid.Row="1" Grid.Column="3" Command="{Binding PrevBookmark}" Width="150" Height="24" HorizontalAlignment="Left" Margin="10,2,0,0" ToolTip="Moves Edit control's caret to the location of the previous unnumbered bookmark"/>
+            </Grid>
+        </GroupBox>
+        <Border Grid.Column="0" Grid.Row="2" BorderBrush="Gray" BorderThickness="2" Margin="0,5,0,0">
+            <TabControl Name="tcEditors"></TabControl>
+        </Border>
+    </Grid>
+</Window>
