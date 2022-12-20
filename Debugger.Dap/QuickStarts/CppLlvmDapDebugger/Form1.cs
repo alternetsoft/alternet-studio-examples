@@ -200,7 +200,7 @@ namespace CppLlvmDapDebugger
                     return;
 
                 edit = codeEditContainer.TryActivateEditor(location.FileName);
-                edit.Position = new Point(location.Column, location.Line);
+                edit.MakeVisible(new Point(location.Column, location.Line), true);
             }
         }
 

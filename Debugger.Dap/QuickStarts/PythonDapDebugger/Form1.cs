@@ -185,7 +185,7 @@ namespace PythonDapDebugger
                 return;
 
             var edit = codeEditContainer.TryActivateEditor(declaration.FileName);
-            edit.Position = new Point(declaration.Column, declaration.Line);
+            edit.MakeVisible(new Point(declaration.Column, declaration.Line), true);
         }
 
         private void Edit_FindAllReferences(object sender, EventArgs e)

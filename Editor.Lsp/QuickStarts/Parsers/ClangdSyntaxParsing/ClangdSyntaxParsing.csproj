@@ -19,12 +19,12 @@
     <OutputPath>..\..\..\..\..\bin\Release\Demos.Editor.Lsp\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="8.1.4" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="8.1.4" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.4" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="8.1.4" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd" Version="8.1.4" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd.Embedded" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Common" Version="8.1.8" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="8.1.8" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.8" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="8.1.8" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd" Version="8.1.8" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd.Embedded" Version="8.1.8" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs" />

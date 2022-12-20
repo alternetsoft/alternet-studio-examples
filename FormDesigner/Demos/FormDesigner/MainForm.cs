@@ -40,6 +40,7 @@ namespace Alternet.FormDesigner.Demo
         private bool updating = false;
 
         private IScriptRun scriptRun;
+        private string[] globalReferencePaths = new string[] { };
 
         public MainForm()
         {
@@ -365,18 +366,25 @@ namespace Alternet.FormDesigner.Demo
                 DesignerReferencedAssemblies.DefaultForCSharp;
 #endif
 
+            if (globalReferencePaths.Length > 0)
+                defaultReferences = defaultReferences.WithSearchPaths(globalReferencePaths);
+
             return defaultReferences;
         }
 
         private DesignerReferencedAssemblies GetReferencedAssemblies(EditorFormDesignerDataSource source)
         {
             var defaultReferences = GetDefaultReferences(source);
+            var references = defaultReferences;
 
             var formSettings = FormSettingsService.LoadSettings(source);
             if (formSettings.AssemblyReferences.Any())
-                return defaultReferences.AddAssemblyNames(formSettings.AssemblyReferences.Select(x => x.AssemblyPath).ToArray());
-            else
-                return defaultReferences;
+                references = references.AddAssemblyNames(formSettings.AssemblyReferences.Select(x => x.AssemblyPath).ToArray());
+
+            if (formSettings.SearchPaths != null)
+                references = references.WithSearchPaths(formSettings.SearchPaths);
+
+            return references;
         }
 
         private DesignerImportedNamespaces GetImportedNamespaces(string fileName)
@@ -796,7 +804,7 @@ namespace Alternet.FormDesigner.Demo
             var references = designer.ReferencedAssemblies.AssemblyNames.Where(x => !defaultReferences.Contains(x)).Select(
                 x => new FormSettings.AssemblyReference(x)).ToArray();
 
-            return new FormSettings(references);
+            return new FormSettings(references, designer.ReferencedAssemblies.SearchPaths);
         }
 
         private void SaveEditorFile(IScriptEdit editor)

@@ -1152,7 +1152,7 @@ namespace SyntaxEditor_Wpf
                 {
                     OpenFile(location.FileName);
                     edit = GetActiveSyntaxEdit();
-                    edit.Position = new System.Drawing.Point(location.Column, location.Line);
+                    edit.MakeVisible(new System.Drawing.Point(location.Column, location.Line), true);
                 }
             }
         }

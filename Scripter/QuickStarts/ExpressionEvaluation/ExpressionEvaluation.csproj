@@ -24,16 +24,16 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.RoslynDependencies">
-      <Version>8.1.4</Version>
+      <Version>8.1.8</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="8.1.4" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="8.1.4" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Common" Version="8.1.8" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="8.1.8" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.8" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs">

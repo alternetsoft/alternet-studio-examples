@@ -71,7 +71,7 @@ namespace LspMultipleFiles
                 return;
 
             if (syntaxEdit1.Source.FileName.Equals(declaration.FileName, StringComparison.OrdinalIgnoreCase))
-                syntaxEdit1.Position = new Point(declaration.Column, declaration.Line);
+                syntaxEdit1.MakeVisible(new Point(declaration.Column, declaration.Line), true);
             else
             {
                 MessageBox.Show(

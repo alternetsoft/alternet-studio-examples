@@ -24,8 +24,8 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="8.1.4" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.Wpf" Version="8.1.4" />
+    <PackageReference Include="Alternet.Studio.Common" Version="8.1.8" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.Wpf" Version="8.1.8" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

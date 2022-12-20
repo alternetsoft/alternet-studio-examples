@@ -80,7 +80,8 @@ namespace Alternet.FormDesigner.Demo
             private static FormSettings LoadData(SettingsData data)
             {
                 return new FormSettings(
-                    data.AssemblyReferences.Select(x => new FormSettings.AssemblyReference(x.Path)).ToArray());
+                    data.AssemblyReferences.Select(x => new FormSettings.AssemblyReference(x.Path)).ToArray(),
+                    data.SearchPaths);
             }
 
             private static SettingsData GetSettingsData(FormSettings settings)
@@ -92,6 +93,8 @@ namespace Alternet.FormDesigner.Demo
                         {
                             Path = x.AssemblyPath,
                         }).ToArray(),
+
+                    SearchPaths = settings.SearchPaths != null ? settings.SearchPaths.ToArray() : new string[] { },
                 };
             }
 
@@ -100,6 +103,13 @@ namespace Alternet.FormDesigner.Demo
             public class SettingsData
             {
                 public AssemblyReference[] AssemblyReferences { get; set; }
+
+                public string[] SearchPaths{ get; set; }
+
+                public bool ShouldSerializeSearchPaths()
+                {
+                    return SearchPaths != null && SearchPaths.Any();
+                }
 
                 [Serializable]
                 [XmlRoot("Reference")]

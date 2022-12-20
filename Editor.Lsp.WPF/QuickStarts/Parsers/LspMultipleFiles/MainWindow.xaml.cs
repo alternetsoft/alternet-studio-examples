@@ -199,7 +199,7 @@ namespace LspMultipleFiles
         private void Edit_GoToDefinitionComplete(object sender, TextEditorExt.SymbolLocationEventArgs e)
         {
             var definitionEdit = EnsureFileOpened(e.SymbolLocation.FileName);
-            definitionEdit.Position = new System.Drawing.Point(e.SymbolLocation.Column, e.SymbolLocation.Line);
+            definitionEdit.MakeVisible(new System.Drawing.Point(e.SymbolLocation.Column, e.SymbolLocation.Line), true);
         }
 
         private void AboutMenuItem_Click(object sender, RoutedEventArgs e)

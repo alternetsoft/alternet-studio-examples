@@ -43,6 +43,7 @@ namespace AlternetStudio.Demo
         private Alternet.FormDesigner.WinForms.PropertyGridControl propertyGridControl;
         private Alternet.FormDesigner.WinForms.ToolboxControl toolboxControl;
         private Alternet.FormDesigner.WinForms.OutlineControl outlineControl;
+        private string[] globalReferencePaths = new string[] { "C:\\Projects\\Alternet\\Demo\\FormDesigner\\QuickStarts\\CustomizeToolbox" };
 
         private IFormDesignerControl ActiveFormDesigner
         {
@@ -609,6 +610,7 @@ namespace AlternetStudio.Demo
 
         private DesignerReferencedAssemblies GetDesignerReferencedAssemblies(string fileName)
         {
+            DesignerReferencedAssemblies defaultReferences = null;
             var project = GetProject(fileName);
             if (project != null && project.HasProject)
             {
@@ -648,10 +650,15 @@ namespace AlternetStudio.Demo
 #if NET6_0_OR_GREATER
                 EnsureDotNetCoreReferencesAdded(references, null);
 #endif
-                return new DesignerReferencedAssemblies(references.ToArray());
+                defaultReferences = new DesignerReferencedAssemblies(references.ToArray());
             }
+            else
+                defaultReferences = Path.GetExtension(fileName).ToLower().Equals(".vb") ? DesignerReferencedAssemblies.DefaultForVisualBasic : DesignerReferencedAssemblies.DefaultForCSharp;
 
-            return Path.GetExtension(fileName).ToLower().Equals(".vb") ? DesignerReferencedAssemblies.DefaultForVisualBasic : DesignerReferencedAssemblies.DefaultForCSharp;
+            if (globalReferencePaths.Length > 0)
+                defaultReferences = defaultReferences.WithSearchPaths(globalReferencePaths);
+
+            return defaultReferences;
         }
 
         private DesignerImportedNamespaces GetDesignerImportedNamespaces(string fileName)
@@ -728,7 +735,7 @@ namespace AlternetStudio.Demo
             {
                 if (AddReferencesToProject(
                     project,
-                    ComponentAssemblyReferenceAdder.TryAddComponentAssemblyReferences(e.Component, project.References.Select(x => x.FullName))))
+                    ComponentAssemblyReferenceAdder.TryAddComponentAssemblyReferences(e.Component, project.References.Select(x => x.FullName), globalReferencePaths)))
                 {
                     UpdateProjectExplorer();
                 }

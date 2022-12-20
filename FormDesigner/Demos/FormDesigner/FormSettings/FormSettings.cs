@@ -21,12 +21,15 @@ namespace Alternet.FormDesigner.Demo
     {
         public static readonly FormSettings Default = new FormSettings(Enumerable.Empty<AssemblyReference>());
 
-        public FormSettings(IEnumerable<AssemblyReference> references)
+        public FormSettings(IEnumerable<AssemblyReference> references, IEnumerable<string> searchPaths = null)
         {
             AssemblyReferences = references;
+            SearchPaths = searchPaths;
         }
 
         public IEnumerable<AssemblyReference> AssemblyReferences { get; private set; }
+
+        public IEnumerable<string> SearchPaths { get; private set; }
 
         public class AssemblyReference
         {

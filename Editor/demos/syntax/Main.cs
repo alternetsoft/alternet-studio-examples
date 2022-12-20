@@ -1160,7 +1160,7 @@ namespace Alternet.CodeEditorSyntax.Demo
                 {
                     OpenFile(location.FileName);
                     edit = GetActiveSyntaxEdit();
-                    edit.Position = new Point(location.Column, location.Line);
+                    edit.MakeVisible(new Point(location.Column, location.Line), true);
                 }
             }
         }

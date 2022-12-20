@@ -180,6 +180,7 @@ namespace AlternetStudio.Wpf.Demo
                 designer.DesignedContentChanged += Designer_DesignedContentChanged;
                 designer.ShowPropertiesRequested += Designer_ShowPropertiesRequested;
                 designer.IsSmartDiffCodeSerializationRequired = d => ((ITextSource)((EditorFormDesignerDataSource)d.Source).XamlTextSource).Edits.Any();
+                designer.DesignContext.Services.Component.ComponentRegisteredAndAddedToContainer += Component_ComponentRegisteredAndAddedToContainer;
             }
             catch (Exception e)
             {
@@ -188,6 +189,38 @@ namespace AlternetStudio.Wpf.Demo
             }
 
             return designer;
+        }
+
+        private void Component_ComponentRegisteredAndAddedToContainer(object sender, DesignItemEventArgs e)
+        {
+            var designer = e.Item.Context.Services.GetService(typeof(FormDesignerControl)) as FormDesignerControl;
+
+            if ((designer == null) || designer.IsBeingLoaded)
+                return;
+
+            var references = ComponentAssemblyReferenceAdder.TryAddComponentAssemblyReferences(
+                e.Item.ComponentType,
+                scriptRun.ScriptSource.References);
+
+            scriptRun.ScriptSource.References.Clear();
+            foreach (var reference in references)
+                scriptRun.ScriptSource.References.Add(reference);
+
+            designer.ReferencedAssemblies = ComponentAssemblyReferenceAdder.TryAddComponentAssemblyReferences(
+                e.Item.ComponentType,
+                designer.ReferencedAssemblies);
+            var source = (EditorFormDesignerDataSource)designer.Source;
+            var project = GetProject(source.UserCodeFileName);
+
+            if (project != null && project.HasProject)
+            {
+                if (AddReferencesToProject(
+                    project,
+                    ComponentAssemblyReferenceAdder.TryAddComponentAssemblyReferences(e.Item.ComponentType, project.References.Select(x => x.FullName))))
+                {
+                    UpdateProjectExplorer();
+                }
+            }
         }
 
         private void OnDesignerSelectionChanged(FormDesignerControl designer, DesignItemCollectionEventArgs e)

@@ -57,7 +57,7 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
 
             navigationHistory.SaveCurrentLocationToHistory(edit.Position, edit.FileName, edit.GetLine(edit.Position.Y));
             edit = OpenFile(location.FileName);
-            edit.Position = new System.Drawing.Point(location.Column, location.Line);
+            edit.MakeVisible(new System.Drawing.Point(location.Column, location.Line), true);
             navigationHistory.SaveCurrentLocationToHistory(edit.Position, edit.FileName, edit.GetLine(edit.Position.Y));
             navigationHistory.UpdateHistory(backwardMenu.ContextMenu.Items, 0, historyBackwardToolButton, backwardMenu, historyForwardToolButton, Backward_ItemClick);
         }

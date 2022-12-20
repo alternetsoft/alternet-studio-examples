@@ -347,6 +347,7 @@ namespace AlternetStudio.Wpf.Demo
 
         private DesignerReferencedAssemblies GetDesignerReferencedAssemblies(string fileName)
         {
+            DesignerReferencedAssemblies defaultReferences = null;
             if (Project.HasProject)
             {
                 string projectPath = Path.GetDirectoryName(Project.ProjectFileName);
@@ -374,10 +375,12 @@ namespace AlternetStudio.Wpf.Demo
                 if (Path.GetExtension(fileName).ToLower().Equals(".vb"))
                     references.Add("Microsoft.VisualBasic");
 
-                return new DesignerReferencedAssemblies(references.ToArray());
+                defaultReferences = new DesignerReferencedAssemblies(references.ToArray());
             }
+            else
+                defaultReferences = new DesignerReferencedAssemblies(new string[] { "mscorlib", "System", "PresentationCore", "PresentationFramework", "System.Drawing", "WindowsBase", "Microsoft.VisualBasic" });
 
-            return new DesignerReferencedAssemblies(new string[] { "mscorlib", "System", "PresentationCore", "PresentationFramework", "System.Drawing", "WindowsBase", "Microsoft.VisualBasic" });
+            return defaultReferences;
         }
 
         private string[] GetImportedNamespaces(string fileName)

@@ -222,7 +222,7 @@ namespace PythonDapDebugger.Wpf
                 return;
 
             var edit = codeEditContainer.TryActivateEditor(declaration.FileName);
-            edit.Position = new System.Drawing.Point(declaration.Column, declaration.Line);
+            edit.MakeVisible(new System.Drawing.Point(declaration.Column, declaration.Line), true);
         }
 
         private void OpenMenuItem_Click(object sender, RoutedEventArgs e)

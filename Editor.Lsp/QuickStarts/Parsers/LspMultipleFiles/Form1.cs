@@ -191,7 +191,7 @@ namespace LspMultipleFiles
         private void Edit_GoToDefinitionComplete(object sender, SyntaxEditExt.SymbolLocationEventArgs e)
         {
             var definitionEdit = EnsureFileOpened(e.SymbolLocation.FileName);
-            definitionEdit.Position = new Point(e.SymbolLocation.Column, e.SymbolLocation.Line);
+            definitionEdit.MakeVisible(new Point(e.SymbolLocation.Column, e.SymbolLocation.Line), true);
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)

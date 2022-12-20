@@ -18,6 +18,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Threading;
 
 using Alternet.Common;
@@ -45,6 +46,7 @@ namespace FormDesigner.Wpf
         private bool updating;
 
         private ScriptRun scriptRun;
+        private string[] globalReferencePaths = new string[] { };
 
         public MainWindow()
         {
@@ -389,10 +391,14 @@ namespace FormDesigner.Wpf
 
         private FormSettings BuildFormSettings(IFormDesignerControl designer)
         {
-            var references = designer.ReferencedAssemblies.AssemblyNames.Select(
+            var defaultReferences = new HashSet<string>(
+                GetDefaultReferences((EditorFormDesignerDataSource)designer.Source).AssemblyNames,
+                StringComparer.OrdinalIgnoreCase);
+
+            var references = designer.ReferencedAssemblies.AssemblyNames.Where(x => !defaultReferences.Contains(x)).Select(
                 x => new FormSettings.AssemblyReference(x)).ToArray();
 
-            return new FormSettings(references);
+            return new FormSettings(references, designer.ReferencedAssemblies.SearchPaths);
         }
 
         private void RunScript()
@@ -1167,17 +1173,31 @@ namespace FormDesigner.Wpf
             return new string[] { "mscorlib", "System", "PresentationCore", "PresentationFramework", "System.Drawing", "WindowsBase", "Microsoft.VisualBasic" };
         }
 
-        private DesignerReferencedAssemblies GetReferencedAssemblies(EditorFormDesignerDataSource source)
+        private DesignerReferencedAssemblies GetDefaultReferences(EditorFormDesignerDataSource source)
         {
             var defaultReferences = Path.GetExtension(source.UserCodeFileName).ToLower().Equals(".vb") ?
                 DesignerReferencedAssemblies.DefaultForVisualBasic :
                 DesignerReferencedAssemblies.DefaultForCSharp;
 
+            if (globalReferencePaths.Length > 0)
+                defaultReferences = defaultReferences.WithSearchPaths(globalReferencePaths);
+
+            return defaultReferences;
+        }
+
+        private DesignerReferencedAssemblies GetReferencedAssemblies(EditorFormDesignerDataSource source)
+        {
+            var defaultReferences = GetDefaultReferences(source);
+            var references = defaultReferences;
+
             var formSettings = FormSettingsService.LoadSettings(source);
             if (formSettings.AssemblyReferences.Any())
-                return defaultReferences.WithAssemblyNames(formSettings.AssemblyReferences.Select(x => x.AssemblyPath).ToArray());
-            else
-                return defaultReferences;
+                references = references.AddAssemblyNames(formSettings.AssemblyReferences.Select(x => x.AssemblyPath).ToArray());
+
+            if (formSettings.SearchPaths != null)
+                references = references.WithSearchPaths(formSettings.SearchPaths);
+
+            return references;
         }
 
         private void Save_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
@@ -1185,10 +1205,7 @@ namespace FormDesigner.Wpf
             if (ActiveDesigner == null)
                 return;
 
-            var source = (EditorFormDesignerDataSource)ActiveDesigner.Source;
-
-            source.XamlTextSource.SaveFile(source.XamlFileName);
-            source.UserCodeTextSource.SaveFile(source.UserCodeFileName);
+            SaveDesignerFiles(ActiveDesigner);
         }
 
         internal class CustomizedFormDesignerControl : FormDesignerControl

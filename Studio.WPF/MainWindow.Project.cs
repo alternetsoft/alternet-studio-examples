@@ -160,6 +160,26 @@ namespace AlternetStudio.Wpf.Demo
             return !solution.IsEmpty || Project.HasProject;
         }
 
+        private DotNetProject GetProject(string fileName)
+        {
+            if (!solution.IsEmpty)
+            {
+                foreach (var prj in solution.Projects)
+                {
+                    if (FileBelongsToProject(prj, fileName))
+                        return prj;
+                }
+            }
+            else
+            if (Project.HasProject)
+            {
+                if (FileBelongsToProject(Project, fileName))
+                    return Project;
+            }
+
+            return null;
+        }
+
         private void SaveProject(DotNetProject proj)
         {
             if (proj.HasProject && proj.IsModified)

@@ -67,7 +67,8 @@ namespace AlternetStudio.Demo
 
             navigationHistory.SaveCurrentLocationToHistory(edit.Position, edit.FileName, edit.GetLine(edit.Position.Y));
             edit = OpenFile(location.FileName);
-            edit.Position = new Point(location.Column, location.Line);
+            edit.MakeVisible(new Point(location.Column, location.Line), true);
+
             navigationHistory.SaveCurrentLocationToHistory(edit.Position, edit.FileName, edit.GetLine(edit.Position.Y));
             navigationHistory.UpdateHistory(historyBackwardContextMenu.Items, 0, historyBackwardToolSplitButton, historyForwardToolButton);
         }

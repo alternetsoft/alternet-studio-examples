@@ -133,7 +133,7 @@ namespace CLangSyntaxParsing
                 return;
 
             if (edit.Source.FileName.Equals(declaration.FileName, StringComparison.OrdinalIgnoreCase))
-                edit.Position = new System.Drawing.Point(declaration.Column, declaration.Line);
+                edit.MakeVisible(new System.Drawing.Point(declaration.Column, declaration.Line), true);
             else
             {
                 MessageBox.Show(

@@ -239,8 +239,6 @@ namespace DebuggerIntegration.TypeScript
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
-
         }
 
         #endregion
