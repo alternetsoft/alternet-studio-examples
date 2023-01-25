@@ -23,24 +23,24 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.RoslynDependencies">
-      <Version>8.1.8</Version>
+      <Version>8.1.9</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Wpf" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Common" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.Wpf" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration.Wpf" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.8" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Wpf" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Common" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.Wpf" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration.Wpf" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.9" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

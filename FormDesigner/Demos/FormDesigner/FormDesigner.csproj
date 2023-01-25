@@ -21,23 +21,23 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.RoslynDependencies">
-      <Version>8.1.8</Version>
+      <Version>8.1.9</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.WindowsForms" Version="8.1.8" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0'))" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="8.1.8" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0'))" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="8.1.8" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0'))" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.8" />
+    <PackageReference Include="Alternet.Studio.Common" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.WindowsForms" Version="8.1.9" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0'))" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="8.1.9" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0'))" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="8.1.9" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0'))" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.9" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\TabControl\GdiMemoryContext.cs">

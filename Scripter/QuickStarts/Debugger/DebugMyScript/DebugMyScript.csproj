@@ -31,9 +31,9 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Scripter" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="8.1.8" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="8.1.9" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs">
@@ -76,7 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.RoslynDependencies">
-      <Version>8.1.8</Version>
+      <Version>8.1.9</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup Condition="$(DefineConstants.Contains(';NETCOREAPP'))"></ItemGroup>

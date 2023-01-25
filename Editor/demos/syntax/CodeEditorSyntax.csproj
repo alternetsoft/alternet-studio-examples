@@ -64,13 +64,13 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="8.1.8" />
+    <PackageReference Include="Alternet.Studio.Common" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="8.1.9" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutBox.cs">
@@ -163,7 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.RoslynDependencies">
-      <Version>8.1.8</Version>
+      <Version>8.1.9</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

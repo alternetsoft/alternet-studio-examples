@@ -22,7 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.RoslynDependencies">
-      <Version>8.1.8</Version>
+      <Version>8.1.9</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -32,15 +32,15 @@
     <Reference Include="ExternalAssemblyWpf">
       <HintPath>.\ExternalAssemblyWpf.dll</HintPath>
     </Reference>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Common" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="8.1.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.8" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Common" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.9" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

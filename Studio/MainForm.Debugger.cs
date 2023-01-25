@@ -265,6 +265,10 @@ namespace AlternetStudio.Demo
 
                     StartDebugCore(breakOnStart);
 
+                    var errors = scriptRun.ScriptHost.CompilerErrors;
+                    if (errors.Length > 0)
+                        errorsControl.AddCompilerErrors(errors);
+
                     if (scriptRun.ScriptHost.CompileFailed)
                         ActivateErrorsTab();
                 }
