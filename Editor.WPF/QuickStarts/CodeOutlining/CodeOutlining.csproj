@@ -25,10 +25,10 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Common" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="8.1.10" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -89,7 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.RoslynDependencies">
-      <Version>8.1.9</Version>
+      <Version>8.1.10</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

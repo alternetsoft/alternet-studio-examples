@@ -13,6 +13,7 @@
 #endregion Copyright (c) 2016-2022 Alternet Software
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using Alternet.Common.Projects.DotNet;
@@ -35,13 +36,14 @@ namespace AlternetStudio.Demo
                 ActivateErrorsTab();
         }
 
-        protected virtual void CompileCore()
+        protected virtual bool CompileCore()
         {
+            bool result = true;
             bool generateModulesOnDisk = scriptRun.ScriptHost.GenerateModulesOnDisk;
             scriptRun.ScriptHost.GenerateModulesOnDisk = true;
             try
             {
-                scriptRun.Compile();
+                result = scriptRun.Compile();
             }
             finally
             {
@@ -49,7 +51,10 @@ namespace AlternetStudio.Demo
             }
 
             if (scriptRun.ScriptHost.CompileFailed)
+            {
                 ActivateErrorsTab();
+            }
+
 #if USEFORMDESIGNER
             else
             {
@@ -58,6 +63,7 @@ namespace AlternetStudio.Demo
                     source.DesignedComponentAssembly.NotifyAssemblyChanged();
             }
 #endif
+            return result;
         }
 
         protected void ReportScriptCompilationErrors(ScriptCompilationDiagnostic[] errors)
@@ -178,34 +184,43 @@ namespace AlternetStudio.Demo
             ShowRunParametersDialog();
         }
 
-        private void Compile()
+        private bool Compile()
         {
             if (SaveAllModifiedFiles() && SetScriptSource())
             {
                 errorsControl.Clear();
-                CompileCore();
+                return CompileCore();
             }
+
+            return false;
         }
 
-        private void CompileAll()
+        private bool CompileAll()
         {
+            bool result = true;
             if (!solution.IsEmpty)
             {
+                IList<DotNetProject> projects = new List<DotNetProject>();
+
                 foreach (var prj in solution.Projects)
                 {
                     if (prj.ProjectReferences.Count == 0)
-                    {
-                        UpdateScriptProject(prj);
-                        Compile();
-                    }
+                        projects.Add(prj);
                 }
 
                 foreach (var prj in solution.Projects)
                 {
                     if (prj.ProjectReferences.Count > 0)
+                        projects.Add(prj);
+                }
+
+                foreach (var prj in projects)
+                {
+                    UpdateScriptProject(prj);
+                    if (!Compile())
                     {
-                        UpdateScriptProject(prj);
-                        Compile();
+                        result = false;
+                        break;
                     }
                 }
 
@@ -213,7 +228,12 @@ namespace AlternetStudio.Demo
                     UpdateScriptProject(Project);
             }
             else
-                Compile();
+            {
+                if (!Compile())
+                    result = false;
+            }
+
+            return result;
         }
     }
 }

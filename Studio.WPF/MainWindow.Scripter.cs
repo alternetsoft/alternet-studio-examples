@@ -13,6 +13,7 @@
 #endregion Copyright (c) 2016-2022 Alternet Software
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -136,8 +137,9 @@ namespace AlternetStudio.Wpf.Demo
             ShowRunParametersDialog();
         }
 
-        private void Compile()
+        private bool Compile()
         {
+            bool result = true;
             if (SaveAllModifiedFiles() && SetScriptSource())
             {
                 errorsControl.Clear();
@@ -146,7 +148,7 @@ namespace AlternetStudio.Wpf.Demo
                 scriptRun.ScriptHost.GenerateModulesOnDisk = true;
                 try
                 {
-                    scriptRun.Compile();
+                    result = scriptRun.Compile();
                 }
                 finally
                 {
@@ -160,27 +162,36 @@ namespace AlternetStudio.Wpf.Demo
                     designedComponentAssemblyManager.CopyOutput();
                 }
             }
+
+            return result;
         }
 
-        private void CompileAll()
+        private bool CompileAll()
         {
+            bool result = true;
             if (!solution.IsEmpty)
             {
+                IList<DotNetProject> projects = new List<DotNetProject>();
+
                 foreach (var prj in solution.Projects)
                 {
                     if (prj.ProjectReferences.Count == 0)
-                    {
-                        UpdateScriptProject(prj);
-                        Compile();
-                    }
+                        projects.Add(prj);
                 }
 
                 foreach (var prj in solution.Projects)
                 {
                     if (prj.ProjectReferences.Count > 0)
+                        projects.Add(prj);
+                }
+
+                foreach (var prj in projects)
+                {
+                    UpdateScriptProject(prj);
+                    if (!Compile())
                     {
-                        UpdateScriptProject(prj);
-                        Compile();
+                        result = false;
+                        break;
                     }
                 }
 
@@ -188,7 +199,12 @@ namespace AlternetStudio.Wpf.Demo
                     UpdateScriptProject(Project);
             }
             else
-                Compile();
+            {
+                if (!Compile())
+                    result = false;
+            }
+
+            return result;
         }
     }
 }

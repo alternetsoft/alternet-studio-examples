@@ -34,15 +34,15 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Common" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Editor.TypeScript.Wpf" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Common" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Editor.TypeScript.Wpf" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.10" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

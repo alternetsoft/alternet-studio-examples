@@ -57,13 +57,15 @@ namespace AlternetStudio.Demo.RemoteControl
             });
         }
 
-        protected override void CompileCore()
+        protected override bool CompileCore()
         {
             remoteControlService.CompileScript(result =>
             {
                 if (!result.IsSuccessful && result.Errors.Length > 0)
                     ReportScriptCompilationErrors(result.Errors);
             });
+
+            return true;
         }
 
         protected override void StartDebugCore(bool breakOnStart)

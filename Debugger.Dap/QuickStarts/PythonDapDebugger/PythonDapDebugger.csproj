@@ -41,19 +41,19 @@
     <EmbeddedResource Include="Properties\licenses.licx" Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Python" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python.Embedded" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="8.1.9" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="8.1.9" />
+    <PackageReference Include="Alternet.Studio.Common" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Python" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python.Embedded" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="8.1.10" />
   </ItemGroup>
   <ItemGroup />
 </Project>
