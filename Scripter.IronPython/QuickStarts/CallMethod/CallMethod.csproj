@@ -28,14 +28,14 @@
     <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Common" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.12" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="IronPython" Version="2.7.11" />

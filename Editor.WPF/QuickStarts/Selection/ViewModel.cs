@@ -32,7 +32,7 @@ namespace Selection
         private bool useColors = false;
         private bool hideSelection = false;
         private bool selectLineOnDblClick = false;
-        private bool deselectOnCopy = false;
+        private bool highlightSelectedWords = false;
         private bool persistentBlocks = false;
         private bool overwriteBlocks = false;
         private System.Windows.Media.Color selectForeColor;
@@ -67,7 +67,7 @@ namespace Selection
                 UseColors = (SelectionOptions.UseColors & edit.Selection.Options) != 0;
                 HideSelection = (SelectionOptions.HideSelection & edit.Selection.Options) != 0;
                 SelectLineOnDblClick = (SelectionOptions.SelectLineOnDblClick & edit.Selection.Options) != 0;
-                DeselectOnCopy = (SelectionOptions.DeselectOnCopy & edit.Selection.Options) != 0;
+                HighlightSelectedWords = (SelectionOptions.HighlightSelectedWords & edit.Selection.Options) != 0;
                 PersistentBlocks = (SelectionOptions.PersistentBlocks & edit.Selection.Options) != 0;
                 OverwriteBlocks = (SelectionOptions.OverwriteBlocks & edit.Selection.Options) != 0;
                 if (edit.SelectionBrush is System.Windows.Media.SolidColorBrush)
@@ -277,23 +277,23 @@ namespace Selection
             }
         }
 
-        public bool DeselectOnCopy
+        public bool HighlightSelectedWords
         {
             get
             {
-                return deselectOnCopy;
+                return highlightSelectedWords;
             }
 
             set
             {
-                if (deselectOnCopy != value)
+                if (highlightSelectedWords != value)
                 {
-                    deselectOnCopy = value;
-                    OnPropertyChanged("DeselectOnCopy");
+                    highlightSelectedWords = value;
+                    OnPropertyChanged("HighlightSelectedWords");
                     if (edit != null)
                     {
-                        edit.Selection.Options = deselectOnCopy ? edit.Selection.Options
-                            | SelectionOptions.DeselectOnCopy : edit.Selection.Options & ~SelectionOptions.DeselectOnCopy;
+                        edit.Selection.Options = highlightSelectedWords ? edit.Selection.Options
+                            | SelectionOptions.HighlightSelectedWords : edit.Selection.Options & ~SelectionOptions.HighlightSelectedWords;
                     }
                 }
             }

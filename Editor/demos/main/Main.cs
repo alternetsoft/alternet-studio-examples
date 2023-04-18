@@ -79,7 +79,7 @@ namespace Alternet.CodeEditor.Demo
         private const string UseColorsDesc = "Preserve colors of the text when drawing selection";
         private const string HideSelectionDesc = "Hide selection when control losts focus";
         private const string SelectLineOnDblClickDesc = "Select whole line instead of single word when user double clicks on the text";
-        private const string DeselectOnCopyDesc = "De-select text when text is copied to the clipboard";
+        private const string HighlightSelectedWordsDesc = "Specifies that the Edit control should select all instances of the chosen words.";
         private const string PersistentBlocksDesc = "Retain selection when the cursor is moved, until a new block is selecte.";
         private const string OverwriteBlocksDesc = "Replace selected text with whatever is typed next";
         private const string BeyondEolDesc = "Allows user navigate beyond end of line";
@@ -591,7 +591,7 @@ namespace Alternet.CodeEditor.Demo
                 chbUseColors.Checked = (SelectionOptions.UseColors & syntaxEdit.Selection.Options) != 0;
                 chbHideSelection.Checked = (SelectionOptions.HideSelection & syntaxEdit.Selection.Options) != 0;
                 chbSelectLineOnDblClick.Checked = (SelectionOptions.SelectLineOnDblClick & syntaxEdit.Selection.Options) != 0;
-                chbDeselectOnCopy.Checked = (SelectionOptions.DeselectOnCopy & syntaxEdit.Selection.Options) != 0;
+                HighlightSelectedWordsCheckBox.Checked = (SelectionOptions.HighlightSelectedWords & syntaxEdit.Selection.Options) != 0;
                 chbPersistentBlocks.Checked = (SelectionOptions.PersistentBlocks & syntaxEdit.Selection.Options) != 0;
                 chbOverwriteBlocks.Checked = (SelectionOptions.OverwriteBlocks & syntaxEdit.Selection.Options) != 0;
             }
@@ -1055,11 +1055,11 @@ namespace Alternet.CodeEditor.Demo
             syntaxSplitEdit.Selection.Options = syntaxEdit.Selection.Options;
         }
 
-        private void DeselectOnCopyCheckBox_CheckedChanged(object sender, System.EventArgs e)
+        private void HighlightSelectedWordsCheckBox_CheckedChanged(object sender, System.EventArgs e)
         {
             // updating selection options
-            syntaxEdit.Selection.Options = chbDeselectOnCopy.Checked ? syntaxEdit.Selection.Options
-                | SelectionOptions.DeselectOnCopy : syntaxEdit.Selection.Options & ~SelectionOptions.DeselectOnCopy;
+            syntaxEdit.Selection.Options = HighlightSelectedWordsCheckBox.Checked ? syntaxEdit.Selection.Options
+                | SelectionOptions.HighlightSelectedWords : syntaxEdit.Selection.Options & ~SelectionOptions.HighlightSelectedWords;
             syntaxSplitEdit.Selection.Options = syntaxEdit.Selection.Options;
         }
 
@@ -1636,11 +1636,11 @@ namespace Alternet.CodeEditor.Demo
                 toolTip1.SetToolTip(chbSelectLineOnDblClick, SelectLineOnDblClickDesc);
         }
 
-        private void DeselectOnCopyCheckBox_MouseMove(object sender, MouseEventArgs e)
+        private void HighlightSelectedWordsCheckBox_MouseMove(object sender, MouseEventArgs e)
         {
-            string str = toolTip1.GetToolTip(chbDeselectOnCopy);
-            if (str != DeselectOnCopyDesc)
-                toolTip1.SetToolTip(chbDeselectOnCopy, DeselectOnCopyDesc);
+            string str = toolTip1.GetToolTip(HighlightSelectedWordsCheckBox);
+            if (str != HighlightSelectedWordsDesc)
+                toolTip1.SetToolTip(HighlightSelectedWordsCheckBox, HighlightSelectedWordsDesc);
         }
 
         private void PersistenlocksCheckBoxTextBox_MouseMove(object sender, MouseEventArgs e)

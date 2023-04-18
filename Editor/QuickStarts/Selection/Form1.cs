@@ -27,7 +27,7 @@ namespace Selection
         private const string UseColorsDesc = "Preserve colors of the text when drawing selection";
         private const string HideSelectionDesc = "Hide selection when control losts focus";
         private const string SelectLineOnDblClickDesc = "Select whole line instead of single word when user double clicks on the text";
-        private const string DeselectOnCopyDesc = "De-select text when text is copied to the clipboard";
+        private const string HighlightSelectedWordsDesc = "Specifies that the Edit control should select all instances of the chosen words.";
         private const string PersistentBlocksDesc = "Retain selection when the cursor is moved, until a new block is selecte.";
         private const string OverwriteBlocksDesc = "Replace selected text with whatever is typed next";
         private const string SelectionForeColorDesc = "Foreground color of the selected text when owner control has input focus";
@@ -50,7 +50,7 @@ namespace Selection
             chbUseColors.Checked = (SelectionOptions.UseColors & syntaxEdit1.Selection.Options) != 0;
             chbHideSelection.Checked = (SelectionOptions.HideSelection & syntaxEdit1.Selection.Options) != 0;
             chbSelectLineOnDblClick.Checked = (SelectionOptions.SelectLineOnDblClick & syntaxEdit1.Selection.Options) != 0;
-            chbDeselectOnCopy.Checked = (SelectionOptions.DeselectOnCopy & syntaxEdit1.Selection.Options) != 0;
+            HighlightSelectedWordsCheckBox.Checked = (SelectionOptions.HighlightSelectedWords & syntaxEdit1.Selection.Options) != 0;
             chbPersistentBlocks.Checked = (SelectionOptions.PersistentBlocks & syntaxEdit1.Selection.Options) != 0;
             chbOverwriteBlocks.Checked = (SelectionOptions.OverwriteBlocks & syntaxEdit1.Selection.Options) != 0;
             cbSelectionForeColor.SelectedColor = syntaxEdit1.Selection.ForeColor;
@@ -105,10 +105,10 @@ namespace Selection
                 | SelectionOptions.SelectLineOnDblClick : syntaxEdit1.Selection.Options & ~SelectionOptions.SelectLineOnDblClick;
         }
 
-        private void DeselectOnCopyCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void HighlightSelectedWordsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            syntaxEdit1.Selection.Options = chbDeselectOnCopy.Checked ? syntaxEdit1.Selection.Options
-                | SelectionOptions.DeselectOnCopy : syntaxEdit1.Selection.Options & ~SelectionOptions.DeselectOnCopy;
+            syntaxEdit1.Selection.Options = HighlightSelectedWordsCheckBox.Checked ? syntaxEdit1.Selection.Options
+                | SelectionOptions.HighlightSelectedWords : syntaxEdit1.Selection.Options & ~SelectionOptions.HighlightSelectedWords;
         }
 
         private void PersistenlocksCheckBoxTextBox_CheckedChanged(object sender, EventArgs e)
@@ -165,11 +165,11 @@ namespace Selection
                 toolTip1.SetToolTip(chbSelectLineOnDblClick, SelectLineOnDblClickDesc);
         }
 
-        private void DeselectOnCopyCheckBox_MouseMove(object sender, MouseEventArgs e)
+        private void HighlightSelectedWordsCheckBox_MouseMove(object sender, MouseEventArgs e)
         {
-            string str = toolTip1.GetToolTip(chbDeselectOnCopy);
-            if (str != DeselectOnCopyDesc)
-                toolTip1.SetToolTip(chbDeselectOnCopy, DeselectOnCopyDesc);
+            string str = toolTip1.GetToolTip(HighlightSelectedWordsCheckBox);
+            if (str != HighlightSelectedWordsDesc)
+                toolTip1.SetToolTip(HighlightSelectedWordsCheckBox, HighlightSelectedWordsDesc);
         }
 
         private void PersistenlocksCheckBoxTextBox_MouseMove(object sender, MouseEventArgs e)

@@ -43,7 +43,7 @@
             this.laSelectionForeColor = new System.Windows.Forms.Label();
             this.chbOverwriteBlocks = new System.Windows.Forms.CheckBox();
             this.chbPersistentBlocks = new System.Windows.Forms.CheckBox();
-            this.chbDeselectOnCopy = new System.Windows.Forms.CheckBox();
+            this.HighlightSelectedWordsCheckBox = new System.Windows.Forms.CheckBox();
             this.chbSelectLineOnDblClick = new System.Windows.Forms.CheckBox();
             this.chbHideSelection = new System.Windows.Forms.CheckBox();
             this.chbUseColors = new System.Windows.Forms.CheckBox();
@@ -80,7 +80,7 @@
             this.gbSelection.Controls.Add(this.laSelectionForeColor);
             this.gbSelection.Controls.Add(this.chbOverwriteBlocks);
             this.gbSelection.Controls.Add(this.chbPersistentBlocks);
-            this.gbSelection.Controls.Add(this.chbDeselectOnCopy);
+            this.gbSelection.Controls.Add(this.HighlightSelectedWordsCheckBox);
             this.gbSelection.Controls.Add(this.chbSelectLineOnDblClick);
             this.gbSelection.Controls.Add(this.chbHideSelection);
             this.gbSelection.Controls.Add(this.chbUseColors);
@@ -137,7 +137,7 @@
             // laSelectionBorderColor
             // 
             this.laSelectionBorderColor.AutoSize = true;
-            this.laSelectionBorderColor.Location = new System.Drawing.Point(424, 69);
+            this.laSelectionBorderColor.Location = new System.Drawing.Point(444, 69);
             this.laSelectionBorderColor.Name = "laSelectionBorderColor";
             this.laSelectionBorderColor.Size = new System.Drawing.Size(68, 13);
             this.laSelectionBorderColor.TabIndex = 21;
@@ -146,7 +146,7 @@
             // laSelectionBackColor
             // 
             this.laSelectionBackColor.AutoSize = true;
-            this.laSelectionBackColor.Location = new System.Drawing.Point(424, 45);
+            this.laSelectionBackColor.Location = new System.Drawing.Point(444, 45);
             this.laSelectionBackColor.Name = "laSelectionBackColor";
             this.laSelectionBackColor.Size = new System.Drawing.Size(62, 13);
             this.laSelectionBackColor.TabIndex = 20;
@@ -155,7 +155,7 @@
             // laSelectionForeColor
             // 
             this.laSelectionForeColor.AutoSize = true;
-            this.laSelectionForeColor.Location = new System.Drawing.Point(424, 21);
+            this.laSelectionForeColor.Location = new System.Drawing.Point(444, 21);
             this.laSelectionForeColor.Name = "laSelectionForeColor";
             this.laSelectionForeColor.Size = new System.Drawing.Size(58, 13);
             this.laSelectionForeColor.TabIndex = 19;
@@ -183,16 +183,16 @@
             this.chbPersistentBlocks.CheckedChanged += new System.EventHandler(this.PersistenlocksCheckBoxTextBox_CheckedChanged);
             this.chbPersistentBlocks.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PersistenlocksCheckBoxTextBox_MouseMove);
             // 
-            // chbDeselectOnCopy
+            // HighlightSelectedWordsCheckBox
             // 
-            this.chbDeselectOnCopy.AutoSize = true;
-            this.chbDeselectOnCopy.Location = new System.Drawing.Point(308, 20);
-            this.chbDeselectOnCopy.Name = "chbDeselectOnCopy";
-            this.chbDeselectOnCopy.Size = new System.Drawing.Size(110, 17);
-            this.chbDeselectOnCopy.TabIndex = 11;
-            this.chbDeselectOnCopy.Text = "Deselect on Copy";
-            this.chbDeselectOnCopy.CheckedChanged += new System.EventHandler(this.DeselectOnCopyCheckBox_CheckedChanged);
-            this.chbDeselectOnCopy.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DeselectOnCopyCheckBox_MouseMove);
+            this.HighlightSelectedWordsCheckBox.AutoSize = true;
+            this.HighlightSelectedWordsCheckBox.Location = new System.Drawing.Point(308, 20);
+            this.HighlightSelectedWordsCheckBox.Name = "HighlightSelectedWordsCheckBox";
+            this.HighlightSelectedWordsCheckBox.Size = new System.Drawing.Size(110, 17);
+            this.HighlightSelectedWordsCheckBox.TabIndex = 11;
+            this.HighlightSelectedWordsCheckBox.Text = "Highlight Selected Words";
+            this.HighlightSelectedWordsCheckBox.CheckedChanged += new System.EventHandler(this.HighlightSelectedWordsCheckBox_CheckedChanged);
+            this.HighlightSelectedWordsCheckBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.HighlightSelectedWordsCheckBox_MouseMove);
             // 
             // chbSelectLineOnDblClick
             // 
@@ -319,7 +319,7 @@
         private System.Windows.Forms.GroupBox gbSelection;
         private System.Windows.Forms.CheckBox chbOverwriteBlocks;
         private System.Windows.Forms.CheckBox chbPersistentBlocks;
-        private System.Windows.Forms.CheckBox chbDeselectOnCopy;
+        private System.Windows.Forms.CheckBox HighlightSelectedWordsCheckBox;
         private System.Windows.Forms.CheckBox chbSelectLineOnDblClick;
         private System.Windows.Forms.CheckBox chbHideSelection;
         private System.Windows.Forms.CheckBox chbUseColors;

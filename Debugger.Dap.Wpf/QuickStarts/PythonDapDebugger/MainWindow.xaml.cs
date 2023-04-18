@@ -114,14 +114,14 @@ namespace PythonDapDebugger.Wpf
                 PythonParserEmbedded.IsServerDeployed())
                 return;
 
-            var progressDialog = new ProgressDialog()
+            var progressDialog = new Alternet.Common.Wpf.ProgressDialog()
             {
                 ShowInTaskbar = true,
-                Text = "Debugger Integration Python DAP Demo",
+                Title = "Debugger Integration Python DAP Demo",
                 Message = "Downloading required Python packages...",
             };
 
-            progressDialog.Load += async (_, __) =>
+            progressDialog.Loaded += async (_, __) =>
             {
                 await Task.Run(async () =>
                 {

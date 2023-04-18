@@ -43,20 +43,20 @@
     <EmbeddedResource Include="Resources\numpy\numpy-1.16.3-cp37-cp37m-win_amd64.whl" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Editor.Python" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Python" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python.Embedded" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="8.1.10" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="8.1.10" />
+    <PackageReference Include="Alternet.Studio.Common" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Editor.Python" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Python" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python.Embedded" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="8.1.12" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Script.py">

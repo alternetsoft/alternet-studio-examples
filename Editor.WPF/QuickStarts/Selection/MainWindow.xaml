@@ -25,7 +25,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="130"/>
                     <ColumnDefinition Width="170"/>
-                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="162"/>
                     <ColumnDefinition Width="80"/>
                     <ColumnDefinition Width="130"/>
                 </Grid.ColumnDefinitions>
@@ -37,7 +37,7 @@
                 <CheckBox Grid.Row="1" Grid.Column="1" Name="chbHideSelection" Content="Hide Selection" Margin="5,5,0,0" IsChecked="{Binding HideSelection, Mode=TwoWay}" ToolTip="Specifies that selected text should be draw as unselected text when control lost focus"/>
                 <CheckBox Grid.Row="2" Grid.Column="1" Name="chbSelectLineOnDblClick" Content="Select Line on Double Click" Margin="5,5,0,0" IsChecked="{Binding SelectLineOnDblClick, Mode=TwoWay}" ToolTip="Specifies that whole line should be selected instead of single word when user double clicks on some text"/>
 
-                <CheckBox Grid.Row="0" Grid.Column="2" Name="chbDeselectOnCopy" Content="Deselect On Copy" Margin="5,5,0,0" IsChecked="{Binding DeselectOnCopy, Mode=TwoWay}" ToolTip="Specifies that selection should be unselected when selected text copies to the Clipboard"/>
+                <CheckBox Grid.Row="0" Grid.Column="2" Name="chbHighlightSelectedWords" Content="Highlight Selected Words" Margin="5,5,0,0" IsChecked="{Binding HighlightSelectedWords, Mode=TwoWay}" ToolTip="Specifies that the Edit control should select all instances of the chosen words."/>
                 <CheckBox Grid.Row="1" Grid.Column="2" Name="chbPersistentBlocks" Content="Persistent Blocks" Margin="5,5,0,0" IsChecked="{Binding PersistentBlocks, Mode=TwoWay}" ToolTip="Specifies that selected text should be retained even when the cursor is moved, until a new block is selected"/>
                 <CheckBox Grid.Row="2" Grid.Column="2" Name="chbOverwriteBlocks" Content="Overwrite Blocks" Margin="5,5,0,0" IsChecked="{Binding OverwriteBlocks, Mode=TwoWay}" ToolTip="Specifies that selected text should be replaced of text with whatever is typed next"/>
 

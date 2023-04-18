@@ -68,7 +68,7 @@ namespace Alternet.CodeEditor.Demo
             this.btPrintOptions = new System.Windows.Forms.Button();
             this.chbPersistentBlocks = new System.Windows.Forms.CheckBox();
             this.btPrint = new System.Windows.Forms.Button();
-            this.chbDeselectOnCopy = new System.Windows.Forms.CheckBox();
+            this.HighlightSelectedWordsCheckBox = new System.Windows.Forms.CheckBox();
             this.chbOverwriteBlocks = new System.Windows.Forms.CheckBox();
             this.btPrintPreview = new System.Windows.Forms.Button();
             this.gbSelection = new System.Windows.Forms.GroupBox();
@@ -350,15 +350,15 @@ namespace Alternet.CodeEditor.Demo
             this.btPrint.Click += new System.EventHandler(this.PrinuttonTextBox_Click);
             this.btPrint.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PrinuttonTextBox_MouseMove);
             // 
-            // chbDeselectOnCopy
+            // HighlightSelectedWordsCheckBox
             // 
-            this.chbDeselectOnCopy.Location = new System.Drawing.Point(296, 16);
-            this.chbDeselectOnCopy.Name = "chbDeselectOnCopy";
-            this.chbDeselectOnCopy.Size = new System.Drawing.Size(112, 21);
-            this.chbDeselectOnCopy.TabIndex = 11;
-            this.chbDeselectOnCopy.Text = "Deselect on Copy";
-            this.chbDeselectOnCopy.CheckedChanged += new System.EventHandler(this.DeselectOnCopyCheckBox_CheckedChanged);
-            this.chbDeselectOnCopy.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DeselectOnCopyCheckBox_MouseMove);
+            this.HighlightSelectedWordsCheckBox.Location = new System.Drawing.Point(296, 16);
+            this.HighlightSelectedWordsCheckBox.Name = "HighlightSelectedWordsCheckBox";
+            this.HighlightSelectedWordsCheckBox.Size = new System.Drawing.Size(152, 21);
+            this.HighlightSelectedWordsCheckBox.TabIndex = 11;
+            this.HighlightSelectedWordsCheckBox.Text = "Highlight Selected Words";
+            this.HighlightSelectedWordsCheckBox.CheckedChanged += new System.EventHandler(this.HighlightSelectedWordsCheckBox_CheckedChanged);
+            this.HighlightSelectedWordsCheckBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.HighlightSelectedWordsCheckBox_MouseMove);
             // 
             // chbOverwriteBlocks
             // 
@@ -386,7 +386,7 @@ namespace Alternet.CodeEditor.Demo
             // 
             this.gbSelection.Controls.Add(this.chbOverwriteBlocks);
             this.gbSelection.Controls.Add(this.chbPersistentBlocks);
-            this.gbSelection.Controls.Add(this.chbDeselectOnCopy);
+            this.gbSelection.Controls.Add(this.HighlightSelectedWordsCheckBox);
             this.gbSelection.Controls.Add(this.chbSelectLineOnDblClick);
             this.gbSelection.Controls.Add(this.chbHideSelection);
             this.gbSelection.Controls.Add(this.chbUseColors);
@@ -2350,7 +2350,7 @@ namespace Alternet.CodeEditor.Demo
         private System.Windows.Forms.ImageList imageList2;
         private System.Windows.Forms.CheckBox chbPersistentBlocks;
         private System.Windows.Forms.Button btPrint;
-        private System.Windows.Forms.CheckBox chbDeselectOnCopy;
+        private System.Windows.Forms.CheckBox HighlightSelectedWordsCheckBox;
         private System.Windows.Forms.CheckBox chbOverwriteBlocks;
         private System.Windows.Forms.Button btPrintPreview;
         private System.Windows.Forms.GroupBox gbSelection;

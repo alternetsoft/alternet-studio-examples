@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 
 using Alternet.Common;
+using Alternet.Common.Wpf;
 using Alternet.Editor.Common.Wpf;
 using Alternet.Editor.Wpf;
 using Alternet.Scripter.Debugger.Dap.Cpp.Lldb;
@@ -72,14 +73,14 @@ namespace CppLlvmDapDebugger.Wpf
             if (CPlusPlusParserEmbedded.IsServerDeployed() && ScriptDebuggerEmbedded.IsServerDeployed())
                 return;
 
-            var progressDialog = new ProgressDialog()
+            var progressDialog = new Alternet.Common.Wpf.ProgressDialog()
             {
                 ShowInTaskbar = true,
-                Text = "DAP C++ Debugger Demo",
+                Title = "DAP C++ Debugger Demo",
                 Message = "Please wait until the C++ DAP server files are extracted...",
             };
 
-            progressDialog.Load += async (_, __) =>
+            progressDialog.Loaded += async (_, __) =>
             {
                 await Task.Run(() =>
                 {
