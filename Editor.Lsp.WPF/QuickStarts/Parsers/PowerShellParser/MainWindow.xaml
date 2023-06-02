@@ -1,7 +1,7 @@
 <Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v8" x:Class="PowerShellParsing.MainWindow"
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v9" x:Class="PowerShellParsing.MainWindow"
         xmlns:local="clr-namespace:PowerShellParsing"
         Icon="/PowerShellParsing.Wpf;component/Images/Icon.ico"
         Title="PowerShell-Based Parsing" Height="400" Width="679" Loaded="Window_Loaded">
@@ -16,8 +16,6 @@
         <Label x:Name="laDescription" Grid.Column="0" Grid.Row="0">
             <AccessText TextWrapping="Wrap" Text="This demo shows how to use the dedicated parsers for PowerShell language based on OmniSharp."/>
         </Label>
-        <Border Grid.Column="0" Grid.Row="3" BorderBrush="Gray" BorderThickness="2">
-            <Wpf:TextEditor Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" AllowOutlining="True"/>
-        </Border>
+        <Wpf:TextEditor Grid.Column="0" Grid.Row="3" Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" AllowOutlining="True"/>
     </Grid>
 </Window>

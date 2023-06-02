@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesignAndRun"
         mc:Ignorable="d"
-        xmlns:pg="clr-namespace:Alternet.FormDesigner.Wpf.PropertyGrid;assembly=Alternet.FormDesigner.Wpf.v8"
-        xmlns:tb="clr-namespace:Alternet.FormDesigner.Wpf.Toolbox;assembly=Alternet.FormDesigner.Wpf.v8"
-        xmlns:designer="clr-namespace:Alternet.FormDesigner.Wpf;assembly=Alternet.FormDesigner.Wpf.v8"
+        xmlns:pg="clr-namespace:Alternet.FormDesigner.Wpf.PropertyGrid;assembly=Alternet.FormDesigner.Wpf.v9"
+        xmlns:tb="clr-namespace:Alternet.FormDesigner.Wpf.Toolbox;assembly=Alternet.FormDesigner.Wpf.v9"
+        xmlns:designer="clr-namespace:Alternet.FormDesigner.Wpf;assembly=Alternet.FormDesigner.Wpf.v9"
         Icon="Images/Icon.ico" 
         Title="Design &amp; Run" Height="447" Width="779" WindowStartupLocation="CenterScreen">
     <Grid>

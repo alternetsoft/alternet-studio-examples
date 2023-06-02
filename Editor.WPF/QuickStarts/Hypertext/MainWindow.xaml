@@ -1,7 +1,7 @@
 <Window x:Class="HyperText.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v8"
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v9"
         xmlns:local="clr-namespace:HyperText"
         xmlns:cp="clr-namespace:ColorPicker"
         Icon="/HyperText.Wpf;component/Images/Icon.ico"
@@ -36,8 +36,6 @@
                 <ComboBox Grid.Row="1" Grid.Column="2" ItemsSource="{Binding Path=URLFonts}" SelectedItem="{Binding StyleName}" Width="121" Height="21" ToolTip="Font style of highlighted urls"/>
             </Grid>
         </DockPanel>
-        <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="2">
-            <Wpf:TextEditor x:Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
-        </Border>
+        <Wpf:TextEditor Grid.Row="2" x:Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
     </Grid>
 </Window>

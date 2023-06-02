@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -154,7 +154,9 @@ namespace AlternetStudio.Wpf.Demo
 
             editorsTabControl.SelectedItem = page;
             UpdateSearch();
+            UpdateBookmarks();
             UpdateCodeNavigation();
+            edit.UpdateBreakpoints();
             return edit;
         }
 
@@ -472,6 +474,17 @@ namespace AlternetStudio.Wpf.Demo
                 }
                 else
                     SaveFileAs(edit);
+                if (FileBelongsToSolution(edit.FileName))
+                {
+                    SaveBreakpoints(GetBreakpointFile(solution));
+                    SaveBookmarks(GetBookmarkFile(solution));
+                }
+                else
+                if ((Project != null) && Project.HasProject && FileBelongsToProject(Project, edit.FileName))
+                {
+                    SaveBreakpoints(GetBreakpointFile(Project));
+                    SaveBookmarks(GetBookmarkFile(Project));
+                }
             }
             else
             {
@@ -491,6 +504,63 @@ namespace AlternetStudio.Wpf.Demo
         private void SaveAllMenuItem_Click(object sender, RoutedEventArgs e)
         {
             SaveAllModifiedFiles();
+            if ((solution != null) && !solution.IsEmpty)
+            {
+                SaveBreakpoints(GetBreakpointFile(solution));
+                SaveBookmarks(GetBookmarkFile(solution));
+            }
+            else
+            if ((Project != null) && Project.HasProject)
+            {
+                SaveBreakpoints(GetBreakpointFile(Project));
+                SaveBookmarks(GetBookmarkFile(Project));
+            }
+        }
+
+        private string GetBreakpointFile(DotNetProject project)
+        {
+            return Path.GetFullPath(Path.Combine(Path.GetDirectoryName(project.ProjectFileName), project.ProjectName + ".Breakpoints.xml"));
+        }
+
+        private string GetBreakpointFile(DotNetSolution solution)
+        {
+            return Path.GetFullPath(Path.Combine(Path.GetDirectoryName(solution.SolutionFileName), solution.SolutionName + ".Breakpoints.xml"));
+        }
+
+        private string GetBookmarkFile(DotNetProject project)
+        {
+            return Path.GetFullPath(Path.Combine(Path.GetDirectoryName(project.ProjectFileName), project.ProjectName + ".Bookmarks.xml"));
+        }
+
+        private string GetBookmarkFile(DotNetSolution solution)
+        {
+            return Path.GetFullPath(Path.Combine(Path.GetDirectoryName(solution.SolutionFileName), solution.SolutionName + ".Bookmarks.xml"));
+        }
+
+        private void LoadBreakpoints(string fileName)
+        {
+            if (File.Exists(fileName))
+            {
+                Debugger.Breakpoints.LoadFile(fileName);
+            }
+        }
+
+        private void LoadBookmarks(string fileName)
+        {
+            if (File.Exists(fileName))
+            {
+                BookMarkManager.SharedBookMarks.LoadFile(fileName);
+            }
+        }
+
+        private void SaveBreakpoints(string fileName)
+        {
+            Debugger.Breakpoints.SaveFile(fileName);
+        }
+
+        private void SaveBookmarks(string fileName)
+        {
+            BookMarkManager.SharedBookMarks.SaveFile(fileName);
         }
 
         private bool SaveAllModifiedFiles()

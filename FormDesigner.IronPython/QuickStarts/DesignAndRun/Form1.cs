@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Form Designer Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -28,6 +28,7 @@ using Alternet.Editor.IronPython;
 using Alternet.Editor.TextSource;
 using Alternet.FormDesigner.Integration;
 using Alternet.FormDesigner.WinForms;
+using Alternet.Scripter;
 using Alternet.Scripter.IronPython;
 
 namespace DesignAndRun
@@ -421,7 +422,13 @@ namespace DesignAndRun
 
                 if (!scriptRun.Compiled)
                 {
-                    scriptRun.Compile();
+                    if (!scriptRun.Compile())
+                    {
+                        MessageBox.Show(
+                            scriptRun.ScriptHost.CompilerErrors.Where(
+                                x => x.Kind == ScriptCompilationDiagnosticKind.Error).First().ToString());
+                        return false;
+                    }
                 }
 
                 return true;

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         TextOptions.TextFormattingMode="Display"
         xmlns:local="clr-namespace:SyntaxEditor_Wpf"
-        xmlns:CUI="clr-namespace:Alternet.Editor.Common.Wpf;assembly=Alternet.Editor.Common.Wpf.v8"
+        xmlns:CUI="clr-namespace:Alternet.Editor.Common.Wpf;assembly=Alternet.Editor.Common.Wpf.v9"
         Title="Syntax Editor" Height="564" Width="808" WindowState="Maximized" Loaded="Window_Loaded"
         Icon="/CodeEditorSyntax.Wpf;component/Images/Icon.ico" Closed="Window_Closed" KeyDown="Window_KeyDown">
     <Window.CommandBindings>
@@ -257,7 +257,7 @@
                             <RowDefinition Height="164"/>
                         </Grid.RowDefinitions>
                         <DockPanel Grid.Row="0" DockPanel.Dock="Top" Height="24" HorizontalAlignment="Stretch" Name="pnCombo" VerticalAlignment="Top">
-                            <ComboBox Height="23" Name="cbClasses" Width="333" HorizontalAlignment="Left" SelectionChanged="MethodsComboBox_SelectionChanged">
+                            <ComboBox Height="25" Name="cbClasses" Width="333" HorizontalAlignment="Left" SelectionChanged="MethodsComboBox_SelectionChanged">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid Margin="0,0,0,0" Width="Auto">
@@ -271,7 +271,7 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
-                            <ComboBox Height="23" Name="cbMethods" Width="Auto" HorizontalAlignment="Stretch" SelectionChanged="MethodsComboBox_SelectionChanged">
+                            <ComboBox Height="25" Name="cbMethods" Width="Auto" HorizontalAlignment="Stretch" SelectionChanged="MethodsComboBox_SelectionChanged">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid Margin="0,0,0,0" Width="Auto">

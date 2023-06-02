@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -22,10 +22,8 @@ using Alternet.Editor;
 using Alternet.Editor.Common;
 using Alternet.Editor.Roslyn;
 using Alternet.Editor.TextSource;
-#if USEFORMDESIGNER
 using Alternet.FormDesigner.Integration;
 using Alternet.FormDesigner.WinForms;
-#endif
 using Alternet.Scripter.Integration;
 
 namespace AlternetStudio.Demo
@@ -126,7 +124,6 @@ namespace AlternetStudio.Demo
             edit.DefaultMenu.Opened += EditorContextMenu_Opened;
             InitMenuIcons(edit.DefaultMenu);
 
-#if USEFORMDESIGNER
             string formId;
             if (IsFormFile(fileName, out formId) && File.Exists(formId))
             {
@@ -134,7 +131,6 @@ namespace AlternetStudio.Demo
                 FormDesignerEditorHelpers.SetEditorSource(edit, fileName, source);
             }
             else
-#endif
             {
                 if (File.Exists(fileName))
                     edit.LoadFile(fileName);
@@ -153,9 +149,7 @@ namespace AlternetStudio.Demo
 
             edit.StatusChanged += new EventHandler(CodeEdit_StatusChanged);
 
-#if USEFORMDESIGNER
             RegisterDesignerImportsInEditor(fileName, edit);
-#endif
 
             edit.Dock = DockStyle.Fill;
             edit.Bounds = new Rectangle(0, 0, page.ClientRectangle.Width, page.ClientRectangle.Height);
@@ -165,7 +159,9 @@ namespace AlternetStudio.Demo
 
             editorsTabControl.SelectedTab = page;
             UpdateSearch();
+            UpdateBookmarks();
             UpdateCodeNavigation();
+            edit.UpdateBreakpoints();
             return edit;
         }
 
@@ -232,9 +228,7 @@ namespace AlternetStudio.Demo
             if (!projectIsClosing)
             {
                 UpdateCodeNavigation();
-#if USEFORMDESIGNER
                 UpdateDesignerControls();
-#endif
                 navigationHistory.ClearCurrentHistory(historyBackwardContextMenu.Items, historyBackwardToolSplitButton, historyForwardToolButton);
             }
         }
@@ -338,7 +332,6 @@ namespace AlternetStudio.Demo
 
             AddFile(files, fileName);
 
-#if USEFORMDESIGNER
             string designerFileName;
             string resourceFileName;
             FormFilesUtility.TryDetectFormSourceFiles(fileName, out designerFileName, out resourceFileName);
@@ -348,7 +341,6 @@ namespace AlternetStudio.Demo
 
             if (!string.IsNullOrEmpty(resourceFileName) && File.Exists(resourceFileName))
                 AddFile(files, resourceFileName);
-#endif
         }
 
         private IList<string> GetModifiedFiles(IList<string> files)
@@ -367,7 +359,6 @@ namespace AlternetStudio.Demo
                 }
             }
 
-#if USEFORMDESIGNER
             foreach (TabPage tabPage in editorsTabControl.TabPages)
             {
                 IFormDesignerControl designer;
@@ -382,7 +373,6 @@ namespace AlternetStudio.Demo
                     }
                 }
             }
-#endif
 
             if (!solution.IsEmpty)
             {
@@ -505,11 +495,9 @@ namespace AlternetStudio.Demo
             {
                 var fileName = openFileDialog.FileName;
 
-#if USEFORMDESIGNER
                 if (FormFilesUtility.CheckIfFormFilesExist(fileName))
                     OpenDesigner(fileName);
                 else
-#endif
                     OpenFile(fileName);
             }
         }
@@ -526,15 +514,24 @@ namespace AlternetStudio.Demo
                 }
                 else
                     SaveFileAs(edit);
+                if (FileBelongsToSolution(edit.FileName))
+                {
+                    SaveBreakpoints(GetBreakpointFile(solution));
+                    SaveBookmarks(GetBookmarkFile(solution));
+                }
+                else
+                if ((Project != null) && Project.HasProject && FileBelongsToProject(Project, edit.FileName))
+                {
+                    SaveBreakpoints(GetBreakpointFile(Project));
+                    SaveBookmarks(GetBookmarkFile(Project));
+                }
             }
-#if USEFORMDESIGNER
             else
             {
                 var designer = ActiveFormDesigner;
                 if (designer != null)
                     SaveDesignerFiles(editorsTabControl.SelectedTab, designer);
             }
-#endif
         }
 
         private void SaveAsMenuItem_Click(object sender, EventArgs e)
@@ -547,6 +544,63 @@ namespace AlternetStudio.Demo
         private void SaveAllMenuItem_Click(object sender, EventArgs e)
         {
             SaveAllModifiedFiles();
+            if ((solution != null) && !solution.IsEmpty)
+            {
+                SaveBreakpoints(GetBreakpointFile(solution));
+                SaveBookmarks(GetBookmarkFile(solution));
+            }
+            else
+            if ((Project != null) && Project.HasProject)
+            {
+                SaveBreakpoints(GetBreakpointFile(Project));
+                SaveBookmarks(GetBookmarkFile(Project));
+            }
+        }
+
+        private string GetBreakpointFile(DotNetProject project)
+        {
+            return Path.GetFullPath(Path.Combine(Path.GetDirectoryName(project.ProjectFileName), project.ProjectName + ".Breakpoints.xml"));
+        }
+
+        private string GetBreakpointFile(DotNetSolution solution)
+        {
+            return Path.GetFullPath(Path.Combine(Path.GetDirectoryName(solution.SolutionFileName), solution.SolutionName + ".Breakpoints.xml"));
+        }
+
+        private string GetBookmarkFile(DotNetProject project)
+        {
+            return Path.GetFullPath(Path.Combine(Path.GetDirectoryName(project.ProjectFileName), project.ProjectName + ".Bookmarks.xml"));
+        }
+
+        private string GetBookmarkFile(DotNetSolution solution)
+        {
+            return Path.GetFullPath(Path.Combine(Path.GetDirectoryName(solution.SolutionFileName), solution.SolutionName + ".Bookmarks.xml"));
+        }
+
+        private void LoadBreakpoints(string fileName)
+        {
+            if (File.Exists(fileName))
+            {
+                Debugger.Breakpoints.LoadFile(fileName);
+            }
+        }
+
+        private void LoadBookmarks(string fileName)
+        {
+            if (File.Exists(fileName))
+            {
+                BookMarkManager.SharedBookMarks.LoadFile(fileName);
+            }
+        }
+
+        private void SaveBreakpoints(string fileName)
+        {
+            Debugger.Breakpoints.SaveFile(fileName);
+        }
+
+        private void SaveBookmarks(string fileName)
+        {
+            BookMarkManager.SharedBookMarks.SaveFile(fileName);
         }
 
         private bool SaveAllModifiedFiles()
@@ -561,7 +615,6 @@ namespace AlternetStudio.Demo
                 }
             }
 
-#if USEFORMDESIGNER
             foreach (TabPage tabPage in editorsTabControl.TabPages)
             {
                 IFormDesignerControl designer;
@@ -571,7 +624,6 @@ namespace AlternetStudio.Demo
                         SaveDesignerFiles(tabPage, designer);
                 }
             }
-#endif
 
             if (SaveAllProjects())
                 UpdateProjectExplorer();
@@ -636,7 +688,6 @@ namespace AlternetStudio.Demo
             edit.FindAllImplementations += DebugEdit_FindAllImplementations;
         }
 
-#if USEFORMDESIGNER
         private void RegisterDesignerImportsInEditor(string fileName, DebugCodeEdit edit)
         {
             edit.RegisterAssemblies(GetDesignerReferencedAssemblies(fileName).AssemblyNames.ToArray());
@@ -644,7 +695,6 @@ namespace AlternetStudio.Demo
             if (namespaces != null)
                 edit.RegisterNamespaces(namespaces.Namespaces);
         }
-#endif
 
         private void CodeEdit_StatusChanged(object sender, EventArgs e)
         {
@@ -710,14 +760,10 @@ namespace AlternetStudio.Demo
             if (!HasProject())
             {
                 CodeEditExtensions.RegisterDefaultAssemblies(edit);
-#if USEFORMDESIGNER
                 AddDesignFileForParsing(fileName);
-#endif
             }
-#if USEFORMDESIGNER
             else
                 AddDesignerReferencesToEditor(edit, fileName);
-#endif
 
             UpdateControls();
             return edit;
@@ -750,10 +796,8 @@ namespace AlternetStudio.Demo
         private void CloseFile(IScriptEdit edit)
         {
             var fileName = edit.FileName;
-#if USEFORMDESIGNER
             if (!HasProject())
                 RemoveDesignFileForParsing(fileName);
-#endif
 
             if (!FileBelongsToProject(fileName))
                 edit.FileName = string.Empty;
@@ -794,7 +838,6 @@ namespace AlternetStudio.Demo
             }
         }
 
-#if USEFORMDESIGNER
         private IFormDesignerControl GetFormDesigner(int index)
         {
                 if (editorsTabControl.TabCount == 0)
@@ -806,7 +849,6 @@ namespace AlternetStudio.Demo
 
                 return designer;
         }
-#endif
 
         private IScriptEdit GetEditor(int index)
         {
@@ -830,7 +872,6 @@ namespace AlternetStudio.Demo
                     return false;
                 CloseFile(edit);
             }
-#if USEFORMDESIGNER
             else
             {
                 var designer = GetFormDesigner(index);
@@ -844,7 +885,6 @@ namespace AlternetStudio.Demo
 
             if (formDesigners.ContainsKey(tab))
                 formDesigners.Remove(tab);
-#endif
             if (editors.ContainsKey(tab))
                 editors.Remove(tab);
             editorsTabControl.TabPages.Remove(tab);
@@ -883,12 +923,10 @@ namespace AlternetStudio.Demo
 
             if (oldFileName != fileName)
             {
-#if USEFORMDESIGNER
                 var ds = GetDesignerSource(oldFileName, false);
                 if (ds != null)
                     UpdateFormFiles(edit, ds, fileName);
                 else
-#endif
                 {
                     edit.SaveFile(fileName);
                     edit.FileName = fileName;
@@ -907,9 +945,7 @@ namespace AlternetStudio.Demo
         private bool SaveModifiedFiles(IList<string> files)
         {
             IList<IScriptEdit> editors = new List<IScriptEdit>();
-#if USEFORMDESIGNER
             IList<Tuple<IFormDesignerControl, TabPage>> designerTabs = new List<Tuple<IFormDesignerControl, TabPage>>();
-#endif
 
             foreach (var file in files)
             {
@@ -936,7 +972,6 @@ namespace AlternetStudio.Demo
                     if (edit.Modified)
                         editors.Add(edit);
                 }
-#if USEFORMDESIGNER
                 else
                 {
                     var designerTab = FindDesigner(file);
@@ -947,7 +982,6 @@ namespace AlternetStudio.Demo
                             designerTabs.Add(designerTab);
                     }
                 }
-#endif
             }
 
             foreach (var edit in editors)
@@ -956,7 +990,6 @@ namespace AlternetStudio.Demo
                 UpdatePage(edit.Parent as TabPage, edit.FileName, edit.Modified);
             }
 
-#if USEFORMDESIGNER
             foreach (var designerTab in designerTabs)
             {
                 var designer = designerTab.Item1;
@@ -964,7 +997,6 @@ namespace AlternetStudio.Demo
                 UpdateDesignPage(designerTab.Item2, designer.Source.UserCodeFileName, designer.Source.IsModified);
             }
 
-#endif
             return true;
         }
     }

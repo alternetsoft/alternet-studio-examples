@@ -4,7 +4,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net452;net461;netcoreapp3.1;net5.0-windows;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net6.0-windows;net7.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <UseWPF>true</UseWPF>
@@ -24,9 +24,9 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.0.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

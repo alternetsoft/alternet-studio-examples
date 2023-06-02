@@ -124,7 +124,7 @@
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;LexScheme xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;Author&gt;AlterNET Software&lt;/Author&gt;
-  &lt;Copyright&gt;Copyright (c) 2016-2022 Alternet Software&lt;/Copyright&gt;
+  &lt;Copyright&gt;Copyright (c) 2016-2023 Alternet Software&lt;/Copyright&gt;
   &lt;FileType&gt;c#&lt;/FileType&gt;
   &lt;Version&gt;1.5&lt;/Version&gt;
   &lt;Styles&gt;
@@ -175,7 +175,7 @@
       &lt;ForeColor&gt;Red&lt;/ForeColor&gt;
     &lt;/Style&gt;
     &lt;Style&gt;
-      &lt;Name&gt;codes snippets&lt;/Name&gt;
+      &lt;Name&gt;code snippets&lt;/Name&gt;
       &lt;ForeColor&gt;Black&lt;/ForeColor&gt;
       &lt;BackColor&gt;255:180:228:180&lt;/BackColor&gt;
     &lt;/Style&gt;

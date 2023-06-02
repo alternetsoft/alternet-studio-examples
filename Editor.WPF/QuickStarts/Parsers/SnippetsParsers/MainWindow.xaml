@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v8"
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v9"
         xmlns:local="clr-namespace:SnippetsParsers"
         mc:Ignorable="d"
         Icon="/SnippetsParsers.Wpf;component/Images/Icon.ico"
@@ -102,15 +102,9 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
-                        <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="1" Margin="0,5,0,0">
-                            <Wpf:TextEditor Name="seTop" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" ReadOnly="True" />
-                        </Border>
-                        <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="1" Margin="0,5,0,0">
-                            <Wpf:TextEditor Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" AllowOutlining="True"/>
-                        </Border>
-                        <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="1" Margin="0,5,0,0">
-                            <Wpf:TextEditor Name="seBottom" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" ReadOnly="True"/>
-                        </Border>
+                        <Wpf:TextEditor Grid.Row="0" Name="seTop" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" ReadOnly="True" />
+                        <Wpf:TextEditor Grid.Row="1" Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" AllowOutlining="True"/>
+                        <Wpf:TextEditor Grid.Row="2" Name="seBottom" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" ReadOnly="True"/>
                     </Grid>
                 </DockPanel>
             </Grid>

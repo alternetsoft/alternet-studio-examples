@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -265,12 +265,12 @@ namespace AlternetStudio.Wpf.Demo
 
                 if (SaveAllModifiedFiles() && SetScriptSource())
                 {
-                    errorsControl.Clear();
-
                     StartDebugCore(breakOnStart);
 
+                    errorsControl.Clear();
+
                     var errors = scriptRun.ScriptHost.CompilerErrors;
-                    if (errors.Length > 0)
+                    if (errors != null && errors.Length > 0)
                         errorsControl.AddCompilerErrors(errors);
 
                     if (scriptRun.ScriptHost.CompileFailed)

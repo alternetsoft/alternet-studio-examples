@@ -187,6 +187,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Threading";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.pnDescription.ResumeLayout(false);
             this.pnDescription.PerformLayout();
             this.ResumeLayout(false);

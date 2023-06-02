@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections;
@@ -31,6 +31,7 @@ using Alternet.Syntax.Lexer;
 using Alternet.Syntax.Parsers.Advanced;
 using Alternet.Syntax.Parsers.Roslyn;
 
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
 namespace Alternet.CodeEditorSyntax.Demo
@@ -490,7 +491,7 @@ namespace Alternet.CodeEditorSyntax.Demo
                 lbEvents.Items.Add(item);
         }
 
-        private void FillErrors(RoslynParser parser)
+        private void FillErrors(ISyntaxParser parser)
         {
             lvErrors.Items.Clear();
             if (parser != null)
@@ -675,7 +676,7 @@ namespace Alternet.CodeEditorSyntax.Demo
                 {
                     CodeParsing.FillClasses(cbClasses, edit.Lexer as RoslynParser, edit.Position);
                     CodeParsing.FillMethods(cbMethods, edit.Lexer as RoslynParser, edit.Position, cbClasses);
-                    FillErrors(edit.Lexer as RoslynParser);
+                    FillErrors(edit.Lexer as ISyntaxParser);
                 }
                 finally
                 {
@@ -1150,16 +1151,18 @@ namespace Alternet.CodeEditorSyntax.Demo
             GotoDefinition();
         }
 
-        private void GotoDefinition()
+        private async void GotoDefinition()
         {
             ISyntaxEdit edit = GetActiveSyntaxEdit();
-            if (edit != null && edit.Lexer is RoslynParser)
+            var parser = edit?.Lexer as ISyntaxParser;
+            if (parser != null)
             {
-                SymbolLocation location = ((RoslynParser)edit.Lexer).FindDeclaration(edit.Position);
+                SymbolLocation location = await parser.FindDeclarationAsync(edit.Position);
                 if (location != null)
                 {
                     OpenFile(location.FileName);
                     edit = GetActiveSyntaxEdit();
+                    edit.Position = new Point(location.Column, location.Line);
                     edit.MakeVisible(new Point(location.Column, location.Line), true);
                 }
             }
@@ -1168,10 +1171,11 @@ namespace Alternet.CodeEditorSyntax.Demo
         private void FindReferences_MenuItemClick(object sender, EventArgs e)
         {
             ISyntaxEdit edit = GetActiveSyntaxEdit();
-            if (edit != null && edit.Lexer is RoslynParser)
+            var parser = edit?.Lexer as ISyntaxParser;
+            if (parser != null)
             {
                 IRangeList references = new RangeList();
-                ((RoslynParser)edit.Lexer).FindReferences(edit.Position, references, true);
+                parser.FindReferences(edit.Position, references, true);
                 if (references.Count > 0)
                 {
                     ucFindResults.AddFindResults(references);
@@ -1186,10 +1190,11 @@ namespace Alternet.CodeEditorSyntax.Demo
         private void FindImplementations_MenuItemClick(object sender, EventArgs e)
         {
             ISyntaxEdit edit = GetActiveSyntaxEdit();
-            if (edit != null && edit.Lexer is RoslynParser)
+            var parser = edit?.Lexer as ISyntaxParser;
+            if (parser != null)
             {
                 IRangeList references = new RangeList();
-                ((RoslynParser)edit.Lexer).FindImplementations(edit.Position, references, true);
+                parser.FindImplementations(edit.Position, references, true);
                 if (references.Count > 0)
                 {
                     ucFindResults.AddFindResults(references);
@@ -1207,9 +1212,10 @@ namespace Alternet.CodeEditorSyntax.Demo
         {
             bool result = false;
             ISyntaxEdit edit = GetActiveSyntaxEdit();
-            if (edit != null && edit.Lexer is RoslynParser)
+            var parser = edit?.Lexer as ISyntaxParser;
+            if (parser != null)
             {
-                SymbolLocation location = ((RoslynParser)edit.Lexer).FindDeclaration(edit.Position);
+                SymbolLocation location = parser.FindDeclaration(edit.Position);
                 return location != null;
             }
 
@@ -1757,7 +1763,7 @@ namespace Alternet.CodeEditorSyntax.Demo
             if (args.Member is Microsoft.CodeAnalysis.SyntaxNode)
             {
                 Microsoft.CodeAnalysis.SyntaxNode node = args.Member as Microsoft.CodeAnalysis.SyntaxNode;
-                if (node.Kind() == SyntaxKind.VariableDeclaration)
+                if (node.IsKind(SyntaxKind.VariableDeclaration))
                 {
                     args.Result = typeof(int);
                 }

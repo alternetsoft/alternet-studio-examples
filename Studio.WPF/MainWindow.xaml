@@ -4,11 +4,11 @@
         xmlns:local="clr-namespace:AlternetStudio.Wpf.Demo"
         TextOptions.TextFormattingMode="Display"
         UseLayoutRounding="True"
-        xmlns:outline="clr-namespace:Alternet.FormDesigner.Wpf.Outline;assembly=Alternet.FormDesigner.Wpf.v8"
-        xmlns:CUI="clr-namespace:Alternet.Editor.Common.Wpf;assembly=Alternet.Editor.Common.Wpf.v8"
-        xmlns:UI="clr-namespace:Alternet.Scripter.Debugger.UI.Wpf;assembly=Alternet.Scripter.Debugger.UI.Wpf.v8"
-        xmlns:Design="clr-namespace:Alternet.FormDesigner.Wpf.PropertyGrid;assembly=Alternet.FormDesigner.Wpf.v8"
-        xmlns:toolbox="clr-namespace:Alternet.FormDesigner.Wpf.Toolbox;assembly=Alternet.FormDesigner.Wpf.v8"
+        xmlns:outline="clr-namespace:Alternet.FormDesigner.Wpf.Outline;assembly=Alternet.FormDesigner.Wpf.v9"
+        xmlns:CUI="clr-namespace:Alternet.Editor.Common.Wpf;assembly=Alternet.Editor.Common.Wpf.v9"
+        xmlns:UI="clr-namespace:Alternet.Scripter.Debugger.UI.Wpf;assembly=Alternet.Scripter.Debugger.UI.Wpf.v9"
+        xmlns:Design="clr-namespace:Alternet.FormDesigner.Wpf.PropertyGrid;assembly=Alternet.FormDesigner.Wpf.v9"
+        xmlns:toolbox="clr-namespace:Alternet.FormDesigner.Wpf.Toolbox;assembly=Alternet.FormDesigner.Wpf.v9"
         Title="AlterNET Studio" Height="564" Width="808" WindowState="Maximized" Loaded="Window_Loaded"
         Icon="/AlternetStudio.Wpf;component/Images/Icon.ico" Closing="Window_Closing" Closed="Window_Closed" KeyDown="Window_KeyDown">
     <Window.Resources>
@@ -263,6 +263,19 @@
                     <Image Source="/AlternetStudio.Wpf;component/Resources/Print.png" Style="{StaticResource ToolbarImageStyle}"/>
                 </Button>
                 <Separator/>
+                <Button ToolTip="Toggle a bookmark on the current line. (Ctrl + K, Ctrl + K)" Name="toggleBookmarkToolButton" Padding="1" Click="ToggleBookmarkMenuItem_Click">
+                    <Image Source="/AlternetStudio.Wpf;component/Resources/Bookmark.png" Style="{StaticResource ToolbarImageStyle}"/>
+                </Button>
+                <Button ToolTip="Move the caret to the previous bookmark. (Ctrl + K, Ctrl + P)" Name="prevBookmarkToolButton" Padding="1" Click="PrevBookmarkMenuItem_Click">
+                    <Image Source="/AlternetStudio.Wpf;component/Resources/PreviousBookmark.png" Style="{StaticResource ToolbarImageStyle}"/>
+                </Button>
+                <Button ToolTip="Move the caret to the next bookmark. (Ctrl + K, Ctrl + N)" Name="nextBookmarkToolButton" Padding="1" Click="NextBookmarkMenuItem_Click">
+                    <Image Source="/AlternetStudio.Wpf;component/Resources/NextBookmark.png" Style="{StaticResource ToolbarImageStyle}"/>
+                </Button>
+                <Button ToolTip="Clear all bookmarks in all files. (Ctrl + K, Ctrl + L)" Name="clearAllBookmarksToolButton" Padding="1" Click="ClearAllBookmarksMenuItem_Click">
+                    <Image Source="/AlternetStudio.Wpf;component/Resources/ClearBookmark.png" Style="{StaticResource ToolbarImageStyle}"/>
+                </Button>
+                <Separator/>
                 <Button ToolTip="Navigate Backward" Name="historyBackwardToolButton" Padding="1" Click="Backward_Click">
                     <Image Source="/AlternetStudio.Wpf;component/Resources/Backwards.png" Style="{StaticResource ToolbarImageStyle}"/>
                 </Button>
@@ -298,7 +311,7 @@
                             <RowDefinition Height="164"/>
                         </Grid.RowDefinitions>
                         <DockPanel Grid.Row="0" DockPanel.Dock="Top" Height="24" HorizontalAlignment="Stretch" Name="pnCombo" VerticalAlignment="Top">
-                             <ComboBox Height="23" Name="classesComboBox" Width="333" HorizontalAlignment="Left">
+                             <ComboBox Height="25" Name="classesComboBox" Width="333" HorizontalAlignment="Left">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,0,0,0" Width="Auto">
@@ -312,7 +325,7 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                                <ComboBox Height="23" Name="methodsComboBox" Width="Auto" HorizontalAlignment="Stretch">
+                                <ComboBox Height="25" Name="methodsComboBox" Width="Auto" HorizontalAlignment="Stretch">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,0,0,0" Width="Auto">

@@ -1,27 +1,23 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
 
 using Alternet.Editor.Wpf;
 using Alternet.Syntax.Parsers.Roslyn;
-using Microsoft.Win32;
 
 namespace VisualTheme
 {

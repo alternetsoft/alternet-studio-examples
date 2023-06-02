@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System.IO;
 
@@ -48,6 +48,16 @@ namespace AlternetStudio.Demo
             var search = edit as ISearch;
             if (search != null)
                 search.SearchGlobal = true;
+        }
+
+        private void UpdateBookmarks()
+        {
+            var edit = ActiveSyntaxEdit as SyntaxEdit;
+            if (edit != null)
+            {
+                edit.Source.BookMarks.Shared = true;
+                BookMarkManager.Register(edit.Source);
+            }
         }
 
         private void Search_TextFound(object sender, TextFoundEventArgs e)
@@ -127,6 +137,25 @@ namespace AlternetStudio.Demo
         private void FindResultsControl_FindResultClick(object sender, FindResultClickEventArgs e)
         {
             NavigateToRange(e.FileRange);
+        }
+
+        private void DoActivate(object sender, ActivateEventArgs e)
+        {
+            var edit = OpenFile(e.FileName) as SyntaxEdit;
+            if (edit != null)
+            {
+                e.Source = edit.Source;
+            }
+        }
+
+        private void SharedBookMarks_BookMarkRemoved(object sender, BookMarkEventArgs e)
+        {
+            UpdateBookmarkButtons();
+        }
+
+        private void SharedBookMarks_BookMarkAdded(object sender, BookMarkEventArgs e)
+        {
+            UpdateBookmarkButtons();
         }
     }
 }

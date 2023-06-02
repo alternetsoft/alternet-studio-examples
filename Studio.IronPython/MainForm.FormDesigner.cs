@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -26,9 +26,7 @@ using Alternet.Common.DotNet.DefaultAssemblies;
 using Alternet.Editor.Common;
 using Alternet.Editor.IronPython;
 using Alternet.Editor.TextSource;
-#if USEFORMDESIGNER
 using Alternet.FormDesigner.WinForms;
-#endif
 using Alternet.Scripter;
 using Alternet.Scripter.IronPython;
 
@@ -36,7 +34,6 @@ namespace AlternetStudio.Demo
 {
     public partial class MainForm
     {
-#if USEFORMDESIGNER
         private Dictionary<TabPage, IFormDesignerControl> formDesigners = new Dictionary<TabPage, IFormDesignerControl>();
         private Dictionary<string, EditorFormDesignerDataSource> sourcesByFormId = new Dictionary<string, EditorFormDesignerDataSource>();
 
@@ -193,7 +190,7 @@ namespace AlternetStudio.Demo
 
                     var source = new FormDesignerDataSource(userCodeFileName, designerFileNameSuffix: "_Designer");
 
-                    FormFilesUtility.CreateFormFiles(source, FormFilesUtility.CreateFormFilesOptions.Python);
+                    FormFilesUtility.CreateFormFiles(source, FormFilesUtility.CreateFormFilesOptions.IronPython);
 
                     if (!addToProject)
                     {
@@ -750,7 +747,7 @@ namespace AlternetStudio.Demo
             {
                 get
                 {
-                    var path = Path.Combine(Path.GetTempPath(), @"AlterNET Studio Demo\DesignedComponentAssembly");
+                    var path = Path.Combine(Path.GetTempPath(), @"Alternet.Studio.Demo\DesignedComponentAssembly");
                     if (!Directory.Exists(path))
                         Directory.CreateDirectory(path);
                     return path;
@@ -762,6 +759,5 @@ namespace AlternetStudio.Demo
                 FileSystemUtility.CopyDirectory(Path.GetDirectoryName(scriptRun.ScriptHost.ModulesDirectoryPath), AssemblyDirectoryPath);
             }
         }
-#endif
     }
 }

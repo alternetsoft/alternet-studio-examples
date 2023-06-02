@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:AlternetStudio.IronPython.Wpf.Demo"
         TextOptions.TextFormattingMode="Display"
-        xmlns:CUI="clr-namespace:Alternet.Editor.Common.Wpf;assembly=Alternet.Editor.Common.Wpf.v8"
-        xmlns:UI="clr-namespace:Alternet.Scripter.Debugger.UI.Wpf;assembly=Alternet.Scripter.Debugger.UI.Wpf.v8"
+        xmlns:CUI="clr-namespace:Alternet.Editor.Common.Wpf;assembly=Alternet.Editor.Common.Wpf.v9"
+        xmlns:UI="clr-namespace:Alternet.Scripter.Debugger.UI.Wpf;assembly=Alternet.Scripter.Debugger.UI.Wpf.v9"
         Title="AlterNET Studio - IronPython" Height="564" Width="808" WindowState="Maximized" Loaded="Window_Loaded"
         Icon="/AlternetStudio.IronPython.Wpf;component/Images/Icon.ico" Closing="Window_Closing" Closed="Window_Closed" KeyDown="Window_KeyDown">
     <Window.Resources>
@@ -252,6 +252,19 @@
                     <Image Source="/AlternetStudio.IronPython.Wpf;component/Resources/Print.png" Style="{StaticResource ToolbarImageStyle}" Stretch="None"></Image>
                 </Button>
                 <Separator/>
+                <Button ToolTip="Toggle a bookmark on the current line. (Ctrl + K, Ctrl + K)" Name="toggleBookmarkToolButton" Padding="1" Click="ToggleBookmarkMenuItem_Click">
+                    <Image Source="/AlternetStudio.IronPython.Wpf;component/Resources/Bookmark.png" Style="{StaticResource ToolbarImageStyle}"/>
+                </Button>
+                <Button ToolTip="Move the caret to the previous bookmark. (Ctrl + K, Ctrl + P)" Name="prevBookmarkToolButton" Padding="1" Click="PrevBookmarkMenuItem_Click">
+                    <Image Source="/AlternetStudio.IronPython.Wpf;component/Resources/PreviousBookmark.png" Style="{StaticResource ToolbarImageStyle}"/>
+                </Button>
+                <Button ToolTip="Move the caret to the next bookmark. (Ctrl + K, Ctrl + N)" Name="nextBookmarkToolButton" Padding="1" Click="NextBookmarkMenuItem_Click">
+                    <Image Source="/AlternetStudio.IronPython.Wpf;component/Resources/NextBookmark.png" Style="{StaticResource ToolbarImageStyle}"/>
+                </Button>
+                <Button ToolTip="Clear all bookmarks in all files. (Ctrl + K, Ctrl + L)" Name="clearAllBookmarksToolButton" Padding="1" Click="ClearAllBookmarksMenuItem_Click">
+                    <Image Source="/AlternetStudio.IronPython.Wpf;component/Resources/ClearBookmark.png" Style="{StaticResource ToolbarImageStyle}"/>
+                </Button>
+                <Separator/>
                 <Button ToolTip="Navigate Backward" Name="historyBackwardToolButton" Padding="1" Click="Backward_Click">
                     <Image Source="/AlternetStudio.IronPython.Wpf;component/Resources/Backwards.png" Style="{StaticResource ToolbarImageStyle}" Stretch="None"></Image>
                 </Button>
@@ -287,7 +300,7 @@
                             <RowDefinition Height="164"/>
                         </Grid.RowDefinitions>
                         <DockPanel Grid.Row="0" DockPanel.Dock="Top" Height="24" HorizontalAlignment="Stretch" Name="pnCombo" VerticalAlignment="Top">
-                             <ComboBox Height="23" Name="classesComboBox" Width="333" HorizontalAlignment="Left">
+                             <ComboBox Height="25" Name="classesComboBox" Width="333" HorizontalAlignment="Left">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,0,0,0" Width="Auto">
@@ -301,7 +314,7 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                                <ComboBox Height="23" Name="methodsComboBox" Width="Auto" HorizontalAlignment="Stretch">
+                                <ComboBox Height="25" Name="methodsComboBox" Width="Auto" HorizontalAlignment="Stretch">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,0,0,0" Width="Auto">
@@ -347,11 +360,6 @@
                 <TabItem Header="Error List" Name="errorsTabItem">
                     <Grid>
                         <UI:Errors Name="errorsControl" ErrorClick="ErrorsControl_ErrorClick"/>
-                    </Grid>
-                </TabItem>
-                <TabItem Header="Threads" Name="threadsTabItem" Visibility="Collapsed">
-                    <Grid>
-                        <UI:Threads Name="threadsControl"/>
                     </Grid>
                 </TabItem>
                             <TabItem Header="Find Results" Name="findResultsTabItem">

@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -54,15 +54,13 @@ namespace AlternetStudio.Demo
             {
                 ActivateErrorsTab();
             }
-
-#if USEFORMDESIGNER
             else
             {
                 designedComponentAssemblyManager.CopyOutput();
                 foreach (var source in sourcesByFormId.Values)
                     source.DesignedComponentAssembly.NotifyAssemblyChanged();
             }
-#endif
+
             return result;
         }
 
@@ -82,11 +80,9 @@ namespace AlternetStudio.Demo
                 return true;
 
             string fileName = (ActiveSyntaxEdit != null) ? ActiveSyntaxEdit.FileName : string.Empty;
-#if USEFORMDESIGNER
             var designer = ActiveFormDesigner;
             if (designer != null)
                 fileName = designer.Source.UserCodeFileName;
-#endif
             if (!string.IsNullOrEmpty(fileName))
             {
                 if (new FileInfo(fileName).Exists)
@@ -94,7 +90,6 @@ namespace AlternetStudio.Demo
                     scriptRun.ScriptSource.FromScriptFile(fileName);
                     scriptRun.ScriptSource.WithDefaultReferences();
                     scriptRun.ScriptSource.Imports.Clear();
-#if USEFORMDESIGNER
                     var imports = GetDesignerImportedNamespaces(fileName);
                     if (imports != null)
                     {
@@ -113,7 +108,6 @@ namespace AlternetStudio.Demo
                                 scriptRun.ScriptSource.References.Add(reference);
                         }
                     }
-#endif
 
                     return true;
                 }

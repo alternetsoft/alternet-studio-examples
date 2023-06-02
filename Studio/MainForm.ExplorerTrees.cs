@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -22,9 +22,7 @@ using Alternet.Common;
 using Alternet.Common.Projects.DotNet;
 using Alternet.Editor.Common;
 using Alternet.Editor.Roslyn;
-#if USEFORMDESIGNER
 using Alternet.FormDesigner.WinForms;
-#endif
 
 namespace AlternetStudio.Demo
 {
@@ -148,7 +146,6 @@ namespace AlternetStudio.Demo
             {
                 var fileName = openFileDialog.FileName;
                 IList<string> addedFiles = new List<string>();
-#if USEFORMDESIGNER
                 if (FormFilesUtility.IsSupportedLanguage(fileName) && !project.IsFolder)
                 {
                     string designerFileName;
@@ -163,7 +160,6 @@ namespace AlternetStudio.Demo
                         addedFiles.Add(resourceFileName);
                 }
                 else
-#endif
                 {
                     addedFiles.Add(fileName);
                 }
@@ -411,13 +407,11 @@ namespace AlternetStudio.Demo
             string codeFileName;
             if (formNodeData != null)
             {
-#if USEFORMDESIGNER
                 if (formNodeData.OpenMode == FormOpenMode.Design)
                 {
                     OpenDesigner(formNodeData.FileName);
                     return;
                 }
-#endif
 
                 codeFileName = formNodeData.FileName;
             }
@@ -637,9 +631,7 @@ namespace AlternetStudio.Demo
                     else
                     {
                         project.RemoveFile(file);
-#if USEFORMDESIGNER
                         RemoveDesigner(FindDesigner(file));
-#endif
                     }
 
                     CloseFile(file);

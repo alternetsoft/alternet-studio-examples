@@ -1,6 +1,7 @@
 ﻿#pragma warning disable VSTHRD101 // Avoid unsupported async delegates
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -51,6 +52,7 @@ namespace EmbeddedPythonDapDebugger
             debugMenu1.Debugger = debugger;
             debugMenu1.DebuggerPreStartup += OnDebuggerPreStartup;
 
+            debuggerPanelsTabControl.VisiblePanels &= ~DebuggerPanelKinds.Threads;
             debuggerPanelsTabControl.Debugger = debugger;
 
             var controller = new DebuggerUIController(this, codeEditContainer);
@@ -68,6 +70,14 @@ namespace EmbeddedPythonDapDebugger
                 if (edit.Modified)
                     edit.SaveFile(edit.FileName);
             }
+        }
+
+        protected async override void OnClosing(CancelEventArgs e)
+        {
+            if (debugger.IsStarted)
+                await debugger.StopDebuggingAsync();
+
+            base.OnClosing(e);
         }
 
         private static string FindSourceFile()
@@ -108,7 +118,7 @@ namespace EmbeddedPythonDapDebugger
         private void SetupPython()
         {
             var pythonPath = CodeEnvironment.GetSystemPythonPath();
-            var pythonPrerequisitesService = new PythonPrerequisitesService(CodeEnvironment.GetSystemPythonPath());
+            var pythonPrerequisitesService = new PythonPrerequisitesService(pythonPath);
 
             var result = pythonPrerequisitesService.CheckPythonInstallation();
             if (result.IsFailure)
@@ -168,7 +178,7 @@ namespace EmbeddedPythonDapDebugger
             GoToDefinition();
         }
 
-        private void GoToDefinition()
+        private async void GoToDefinition()
         {
             var syntaxEdit = codeEditContainer.ActiveEditor as SyntaxEdit;
             if (syntaxEdit == null)
@@ -178,7 +188,7 @@ namespace EmbeddedPythonDapDebugger
             if (parser == null)
                 return;
 
-            var declaration = parser.FindDeclaration(syntaxEdit.Position);
+            var declaration = await parser.FindDeclarationAsync(syntaxEdit.Position);
             if (declaration == null)
                 return;
 

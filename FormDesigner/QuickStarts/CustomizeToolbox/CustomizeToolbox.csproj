@@ -4,7 +4,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net452;net461</TargetFrameworks>
+    <TargetFrameworks>net462;net6.0-windows;net7.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <UseWPF>true</UseWPF>
@@ -26,10 +26,10 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="8.1.12" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0'))" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.0.0.0" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))">
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
@@ -76,6 +76,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Alternet.ColorBox.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>

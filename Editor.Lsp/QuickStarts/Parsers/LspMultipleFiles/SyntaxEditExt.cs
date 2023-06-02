@@ -1,20 +1,18 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Alternet.Common;
 using Alternet.Editor;
@@ -63,21 +61,21 @@ namespace LspMultipleFiles
             GoToDefinition();
         }
 
-        private void FindReferences()
+        private async void FindReferences()
         {
-            var parser = (SyntaxParser)Lexer;
+            var parser = (ISyntaxParser)Lexer;
             var references = new RangeList();
-            var count = parser.FindReferences(Position, references, allDocuments: true);
+            var count = await parser.FindReferencesAsync(Position, references, allDocuments: true);
             if (count == 0)
                 return;
 
             FindReferencesComplete?.Invoke(this, new RangeListEventArgs(references));
         }
 
-        private void GoToDefinition()
+        private async void GoToDefinition()
         {
-            var parser = (SyntaxParser)Lexer;
-            var declaration = parser.FindDeclaration(Position);
+            var parser = (ISyntaxParser)Lexer;
+            var declaration = await parser.FindDeclarationAsync(Position);
             if (declaration == null)
                 return;
 

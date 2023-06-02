@@ -1,7 +1,7 @@
 <Window x:Class="Miscellaneous.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v8"        
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v9"        
         xmlns:cp="clr-namespace:ColorPicker"
         Icon="/Miscellaneous.Wpf;component/Images/Icon.ico"
         Title="Miscellaneous" Height="567" Width="679">
@@ -112,8 +112,6 @@
                 </GroupBox>
             </Grid>
         </DockPanel>
-        <Border Grid.Row="4" BorderBrush="Gray" BorderThickness="2" Margin="0,5,0,0">
-            <Wpf:TextEditor x:Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" WordWrap="True"/>
-        </Border>
+        <Wpf:TextEditor Grid.Row="4" x:Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" WordWrap="True"/>
     </Grid>
 </Window>

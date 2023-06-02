@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -20,9 +20,8 @@ using System.Windows.Forms;
 using Alternet.Common.Projects;
 using Alternet.Common.Projects.DotNet;
 using Alternet.Editor.IronPython;
-#if USEFORMDESIGNER
+using Alternet.Editor.TextSource;
 using Alternet.FormDesigner.WinForms;
-#endif
 
 namespace AlternetStudio.Demo
 {
@@ -70,6 +69,8 @@ namespace AlternetStudio.Demo
             }
 
             UpdateScriptProject(Project);
+            LoadBreakpoints(GetBreakpointFile(Project));
+            LoadBookmarks(GetBookmarkFile(Project));
 
             Project.ProjectModified += ProjectModified;
 
@@ -77,11 +78,9 @@ namespace AlternetStudio.Demo
             if (Project.Files.Count > 0)
             {
                 var firstFile = GetFirstFile(Project.Files, Project.DefaultExtension);
-#if USEFORMDESIGNER
                 if (FormFilesUtility.CheckIfFormFilesExist(firstFile, "_Designer"))
                     OpenDesigner(firstFile);
                 else
-#endif
                     OpenFile(firstFile);
             }
 
@@ -107,7 +106,6 @@ namespace AlternetStudio.Demo
             return Project.HasProject;
         }
 
-#if USEFORMDESIGNER
         private DotNetProject GetProject(IFormDesignerDataSource source)
         {
             if (source != null)
@@ -116,7 +114,6 @@ namespace AlternetStudio.Demo
             return null;
         }
 
-#endif
         private IronPythonProject GetProject(string fileName)
         {
             if (Project.HasProject)
@@ -213,9 +210,7 @@ namespace AlternetStudio.Demo
         {
             foreach (string fileName in project.Files)
             {
-#if USEFORMDESIGNER
                 RemoveDesigner(FindDesigner(fileName));
-#endif
                 CloseFile(fileName);
             }
 
@@ -246,6 +241,8 @@ namespace AlternetStudio.Demo
 
                 UpdateCodeNavigation();
                 errorsControl.Clear();
+                BookMarkManager.SharedBookMarks.Clear();
+                UpdateBookmarkButtons();
             }
             finally
             {

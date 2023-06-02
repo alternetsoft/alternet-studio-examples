@@ -45,6 +45,7 @@ namespace CppLlvmDapDebugger.Wpf
             DebugMenu.Debugger = debugger;
             DebugMenu.DebuggerPreStartup += OnDebuggerPreStartup;
 
+            DebuggerPanelsTabControl.VisiblePanels &= ~DebuggerPanelKinds.Threads;
             DebuggerPanelsTabControl.Debugger = debugger;
 
             var controller = new DebuggerUIController(Dispatcher, codeEditContainer);
@@ -180,7 +181,7 @@ namespace CppLlvmDapDebugger.Wpf
             GoToDefinition();
         }
 
-        private void GoToDefinition()
+        private async void GoToDefinition()
         {
             var syntaxEdit = codeEditContainer.ActiveEditor as TextEditor;
             if (syntaxEdit == null)
@@ -190,7 +191,7 @@ namespace CppLlvmDapDebugger.Wpf
             if (parser == null)
                 return;
 
-            var declaration = parser.FindDeclaration(syntaxEdit.Position);
+            var declaration = await parser.FindDeclarationAsync(syntaxEdit.Position);
             if (declaration == null)
                 return;
 

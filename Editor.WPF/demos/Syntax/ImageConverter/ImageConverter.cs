@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.IO;
@@ -41,9 +41,9 @@ namespace SyntaxEditor_Wpf
             Func<string, AlphaImageList> load = suffix =>
                 AlphaImageListHelper.LoadImageListFromStrip(
                     typeof(MainWindow).Assembly,
-                    $"CodeEditorSyntax.Wpf.Images.DotNetImages{suffix}.png");
+                    $"CodeEditorSyntax.Wpf.Images.DotNetImagesAlpha{suffix}.png");
 
-            var list = new DisplayScaledImagesEx(() => load(string.Empty), () => load("HighDpi")).Images;
+            var list = new DisplayScaledAlphaImages(() => load(string.Empty), () => load("HighDpi")).Images;
 
             if ((list != null) && (list.Images != null))
             {

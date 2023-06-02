@@ -1,27 +1,26 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 #pragma warning disable VSTHRD101 // Avoid unsupported async delegates
 
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Alternet.Common;
-using Alternet.Syntax.Parsers.Lsp;
-using Alternet.Syntax.Parsers.Lsp.Python.Embedded;
+using Alternet.Syntax;
+using Alternet.Syntax.Parsers.Lsp.Python;
+using Alternet.Syntax.Parsers.Lsp.Python.Embedded.Pyright;
 
 namespace PythonSyntaxParsing
 {
@@ -34,8 +33,7 @@ namespace PythonSyntaxParsing
         {
             DeployServer();
             InitializeComponent();
-            syntaxEdit1.Spelling.SpellColor = Color.Navy;
-            syntaxEdit1.KeyDown += SyntaxEdit_KeyDown;
+            InitEditor();
         }
 
         private void DeployServer()
@@ -61,28 +59,42 @@ namespace PythonSyntaxParsing
             progressDialog.ShowDialog();
         }
 
-        private void SyntaxEdit_KeyDown(object sender, KeyEventArgs e)
+        private void InitEditor()
+        {
+            var gotoDefinitionMenuItem = new ToolStripMenuItem(StringConsts.GotoDefinition, null, GotoDefinitionMenuItem_Click);
+            gotoDefinitionMenuItem.ShortcutKeys = Keys.F12;
+
+            syntaxEdit1.DefaultMenu.Items.Add(gotoDefinitionMenuItem);
+            syntaxEdit1.KeyDown += Edit_KeyDown;
+            syntaxEdit1.Spelling.SpellColor = Color.Navy;
+        }
+
+        private void Edit_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.F12)
                 GoToDefinition();
         }
 
-        private void GoToDefinition()
+        private async void GoToDefinition()
         {
-            var declaration = pythonParser.FindDeclaration(syntaxEdit1.Position);
+            var parser = syntaxEdit1.Lexer as ISyntaxParser;
+            var declaration = await parser.FindDeclarationAsync(syntaxEdit1.Position);
             if (declaration == null)
                 return;
 
             if (syntaxEdit1.Source.FileName.Equals(declaration.FileName, StringComparison.OrdinalIgnoreCase))
+            {
+                syntaxEdit1.MoveTo(new Point(declaration.Column, declaration.Line));
                 syntaxEdit1.MakeVisible(new Point(declaration.Column, declaration.Line), true);
+            }
             else
             {
                 MessageBox.Show(
-                    this,
-                    $"Definition: {declaration.FileName} ({declaration.Line}:{declaration.Column})",
-                    "Go To Definition",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                this,
+                $"Definition: {declaration.FileName} ({declaration.Line}:{declaration.Column})",
+                "Go To Definition",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
             }
         }
 
@@ -105,6 +117,11 @@ namespace PythonSyntaxParsing
             openFileDialog1.InitialDirectory = Path.GetFullPath(dir) + @"Resources\Editor\Text\";
             source.Lexer = pythonParser;
             source.HighlightReferences = true;
+        }
+
+        private void GotoDefinitionMenuItem_Click(object sender, EventArgs e)
+        {
+            GoToDefinition();
         }
 
         private void LoadButton_Click(object sender, EventArgs e)

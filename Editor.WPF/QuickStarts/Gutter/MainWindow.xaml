@@ -1,7 +1,7 @@
 <Window x:Class="Gutter.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v8"
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v9"
         xmlns:cp="clr-namespace:ColorPicker"
         xmlns:nud="clr-namespace:NumericUpDown"
         Icon="/Gutter.Wpf;component/Images/Icon.ico"
@@ -101,9 +101,7 @@
             <Grid Grid.Row="2">
                 <CheckBox Content="Render Custom Gutter Items" IsChecked="{Binding RenderCustomGutterItems}" Margin="5,5,0,0" />
             </Grid>
-            <Border Grid.Row="3" BorderBrush="Gray" BorderThickness="2" Margin="0,5,0,0">
-                <Wpf:TextEditor x:Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
-            </Border>
+            <Wpf:TextEditor Grid.Row="3" x:Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
         </Grid>
     </Grid>
 </Window>

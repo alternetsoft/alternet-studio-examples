@@ -51,6 +51,7 @@ namespace CppLlvmDapDebugger
             debugMenu1.Debugger = debugger;
             debugMenu1.DebuggerPreStartup += OnDebuggerPreStartup;
 
+            debuggerPanelsTabControl.VisiblePanels &= ~DebuggerPanelKinds.Threads;
             debuggerPanelsTabControl.Debugger = debugger;
 
             var controller = new DebuggerUIController(this, codeEditContainer);
@@ -190,12 +191,12 @@ namespace CppLlvmDapDebugger
             GoToDefinition(edit);
         }
 
-        private void GoToDefinition(IScriptEdit edit)
+        private async void GoToDefinition(IScriptEdit edit)
         {
             var parser = edit is ISyntaxEdit ? ((ISyntaxEdit)edit).Lexer as CPlusPlusParserEmbedded : null;
             if (parser != null)
             {
-                var location = parser.FindDeclaration(edit.Position);
+                var location = await parser.FindDeclarationAsync(edit.Position);
                 if (location == null || string.IsNullOrEmpty(location.FileName))
                     return;
 

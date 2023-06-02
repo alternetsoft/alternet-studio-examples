@@ -38,7 +38,7 @@
             this.chbSearchMultiDoc = new System.Windows.Forms.CheckBox();
             this.cbLanguages = new System.Windows.Forms.ComboBox();
             this.laLanguages = new System.Windows.Forms.Label();
-            this.btFind = new System.Windows.Forms.Button();
+            this.FindNextButton = new System.Windows.Forms.Button();
             this.btReplace = new System.Windows.Forms.Button();
             this.btGoto = new System.Windows.Forms.Button();
             this.pnDescription = new System.Windows.Forms.Panel();
@@ -66,7 +66,7 @@
             this.groupBox1.Controls.Add(this.chbSearchMultiDoc);
             this.groupBox1.Controls.Add(this.cbLanguages);
             this.groupBox1.Controls.Add(this.laLanguages);
-            this.groupBox1.Controls.Add(this.btFind);
+            this.groupBox1.Controls.Add(this.FindNextButton);
             this.groupBox1.Controls.Add(this.btReplace);
             this.groupBox1.Controls.Add(this.btGoto);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -118,15 +118,15 @@
             // 
             // btFind
             // 
-            this.btFind.BackColor = System.Drawing.SystemColors.Control;
-            this.btFind.Location = new System.Drawing.Point(245, 16);
-            this.btFind.Name = "btFind";
-            this.btFind.Size = new System.Drawing.Size(80, 23);
-            this.btFind.TabIndex = 0;
-            this.btFind.Text = "Find";
-            this.btFind.UseVisualStyleBackColor = false;
-            this.btFind.Click += new System.EventHandler(this.FindButton_Click);
-            this.btFind.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FindButton_MouseMove);
+            this.FindNextButton.BackColor = System.Drawing.SystemColors.Control;
+            this.FindNextButton.Location = new System.Drawing.Point(245, 16);
+            this.FindNextButton.Name = "btFind";
+            this.FindNextButton.Size = new System.Drawing.Size(80, 23);
+            this.FindNextButton.TabIndex = 0;
+            this.FindNextButton.Text = "Find Next";
+            this.FindNextButton.UseVisualStyleBackColor = false;
+            this.FindNextButton.Click += new System.EventHandler(this.FindButton_Click);
+            this.FindNextButton.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FindButton_MouseMove);
             // 
             // btReplace
             // 
@@ -205,7 +205,7 @@
 
         private System.Windows.Forms.Panel pnSettings;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btFind;
+        private System.Windows.Forms.Button FindNextButton;
         private System.Windows.Forms.Button btReplace;
         private System.Windows.Forms.Button btGoto;
         private System.Windows.Forms.Panel pnDescription;

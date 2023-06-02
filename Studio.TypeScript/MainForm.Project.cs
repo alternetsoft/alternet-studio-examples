@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -21,10 +21,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Alternet.Common.Projects;
 using Alternet.Editor.Common;
+using Alternet.Editor.TextSource;
 using Alternet.Editor.TypeScript;
-#if USEFORMDESIGNER
 using Alternet.FormDesigner.WinForms;
-#endif
 using Alternet.Scripter.TypeScript;
 
 namespace AlternetStudio.Demo
@@ -96,17 +95,17 @@ namespace AlternetStudio.Demo
 
             scriptRun.ScriptHost.ModulesDirectoryPath =
                 Path.Combine(Environment.GetEnvironmentVariable("TEMP"), "Alternet.Studio.TypeScript Generated Modules", Project.ProjectName + fileName.GetHashCode());
+            LoadBreakpoints(GetBreakpointFile(Project));
+            LoadBookmarks(GetBookmarkFile(Project));
 
             Project.ProjectModified += ProjectModified;
 
             if (Project.Files.Count > 0)
             {
                 string mainFile = Project.Files.Last();
-#if USEFORMDESIGNER
                 if (FormFilesUtility.CheckIfFormFilesExist(mainFile))
                     OpenDesigner(mainFile);
                 else
-#endif
                 OpenFile(mainFile);
 
                 var extension = Path.GetExtension(mainFile);
@@ -127,9 +126,7 @@ namespace AlternetStudio.Demo
         {
             foreach (string fileName in project.Files)
             {
-#if USEFORMDESIGNER
                 RemoveDesigner(FindDesigner(fileName));
-#endif
                 CloseFile(fileName);
             }
 
@@ -163,6 +160,8 @@ namespace AlternetStudio.Demo
 
                 UpdateCodeNavigation();
                 errorsControl.Clear();
+                BookMarkManager.SharedBookMarks.Clear();
+                UpdateBookmarkButtons();
             }
             finally
             {
@@ -186,7 +185,6 @@ namespace AlternetStudio.Demo
             language = ScriptLanguage.JavaScript;
         }
 
-#if USEFORMDESIGNER
         private TSProject GetProject(IFormDesignerDataSource source)
         {
             if (source != null)
@@ -194,7 +192,6 @@ namespace AlternetStudio.Demo
 
             return null;
         }
-#endif
 
         private TSProject GetProject(string fileName)
         {

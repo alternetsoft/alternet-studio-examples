@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections;
@@ -70,6 +70,9 @@ namespace AlternetStudio.Wpf.Demo
             InitEditorsContextMenu();
             InitImages();
             InitializeFormDesigner();
+            BookMarkManager.SharedBookMarks.Activate += new EventHandler<ActivateEventArgs>(DoActivate);
+            BookMarkManager.SharedBookMarks.BookMarkAdded += SharedBookMarks_BookMarkAdded;
+            BookMarkManager.SharedBookMarks.BookMarkRemoved += SharedBookMarks_BookMarkRemoved;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -288,6 +291,11 @@ namespace AlternetStudio.Wpf.Demo
             pasteMenuItem.Icon = LoadImage("Paste");
             pasteToolButton.Content = LoadImage("Paste");
             selectAllMenuItem.Icon = LoadImage("SelectAll");
+
+            toggleBookmarkToolButton.Content = LoadImage("Bookmark");
+            prevBookmarkToolButton.Content = LoadImage("PreviousBookmark");
+            nextBookmarkToolButton.Content = LoadImage("NextBookmark");
+            clearAllBookmarksToolButton.Content = LoadImage("ClearBookmark");
         }
 
         private void NewStripSplitButton_Click(object sender, RoutedEventArgs e)
@@ -374,127 +382,147 @@ namespace AlternetStudio.Wpf.Demo
             {
                 if (Keyboard.IsKeyDown(Key.F10) && runToCursorMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     RunToCursorMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.F5) && debugMenu.StartWithoutDebugMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     StartWithoutDebugMenuItem_Click(this, new RoutedEventArgs());
-                }
-
-                if ((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightShift)) && Keyboard.IsKeyDown(Key.Q) && debugMenu.EvaluateMenuItem.IsEnabled)
-                {
-                    EvaluateMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.S) && saveMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     SaveMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.P) && printMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     PrintMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.O) && openMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     OpenMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.Z) && undoMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     UndoMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.Y) && redoMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     RedoMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.X) && cutMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     CutMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.C) && copyMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     CopyMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.V) && pasteMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     PasteMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.A) && selectAllMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     SelectAllMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.F) && findMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     FindMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.H) && replaceMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     ReplaceMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.G) && gotoMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     GotoMenuItem_Click(this, new RoutedEventArgs());
                 }
             }
             else
                 if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+            {
+                if (Keyboard.IsKeyDown(Key.F9) && debugMenu.EvaluateMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
+                    EvaluateMenuItem_Click(this, new RoutedEventArgs());
+                }
+
                 if (Keyboard.IsKeyDown(Key.F5) && debugMenu.StopDebugMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     StopDebugMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.F7) && viewDesignerMenuItem.IsEnabled)
-                    {
-                        e.Handled = true;
-                        ViewDesignerMenuItem_Click(this, new RoutedEventArgs());
-                    }
-                }
-                else
                 {
-                    if (Keyboard.IsKeyDown(Key.Delete) && deleteMenuItem.IsEnabled)
-                    {
-                        DeleteMenuItem_Click(this, new RoutedEventArgs());
-                    }
-
-                    if (Keyboard.IsKeyDown(Key.F5) && debugMenu.StartDebugMenuItem.IsEnabled)
-                    {
-                        StartDebugMenuItem_Click(this, new RoutedEventArgs());
-                    }
-
-                    if (Keyboard.IsKeyDown(Key.F6) && debugMenu.CompileMenuItem.IsEnabled)
-                    {
-                        CompileMenuItem_Click(this, new RoutedEventArgs());
-                    }
-
-                    if (Keyboard.IsKeyDown(Key.F11) && debugMenu.StepIntoMenuItem.IsEnabled)
-                    {
-                        StepIntoMenuItem_Click(this, new RoutedEventArgs());
-                    }
-
-                    if (Keyboard.IsKeyDown(Key.F10) && debugMenu.StepOverMenuIem.IsEnabled)
-                    {
-                        e.Handled = true;
-                        StepOverMenuItem_Click(this, new RoutedEventArgs());
-                    }
-
-                    if (Keyboard.IsKeyDown(Key.F7) && viewCodeMenuItem.IsEnabled)
-                    {
-                        e.Handled = true;
-                        ViewCodeMenuItem_Click(this, new RoutedEventArgs());
-                    }
+                    e.Handled = true;
+                    ViewDesignerMenuItem_Click(this, new RoutedEventArgs());
                 }
+            }
+            else
+            {
+                if (Keyboard.IsKeyDown(Key.Delete) && deleteMenuItem.IsEnabled)
+                {
+                    e.Handled = true;
+                    DeleteMenuItem_Click(this, new RoutedEventArgs());
+                }
+
+                if (Keyboard.IsKeyDown(Key.F5) && debugMenu.StartDebugMenuItem.IsEnabled)
+                {
+                    e.Handled = true;
+                    StartDebugMenuItem_Click(this, new RoutedEventArgs());
+                }
+
+                if (Keyboard.IsKeyDown(Key.F6) && debugMenu.CompileMenuItem.IsEnabled)
+                {
+                    e.Handled = true;
+                    CompileMenuItem_Click(this, new RoutedEventArgs());
+                }
+
+                if (Keyboard.IsKeyDown(Key.F11) && debugMenu.StepIntoMenuItem.IsEnabled)
+                {
+                    e.Handled = true;
+                    StepIntoMenuItem_Click(this, new RoutedEventArgs());
+                }
+
+                if (Keyboard.IsKeyDown(Key.F10) && debugMenu.StepOverMenuIem.IsEnabled)
+                {
+                    e.Handled = true;
+                    StepOverMenuItem_Click(this, new RoutedEventArgs());
+                }
+
+                if (Keyboard.IsKeyDown(Key.F7) && viewCodeMenuItem.IsEnabled)
+                {
+                    e.Handled = true;
+                    ViewCodeMenuItem_Click(this, new RoutedEventArgs());
+                }
+            }
         }
 
         #endregion

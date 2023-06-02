@@ -1,22 +1,23 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Alternet.Common;
 using Alternet.Editor.Roslyn;
+using Alternet.Editor.TextSource;
 
 namespace AlternetStudio.Demo
 {
@@ -30,13 +31,10 @@ namespace AlternetStudio.Demo
             InitializeCodeNavigationBar();
             InitEditorsContextMenu();
             InitImages();
-#if USEFORMDESIGNER
             InitializeFormDesigner();
-#else
-            this.newFormMenuItem.Visible = false;
-            this.viewCodeMenuItem.Visible = false;
-            this.viewDesignerMenuItem.Visible = false;
-#endif
+            BookMarkManager.SharedBookMarks.Activate += new EventHandler<ActivateEventArgs>(DoActivate);
+            BookMarkManager.SharedBookMarks.BookMarkAdded += SharedBookMarks_BookMarkAdded;
+            BookMarkManager.SharedBookMarks.BookMarkRemoved += SharedBookMarks_BookMarkRemoved;
             ScaleControls();
         }
 
@@ -108,6 +106,11 @@ namespace AlternetStudio.Demo
             pasteMenuItem.Image = LoadImage("Paste");
             pasteToolButton.Image = LoadImage("Paste");
             selectAllMenuItem.Image = LoadImage("SelectAll");
+
+            toggleBookmarkToolButton.Image = LoadImage("Bookmark");
+            prevBookmarkToolButton.Image = LoadImage("PreviousBookmark");
+            nextBookmarkToolButton.Image = LoadImage("NextBookmark");
+            clearAllBookmarksToolButton.Image = LoadImage("ClearBookmark");
         }
 
         private void ScaleControls()
@@ -117,10 +120,10 @@ namespace AlternetStudio.Demo
 
             referencesContextMenu.ShowCheckMargin = true;
 
-            codeNavigationBarPanel.Height = DisplayScaling.AutoScale(codeNavigationBarPanel.Height);
             codeExplorerTreeView.ImageList = DisplayScaling.CloneAndAutoScaleImageList(codeExplorerTreeView.ImageList);
             projectExplorerTreeView.ImageList = DisplayScaling.CloneAndAutoScaleImageList(projectExplorerTreeView.ImageList);
             imageList1 = DisplayScaling.CloneAndAutoScaleImageList(imageList1);
+            codeNavigationBarPanel.Height = methodsComboBox.Height + 2;
         }
 
         private void UpdateControls()

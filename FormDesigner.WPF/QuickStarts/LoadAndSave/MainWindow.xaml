@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LoadAndSave"
-        xmlns:pg="clr-namespace:Alternet.FormDesigner.Wpf.PropertyGrid;assembly=Alternet.FormDesigner.Wpf.v8"
-        xmlns:tb="clr-namespace:Alternet.FormDesigner.Wpf.Toolbox;assembly=Alternet.FormDesigner.Wpf.v8"
-        xmlns:designer="clr-namespace:Alternet.FormDesigner.Wpf;assembly=Alternet.FormDesigner.Wpf.v8"
+        xmlns:pg="clr-namespace:Alternet.FormDesigner.Wpf.PropertyGrid;assembly=Alternet.FormDesigner.Wpf.v9"
+        xmlns:tb="clr-namespace:Alternet.FormDesigner.Wpf.Toolbox;assembly=Alternet.FormDesigner.Wpf.v9"
+        xmlns:designer="clr-namespace:Alternet.FormDesigner.Wpf;assembly=Alternet.FormDesigner.Wpf.v9"
         mc:Ignorable="d"
         Icon="Images/Icon.ico" 
         Title="Load\Save Designer" Height="447" Width="779" WindowStartupLocation="CenterScreen">

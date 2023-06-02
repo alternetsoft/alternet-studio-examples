@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections;
@@ -840,61 +840,73 @@ namespace SyntaxEditor_Wpf
             {
                 if (Keyboard.IsKeyDown(Key.S) && saveMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     SaveMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.P) && printMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     PrintMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.O) && openMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     OpenMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.Z) && undoMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     UndoMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.Y) && redoMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     RedoMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.X) && cutMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     CutMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.C) && copyMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     CopyMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.V) && pasteMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     PasteMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.A) && selectAllMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     SelectAllMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.F) && findMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     FindMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.H) && replaceMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     ReplaceMenuItem_Click(this, new RoutedEventArgs());
                 }
 
                 if (Keyboard.IsKeyDown(Key.G) && gotoMenuItem.IsEnabled)
                 {
+                    e.Handled = true;
                     GotoMenuItem_Click(this, new RoutedEventArgs());
                 }
             }
@@ -1142,16 +1154,18 @@ namespace SyntaxEditor_Wpf
             FindImplementations();
         }
 
-        private void GotoDefinition()
+        private async void GotoDefinition()
         {
             TextEditor edit = GetActiveSyntaxEdit();
-            if (edit != null && edit.Lexer is RoslynParser)
+            var parser = edit?.Lexer as ISyntaxParser;
+            if (parser != null)
             {
-                SymbolLocation location = ((RoslynParser)edit.Lexer).FindDeclaration(edit.Position);
+                SymbolLocation location = await parser.FindDeclarationAsync(edit.Position);
                 if (location != null)
                 {
                     OpenFile(location.FileName);
                     edit = GetActiveSyntaxEdit();
+                    edit.Position = new System.Drawing.Point(location.Column, location.Line);
                     edit.MakeVisible(new System.Drawing.Point(location.Column, location.Line), true);
                 }
             }
@@ -1160,10 +1174,11 @@ namespace SyntaxEditor_Wpf
         private void FindReferences()
         {
             TextEditor edit = GetActiveSyntaxEdit();
-            if (edit != null && edit.Lexer is RoslynParser)
+            var parser = edit?.Lexer as ISyntaxParser;
+            if (parser != null)
             {
                 IRangeList references = new RangeList();
-                ((RoslynParser)edit.Lexer).FindReferences(edit.Position, references, true);
+                parser.FindReferences(edit.Position, references, true);
                 if (references.Count > 0)
                 {
                     ucFindResults.AddFindResults(references);
@@ -1178,10 +1193,11 @@ namespace SyntaxEditor_Wpf
         private void FindImplementations()
         {
             TextEditor edit = GetActiveSyntaxEdit();
-            if (edit != null && edit.Lexer is RoslynParser)
+            var parser = edit?.Lexer as ISyntaxParser;
+            if (parser != null)
             {
                 IRangeList references = new RangeList();
-                ((RoslynParser)edit.Lexer).FindImplementations(edit.Position, references, true);
+                parser.FindImplementations(edit.Position, references, true);
                 if (references.Count > 0)
                 {
                     ucFindResults.AddFindResults(references);
@@ -1538,7 +1554,7 @@ namespace SyntaxEditor_Wpf
             if (args.Member is Microsoft.CodeAnalysis.SyntaxNode)
             {
                 Microsoft.CodeAnalysis.SyntaxNode node = args.Member as Microsoft.CodeAnalysis.SyntaxNode;
-                if (node.Kind() == SyntaxKind.VariableDeclaration)
+                if (node.IsKind(SyntaxKind.VariableDeclaration))
                 {
                     args.Result = typeof(int);
                 }
@@ -2066,7 +2082,7 @@ namespace SyntaxEditor_Wpf
                 {
                     CodeParsing.FillClasses(cbClasses, edit.Lexer as RoslynParser, edit.Position);
                     CodeParsing.FillMethods(cbMethods, edit.Lexer as RoslynParser, edit.Position, cbClasses);
-                    FillErrors(edit.Lexer as RoslynParser);
+                    FillErrors(edit.Lexer as ISyntaxParser);
                 }
                 finally
                 {
@@ -2103,7 +2119,7 @@ namespace SyntaxEditor_Wpf
                 lbEvents.Items.Add(item);
         }
 
-        private void FillErrors(RoslynParser parser)
+        private void FillErrors(ISyntaxParser parser)
         {
             if (parser != null)
             {
@@ -2331,9 +2347,10 @@ namespace SyntaxEditor_Wpf
         {
             bool result = false;
             TextEditor edit = GetActiveSyntaxEdit();
-            if ((edit != null) && (edit.Lexer != null) && (edit.Lexer is RoslynParser))
+            var parser = edit?.Lexer as ISyntaxParser;
+            if (parser != null)
             {
-                SymbolLocation location = ((RoslynParser)edit.Lexer).FindDeclaration(edit.Position);
+                SymbolLocation location = parser.FindDeclaration(edit.Position);
                 return location != null;
             }
 

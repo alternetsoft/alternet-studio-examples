@@ -15,7 +15,7 @@ using Alternet.Editor.Common;
 using Alternet.Scripter.Debugger.Dap;
 using Alternet.Scripter.Debugger.Dap.Python;
 using Alternet.Scripter.Integration;
-using Alternet.Syntax.Parsers.Lsp.Python.Embedded;
+using Alternet.Syntax.Parsers.Lsp.Python.Embedded.Pyright;
 
 namespace PythonDapDebugger
 {
@@ -51,6 +51,7 @@ namespace PythonDapDebugger
             debugMenu1.Debugger = debugger;
             debugMenu1.DebuggerPreStartup += OnDebuggerPreStartup;
 
+            debuggerPanelsTabControl.VisiblePanels &= ~DebuggerPanelKinds.Threads;
             debuggerPanelsTabControl.Debugger = debugger;
 
             var controller = new DebuggerUIController(this, codeEditContainer);
@@ -108,7 +109,7 @@ namespace PythonDapDebugger
         private void SetupPython()
         {
             var pythonPath = CodeEnvironment.GetSystemPythonPath();
-            var pythonPrerequisitesService = new PythonPrerequisitesService(CodeEnvironment.GetSystemPythonPath());
+            var pythonPrerequisitesService = new PythonPrerequisitesService(pythonPath);
 
             var result = pythonPrerequisitesService.CheckPythonInstallation();
             if (result.IsFailure)
@@ -151,7 +152,7 @@ namespace PythonDapDebugger
         {
             var edit = new DebugCodeEdit();
             edit.LoadFile(e.FileName);
-            edit.Lexer = new Alternet.Syntax.Parsers.Lsp.Python.Embedded.PythonParserEmbedded();
+            edit.Lexer = new PythonParserEmbedded();
             edit.GotoDefinition += Edit_GotoDefinition;
             edit.FindAllReferences += Edit_FindAllReferences;
             edit.AllowedActions &= ~AllowedActions.FindAllImplementations;
@@ -170,7 +171,7 @@ namespace PythonDapDebugger
             GoToDefinition();
         }
 
-        private void GoToDefinition()
+        private async void GoToDefinition()
         {
             var syntaxEdit = codeEditContainer.ActiveEditor as SyntaxEdit;
             if (syntaxEdit == null)
@@ -180,7 +181,7 @@ namespace PythonDapDebugger
             if (cppParser == null)
                 return;
 
-            var declaration = cppParser.FindDeclaration(syntaxEdit.Position);
+            var declaration = await cppParser.FindDeclarationAsync(syntaxEdit.Position);
             if (declaration == null)
                 return;
 

@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Windows.Controls;
@@ -42,7 +42,7 @@ namespace LspMultipleFiles
 
         public event EventHandler<RangeListEventArgs> FindReferencesComplete;
 
-        public ContextMenu DefaultMenu
+        public new ContextMenu DefaultMenu
         {
             get
             {
@@ -63,7 +63,7 @@ namespace LspMultipleFiles
             }
         }
 
-        public virtual bool UseDefaultMenu
+        public new virtual bool UseDefaultMenu
         {
             get
             {
@@ -82,7 +82,7 @@ namespace LspMultipleFiles
             }
         }
 
-        public bool CanCut
+        public new bool CanCut
         {
             get
             {
@@ -90,7 +90,7 @@ namespace LspMultipleFiles
             }
         }
 
-        public bool CanDelete
+        public new bool CanDelete
         {
             get
             {
@@ -98,7 +98,7 @@ namespace LspMultipleFiles
             }
         }
 
-        public bool CanCopy
+        public new bool CanCopy
         {
             get
             {
@@ -106,7 +106,7 @@ namespace LspMultipleFiles
             }
         }
 
-        public bool CanPaste
+        public new bool CanPaste
         {
             get
             {
@@ -114,37 +114,37 @@ namespace LspMultipleFiles
             }
         }
 
-        public void Search()
+        public new void Search()
         {
             SearchDialog.Execute(this, false, false);
         }
 
-        public void Replace()
+        public new void Replace()
         {
             SearchDialog.Execute(this, false, true);
         }
 
-        public void Cut()
+        public new void Cut()
         {
             Selection.Cut();
         }
 
-        public void Delete()
+        public new void Delete()
         {
             Selection.DeleteRight();
         }
 
-        public void Copy()
+        public new void Copy()
         {
             Selection.Copy();
         }
 
-        public void Paste()
+        public new void Paste()
         {
             Selection.Paste();
         }
 
-        protected virtual void UpdateMenu()
+        protected new virtual void UpdateMenu()
         {
             miCut.IsEnabled = CanCut;
             miCopy.IsEnabled = CanCopy;
@@ -160,15 +160,15 @@ namespace LspMultipleFiles
             }
         }
 
-        protected virtual void OnDefaultMenuChanged()
+        protected new virtual void OnDefaultMenuChanged()
         {
         }
 
-        protected virtual void OnUseDefaultMenuChanged()
+        protected new virtual void OnUseDefaultMenuChanged()
         {
         }
 
-        protected virtual void InitDefaultMenu()
+        protected new virtual void InitDefaultMenu()
         {
             defaultMenu = new ContextMenu();
 
@@ -235,36 +235,36 @@ namespace LspMultipleFiles
             defaultMenu.Items.Add(findReferencesMenuItem);
         }
 
-        protected void CutCommandClick()
+        protected new void CutCommandClick()
         {
             if (CanCut)
                 Cut();
         }
 
-        protected void DeleteCommandClick()
+        protected new void DeleteCommandClick()
         {
             if (CanDelete)
                 Delete();
         }
 
-        protected void CopyCommandClick()
+        protected new void CopyCommandClick()
         {
             if (CanCopy)
                 Copy();
         }
 
-        protected void PasteCommandClick()
+        protected new void PasteCommandClick()
         {
             if (CanPaste)
                 Paste();
         }
 
-        protected void SearchCommandClick()
+        protected new void SearchCommandClick()
         {
             Search();
         }
 
-        protected void ReplaceCommandClick()
+        protected new void ReplaceCommandClick()
         {
             Replace();
         }

@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,9 @@ using Alternet.Common.Projects;
 using Alternet.Common.Projects.DotNet;
 using Alternet.Editor.Common.Wpf;
 using Alternet.Editor.Roslyn.Wpf;
+using Alternet.Editor.Wpf;
 using Alternet.FormDesigner.Wpf;
+using Alternet.Scripter.Debugger;
 
 namespace AlternetStudio.Wpf.Demo
 {
@@ -83,6 +85,18 @@ namespace AlternetStudio.Wpf.Demo
             }
 
             UpdateScriptProject(Project);
+            BreakpointsDataService.RootPath = Path.GetDirectoryName(Project.ProjectFileName);
+            BookmarksDataService.RootPath = Path.GetDirectoryName(Project.ProjectFileName);
+            if (solution != null && !solution.IsEmpty)
+            {
+                LoadBreakpoints(GetBreakpointFile(solution));
+                LoadBookmarks(GetBookmarkFile(solution));
+            }
+            else
+            {
+                LoadBreakpoints(GetBreakpointFile(Project));
+                LoadBookmarks(GetBookmarkFile(Project));
+            }
 
             Project.ProjectModified += ProjectModified;
 
@@ -269,6 +283,14 @@ namespace AlternetStudio.Wpf.Demo
             return null;
         }
 
+        private bool FileBelongsToSolution(string fileName)
+        {
+            if (solution != null && !solution.IsEmpty)
+                return solution.Files.Contains(fileName, StringComparer.OrdinalIgnoreCase);
+
+            return false;
+        }
+
         private bool FileBelongsToProject(DotNetProject project, string fileName)
         {
             if (project.HasProject)
@@ -368,6 +390,8 @@ namespace AlternetStudio.Wpf.Demo
 
                 UpdateCodeNavigation();
                 errorsControl.Clear();
+                BookMarkManager.SharedBookMarks.Clear();
+                UpdateBookmarkButtons();
             }
             finally
             {

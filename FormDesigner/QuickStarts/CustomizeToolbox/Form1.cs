@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Form Designer Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
 using System.IO.Ports;
-#if !NET6_0
+#if !NET6_0_OR_GREATER
 using System.Messaging;
 #endif
 using System.Reflection;
@@ -320,12 +320,12 @@ namespace CustomizeToolbox
                         typeof(FileSystemWatcher),
                         typeof(HelpProvider),
                         typeof(ImageList),
-#if !NET6_0
+#if !NET6_0_OR_GREATER
                         typeof(MessageQueue),
 #endif
                         typeof(PerformanceCounter),
                         typeof(Process),
-#if !NET6_0
+#if !NET6_0_OR_GREATER
                         typeof(SerialPort),
 #endif
                         typeof(Timer),

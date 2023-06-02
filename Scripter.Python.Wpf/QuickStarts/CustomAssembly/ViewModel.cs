@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.ComponentModel;
@@ -103,7 +103,7 @@ namespace CustomAssembly
         private void SetupPython()
         {
             var embeddedPythonInstaller = new EmbeddedPythonInstaller();
-            embeddedPythonInstaller.InstallPath = Path.Combine(Path.GetTempPath(), @"AlterNETStudio\Scripter.Python\Demos");
+            embeddedPythonInstaller.InstallPath = Path.Combine(Path.GetTempPath(), @"Alternet.Studio.Demo\Scripter.Python\Demos");
 
             CodeEnvironment.PythonPath = embeddedPythonInstaller.EmbeddedPythonHome;
 

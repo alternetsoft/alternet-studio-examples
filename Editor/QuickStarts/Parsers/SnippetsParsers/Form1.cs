@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Windows.Forms;
@@ -244,10 +244,7 @@ namespace SnippetsParsers
                         seBottom.Lines.Add(s);
                 }
 
-                if (currentType == ReadType.ClassLess)
-                {}
-                //vbSnippetSource.Lexer = vbClassLessParser;
-                else
+                if (currentType != ReadType.ClassLess)
                     vbSnippetSource.Lexer = isClass ? vbClassParser : vbMethodParser;
                 vbSource.Lexer = vbParser;
             }

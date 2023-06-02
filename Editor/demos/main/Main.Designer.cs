@@ -107,7 +107,7 @@ namespace Alternet.CodeEditor.Demo
             this.gbDialogs = new System.Windows.Forms.GroupBox();
             this.btGoto = new System.Windows.Forms.Button();
             this.btReplace = new System.Windows.Forms.Button();
-            this.btFind = new System.Windows.Forms.Button();
+            this.FindNextButton = new System.Windows.Forms.Button();
             this.btSave = new System.Windows.Forms.Button();
             this.btLoad = new System.Windows.Forms.Button();
             this.tpDialogs = new System.Windows.Forms.TabPage();
@@ -756,7 +756,7 @@ namespace Alternet.CodeEditor.Demo
             // 
             this.gbDialogs.Controls.Add(this.btGoto);
             this.gbDialogs.Controls.Add(this.btReplace);
-            this.gbDialogs.Controls.Add(this.btFind);
+            this.gbDialogs.Controls.Add(this.FindNextButton);
             this.gbDialogs.Controls.Add(this.btSave);
             this.gbDialogs.Controls.Add(this.btLoad);
             this.gbDialogs.Location = new System.Drawing.Point(8, 8);
@@ -792,15 +792,15 @@ namespace Alternet.CodeEditor.Demo
             // 
             // btFind
             // 
-            this.btFind.BackColor = System.Drawing.SystemColors.Control;
-            this.btFind.Location = new System.Drawing.Point(104, 24);
-            this.btFind.Name = "btFind";
-            this.btFind.Size = new System.Drawing.Size(80, 23);
-            this.btFind.TabIndex = 8;
-            this.btFind.Text = "Find";
-            this.btFind.UseVisualStyleBackColor = false;
-            this.btFind.Click += new System.EventHandler(this.FindButton_Click);
-            this.btFind.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FindButton_MouseMove);
+            this.FindNextButton.BackColor = System.Drawing.SystemColors.Control;
+            this.FindNextButton.Location = new System.Drawing.Point(104, 24);
+            this.FindNextButton.Name = "btFind";
+            this.FindNextButton.Size = new System.Drawing.Size(80, 23);
+            this.FindNextButton.TabIndex = 8;
+            this.FindNextButton.Text = "Find Next";
+            this.FindNextButton.UseVisualStyleBackColor = false;
+            this.FindNextButton.Click += new System.EventHandler(this.FindButton_Click);
+            this.FindNextButton.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FindButton_MouseMove);
             // 
             // btSave
             // 
@@ -2389,7 +2389,7 @@ namespace Alternet.CodeEditor.Demo
         private System.Windows.Forms.GroupBox gbDialogs;
         private System.Windows.Forms.Button btGoto;
         private System.Windows.Forms.Button btReplace;
-        private System.Windows.Forms.Button btFind;
+        private System.Windows.Forms.Button FindNextButton;
         private System.Windows.Forms.Button btSave;
         private System.Windows.Forms.Button btLoad;
         private System.Windows.Forms.TabPage tpDialogs;

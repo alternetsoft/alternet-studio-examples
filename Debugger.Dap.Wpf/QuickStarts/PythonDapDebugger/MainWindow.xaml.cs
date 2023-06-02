@@ -13,7 +13,7 @@ using Alternet.Editor.Wpf;
 using Alternet.Scripter.Debugger.Dap;
 using Alternet.Scripter.Debugger.Dap.Python;
 using Alternet.Scripter.Integration.Wpf;
-using Alternet.Syntax.Parsers.Lsp.Python.Embedded;
+using Alternet.Syntax.Parsers.Lsp.Python.Embedded.Pyright;
 
 using Microsoft.Win32;
 
@@ -50,6 +50,7 @@ namespace PythonDapDebugger.Wpf
             DebugMenu.Debugger = debugger;
             DebugMenu.DebuggerPreStartup += OnDebuggerPreStartup;
 
+            DebuggerPanelsTabControl.VisiblePanels &= ~DebuggerPanelKinds.Threads;
             DebuggerPanelsTabControl.Debugger = debugger;
 
             var controller = new DebuggerUIController(Dispatcher, codeEditContainer);
@@ -97,7 +98,7 @@ namespace PythonDapDebugger.Wpf
         private void SetupPython()
         {
             var pythonPath = CodeEnvironment.GetSystemPythonPath();
-            var pythonPrerequisitesService = new PythonPrerequisitesService(CodeEnvironment.GetSystemPythonPath());
+            var pythonPrerequisitesService = new PythonPrerequisitesService(pythonPath);
 
             var result = pythonPrerequisitesService.CheckPythonInstallation();
             if (result.IsFailure)
@@ -139,7 +140,7 @@ namespace PythonDapDebugger.Wpf
         {
             var edit = new DebugCodeEdit();
             edit.LoadFile(e.FileName);
-            edit.Lexer = new Alternet.Syntax.Parsers.Lsp.Python.Embedded.PythonParserEmbedded();
+            edit.Lexer = new PythonParserEmbedded();
             edit.GotoDefinition += Edit_GotoDefinition;
             edit.FindAllReferences += Edit_FindAllReferences;
             edit.AllowedActions &= ~AllowedActions.FindAllImplementations;
@@ -207,7 +208,7 @@ namespace PythonDapDebugger.Wpf
             GoToDefinition();
         }
 
-        private void GoToDefinition()
+        private async void GoToDefinition()
         {
             var syntaxEdit = codeEditContainer.ActiveEditor as TextEditor;
             if (syntaxEdit == null)
@@ -217,7 +218,7 @@ namespace PythonDapDebugger.Wpf
             if (pythonParser == null)
                 return;
 
-            var declaration = pythonParser.FindDeclaration(syntaxEdit.Position);
+            var declaration = await pythonParser.FindDeclarationAsync(syntaxEdit.Position);
             if (declaration == null)
                 return;
 

@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -23,6 +23,7 @@ using System.Windows.Controls;
 using Alternet.Common.Projects;
 using Alternet.Editor.Common.Wpf;
 using Alternet.Editor.TypeScript.Wpf;
+using Alternet.Editor.Wpf;
 
 namespace AlternetStudio.TypeScript.Wpf.Demo
 {
@@ -65,6 +66,8 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
             CodeEditExtensions.OpenProject(fileName, Project);
 
             UpdateScriptProject(Project);
+            LoadBreakpoints(GetBreakpointFile(Project));
+            LoadBookmarks(GetBookmarkFile(Project));
 
             Project.ProjectModified += ProjectModified;
 
@@ -146,6 +149,8 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
 
                 UpdateCodeNavigation();
                 errorsControl.Clear();
+                BookMarkManager.SharedBookMarks.Clear();
+                UpdateBookmarkButtons();
             }
             finally
             {

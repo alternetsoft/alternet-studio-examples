@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -68,6 +68,7 @@ namespace DebuggerIntegration.Python.Wpf
             DebugMenu.Debugger = debugger;
             DebugMenu.DebuggerPreStartup += OnDebuggerPreStartup;
 
+            DebuggerPanelsTabControl.VisiblePanels &= ~DebuggerPanelKinds.Threads;
             DebuggerPanelsTabControl.Debugger = debugger;
 
             var controller = new DebuggerUIController(Dispatcher, codeEditContainer);
@@ -96,7 +97,7 @@ namespace DebuggerIntegration.Python.Wpf
         private void SetupPython()
         {
             var embeddedPythonInstaller = new EmbeddedPythonInstaller();
-            embeddedPythonInstaller.InstallPath = Path.Combine(Path.GetTempPath(), @"AlterNETStudio\Scripter.Python\Demos");
+            embeddedPythonInstaller.InstallPath = Path.Combine(Path.GetTempPath(), @"Alternet.Studio.Demo\Scripter.Python\Demos");
 
             CodeEnvironment.PythonPath = embeddedPythonInstaller.EmbeddedPythonHome;
 
@@ -169,23 +170,9 @@ namespace DebuggerIntegration.Python.Wpf
             var edit = new DebugCodeEdit();
             edit.LoadFile(e.FileName);
             edit.Lexer = pythonParser;
-
-            edit.SetNextStatement += DebugEdit_SetNextStatement;
+            edit.AllowedActions &= ~AllowedActions.SetNextStatement;
 
             e.DebugEdit = edit;
-        }
-
-        private async void DebugEdit_SetNextStatement(object sender, EventArgs e)
-        {
-            if (codeEditContainer.ActiveEditor == null)
-            {
-                return;
-            }
-
-            var line = codeEditContainer.ActiveEditor.CurrentLine + 1;
-            var result = await codeEditContainer.Debugger.TrySetNextStatementAsync(line);
-            if (result.IsFailure)
-                MessageBox.Show("Cannot set next statement to line: " + line + ". " + result.ErrorMessage);
         }
 
         private bool SetScriptSource()

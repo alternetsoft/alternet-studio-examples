@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Form Designer Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System.Drawing;
 using System.Security.Permissions;
@@ -23,7 +23,6 @@ namespace VSControls
         /// This class represents low level hook to updown control used to scroll tabs. We need it to know the
         /// position of scroller and to draw hot tab as normal when the mouse moves from that tab to scroller.
         /// </summary>
-        [SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode = true)]
         private class NativeUpDown : NativeWindow
         {
             private int x;

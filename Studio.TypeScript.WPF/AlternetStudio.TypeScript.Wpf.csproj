@@ -4,7 +4,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net452;net461;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net6.0-windows;net7.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <UseWPF>true</UseWPF>
@@ -30,6 +30,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Images\DotNetImages.png" />
+    <None Remove="Images\DotNetImagesAlpha.png" />
+    <None Remove="Images\DotNetImagesAlphaHighDpi.png" />
     <None Remove="Images\DotNetImagesHighDpi.png" />
     <None Remove="Images\JSFileNode.png" />
     <None Remove="Images\JSProjectNode.png" />
@@ -38,6 +40,10 @@
     <None Remove="Images\TSProjectNode.png" />
     <None Remove="Resources\Backwards.png" />
     <None Remove="Resources\Backwards_HighDpi.png" />
+    <None Remove="Resources\Bookmark.png" />
+    <None Remove="Resources\Bookmark_HighDpi.png" />
+    <None Remove="Resources\ClearBookmark.png" />
+    <None Remove="Resources\ClearBookmark_HighDpi.png" />
     <None Remove="Resources\Copy.png" />
     <None Remove="Resources\Copy_HighDpi.png" />
     <None Remove="Resources\Cut.png" />
@@ -52,10 +58,14 @@
     <None Remove="Resources\GoToDefinition_HighDpi.png" />
     <None Remove="Resources\NewFile.png" />
     <None Remove="Resources\NewFile_HighDpi.png" />
+    <None Remove="Resources\NextBookmark.png" />
+    <None Remove="Resources\NextBookmark_HighDpi.png" />
     <None Remove="Resources\OpenFile.png" />
     <None Remove="Resources\OpenFile_HighDpi.png" />
     <None Remove="Resources\Paste.png" />
     <None Remove="Resources\Paste_HighDpi.png" />
+    <None Remove="Resources\PreviousBookmark.png" />
+    <None Remove="Resources\PreviousBookmark_HighDpi.png" />
     <None Remove="Resources\Print.png" />
     <None Remove="Resources\PrintPreview.png" />
     <None Remove="Resources\PrintPreview_HighDpi.png" />
@@ -79,20 +89,20 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Editor.TypeScript.Wpf" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Common" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.TypeScript.Wpf" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.0.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -146,6 +156,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Images\DotNetImages.png" />
+    <EmbeddedResource Include="Images\DotNetImagesAlpha.png" />
+    <EmbeddedResource Include="Images\DotNetImagesAlphaHighDpi.png" />
     <EmbeddedResource Include="Images\DotNetImagesHighDpi.png" />
     <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -155,6 +167,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Backwards.png" />
     <EmbeddedResource Include="Resources\Backwards_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Bookmark.png" />
+    <EmbeddedResource Include="Resources\Bookmark_HighDpi.png" />
+    <EmbeddedResource Include="Resources\ClearBookmark.png" />
+    <EmbeddedResource Include="Resources\ClearBookmark_HighDpi.png" />
     <EmbeddedResource Include="Resources\Copy.png" />
     <EmbeddedResource Include="Resources\Copy_HighDpi.png" />
     <EmbeddedResource Include="Resources\Cut.png" />
@@ -169,10 +185,14 @@
     <EmbeddedResource Include="Resources\GoToDefinition_HighDpi.png" />
     <EmbeddedResource Include="Resources\NewFile.png" />
     <EmbeddedResource Include="Resources\NewFile_HighDpi.png" />
+    <EmbeddedResource Include="Resources\NextBookmark.png" />
+    <EmbeddedResource Include="Resources\NextBookmark_HighDpi.png" />
     <EmbeddedResource Include="Resources\OpenFile.png" />
     <EmbeddedResource Include="Resources\OpenFile_HighDpi.png" />
     <EmbeddedResource Include="Resources\Paste.png" />
     <EmbeddedResource Include="Resources\Paste_HighDpi.png" />
+    <EmbeddedResource Include="Resources\PreviousBookmark.png" />
+    <EmbeddedResource Include="Resources\PreviousBookmark_HighDpi.png" />
     <EmbeddedResource Include="Resources\Print.png" />
     <EmbeddedResource Include="Resources\PrintPreview.png" />
     <EmbeddedResource Include="Resources\PrintPreview_HighDpi.png" />

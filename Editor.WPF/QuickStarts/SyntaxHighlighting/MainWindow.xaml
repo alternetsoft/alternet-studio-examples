@@ -1,7 +1,7 @@
 <Window x:Class="SyntaxHighlighting.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v8"
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v9"
         xmlns:local="clr-namespace:SyntaxHighlighting"
         Icon="/SyntaxHighlighting.Wpf;component/Images/Icon.ico"
         Title="Syntax Highlighting" Height="351" Width="679">
@@ -25,9 +25,7 @@
                 <ListBox ItemsSource="{Binding Path=Languages}"  SelectedItem="{Binding Language}" ToolTip="Represents list of available languages">
                 </ListBox>
             </DockPanel>
-            <Border Grid.Column="0" Grid.Row="2" BorderBrush="Gray" BorderThickness="2">
-                <Wpf:TextEditor x:Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
-            </Border>
+            <Wpf:TextEditor Grid.Column="0" Grid.Row="2" x:Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0"/>
         </DockPanel>
     </Grid>
 </Window>

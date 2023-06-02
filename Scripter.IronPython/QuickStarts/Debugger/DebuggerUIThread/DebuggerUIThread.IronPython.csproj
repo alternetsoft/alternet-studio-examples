@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <RootNamespace>DebuggerIntegration.IronPython</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(FastBuildTargets)'!=''">
+    <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(FastBuildTargets)'==''">
+    <TargetFrameworks>net462;net6.0-windows;net7.0-windows</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>..\..\..\..\..\bin\Release\Demos.Scripter.Python\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="DisplayForm.cs" />
+    <Compile Include="DisplayForm.Designer.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="DisplayForm.resx" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Alternet.Studio.Common" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.IronPython" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.IronPython" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.0.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Script.py">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="IronPython" Version="2.7.11" />
+  </ItemGroup>
+</Project>

@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -63,6 +63,7 @@ namespace DebuggerIntegration.IronPython.Wpf
             DebugMenu.Debugger = debugger;
             DebugMenu.DebuggerPreStartup += OnDebuggerPreStartup;
 
+            DebuggerPanelsTabControl.VisiblePanels &= ~DebuggerPanelKinds.Threads;
             DebuggerPanelsTabControl.Debugger = debugger;
 
             var controller = new DebuggerUIController(Dispatcher, codeEditContainer);
@@ -136,6 +137,7 @@ namespace DebuggerIntegration.IronPython.Wpf
             var edit = new DebugCodeEdit();
             edit.LoadFile(e.FileName);
             edit.Lexer = pythonParser;
+            edit.AllowedActions &= ~AllowedActions.SetNextStatement;
             e.DebugEdit = edit;
         }
 

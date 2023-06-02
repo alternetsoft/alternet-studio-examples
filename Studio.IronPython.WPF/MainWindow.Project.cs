@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -21,6 +21,7 @@ using Alternet.Common.Projects;
 using Alternet.Common.Projects.DotNet;
 using Alternet.Editor.Common.Wpf;
 using Alternet.Editor.IronPython.Wpf;
+using Alternet.Editor.Wpf;
 
 namespace AlternetStudio.IronPython.Wpf.Demo
 {
@@ -62,6 +63,8 @@ namespace AlternetStudio.IronPython.Wpf.Demo
             Project.Load(fileName);
 
             UpdateScriptProject(Project);
+            LoadBreakpoints(GetBreakpointFile(Project));
+            LoadBookmarks(GetBookmarkFile(Project));
 
             Project.ProjectModified += ProjectModified;
 
@@ -136,6 +139,8 @@ namespace AlternetStudio.IronPython.Wpf.Demo
 
                 UpdateCodeNavigation();
                 errorsControl.Clear();
+                BookMarkManager.SharedBookMarks.Clear();
+                UpdateBookmarkButtons();
             }
             finally
             {

@@ -1,18 +1,19 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System.Windows;
+using Alternet.Editor.Wpf;
 
 namespace AlternetStudio.TypeScript.Wpf.Demo
 {
@@ -20,6 +21,23 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
     {
         private void InitializeToolbar()
         {
+        }
+
+        private bool HasBookmarks()
+        {
+            return BookMarkManager.SharedBookMarks.GetBookMarkCount() > 0;
+        }
+
+        private void UpdateBookmarkButtons()
+        {
+            var edit = ActiveSyntaxEdit;
+            bool enabled = edit != null;
+
+            bool hasBookmarks = HasBookmarks();
+            toggleBookmarkToolButton.IsEnabled = enabled;
+            prevBookmarkToolButton.IsEnabled = hasBookmarks;
+            nextBookmarkToolButton.IsEnabled = hasBookmarks;
+            clearAllBookmarksToolButton.IsEnabled = hasBookmarks;
         }
 
         private void UpdateEditorStatus()
@@ -76,6 +94,8 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
 
             undoToolButton.IsEnabled = canUndo;
             redoToolButton.IsEnabled = canRedo;
+
+            UpdateBookmarkButtons();
         }
 
         private void UndoMenuItem_Click(object sender, RoutedEventArgs e)
@@ -169,6 +189,37 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
             var edit = ActiveSyntaxEdit;
             if (edit != null)
                 edit.PrintPreview();
+        }
+
+        private void ToggleBookmarkMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var edit = ActiveSyntaxEdit;
+            if (edit != null)
+            {
+                BookMarkManager.SharedBookMarks.ToggleBookMark(edit.Position, 0, int.MaxValue, -1, string.Empty, string.Empty, string.Empty, null, edit.FileName);
+            }
+        }
+
+        private void PrevBookmarkMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            BookMarkManager.SharedBookMarks.GotoPrevBookMark();
+        }
+
+        private void NextBookmarkMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            BookMarkManager.SharedBookMarks.GotoNextBookMark();
+        }
+
+        private void ClearAllBookmarksMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            BookMarkManager.SharedBookMarks.Clear();
+            var edit = ActiveSyntaxEdit as TextEditor;
+            if (edit != null)
+            {
+                edit.Invalidate();
+            }
+
+            UpdateBookmarkButtons();
         }
     }
 }

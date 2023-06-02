@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -110,6 +110,13 @@ namespace SyntaxHighlighting
             foreach (LanguageInfo info in langItems)
                 lbLanguages.Items.Add(info.Description);
             lbLanguages.SelectedIndex = 0;
+        }
+
+        private void SyntaxEdit1_FontChanged(object sender, EventArgs e)
+        {
+            syntaxEdit1.Painter.Font = syntaxEdit1.Font;
+            syntaxEdit1.Pages.Rulers = syntaxEdit1.Painter.IsMonoSpaced ? syntaxEdit1.Pages.Rulers
+                | Alternet.Editor.EditRulers.Horizonal : syntaxEdit1.Pages.Rulers & ~Alternet.Editor.EditRulers.Horizonal;
         }
 
         private void LanguagesLisoxTextBox_SelectedIndexChanged(object sender, EventArgs e)

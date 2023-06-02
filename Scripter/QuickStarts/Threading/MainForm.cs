@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections;
@@ -104,6 +104,17 @@ namespace Threading
 
             t.Interval = 100;
             t.Tick += new EventHandler(DoTick);
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (tokenSource != null)
+            {
+                tokenSource.Cancel();
+                tokenSource = null;
+                btCancel.Enabled = false;
+                btStartSorting.Enabled = true;
+            }
         }
 
         private void DoTick(object sender, EventArgs e)

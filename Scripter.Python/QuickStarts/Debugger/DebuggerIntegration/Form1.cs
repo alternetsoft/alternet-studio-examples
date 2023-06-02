@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -44,12 +42,14 @@ namespace DebuggerIntegration.Python
             {
                 ScriptRun = scriptRun1,
             };
+
             debuggerControlToolbar1.Debugger = debugger;
             debugMenu1.Debugger = debugger;
 
             debugMenu1.DebuggerPreStartup += OnDebuggerPreStartup;
             debuggerControlToolbar1.DebuggerPreStartup += OnDebuggerPreStartup;
 
+            debuggerPanelsTabControl.VisiblePanels &= ~DebuggerPanelKinds.Threads;
             debuggerPanelsTabControl.Debugger = debugger;
 
             var controller = new DebuggerUIController(this, editorTabContainer);
@@ -59,10 +59,10 @@ namespace DebuggerIntegration.Python
             editorTabContainer.Debugger = debugger;
         }
 
-        protected override void OnClosing(CancelEventArgs e)
+        protected async override void OnClosing(CancelEventArgs e)
         {
-            if (debugMenu1.Debugger.IsStarted)
-                debugMenu1.Debugger.StopDebuggingAsync();
+            if (debugger.IsStarted)
+                await debugger.StopDebuggingAsync();
 
             base.OnClosing(e);
         }
@@ -78,7 +78,7 @@ namespace DebuggerIntegration.Python
             var requiredModules = new[] { "numpy" };
 
             var embeddedPythonInstaller = new EmbeddedPythonInstaller();
-            embeddedPythonInstaller.InstallPath = Path.Combine(Path.GetTempPath(), @"AlterNETStudio\Scripter.Python\Demos");
+            embeddedPythonInstaller.InstallPath = Path.Combine(Path.GetTempPath(), @"Alternet.Studio.Demo\Scripter.Python\Demos");
 
             CodeEnvironment.PythonPath = embeddedPythonInstaller.EmbeddedPythonHome;
 
@@ -100,7 +100,7 @@ namespace DebuggerIntegration.Python
                 {
                     await embeddedPythonInstaller.SetupPython();
 
-                    var numpyFileName = Environment.Is64BitProcess ? "numpy-1.16.3-cp37-cp37m-win_amd64.whl" : "numpy-1.16.3-cp37-cp37m-win32.whl";
+                    var numpyFileName = Environment.Is64BitProcess ? "numpy-1.24.3-cp310-cp310-win_amd64.whl" : "numpy-1.24.3-cp310-cp310-win32.whl";
 
                     await embeddedPythonInstaller.InstallWheel(
                         GetType().Assembly.GetManifestResourceStream("DebuggerIntegration.Python.Resources.numpy." + numpyFileName),
@@ -162,27 +162,12 @@ namespace DebuggerIntegration.Python
 
             var parser = new PythonNETParser();
             parser.CodeEnvironment = scriptRun1.CodeEnvironment;
-
             var edit = new DebugCodeEdit();
             edit.LoadFile(e.FileName);
             edit.Lexer = parser;
-
-            edit.SetNextStatement += DebugEdit_SetNextStatement;
+            edit.AllowedActions &= ~AllowedActions.SetNextStatement;
 
             e.DebugEdit = edit;
-        }
-
-        private async void DebugEdit_SetNextStatement(object sender, EventArgs e)
-        {
-            if (editorTabContainer.ActiveEditor == null)
-            {
-                return;
-            }
-
-            var line = editorTabContainer.ActiveEditor.CurrentLine + 1;
-            var result = await editorTabContainer.Debugger.TrySetNextStatementAsync(line);
-            if (result.IsFailure)
-                MessageBox.Show("Cannot set next statement to line: " + line + ". " + result.ErrorMessage);
         }
 
         private void SaveAllModifiedFiles()

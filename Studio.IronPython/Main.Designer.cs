@@ -105,6 +105,11 @@ namespace AlternetStudio.Demo
             this.historyForwardToolButton = new System.Windows.Forms.ToolStripButton();
             this.historyBackwardToolSplitButton = new System.Windows.Forms.ToolStripSplitButton();
             this.historyBackwardContextMenu = new System.Windows.Forms.ContextMenuStrip();
+            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
+            this.toggleBookmarkToolButton = new System.Windows.Forms.ToolStripButton();
+            this.prevBookmarkToolButton = new System.Windows.Forms.ToolStripButton();
+            this.nextBookmarkToolButton = new System.Windows.Forms.ToolStripButton();
+            this.clearAllBookmarksToolButton = new System.Windows.Forms.ToolStripButton();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.positionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -199,7 +204,7 @@ namespace AlternetStudio.Demo
             this.newStripSplitButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newStripSplitButton.Name = "newStripSplitButton";
             this.newStripSplitButton.Size = new System.Drawing.Size(32, 22);
-            this.newStripSplitButton.Margin = new System.Windows.Forms.Padding(2, 6, 2, 8);
+            this.newStripSplitButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.newStripSplitButton.ToolTipText = "New";
             // 
             // referencesContextMenu
@@ -334,9 +339,7 @@ namespace AlternetStudio.Demo
             this.newFormMenuItem.Name = "newFormMenuItem";
             this.newFormMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newFormMenuItem.Text = "New Form...";
-            #if USEFORMDESIGNER
             this.newFormMenuItem.Click += new System.EventHandler(this.NewFormMenuItem_Click);
-            #endif
             this.newFormMenuItem.Visible = false;
             // 
             // miNewProject
@@ -724,6 +727,11 @@ namespace AlternetStudio.Demo
             this.printPreviewToolButton,
             this.printToolButton,
             this.toolStripSeparator4,
+            this.toggleBookmarkToolButton,
+            this.prevBookmarkToolButton,
+            this.nextBookmarkToolButton,
+            this.clearAllBookmarksToolButton,
+            this.toolStripSeparator15,
             this.historyBackwardToolSplitButton,
             this.historyForwardToolButton});
             this.standardToolStrip.Location = new System.Drawing.Point(0, 24);
@@ -748,7 +756,7 @@ namespace AlternetStudio.Demo
             this.openToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolButton.Name = "openToolButton";
             this.openToolButton.Size = new System.Drawing.Size(23, 22);
-            this.openToolButton.Margin = new System.Windows.Forms.Padding(2, 6, 2, 8);
+            this.openToolButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.openToolButton.ToolTipText = "Open";
             // 
             // saveToolButton
@@ -757,7 +765,7 @@ namespace AlternetStudio.Demo
             this.saveToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolButton.Name = "saveToolButton";
             this.saveToolButton.Size = new System.Drawing.Size(23, 22);
-            this.saveToolButton.Margin = new System.Windows.Forms.Padding(2, 6, 2, 8);
+            this.saveToolButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.saveToolButton.ToolTipText = "Save";
             // 
             // toolStripSeparator1
@@ -771,7 +779,7 @@ namespace AlternetStudio.Demo
             this.cutToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cutToolButton.Name = "cutToolButton";
             this.cutToolButton.Size = new System.Drawing.Size(23, 22);
-            this.cutToolButton.Margin = new System.Windows.Forms.Padding(2, 6, 2, 8);
+            this.cutToolButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cutToolButton.ToolTipText = "Cut";
             // 
             // copyToolButton
@@ -780,7 +788,7 @@ namespace AlternetStudio.Demo
             this.copyToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.copyToolButton.Name = "copyToolButton";
             this.copyToolButton.Size = new System.Drawing.Size(23, 22);
-            this.copyToolButton.Margin = new System.Windows.Forms.Padding(2, 6, 2, 8);
+            this.copyToolButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.copyToolButton.ToolTipText = "Copy";
             // 
             // pasteToolButton
@@ -789,7 +797,7 @@ namespace AlternetStudio.Demo
             this.pasteToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.pasteToolButton.Name = "pasteToolButton";
             this.pasteToolButton.Size = new System.Drawing.Size(23, 22);
-            this.pasteToolButton.Margin = new System.Windows.Forms.Padding(2, 6, 2, 8);
+            this.pasteToolButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pasteToolButton.ToolTipText = "Paste";
             // 
             // undoToolButton
@@ -798,7 +806,7 @@ namespace AlternetStudio.Demo
             this.undoToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.undoToolButton.Name = "undoToolButton";
             this.undoToolButton.Size = new System.Drawing.Size(23, 22);
-            this.undoToolButton.Margin = new System.Windows.Forms.Padding(2, 6, 2, 8);
+            this.undoToolButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.undoToolButton.ToolTipText = "Undo";
             // 
             // redoToolButton
@@ -807,7 +815,7 @@ namespace AlternetStudio.Demo
             this.redoToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.redoToolButton.Name = "redoToolButton";
             this.redoToolButton.Size = new System.Drawing.Size(23, 22);
-            this.redoToolButton.Margin = new System.Windows.Forms.Padding(2, 6, 2, 8);
+            this.redoToolButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.redoToolButton.ToolTipText = "Redo";
             // 
             // toolStripSeparator2
@@ -821,7 +829,7 @@ namespace AlternetStudio.Demo
             this.findToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.findToolButton.Name = "findToolButton";
             this.findToolButton.Size = new System.Drawing.Size(23, 22);
-            this.findToolButton.Margin = new System.Windows.Forms.Padding(2, 6, 2, 8);
+            this.findToolButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.findToolButton.ToolTipText = "Find";
             // 
             // replaceToolButton
@@ -830,7 +838,7 @@ namespace AlternetStudio.Demo
             this.replaceToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.replaceToolButton.Name = "replaceToolButton";
             this.replaceToolButton.Size = new System.Drawing.Size(23, 22);
-            this.replaceToolButton.Margin = new System.Windows.Forms.Padding(2, 6, 2, 8);
+            this.replaceToolButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.replaceToolButton.ToolTipText = "Replace";
             // 
             // gotoToolButton
@@ -839,7 +847,7 @@ namespace AlternetStudio.Demo
             this.gotoToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.gotoToolButton.Name = "gotoToolButton";
             this.gotoToolButton.Size = new System.Drawing.Size(23, 22);
-            this.gotoToolButton.Margin = new System.Windows.Forms.Padding(2, 6, 2, 8);
+            this.gotoToolButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.gotoToolButton.ToolTipText = "Goto";
             // 
             // toolStripSeparator3
@@ -853,7 +861,7 @@ namespace AlternetStudio.Demo
             this.printPreviewToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.printPreviewToolButton.Name = "printPreviewToolButton";
             this.printPreviewToolButton.Size = new System.Drawing.Size(23, 22);
-            this.printPreviewMenuItem.Margin = new System.Windows.Forms.Padding(2, 6, 2, 8);
+            this.printPreviewMenuItem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.printPreviewToolButton.ToolTipText = "Print Preview";
             // 
             // printToolButton
@@ -862,7 +870,7 @@ namespace AlternetStudio.Demo
             this.printToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.printToolButton.Name = "printToolButton";
             this.printToolButton.Size = new System.Drawing.Size(23, 22);
-            this.printToolButton.Margin = new System.Windows.Forms.Padding(2, 6, 2, 8);
+            this.printToolButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.printToolButton.ToolTipText = "Print";
             // 
             // toolStripSeparator4
@@ -874,16 +882,53 @@ namespace AlternetStudio.Demo
             // 
             this.historyForwardToolButton.Name = "historyForwardToolButton";
             this.historyForwardToolButton.Size = new System.Drawing.Size(23, 22);
-            this.historyForwardToolButton.Margin = new System.Windows.Forms.Padding(2, 6, 2, 8);
+            this.historyForwardToolButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.historyForwardToolButton.ToolTipText = "Navigate Forward";
             // 
             // historyBackwardToolSplitButton
             // 
             this.historyBackwardToolSplitButton.Name = "historyBackwardToolSplitButton";
             this.historyBackwardToolSplitButton.Size = new System.Drawing.Size(23, 22);
-            this.historyBackwardToolSplitButton.Margin = new System.Windows.Forms.Padding(2, 6, 2, 8);
+            this.historyBackwardToolSplitButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.historyBackwardToolSplitButton.ToolTipText = "Navigate Backward";
             this.historyBackwardToolSplitButton.DropDown = historyBackwardContextMenu;
+            // 
+            // toolStripSeparator15
+            // 
+            this.toolStripSeparator15.Name = "toolStripSeparator5";
+            this.toolStripSeparator15.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toggleBookmarkToolButton
+            // 
+            this.toggleBookmarkToolButton.Name = "toggleBookmarkToolButton";
+            this.toggleBookmarkToolButton.Size = new System.Drawing.Size(23, 22);
+            this.toggleBookmarkToolButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.toggleBookmarkToolButton.ToolTipText = "Toggle a bookmark on the current line. (Ctrl + K, Ctrl + K)";
+            this.toggleBookmarkToolButton.Click += ToggleBookmarkToolButton_Click;
+            // 
+            // prevBookmarkToolButton
+            // 
+            this.prevBookmarkToolButton.Name = "prevBookmarkToolButton";
+            this.prevBookmarkToolButton.Size = new System.Drawing.Size(23, 22);
+            this.prevBookmarkToolButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.prevBookmarkToolButton.ToolTipText = "Move the caret to the previous bookmark. (Ctrl + K, Ctrl + P)";
+            this.prevBookmarkToolButton.Click += PrevBookmarkToolButton_Click;
+            // 
+            // nextBookmarkToolButton
+            // 
+            this.nextBookmarkToolButton.Name = "nextBookmarkToolButton";
+            this.nextBookmarkToolButton.Size = new System.Drawing.Size(23, 22);
+            this.nextBookmarkToolButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nextBookmarkToolButton.ToolTipText = "Move the caret to the next bookmark. (Ctrl + K, Ctrl + N)";
+            this.nextBookmarkToolButton.Click += NextBookmarkToolButton_Click;
+            // 
+            // clearAllBookmarksToolButton
+            // 
+            this.clearAllBookmarksToolButton.Name = "clearAllBookmarksToolButton";
+            this.clearAllBookmarksToolButton.Size = new System.Drawing.Size(23, 22);
+            this.clearAllBookmarksToolButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.clearAllBookmarksToolButton.ToolTipText = "Clear all bookmarks in all files. (Ctrl + K, Ctrl + L)";
+            this.clearAllBookmarksToolButton.Click += ClearAllBookmarksToolButton_Click;
             // 
             // imageList
             // 
@@ -973,9 +1018,6 @@ namespace AlternetStudio.Demo
             this.methodsComboBox.Size = new System.Drawing.Size(333, 24);
             this.methodsComboBox.Sorted = true;
             this.methodsComboBox.TabIndex = 1;
-            //this.methodsComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cbMethods_DrawItem);
-            //this.methodsComboBox.SelectedIndexChanged += new System.EventHandler(this.cbMethods_SelectedIndexChanged);
-            //this.methodsComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.cbMethods_Format);
             // 
             // classesComboBox
             // 
@@ -988,9 +1030,6 @@ namespace AlternetStudio.Demo
             this.classesComboBox.Size = new System.Drawing.Size(333, 24);
             this.classesComboBox.Sorted = true;
             this.classesComboBox.TabIndex = 0;
-            //this.classesComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cbMethods_DrawItem);
-            //this.classesComboBox.SelectedIndexChanged += new System.EventHandler(this.cbMethods_SelectedIndexChanged);
-            //this.classesComboBox.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.cbMethods_Format);
             // 
             // splitter1
             // 
@@ -1092,13 +1131,12 @@ namespace AlternetStudio.Demo
             this.bottomTabControl.Controls.Add(this.localsTabPage);
             this.bottomTabControl.Controls.Add(this.watchesTabPage);
             this.bottomTabControl.Controls.Add(this.errorsTabPage);
-            this.bottomTabControl.Controls.Add(this.threadsTabPage);
             this.bottomTabControl.Controls.Add(this.findResultsTabPage);
             this.bottomTabControl.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomTabControl.Location = new System.Drawing.Point(0, 535);
+            this.bottomTabControl.Location = new System.Drawing.Point(0, 585);
             this.bottomTabControl.Name = "bottomTabControl";
             this.bottomTabControl.SelectedIndex = 0;
-            this.bottomTabControl.Size = new System.Drawing.Size(1605, 356);
+            this.bottomTabControl.Size = new System.Drawing.Size(1605, 306);
             this.bottomTabControl.TabIndex = 35;
             this.bottomTabControl.SelectedIndexChanged += new System.EventHandler(this.BottomTabControl_SelectedIndexChanged);
             // 
@@ -1259,10 +1297,10 @@ namespace AlternetStudio.Demo
             this.rightTabControl.Controls.Add(this.projectExplorerTabPage);
             this.rightTabControl.Controls.Add(this.codeExplorerTabPage);
             this.rightTabControl.Dock = System.Windows.Forms.DockStyle.Right;
-            this.rightTabControl.Location = new System.Drawing.Point(958, 49);
+            this.rightTabControl.Location = new System.Drawing.Point(1058, 49);
             this.rightTabControl.Name = "tcRight";
             this.rightTabControl.SelectedIndex = 0;
-            this.rightTabControl.Size = new System.Drawing.Size(647, 482);
+            this.rightTabControl.Size = new System.Drawing.Size(547, 482);
             this.rightTabControl.TabIndex = 38;
             // 
             // propertiesTabPage
@@ -1438,6 +1476,11 @@ namespace AlternetStudio.Demo
         private System.Windows.Forms.ToolStripButton historyForwardToolButton;
         private System.Windows.Forms.ToolStripSplitButton historyBackwardToolSplitButton;
         private System.Windows.Forms.ContextMenuStrip historyBackwardContextMenu;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
+        private System.Windows.Forms.ToolStripButton toggleBookmarkToolButton;
+        private System.Windows.Forms.ToolStripButton prevBookmarkToolButton;
+        private System.Windows.Forms.ToolStripButton nextBookmarkToolButton;
+        private System.Windows.Forms.ToolStripButton clearAllBookmarksToolButton;
         private System.Windows.Forms.ImageList imageList;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel positionStatusLabel;

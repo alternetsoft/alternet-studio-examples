@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Drawing;
@@ -236,9 +236,9 @@ namespace AlternetStudio.Demo
 
                 if (SaveAllModifiedFiles() && SetScriptSource())
                 {
-                    errorsControl.Clear();
-
                     StartDebugCore(breakOnStart);
+
+                    errorsControl.Clear();
 
                     var errors = scriptRun.ScriptHost.CompilerErrors;
                     if (errors != null && errors.Length > 0)
@@ -299,11 +299,6 @@ namespace AlternetStudio.Demo
                 else if (selectedTab == watchesTabPage)
                 {
                     watchesControl.EvaluateWatchExpressions();
-                }
-                else if (selectedTab == threadsTabPage)
-                {
-                    if (Debugger.IsStarted)
-                        threadsControl.SetThreads((await Debugger.GetThreadsAsync()).Threads);
                 }
             }
             catch (Exception e)

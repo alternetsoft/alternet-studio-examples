@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Form Designer Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -651,7 +651,15 @@ namespace Alternet.FormDesigner.Demo
             if (SaveAllModifiedFiles() && SetScriptSource(source))
             {
                 if (!scriptRun.Compiled)
-                    scriptRun.Compile();
+                {
+                    if (!scriptRun.Compile())
+                    {
+                        var error = scriptRun.ScriptHost.CompilerErrors.FirstOrDefault();
+                        MessageBox.Show(error.Message);
+                        return;
+                    }
+                }
+
                 scriptRun.RunAsync();
             }
         }
@@ -1131,7 +1139,7 @@ namespace Alternet.FormDesigner.Demo
             var userCodeFileName = saveFileDialog.FileName;
 
             var source = new FormDesignerDataSource(userCodeFileName, designerFileNameSuffix: "_Designer");
-            FormFilesUtility.CreateFormFiles(source, FormFilesUtility.CreateFormFilesOptions.Python);
+            FormFilesUtility.CreateFormFiles(source, FormFilesUtility.CreateFormFilesOptions.IronPython);
 
             OpenOrActivateCode(source.UserCodeFileName, source.UserCodeFileName);
             OpenOrActivateCode(source.UserCodeFileName, source.DesignerFileName);

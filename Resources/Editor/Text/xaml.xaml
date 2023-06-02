@@ -1,4 +1,4 @@
-<Window x:Class="HelloWorld.Wpf.MainWindowCS" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:XAML="clr-namespace:Alternet.Syntax.Parsers.XAML;assembly=Alternet.Syntax.Parsers.XAML.v8" Title="MainWindow" Height="350" Width="525">
+<Window x:Class="HelloWorld.Wpf.MainWindowCS" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:XAML="clr-namespace:Alternet.Syntax.Parsers.XAML;assembly=Alternet.Syntax.Parsers.XAML.v9" Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Label RenderTransformOrigin="0.001,-2.695" Content="Text modified by LabelDesignItemInitializer" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="166,60.5,0,0" />
         <Image Source="1.png" Height="100" Width="100" />

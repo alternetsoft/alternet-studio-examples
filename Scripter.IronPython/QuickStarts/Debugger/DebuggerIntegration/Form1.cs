@@ -4,8 +4,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Alternet.Common;
-using Alternet.Common.Python;
 using Alternet.Editor.IronPython;
 using Alternet.Scripter.Debugger.IronPython;
 using Alternet.Scripter.Integration;
@@ -31,7 +29,6 @@ namespace DebuggerIntegration.IronPython
             editorTabContainer.EditorRequested += EditorContainer_EditorRequested;
 
             OpenProject(FindProjectFile());
-
             scriptRun1.GlobalItems.Add(new ScriptGlobalItem("TestMenuItem", testMenuItemToolStripMenuItem));
 
             var debugger = new ScriptDebugger();
@@ -42,6 +39,7 @@ namespace DebuggerIntegration.IronPython
             debugMenu1.DebuggerPreStartup += OnDebuggerPreStartup;
             debuggerControlToolbar1.DebuggerPreStartup += OnDebuggerPreStartup;
 
+            debuggerPanelsTabControl.VisiblePanels &= ~DebuggerPanelKinds.Threads;
             debuggerPanelsTabControl.Debugger = debugger;
 
             var controller = new DebuggerUIController(this, editorTabContainer);
@@ -112,6 +110,7 @@ namespace DebuggerIntegration.IronPython
             var edit = new DebugCodeEdit();
             edit.LoadFile(e.FileName);
             edit.Lexer = parser;
+            edit.AllowedActions &= ~AllowedActions.SetNextStatement;
 
             e.DebugEdit = edit;
         }
@@ -123,6 +122,18 @@ namespace DebuggerIntegration.IronPython
                 if (edit.Modified)
                     edit.SaveFile(edit.FileName);
             }
+        }
+
+        private void ScriptRun1_FileLoad(object sender, Alternet.Scripter.FileLoadEventArgs e)
+        {
+            this.Invoke(new Action(() =>
+            {
+                if (editorTabContainer.ActiveEditor != null && string.Compare(editorTabContainer.ActiveEditor.FileName, e.FileName, true) == 0)
+                {
+                    e.Text = editorTabContainer.ActiveEditor.Text;
+                    e.Handled = true;
+                }
+            }));
         }
 
         private bool SetScriptSource()

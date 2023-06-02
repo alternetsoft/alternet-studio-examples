@@ -12,7 +12,6 @@ using Alternet.FormDesigner.Wpf;
 using Alternet.Scripter;
 using Alternet.Scripter.Debugger;
 using Alternet.Scripter.Integration.Wpf;
-using Alternet.Syntax.Parsers.Roslyn;
 using Microsoft.Win32;
 
 namespace DebuggerIntegration.Wpf

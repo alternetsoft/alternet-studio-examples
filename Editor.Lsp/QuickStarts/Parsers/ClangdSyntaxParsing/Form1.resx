@@ -133,7 +133,7 @@
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;LexScheme xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;Author&gt;AlterNET Software&lt;/Author&gt;
-  &lt;Copyright&gt;Copyright (c) 2016-2022 Alternet Software&lt;/Copyright&gt;
+  &lt;Copyright&gt;Copyright (c) 2016-2023 Alternet Software&lt;/Copyright&gt;
   &lt;Version&gt;1.5&lt;/Version&gt;
   &lt;Styles&gt;
     &lt;Style&gt;

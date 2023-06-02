@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -25,6 +25,7 @@ using System.Windows.Media.Imaging;
 using Alternet.Common;
 using Alternet.Common.Projects.DotNet;
 using Alternet.Editor.Common.Wpf;
+using Alternet.Editor.IronPython.Wpf;
 using Alternet.Editor.Wpf;
 using Alternet.Scripter.Integration.Wpf;
 using Alternet.Syntax.Parsers.Python;
@@ -166,7 +167,9 @@ namespace AlternetStudio.IronPython.Wpf.Demo
 
             editorsTabControl.SelectedItem = page;
             UpdateSearch();
+            UpdateBookmarks();
             UpdateCodeNavigation();
+            edit.UpdateBreakpoints();
             return edit;
         }
 
@@ -410,6 +413,11 @@ namespace AlternetStudio.IronPython.Wpf.Demo
                 }
                 else
                     SaveFileAs(edit);
+                if ((Project != null) && Project.HasProject && FileBelongsToProject(edit.FileName))
+                {
+                    SaveBreakpoints(GetBreakpointFile(Project));
+                    SaveBookmarks(GetBookmarkFile(Project));
+                }
             }
         }
 
@@ -423,6 +431,47 @@ namespace AlternetStudio.IronPython.Wpf.Demo
         private void SaveAllMenuItem_Click(object sender, RoutedEventArgs e)
         {
             SaveAllModifiedFiles();
+            if ((Project != null) && Project.HasProject)
+            {
+                SaveBreakpoints(GetBreakpointFile(Project));
+                SaveBookmarks(GetBookmarkFile(Project));
+            }
+        }
+
+        private string GetBreakpointFile(IronPythonProject project)
+        {
+            return Path.GetFullPath(Path.Combine(Path.GetDirectoryName(project.ProjectFileName), project.ProjectName + ".Breakpoints.xml"));
+        }
+
+        private string GetBookmarkFile(IronPythonProject project)
+        {
+            return Path.GetFullPath(Path.Combine(Path.GetDirectoryName(project.ProjectFileName), project.ProjectName + ".Bookmarks.xml"));
+        }
+
+        private void LoadBreakpoints(string fileName)
+        {
+            if (File.Exists(fileName))
+            {
+                Debugger.Breakpoints.LoadFile(fileName);
+            }
+        }
+
+        private void LoadBookmarks(string fileName)
+        {
+            if (File.Exists(fileName))
+            {
+                BookMarkManager.SharedBookMarks.LoadFile(fileName);
+            }
+        }
+
+        private void SaveBreakpoints(string fileName)
+        {
+            Debugger.Breakpoints.SaveFile(fileName);
+        }
+
+        private void SaveBookmarks(string fileName)
+        {
+            BookMarkManager.SharedBookMarks.SaveFile(fileName);
         }
 
         private bool SaveAllModifiedFiles()

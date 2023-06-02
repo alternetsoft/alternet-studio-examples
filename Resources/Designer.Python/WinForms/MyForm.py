@@ -1,6 +1,10 @@
 import MyForm_Designer
+
+from importlib import reload
+reload(MyForm_Designer)
+
 from MyForm_Designer import *
- 
+
 class MyForm (MyForm_Designer):
     """A form class"""
    

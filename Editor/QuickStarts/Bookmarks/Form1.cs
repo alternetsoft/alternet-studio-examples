@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections;
@@ -262,11 +262,15 @@ namespace Bookmarks
         private void NexookmarkTextBoxButton_Click(object sender, EventArgs e)
         {
             BookMarkManager.SharedBookMarks.GotoNextBookMark();
+            var edit = GetActiveSyntaxEdit();
+            edit?.Focus();
         }
 
         private void PrevBookmarkButton_Click(object sender, EventArgs e)
         {
             BookMarkManager.SharedBookMarks.GotoPrevBookMark();
+            var edit = GetActiveSyntaxEdit();
+            edit?.Focus();
         }
 
         private void NexookmarkTextBoxButton_MouseMove(object sender, MouseEventArgs e)

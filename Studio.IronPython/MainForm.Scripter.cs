@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Drawing;
@@ -147,13 +147,11 @@ namespace AlternetStudio.Demo
 
                 if (scriptRun.ScriptHost.CompileFailed)
                     ActivateErrorsTab();
-#if USEFORMDESIGNER
                 else
                 {
                     foreach (var source in sourcesByFormId.Values)
                         source.DesignedComponentAssembly.NotifyAssemblyChanged();
                 }
-#endif
             }
         }
 

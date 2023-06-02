@@ -1,22 +1,22 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Alternet.FormDesigner.Wpf;
+using Alternet.Editor.Wpf;
 
 namespace AlternetStudio.Wpf.Demo
 {
@@ -33,6 +33,23 @@ namespace AlternetStudio.Wpf.Demo
             positionStatusLabel.Content = status?.Position ?? string.Empty;
             modifiedStatusLabel.Content = status?.Modified ?? string.Empty;
             overwriteStatusLabel.Content = status?.Overwrite ?? " ";
+        }
+
+        private bool HasBookmarks()
+        {
+            return BookMarkManager.SharedBookMarks.GetBookMarkCount() > 0;
+        }
+
+        private void UpdateBookmarkButtons()
+        {
+            var edit = ActiveSyntaxEdit;
+            bool enabled = edit != null;
+
+            bool hasBookmarks = HasBookmarks();
+            toggleBookmarkToolButton.IsEnabled = enabled;
+            prevBookmarkToolButton.IsEnabled = hasBookmarks;
+            nextBookmarkToolButton.IsEnabled = hasBookmarks;
+            clearAllBookmarksToolButton.IsEnabled = hasBookmarks;
         }
 
         private void UpdateEditorButtons()
@@ -83,6 +100,8 @@ namespace AlternetStudio.Wpf.Demo
 
             undoToolButton.IsEnabled = canUndo;
             redoToolButton.IsEnabled = canRedo;
+
+            UpdateBookmarkButtons();
 
             if (edit == null && ActiveFormDesigner != null)
                 UpdateDesignerButtons();
@@ -219,6 +238,37 @@ namespace AlternetStudio.Wpf.Demo
             var edit = ActiveSyntaxEdit;
             if (edit != null)
                 edit.PrintPreview();
+        }
+
+        private void ToggleBookmarkMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var edit = ActiveSyntaxEdit;
+            if (edit != null)
+            {
+                BookMarkManager.SharedBookMarks.ToggleBookMark(edit.Position, 0, int.MaxValue, -1, string.Empty, string.Empty, string.Empty, null, edit.FileName);
+            }
+        }
+
+        private void PrevBookmarkMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            BookMarkManager.SharedBookMarks.GotoPrevBookMark();
+        }
+
+        private void NextBookmarkMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            BookMarkManager.SharedBookMarks.GotoNextBookMark();
+        }
+
+        private void ClearAllBookmarksMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            BookMarkManager.SharedBookMarks.Clear();
+            var edit = ActiveSyntaxEdit as TextEditor;
+            if (edit != null)
+            {
+                edit.Invalidate();
+            }
+
+            UpdateBookmarkButtons();
         }
 
         private void ContextMenu_Opened(object sender, EventArgs e)

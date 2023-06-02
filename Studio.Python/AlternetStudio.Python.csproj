@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup Condition="'$(FastBuildTargets)'!=''">
+    <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(FastBuildTargets)'==''">
+    <TargetFrameworks>net462;net6.0-windows;net7.0-windows</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <UseWindowsForms>true</UseWindowsForms>
+    <OutputType>WinExe</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyName>AlternetStudio.Python</AssemblyName>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <RootNamespace>AlternetStudio.Demo.Python</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>..\..\bin\Release\Demos.Studio.Python\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\Backwards.png" />
+    <None Remove="Resources\Backwards_HighDpi.png" />
+    <None Remove="Resources\Bookmark.png" />
+    <None Remove="Resources\Bookmark_HighDpi.png" />
+    <None Remove="Resources\ClearBookmark.png" />
+    <None Remove="Resources\ClearBookmark_HighDpi.png" />
+    <None Remove="Resources\Copy.png" />
+    <None Remove="Resources\Copy_HighDpi.png" />
+    <None Remove="Resources\Cut.png" />
+    <None Remove="Resources\Cut_HighDpi.png" />
+    <None Remove="Resources\Exit.png" />
+    <None Remove="Resources\Exit_HighDpi.png" />
+    <None Remove="Resources\FindInFile.png" />
+    <None Remove="Resources\FindInFile_HighDpi.png" />
+    <None Remove="Resources\Forwards.png" />
+    <None Remove="Resources\Forwards_HighDpi.png" />
+    <None Remove="Resources\GoToDefinition.png" />
+    <None Remove="Resources\GoToDefinition_HighDpi.png" />
+    <None Remove="Resources\NewFile.png" />
+    <None Remove="Resources\NewFile_HighDpi.png" />
+    <None Remove="Resources\NextBookmark.png" />
+    <None Remove="Resources\NextBookmark_HighDpi.png" />
+    <None Remove="Resources\OpenFile.png" />
+    <None Remove="Resources\OpenFile_HighDpi.png" />
+    <None Remove="Resources\Paste.png" />
+    <None Remove="Resources\Paste_HighDpi.png" />
+    <None Remove="Resources\PreviousBookmark.png" />
+    <None Remove="Resources\PreviousBookmark_HighDpi.png" />
+    <None Remove="Resources\Print.png" />
+    <None Remove="Resources\PrintPreview.png" />
+    <None Remove="Resources\PrintPreview_HighDpi.png" />
+    <None Remove="Resources\Print_HighDpi.png" />
+    <None Remove="Resources\Redo.png" />
+    <None Remove="Resources\Redo_HighDpi.png" />
+    <None Remove="Resources\ReplaceInFiles.png" />
+    <None Remove="Resources\ReplaceInFiles_HighDpi.png" />
+    <None Remove="Resources\Save.png" />
+    <None Remove="Resources\SaveAll.png" />
+    <None Remove="Resources\SaveAll_HighDpi.png" />
+    <None Remove="Resources\SaveAs.png" />
+    <None Remove="Resources\SaveAs_HighDpi.png" />
+    <None Remove="Resources\Save_HighDpi.png" />
+    <None Remove="Resources\SelectAll.png" />
+    <None Remove="Resources\SelectAll_HighDpi.png" />
+    <None Remove="Resources\StartWithoutDebug.png" />
+    <None Remove="Resources\StartWithoutDebug_HighDpi.png" />
+    <None Remove="Resources\Undo.png" />
+    <None Remove="Resources\Undo_HighDpi.png" />
+    <None Remove="StyleCop.Cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Alternet.Studio.Common" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.0.0.0" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Python.WindowsForms" Version="9.0.0.0" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Python" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="9.0.0.0" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Python" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.0.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutBox.cs" />
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CodeNavigationBar.cs" />
+    <Compile Include="Dialogs\NewFormDialog.cs" />
+    <Compile Include="Dialogs\NewFormDialog.Designer.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.CodeNavigation.cs" />
+    <Compile Include="MainForm.CodeSearch.cs" />
+    <Compile Include="MainForm.Debugger.cs" />
+    <Compile Include="MainForm.EditorCommands.cs" />
+    <Compile Include="MainForm.ExplorerTrees.cs" />
+    <Compile Include="MainForm.Files.cs" />
+    <Compile Include="MainForm.FormDesigner.cs" />
+    <Compile Include="MainForm.NavigationHistory.cs" />
+    <Compile Include="MainForm.Project.cs" />
+    <Compile Include="MainForm.Scripter.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutBox.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\NewFormDialog.resx" />
+    <EmbeddedResource Include="Main.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Backwards.png" />
+    <EmbeddedResource Include="Resources\Backwards_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Bookmark.png" />
+    <EmbeddedResource Include="Resources\Bookmark_HighDpi.png" />
+    <EmbeddedResource Include="Resources\ClearBookmark.png" />
+    <EmbeddedResource Include="Resources\ClearBookmark_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Copy.png" />
+    <EmbeddedResource Include="Resources\Copy_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Cut.png" />
+    <EmbeddedResource Include="Resources\Cut_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Exit.png" />
+    <EmbeddedResource Include="Resources\Exit_HighDpi.png" />
+    <EmbeddedResource Include="Resources\FindInFile.png" />
+    <EmbeddedResource Include="Resources\FindInFile_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Forwards.png" />
+    <EmbeddedResource Include="Resources\Forwards_HighDpi.png" />
+    <EmbeddedResource Include="Resources\GoToDefinition.png" />
+    <EmbeddedResource Include="Resources\GoToDefinition_HighDpi.png" />
+    <EmbeddedResource Include="Resources\NewFile.png" />
+    <EmbeddedResource Include="Resources\NewFile_HighDpi.png" />
+    <EmbeddedResource Include="Resources\NextBookmark.png" />
+    <EmbeddedResource Include="Resources\NextBookmark_HighDpi.png" />
+    <EmbeddedResource Include="Resources\OpenFile.png" />
+    <EmbeddedResource Include="Resources\OpenFile_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Paste.png" />
+    <EmbeddedResource Include="Resources\Paste_HighDpi.png" />
+    <EmbeddedResource Include="Resources\PreviousBookmark.png" />
+    <EmbeddedResource Include="Resources\PreviousBookmark_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Print.png" />
+    <EmbeddedResource Include="Resources\PrintPreview.png" />
+    <EmbeddedResource Include="Resources\PrintPreview_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Print_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Redo.png" />
+    <EmbeddedResource Include="Resources\Redo_HighDpi.png" />
+    <EmbeddedResource Include="Resources\ReplaceInFiles.png" />
+    <EmbeddedResource Include="Resources\ReplaceInFiles_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Save.png" />
+    <EmbeddedResource Include="Resources\SaveAll.png" />
+    <EmbeddedResource Include="Resources\SaveAll_HighDpi.png" />
+    <EmbeddedResource Include="Resources\SaveAs.png" />
+    <EmbeddedResource Include="Resources\SaveAs_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Save_HighDpi.png" />
+    <EmbeddedResource Include="Resources\SelectAll.png" />
+    <EmbeddedResource Include="Resources\SelectAll_HighDpi.png" />
+    <EmbeddedResource Include="Resources\StartWithoutDebug.png" />
+    <EmbeddedResource Include="Resources\StartWithoutDebug_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Undo.png" />
+    <EmbeddedResource Include="Resources\Undo_HighDpi.png" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+</Project>

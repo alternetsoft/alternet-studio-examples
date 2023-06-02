@@ -1,16 +1,17 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -45,6 +46,7 @@ namespace VisualTheme
             InitializeVisualThemeComboBox();
             syntaxEdit1.VisualTheme = new CustomVisualTheme();
             syntaxEdit1.Source = csharpSource;
+            syntaxEdit1.Font = new Font("Consolas", 10F, FontStyle.Regular, GraphicsUnit.Point);
         }
 
         private void InitializeVisualThemeComboBox()

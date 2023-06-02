@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -158,6 +158,7 @@ return string.Empty;";
         private TextSpan span;
         private string textToRemove;
         private int removed = 0;
+        private IList<TextChange> changes = new List<TextChange>();
 
         public ExtraCsSpaceRemover(TextSpan span, int count, bool useSpaces, int spacesInTab)
             : base(true)
@@ -168,9 +169,11 @@ return string.Empty;";
 
         public int Removed => removed;
 
+        public IList<TextChange> Changes => changes;
+
         public override SyntaxTrivia VisitTrivia(SyntaxTrivia trivia)
         {
-            if (ContainsTrivia(trivia) && trivia.Kind() == SyntaxKind.WhitespaceTrivia)
+            if (ContainsTrivia(trivia) && trivia.IsKind(SyntaxKind.WhitespaceTrivia))
             {
                 string text;
                 if (NeedFormat(trivia, out text))
@@ -185,8 +188,10 @@ return string.Empty;";
             text = trivia.ToFullString();
             if (text.StartsWith(textToRemove))
             {
-                text = text.Remove(0, textToRemove.Length);
-                removed += textToRemove.Length;
+                int len = textToRemove.Length;
+                text = text.Remove(0, len);
+                removed += len;
+                changes.Add(new TextChange(new TextSpan(trivia.FullSpan.Start, len), string.Empty));
                 return true;
             }
 
@@ -250,12 +255,18 @@ return string.Empty;";
 
         protected override bool IsBlockNode(Microsoft.CodeAnalysis.SyntaxNode node)
         {
-            return base.IsBlockNode(node) && !(node.Kind() == SyntaxKind.MethodDeclaration) && !(node.Kind() == SyntaxKind.ClassDeclaration) && !(node.Kind() == SyntaxKind.NamespaceDeclaration);
+            return base.IsBlockNode(node) && !node.IsKind(SyntaxKind.MethodDeclaration) && !node.IsKind(SyntaxKind.ClassDeclaration) && !node.IsKind(SyntaxKind.NamespaceDeclaration);
         }
 
         protected override bool IsValidSmartFormatNode(Microsoft.CodeAnalysis.SyntaxNode node)
         {
             var linePos = node.SyntaxTree.GetLineSpan(node.Span);
+            return linePos.StartLinePosition.Line >= StartOffset;
+        }
+
+        protected override bool IsValidChange(Microsoft.CodeAnalysis.SyntaxTree tree, TextChange textChange)
+        {
+            var linePos = tree.GetLineSpan(textChange.Span);
             return linePos.StartLinePosition.Line >= StartOffset;
         }
 
@@ -269,10 +280,13 @@ return string.Empty;";
         {
             var newDoc = document.WithSyntaxRoot(newRoot);
             var changes = newDoc.GetTextChangesAsync(document).Result;
+            return TranslateSpan(span, changes);
+        }
 
+        protected virtual TextSpan TranslateSpan(TextSpan span, IEnumerable<TextChange> changes)
+        {
             int start = span.Start;
             int end = span.End;
-
             bool hasChange = false;
             foreach (TextChange change in changes)
             {
@@ -286,6 +300,44 @@ return string.Empty;";
             if (hasChange)
                 end++;
             return new TextSpan(start, Math.Max(end - start, 0));
+        }
+
+        protected virtual ExtraCsSpaceRemover CreateRewriter(TextSpan span, bool useSpaces, int spacesInTab)
+        {
+            return new ExtraCsSpaceRemover(span, 1, useSpaces, spacesInTab);
+        }
+
+        protected override Document CreateFormattedDocument(Document document, Microsoft.CodeAnalysis.SyntaxNode newRoot, TextSpan span, bool useSpaces, int spacesInTab)
+        {
+            span = TranslateSpan(document, newRoot, span);
+            var rewriter = CreateRewriter(span, useSpaces, spacesInTab);
+            newRoot = rewriter.Visit(newRoot);
+            span = new TextSpan(span.Start, Math.Max(span.Length - rewriter.Removed, 0));
+            return base.CreateFormattedDocument(document, newRoot, span, useSpaces, spacesInTab);
+        }
+
+        protected override IEnumerable<TextChange> FormatChanges(Document document, Microsoft.CodeAnalysis.SyntaxTree tree, ref SourceText text, TextSpan span, bool useSpaces, int spacesInTab)
+        {
+            SourceText newText = text;
+            var changes = base.FormatChanges(document, tree, ref newText, span, useSpaces, spacesInTab);
+            span = TranslateSpan(span, changes);
+
+            tree = tree.WithChangedText(newText);
+            var root = tree.GetRoot();
+
+            var rewriter = CreateRewriter(span, useSpaces, spacesInTab);
+            rewriter.Visit(root);
+
+            if (rewriter.Changes.Count > 0)
+            {
+                var mergedText = newText.WithChanges(rewriter.Changes);
+                changes = MergeChanges(mergedText, changes, rewriter.Changes);
+                text = mergedText;
+            }
+            else
+                text = newText;
+
+            return changes;
         }
 
         protected override Point GetPointFromLinePos(LinePosition linePos)
@@ -305,22 +357,18 @@ return string.Empty;";
 
         protected override bool IsBlockNode(Microsoft.CodeAnalysis.SyntaxNode node)
         {
-            if (node.Kind() == SyntaxKind.Block)
+            if (node.IsKind(SyntaxKind.Block))
             {
-                if (node.Parent != null && node.Parent.Kind() == SyntaxKind.MethodDeclaration)
+                if (node.Parent != null && node.Parent.IsKind(SyntaxKind.MethodDeclaration))
                     return false;
             }
 
             return base.IsBlockNode(node);
         }
 
-        protected override Document CreateFormattedDocument(Document document, Microsoft.CodeAnalysis.SyntaxNode newRoot, TextSpan span, bool useSpaces, int spacesInTab)
+        protected override ExtraCsSpaceRemover CreateRewriter(TextSpan span, bool useSpaces, int spacesInTab)
         {
-            span = TranslateSpan(document, newRoot, span);
-            var rewriter = new ExtraCsSpaceRemover(span, 2, useSpaces, spacesInTab);
-            newRoot = rewriter.Visit(newRoot);
-            span = new TextSpan(span.Start, Math.Max(span.Length - rewriter.Removed, 0));
-            return base.CreateFormattedDocument(document, newRoot, span, useSpaces, spacesInTab);
+            return new ExtraCsSpaceRemover(span, 2, useSpaces, spacesInTab);
         }
     }
 
@@ -331,16 +379,6 @@ return string.Empty;";
         public CSClassRepository(ISyntaxParser owner, IRoslynSolution roslynSolution, bool caseSensitive)
             : base(owner, roslynSolution, caseSensitive)
         {
-        }
-
-        protected override Document CreateFormattedDocument(Document document, Microsoft.CodeAnalysis.SyntaxNode newRoot, TextSpan span, bool useSpaces, int spacesInTab)
-        {
-            span = TranslateSpan(document, newRoot, span);
-            var rewriter = new ExtraCsSpaceRemover(span, 1, useSpaces, spacesInTab);
-            newRoot = rewriter.Visit(newRoot);
-
-            span = new TextSpan(span.Start, Math.Max(span.Length - rewriter.Removed, 0));
-            return base.CreateFormattedDocument(document, newRoot, span, useSpaces, spacesInTab);
         }
     }
 

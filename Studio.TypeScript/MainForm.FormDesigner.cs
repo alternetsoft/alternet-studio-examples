@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -25,9 +25,7 @@ using Alternet.Common.DotNet.DefaultAssemblies;
 using Alternet.Editor.Common;
 using Alternet.Editor.TextSource;
 using Alternet.Editor.TypeScript;
-#if USEFORMDESIGNER
 using Alternet.FormDesigner.WinForms;
-#endif
 using Alternet.Scripter;
 using Alternet.Scripter.TypeScript;
 
@@ -35,7 +33,6 @@ namespace AlternetStudio.Demo
 {
     public partial class MainForm
     {
-#if USEFORMDESIGNER
         private Dictionary<TabPage, IFormDesignerControl> formDesigners = new Dictionary<TabPage, IFormDesignerControl>();
         private Dictionary<string, EditorFormDesignerDataSource> sourcesByFormId = new Dictionary<string, EditorFormDesignerDataSource>();
 
@@ -165,6 +162,9 @@ namespace AlternetStudio.Demo
 
         private void NewFormMenuItem_Click(object sender, EventArgs e)
         {
+            var project = Project;
+            bool addToProject = project != null && project.HasProject;
+
             saveFileDialog.FilterIndex = 1;
             saveFileDialog.FileName = FindUniqueName("Form", ".ts");
 
@@ -175,10 +175,29 @@ namespace AlternetStudio.Demo
 
             var source = new FormDesignerDataSource(userCodeFileName);
             FormFilesUtility.CreateFormFiles(source, FormFilesUtility.CreateFormFilesOptions.TypeScript);
-
-            OpenFile(source.UserCodeFileName);
-            OpenFile(source.DesignerFileName);
-            OpenDesigner(source.UserCodeFileName);
+            if (!addToProject)
+            {
+                OpenFile(source.UserCodeFileName);
+                OpenFile(source.DesignerFileName);
+                OpenDesigner(source.UserCodeFileName);
+            }
+            else
+            {
+                project.BeginUpdate();
+                try
+                {
+                    project.AddFile(source.UserCodeFileName);
+                    project.AddFile(source.DesignerFileName);
+                    project.AddFile(source.DefaultResourceFileName);
+                    OpenFile(source.UserCodeFileName);
+                    OpenFile(source.DesignerFileName);
+                    OpenDesigner(source.UserCodeFileName);
+                }
+                finally
+                {
+                    project.EndUpdate();
+                }
+            }
         }
 
         private Tuple<IFormDesignerControl, TabPage> FindDesigner(string fileName)
@@ -684,7 +703,7 @@ namespace AlternetStudio.Demo
             {
                 get
                 {
-                    var path = Path.Combine(Path.GetTempPath(), @"AlterNET Studio Demo\DesignedComponentAssembly");
+                    var path = Path.Combine(Path.GetTempPath(), @"Alternet.Studio.Demo\DesignedComponentAssembly");
                     if (!Directory.Exists(path))
                         Directory.CreateDirectory(path);
                     return path;
@@ -696,6 +715,5 @@ namespace AlternetStudio.Demo
                 FileSystemUtility.CopyDirectory(Path.GetDirectoryName(scriptRun.ScriptHost.ModulesDirectoryPath), AssemblyDirectoryPath);
             }
         }
-#endif
     }
 }

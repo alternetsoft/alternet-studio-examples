@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -26,16 +26,13 @@ using Alternet.Common.DotNet.Projects;
 using Alternet.Editor.Common;
 using Alternet.Editor.Roslyn;
 using Alternet.Editor.TextSource;
-#if USEFORMDESIGNER
 using Alternet.FormDesigner.WinForms;
-#endif
 using Alternet.Scripter;
 
 namespace AlternetStudio.Demo
 {
     public partial class MainForm
     {
-#if USEFORMDESIGNER
         private Dictionary<TabPage, IFormDesignerControl> formDesigners = new Dictionary<TabPage, IFormDesignerControl>();
         private Dictionary<string, EditorFormDesignerDataSource> sourcesByFormId = new Dictionary<string, EditorFormDesignerDataSource>();
 
@@ -43,7 +40,7 @@ namespace AlternetStudio.Demo
         private Alternet.FormDesigner.WinForms.PropertyGridControl propertyGridControl;
         private Alternet.FormDesigner.WinForms.ToolboxControl toolboxControl;
         private Alternet.FormDesigner.WinForms.OutlineControl outlineControl;
-        private string[] globalReferencePaths = new string[] { "C:\\Projects\\Alternet\\Demo\\FormDesigner\\QuickStarts\\CustomizeToolbox" };
+        private string[] globalReferencePaths = new string[] { };
 
         private IFormDesignerControl ActiveFormDesigner
         {
@@ -218,7 +215,7 @@ namespace AlternetStudio.Demo
 
                         var source = new FormDesignerDataSource(userCodeFileName, namespaceName, designedClassName);
 
-                        FormFilesUtility.CreateFormFiles(source, new FormFilesUtility.CreateFormFilesOptions { GenerateMainMethod = !addToProject, Imports = imports });
+                        FormFilesUtility.CreateFormFiles(source, new FormFilesUtility.CreateFormFilesOptions { GenerateMainMethod = !addToProject, Imports = imports.ToArray() });
 
                         if (!addToProject)
                         {
@@ -905,7 +902,7 @@ namespace AlternetStudio.Demo
             {
                 get
                 {
-                    var path = Path.Combine(Path.GetTempPath(), @"AlterNET Studio Demo\DesignedComponentAssembly");
+                    var path = Path.Combine(Path.GetTempPath(), @"Alternet.Studio.Demo\DesignedComponentAssembly");
                     if (!Directory.Exists(path))
                         Directory.CreateDirectory(path);
                     return path;
@@ -917,6 +914,5 @@ namespace AlternetStudio.Demo
                 FileSystemUtility.CopyDirectory(Path.GetDirectoryName(scriptRun.ScriptHost.ExecutableModulePath), AssemblyDirectoryPath);
             }
         }
-#endif
     }
 }

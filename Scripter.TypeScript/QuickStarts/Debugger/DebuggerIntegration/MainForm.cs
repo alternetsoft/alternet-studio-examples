@@ -1,30 +1,26 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Alternet.Common;
 using Alternet.Common.TypeScript;
 using Alternet.Common.TypeScript.HostObjects;
 using Alternet.Editor.Common;
 using Alternet.Editor.TypeScript;
-using Alternet.Scripter.Debugger;
 using Alternet.Scripter.Debugger.TypeScript;
 using Alternet.Scripter.Integration;
-using Alternet.Scripter.TypeScript;
 
 namespace DebuggerIntegration.TypeScript
 {
@@ -32,14 +28,12 @@ namespace DebuggerIntegration.TypeScript
     {
         protected TSProject Project { get; private set; } = new TSProject();
 
-        private IDebugEdit edit;
-        private string dir = Application.StartupPath + @"\";
-
         private static readonly string[] ProjectSearchDirectories = new[] { ".", @"..\..\..\..\..\..\..\" };
         private static readonly string StartupProjectFileSubPath = @"Resources\Debugger.TypeScript\TS\MultipleFiles\project.json";
         private static readonly string StartupFileSubPath = @"Resources\Debugger.TypeScript\TS\DebugMyScript\DebugMyScript.ts";
+
+        private IDebugEdit edit;
         private ScriptDebugger debugger;
-        private ExecutionPosition executionPosition;
         private DebugCodeEditContainer codeEditContainer;
         private string initDirectory = string.Empty;
 
@@ -63,6 +57,7 @@ namespace DebuggerIntegration.TypeScript
             debugMenu1.Debugger = debugger;
             debugMenu1.DebuggerPreStartup += DebuggerPreStartup;
 
+            debuggerPanelsTabControl.VisiblePanels &= ~DebuggerPanelKinds.Threads;
             debuggerPanelsTabControl.Debugger = debugger;
             var controller = new DebuggerUIController(this, codeEditContainer);
             controller.Debugger = debugger;
@@ -73,10 +68,13 @@ namespace DebuggerIntegration.TypeScript
         }
 
         private static string FindProjectFile() =>
-          ProjectSearchDirectories.Select(x => Path.GetFullPath(Path.Combine(Application.StartupPath, x, StartupProjectFileSubPath))).FirstOrDefault(File.Exists);
+            ProjectSearchDirectories.Select(x => Path.GetFullPath(Path.Combine(Application.StartupPath, x, StartupProjectFileSubPath))).FirstOrDefault(File.Exists);
 
         private static string FindFile() =>
-          ProjectSearchDirectories.Select(x => Path.GetFullPath(Path.Combine(Application.StartupPath, x, StartupFileSubPath))).FirstOrDefault(File.Exists);
+            ProjectSearchDirectories.Select(x => Path.GetFullPath(Path.Combine(Application.StartupPath, x, StartupFileSubPath))).FirstOrDefault(File.Exists);
+
+        private static string FindDefaultProjectDirectory() =>
+            ProjectSearchDirectories.Select(x => Path.GetFullPath(Path.Combine(Application.StartupPath, x, Path.GetDirectoryName(StartupProjectFileSubPath)))).FirstOrDefault(Directory.Exists);
 
         private void ScaleControls()
         {
@@ -150,26 +148,10 @@ namespace DebuggerIntegration.TypeScript
             this.edit = edit;
         }
 
-        private void ClearExecutionPosition()
-        {
-            var debugEdit = edit as IDebugEdit;
-            if (debugEdit == null)
-                return;
-
-            if (executionPosition != null)
-            {
-                debugEdit.ClearDebugStyles(executionPosition);
-                executionPosition = null;
-            }
-        }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             InitDefaultHostAssemblies();
         }
-
-        private static string FindDefaultProjectDirectory() =>
-          ProjectSearchDirectories.Select(x => Path.GetFullPath(Path.Combine(Application.StartupPath, x, Path.GetDirectoryName(StartupProjectFileSubPath)))).FirstOrDefault(Directory.Exists);
 
         private void DebuggerPreStartup(object sender, EventArgs e)
         {

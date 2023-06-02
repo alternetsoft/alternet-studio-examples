@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 #pragma warning disable VSTHRD101 // Avoid unsupported async delegates
 
@@ -20,6 +20,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Alternet.Common;
+using Alternet.Syntax;
 using Alternet.Syntax.Parsers.Lsp;
 using Alternet.Syntax.Parsers.Lsp.Xml.Embedded;
 
@@ -35,7 +36,7 @@ namespace XmlSyntaxParsing
             DeployServer();
             InitializeComponent();
             syntaxEdit1.Spelling.SpellColor = Color.Navy;
-            syntaxEdit1.KeyDown += SyntaxEdit_KeyDown;
+            InitEditor();
         }
 
         private void DeployServer()
@@ -61,20 +62,39 @@ namespace XmlSyntaxParsing
             progressDialog.ShowDialog();
         }
 
-        private void SyntaxEdit_KeyDown(object sender, KeyEventArgs e)
+        private void InitEditor()
+        {
+            var gotoDefinitionMenuItem = new ToolStripMenuItem(StringConsts.GotoDefinition, null, GotoDefinitionMenuItem_Click);
+            gotoDefinitionMenuItem.ShortcutKeys = Keys.F12;
+
+            syntaxEdit1.DefaultMenu.Items.Add(gotoDefinitionMenuItem);
+            syntaxEdit1.KeyDown += Edit_KeyDown;
+            syntaxEdit1.Spelling.SpellColor = Color.Navy;
+        }
+
+        private void Edit_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.F12)
                 GoToDefinition();
         }
 
-        private void GoToDefinition()
+        private void GotoDefinitionMenuItem_Click(object sender, EventArgs e)
         {
-            var declaration = xmlParser.FindDeclaration(syntaxEdit1.Position);
+            GoToDefinition();
+        }
+
+        private async void GoToDefinition()
+        {
+            var parser = syntaxEdit1.Lexer as ISyntaxParser;
+            var declaration = await parser.FindDeclarationAsync(syntaxEdit1.Position);
             if (declaration == null)
                 return;
 
             if (syntaxEdit1.Source.FileName.Equals(declaration.FileName, StringComparison.OrdinalIgnoreCase))
+            {
+                syntaxEdit1.MoveTo(new Point(declaration.Column, declaration.Line));
                 syntaxEdit1.MakeVisible(new Point(declaration.Column, declaration.Line), true);
+            }
             else
             {
                 MessageBox.Show(

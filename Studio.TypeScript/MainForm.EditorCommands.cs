@@ -1,23 +1,22 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Linq;
 using System.Windows.Forms;
-#if USEFORMDESIGNER
+using Alternet.Editor.TextSource;
 using Alternet.FormDesigner.WinForms;
-#endif
 
 namespace AlternetStudio.Demo
 {
@@ -30,19 +29,15 @@ namespace AlternetStudio.Demo
         private void InitializeToolbar()
         {
             filesMenuStrip.Items.Add(newFile);
-#if USEFORMDESIGNER
             filesMenuStrip.Items.Add(newForm);
-#endif
             filesMenuStrip.Items.Add(newProject);
 
             newFile.Click += new System.EventHandler(this.NewMenuItem_Click);
             newFile.ImageScaling = ToolStripItemImageScaling.None;
             newFile.DisplayStyle = ToolStripItemDisplayStyle.Text;
-#if USEFORMDESIGNER
             newForm.Click += new System.EventHandler(this.NewFormMenuItem_Click);
             newForm.ImageScaling = ToolStripItemImageScaling.None;
             newForm.DisplayStyle = ToolStripItemDisplayStyle.Text;
-#endif
             newProject.Click += new System.EventHandler(this.NewProjectMenuItem_Click);
             newProject.ImageScaling = ToolStripItemImageScaling.None;
             newProject.DisplayStyle = ToolStripItemDisplayStyle.Text;
@@ -74,6 +69,23 @@ namespace AlternetStudio.Demo
         {
             if (e.ClickedItem.Tag is ToolStripItem)
                 ((ToolStripItem)e.ClickedItem.Tag).PerformClick();
+        }
+
+        private void UpdateBookmarkButtons()
+        {
+            var edit = ActiveSyntaxEdit;
+            bool enabled = edit != null;
+
+            bool HasBookmarks()
+            {
+                return BookMarkManager.SharedBookMarks.GetBookMarkCount() > 0;
+            }
+
+            bool hasBookmarks = HasBookmarks();
+            toggleBookmarkToolButton.Enabled = enabled;
+            prevBookmarkToolButton.Enabled = hasBookmarks;
+            nextBookmarkToolButton.Enabled = hasBookmarks;
+            clearAllBookmarksToolButton.Enabled = hasBookmarks;
         }
 
         private void UpdateEditorButtons()
@@ -109,11 +121,9 @@ namespace AlternetStudio.Demo
             undoMenuItem.Enabled = canUndo;
             redoMenuItem.Enabled = canRedo;
 
-#if USEFORMDESIGNER
             viewDesignerMenuItem.Enabled = false;
             if ((edit != null) && (edit.FileName != string.Empty) && !edit.FileName.EndsWith(".resx") && !edit.FileName.EndsWith(".xaml"))
                 viewDesignerMenuItem.Enabled = enabled && FormFilesUtility.CheckIfFormFilesExist(edit.FileName);
-#endif
 
             viewCodeMenuItem.Enabled = false;
 
@@ -131,10 +141,10 @@ namespace AlternetStudio.Demo
             undoToolButton.Enabled = canUndo;
             redoToolButton.Enabled = canRedo;
 
-#if USEFORMDESIGNER
+            UpdateBookmarkButtons();
+
             if (edit == null && ActiveFormDesigner != null)
                 UpdateDesignerButtons();
-#endif
         }
 
         private void UndoMenuItem_Click(object sender, EventArgs e)
@@ -142,14 +152,12 @@ namespace AlternetStudio.Demo
             var edit = ActiveSyntaxEdit;
             if (edit != null && edit.CanUndo)
                 edit.Undo();
-#if USEFORMDESIGNER
             else
             {
                 var designer = ActiveFormDesigner;
                 if (designer != null)
                     designer.DesignerCommands.Undo();
             }
-#endif
         }
 
         private void RedoMenuItem_Click(object sender, EventArgs e)
@@ -157,14 +165,12 @@ namespace AlternetStudio.Demo
             var edit = ActiveSyntaxEdit;
             if (edit != null && edit.CanRedo)
                 edit.Redo();
-#if USEFORMDESIGNER
             else
             {
                 var designer = ActiveFormDesigner;
                 if (designer != null)
                     designer.DesignerCommands.Redo();
             }
-#endif
         }
 
         private void FindMenuItem_Click(object sender, EventArgs e)
@@ -193,14 +199,12 @@ namespace AlternetStudio.Demo
             var edit = ActiveSyntaxEdit;
             if (edit != null && edit.CanCut)
                 edit.Cut();
-#if USEFORMDESIGNER
             else
             {
                 var designer = ActiveFormDesigner;
                 if (designer != null)
                     designer.DesignerCommands.Cut();
             }
-#endif
         }
 
         private void CopyMenuItem_Click(object sender, EventArgs e)
@@ -211,14 +215,12 @@ namespace AlternetStudio.Demo
                 if (edit.CanCopy)
                     edit.Copy();
             }
-#if USEFORMDESIGNER
             else
             {
                 var designer = ActiveFormDesigner;
                 if (designer != null)
                     designer.DesignerCommands.Copy();
             }
-#endif
         }
 
         private void PasteMenuItem_Click(object sender, EventArgs e)
@@ -229,14 +231,12 @@ namespace AlternetStudio.Demo
                 if (edit.CanPaste)
                     edit.Paste();
             }
-#if USEFORMDESIGNER
             else
             {
                 var designer = ActiveFormDesigner;
                 if (designer != null)
                     designer.DesignerCommands.Paste();
             }
-#endif
         }
 
         private void DeleteMenuItem_Click(object sender, EventArgs e)
@@ -244,14 +244,12 @@ namespace AlternetStudio.Demo
             var edit = ActiveSyntaxEdit;
             if (edit != null && edit.CanDelete)
                 edit.Delete();
-#if USEFORMDESIGNER
             else
             {
                 var designer = ActiveFormDesigner;
                 if (designer != null)
                     designer.DesignerCommands.Delete();
             }
-#endif
         }
 
         private void SelectAllMenuItem_Click(object sender, EventArgs e)
@@ -259,14 +257,12 @@ namespace AlternetStudio.Demo
             var edit = ActiveSyntaxEdit;
             if (edit != null)
                 edit.SelectAll();
-#if USEFORMDESIGNER
             else
             {
                 var designer = ActiveFormDesigner;
                 if (designer != null)
                     designer.DesignerCommands.SelectAll();
             }
-#endif
         }
 
         private void PrintMenuItem_Click(object sender, EventArgs e)
@@ -281,6 +277,37 @@ namespace AlternetStudio.Demo
             var edit = ActiveSyntaxEdit;
             if (edit != null)
                 edit.PrintPreview();
+        }
+
+        private void ClearAllBookmarksToolButton_Click(object sender, System.EventArgs e)
+        {
+            BookMarkManager.SharedBookMarks.Clear();
+            var edit = ActiveSyntaxEdit;
+            if (edit != null)
+            {
+                edit.Invalidate();
+            }
+
+            UpdateBookmarkButtons();
+        }
+
+        private void NextBookmarkToolButton_Click(object sender, System.EventArgs e)
+        {
+            BookMarkManager.SharedBookMarks.GotoNextBookMark();
+        }
+
+        private void PrevBookmarkToolButton_Click(object sender, System.EventArgs e)
+        {
+            BookMarkManager.SharedBookMarks.GotoPrevBookMark();
+        }
+
+        private void ToggleBookmarkToolButton_Click(object sender, System.EventArgs e)
+        {
+            var edit = ActiveSyntaxEdit;
+            if (edit != null)
+            {
+                BookMarkManager.SharedBookMarks.ToggleBookMark(edit.Position, 0, int.MaxValue, -1, string.Empty, string.Empty, string.Empty, null, edit.FileName);
+            }
         }
 
         private void EditorContextMenu_Opened(object sender, EventArgs e)

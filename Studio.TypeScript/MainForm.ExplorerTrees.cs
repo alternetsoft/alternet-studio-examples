@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -116,9 +116,7 @@ namespace AlternetStudio.Demo
                 foreach (string file in removedFiles)
                 {
                     Project.RemoveFile(file);
-#if USEFORMDESIGNER
                     RemoveDesigner(FindDesigner(file));
-#endif
                     CloseFile(file);
                 }
 
@@ -243,13 +241,12 @@ namespace AlternetStudio.Demo
             string codeFileName;
             if (formNodeData != null)
             {
-#if USEFORMDESIGNER
                 if (formNodeData.OpenMode == FormOpenMode.Design)
                 {
                     OpenDesigner(formNodeData.FileName);
                     return;
                 }
-#endif
+
                 codeFileName = formNodeData.FileName;
             }
             else

@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -199,6 +199,7 @@ namespace LspMultipleFiles
         private void Edit_GoToDefinitionComplete(object sender, TextEditorExt.SymbolLocationEventArgs e)
         {
             var definitionEdit = EnsureFileOpened(e.SymbolLocation.FileName);
+            definitionEdit.Position = new System.Drawing.Point(e.SymbolLocation.Column, e.SymbolLocation.Line);
             definitionEdit.MakeVisible(new System.Drawing.Point(e.SymbolLocation.Column, e.SymbolLocation.Line), true);
         }
 

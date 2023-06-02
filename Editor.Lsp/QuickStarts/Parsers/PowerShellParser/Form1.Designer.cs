@@ -36,7 +36,7 @@
             this.pnSettings = new System.Windows.Forms.Panel();
             this.pnDescription = new System.Windows.Forms.Panel();
             this.laDescription = new System.Windows.Forms.Label();
-            this.syntaxEdit1 = new Alternet.Editor.SyntaxEdit(this.components);
+            this.syntaxEdit1 = new Alternet.Editor.SyntaxEdit();
             this.powerShellParser1 = new Alternet.Syntax.Parsers.Lsp.PowerShell.Embedded.PowerShellParserEmbedded(this.components);
             this.pnSettings.SuspendLayout();
             this.pnDescription.SuspendLayout();

@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2022 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections;
@@ -1813,9 +1813,9 @@ namespace Alternet.CodeEditor.Demo
 
         private void FindButton_MouseMove(object sender, MouseEventArgs e)
         {
-            string str = toolTip1.GetToolTip(btFind);
+            string str = toolTip1.GetToolTip(FindNextButton);
             if (str != FindDesc)
-                toolTip1.SetToolTip(btFind, FindDesc);
+                toolTip1.SetToolTip(FindNextButton, FindDesc);
         }
 
         private void ReplaceButton_MouseMove(object sender, MouseEventArgs e)

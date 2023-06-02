@@ -37,7 +37,7 @@
             this.btLoad = new System.Windows.Forms.Button();
             this.pnDescription = new System.Windows.Forms.Panel();
             this.laDescription = new System.Windows.Forms.Label();
-            this.syntaxEdit1 = new Alternet.Editor.SyntaxEdit(this.components);
+            this.syntaxEdit1 = new Alternet.Editor.SyntaxEdit();
             this.cppSource = new Alternet.Editor.TextSource.TextSource(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);

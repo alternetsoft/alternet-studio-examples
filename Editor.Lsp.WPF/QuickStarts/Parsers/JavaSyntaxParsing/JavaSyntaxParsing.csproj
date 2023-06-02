@@ -4,7 +4,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net461;netcoreapp3.1;net5.0-windows;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net6.0-windows;net7.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <UseWPF>true</UseWPF>
@@ -24,13 +24,13 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Common" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Java.Embedded" Version="8.1.12" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Java" Version="8.1.12" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Java.Embedded" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Java" Version="9.0.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -90,7 +90,7 @@
     <Resource Include="app.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="OmniSharp.Extensions.LanguageClient" Version="0.19.5" />
+    <PackageReference Include="OmniSharp.Extensions.LanguageClient" Version="0.19.7" />
   </ItemGroup>
   <ItemGroup />
 </Project>

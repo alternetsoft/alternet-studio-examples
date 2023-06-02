@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.IO;
@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Alternet.Common;
 using Alternet.Syntax.Parsers.Lsp;
-using Alternet.Syntax.Parsers.Lsp.Python.Embedded;
+using Alternet.Syntax.Parsers.Lsp.Python.Embedded.Pyright;
 
 #pragma warning disable VSTHRD101 // Avoid unsupported async delegates
 

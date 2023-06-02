@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.ObjectModel;
@@ -17,10 +17,12 @@ using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 using Alternet.Common.Wpf;
 using Alternet.Editor.Wpf;
+using Alternet.Syntax;
 using Alternet.Syntax.Parsers.Lsp;
 using Alternet.Syntax.Parsers.Lsp.Java.Embedded;
 using Microsoft.Win32;
@@ -73,7 +75,7 @@ namespace JavaSyntaxParsing
 
             edit.HighlightReferences = true;
             edit.Spelling.SpellColor = Color.Navy;
-            edit.KeyDown += SyntaxEdit_KeyDown;
+            InitEditor();
 
             LoadCommand = new RelayCommand(LoadClick);
         }
@@ -123,20 +125,43 @@ namespace JavaSyntaxParsing
             }
         }
 
-        private void SyntaxEdit_KeyDown(object sender, KeyEventArgs e)
+        private void InitEditor()
+        {
+            var gotoDefinitionMenuItem = new MenuItem();
+            gotoDefinitionMenuItem.Header = "Go to Definition";
+            gotoDefinitionMenuItem.Command = new RelayCommand(GotoDefinitionMenuItem_Click);
+            gotoDefinitionMenuItem.Name = "cmiGotoDefinition";
+            gotoDefinitionMenuItem.InputGestureText = "F12";
+
+            edit.InputBindings.Add(new KeyBinding(gotoDefinitionMenuItem.Command, new KeyGesture(Key.F12)));
+            edit.DefaultMenu.Items.Add(gotoDefinitionMenuItem);
+            edit.KeyDown += Edit_KeyDown;
+            edit.Spelling.SpellColor = Color.Navy;
+        }
+
+        private void Edit_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.F12)
                 GoToDefinition();
         }
 
-        private void GoToDefinition()
+        private void GotoDefinitionMenuItem_Click()
         {
-            var declaration = javaParser.FindDeclaration(edit.Position);
+            GoToDefinition();
+        }
+
+        private async void GoToDefinition()
+        {
+            var parser = edit.Lexer as ISyntaxParser;
+            var declaration = await parser.FindDeclarationAsync(edit.Position);
             if (declaration == null)
                 return;
 
             if (edit.Source.FileName.Equals(declaration.FileName, StringComparison.OrdinalIgnoreCase))
+            {
+                edit.MoveTo(new System.Drawing.Point(declaration.Column, declaration.Line));
                 edit.MakeVisible(new System.Drawing.Point(declaration.Column, declaration.Line), true);
+            }
             else
             {
                 MessageBox.Show(

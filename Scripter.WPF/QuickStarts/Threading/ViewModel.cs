@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2022 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2022 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2022 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections;
@@ -89,7 +89,7 @@ namespace Threading
 
             RunSort = new RelayCommand(RunSortClick);
             CancelSort = new RelayCommand(CancelSortClick);
-
+            window.Closing += Window_Closing;
             languages.Add("C#");
             languages.Add("VB");
             Language = "C#";
@@ -286,6 +286,11 @@ namespace Threading
         }
 
         private void CancelSortClick()
+        {
+            StopScript();
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
         {
             StopScript();
         }
