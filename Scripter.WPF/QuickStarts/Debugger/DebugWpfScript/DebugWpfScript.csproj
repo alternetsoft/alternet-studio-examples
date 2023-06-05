@@ -26,16 +26,16 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>9.0.0.0</Version>
+      <Version>9.0.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Scripter" Version="9.0.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.0.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="9.0.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.0.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="9.0.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

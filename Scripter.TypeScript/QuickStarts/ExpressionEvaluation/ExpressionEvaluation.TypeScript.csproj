@@ -30,10 +30,10 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.0.0.0" />
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.0.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="9.0.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.0.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.0.0.1" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.0.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="9.0.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.0.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs">
