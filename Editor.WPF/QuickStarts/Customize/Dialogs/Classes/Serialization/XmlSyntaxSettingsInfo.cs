@@ -18,8 +18,6 @@ using System.Windows.Media;
 using System.Xml.Serialization;
 
 using Alternet.Common;
-using Alternet.Editor;
-using Alternet.Editor.Wpf.Serialization;
 
 namespace Alternet.Editor.Wpf
 {
@@ -40,7 +38,10 @@ namespace Alternet.Editor.Wpf
         private RichTextBoxScrollBars scrollBars = RichTextBoxScrollBars.Both;
         private SelectionOptions selectionOptions = EditConsts.DefaultSelectionOptions;
         private OutlineOptions outlineOptions = EditConsts.DefaultOutlineOptions;
+        private SeparatorOptions separatorOptions = EditConsts.DefaultSeparatorOptions;
         private bool showGutter = true;
+        private bool showLineNumbers = true;
+        private bool whiteSpaceVisible = false;
         private bool horizontalScrollBarVisible = true;
         private bool verticalScrollBarVisible = true;
         private bool showMargin = true;
@@ -52,7 +53,7 @@ namespace Alternet.Editor.Wpf
         private int marginPos = EditConsts.DefaultMarginPosition;
         private int activeThemeIndex = 0;
         private int[] tabStops = { EditConsts.DefaultTabStop };
-        private IKeyData[] eventData = new KeyData[] { };
+        private XmlKeyDataListInfo eventDataList;
         private XmlVisualThemesInfo colorThemes;
 
         #endregion
@@ -205,6 +206,24 @@ namespace Alternet.Editor.Wpf
         }
 
         /// <summary>
+        /// Stores <c>ISyntaxSettings.SeparatorOptions</c> property.
+        /// </summary>
+        public SeparatorOptions SeparatorOptions
+        {
+            get
+            {
+                return (owner != null) ? owner.SeparatorOptions : separatorOptions;
+            }
+
+            set
+            {
+                separatorOptions = value;
+                if (owner != null)
+                    owner.SeparatorOptions = value;
+            }
+        }
+
+        /// <summary>
         /// Stores <c>ISyntaxSettings.ShowGutter</c> property.
         /// </summary>
         [DefaultValue(true)]
@@ -220,6 +239,25 @@ namespace Alternet.Editor.Wpf
                 showGutter = value;
                 if (owner != null)
                     owner.ShowGutter = value;
+            }
+        }
+
+        /// <summary>
+        /// Stores <c>ISyntaxSettings.ShowLineNumbers</c> property.
+        /// </summary>
+        [DefaultValue(true)]
+        public bool ShowLineNumbers
+        {
+            get
+            {
+                return (owner != null) ? owner.ShowLineNumbers : showLineNumbers;
+            }
+
+            set
+            {
+                showLineNumbers = value;
+                if (owner != null)
+                    owner.ShowLineNumbers = value;
             }
         }
 
@@ -245,7 +283,7 @@ namespace Alternet.Editor.Wpf
         /// <summary>
         /// Stores <c>ISyntaxSettings.HighlightUrls</c> property.
         /// </summary>
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool HighlightHyperText
         {
             get
@@ -258,6 +296,25 @@ namespace Alternet.Editor.Wpf
                 highlightHyperText = value;
                 if (owner != null)
                     owner.HighlightHyperText = value;
+            }
+        }
+
+        /// <summary>
+        /// Stores <c>ISyntaxSettings.WhiteSpaceVisible</c> property.
+        /// </summary>
+        [DefaultValue(false)]
+        public bool WhiteSpaceVisible
+        {
+            get
+            {
+                return (owner != null) ? owner.WhiteSpaceVisible : whiteSpaceVisible;
+            }
+
+            set
+            {
+                whiteSpaceVisible = value;
+                if (owner != null)
+                    owner.WhiteSpaceVisible = value;
             }
         }
 
@@ -430,6 +487,26 @@ namespace Alternet.Editor.Wpf
         }
 
         /// <summary>
+        /// Stores <c>ISyntaxSettings.EventDataList</c> property.
+        /// </summary>
+        public XmlKeyDataListInfo EventDataList
+        {
+            get
+            {
+                return (owner != null) ? (XmlKeyDataListInfo)owner.EventDataList.SerializationInfo : eventDataList;
+            }
+
+            set
+            {
+                eventDataList = value;
+                if (owner != null && value != null)
+                {
+                    owner.EventDataList.SerializationInfo = value;
+                }
+            }
+        }
+
+        /// <summary>
         /// Stores <c>ISyntaxSettings.GutterWidth</c> property.
         /// </summary>
         public int ActiveThemeIndex
@@ -444,25 +521,6 @@ namespace Alternet.Editor.Wpf
                 activeThemeIndex = value;
                 if (owner != null)
                     owner.VisualThemes.ActiveThemeIndex = value;
-            }
-        }
-
-        /// <summary>
-        /// Stores <c>EventHandlers</c> property.
-        /// </summary>
-        [XmlIgnoreAttribute]
-        public IKeyData[] EventData
-        {
-            get
-            {
-                return (owner != null) ? owner.EventData : eventData;
-            }
-
-            set
-            {
-                eventData = value;
-                if (owner != null && value.Length > 0)
-                    owner.EventData = value;
             }
         }
 
@@ -484,9 +542,12 @@ namespace Alternet.Editor.Wpf
             HorizontalScrollBarVisible = horizontalScrollBarVisible;
             VerticalScrollBarVisible = verticalScrollBarVisible;
             OutlineOptions = outlineOptions;
+            SeparatorOptions = separatorOptions;
             ShowGutter = showGutter;
+            ShowLineNumbers = showLineNumbers;
             ShowMargin = showMargin;
             HighlightHyperText = highlightHyperText;
+            WhiteSpaceVisible = whiteSpaceVisible;
             AllowOutlining = allowOutlining;
             UseSpaces = useSpaces;
             WordWrap = wordWrap;
@@ -496,7 +557,7 @@ namespace Alternet.Editor.Wpf
             VisualThemes = colorThemes;
             Font = new MediaFont(new FontFamily(fontName), fontSize, FontStyles.Normal);
             ActiveThemeIndex = activeThemeIndex;
-            EventData = eventData;
+            EventDataList = eventDataList;
         }
 
         /// <summary>
@@ -514,9 +575,12 @@ namespace Alternet.Editor.Wpf
             horizontalScrollBarVisible = HorizontalScrollBarVisible;
             verticalScrollBarVisible = VerticalScrollBarVisible;
             outlineOptions = OutlineOptions;
+            separatorOptions = SeparatorOptions;
             showGutter = ShowGutter;
+            showLineNumbers = ShowLineNumbers;
             showMargin = ShowMargin;
             highlightHyperText = HighlightHyperText;
+            whiteSpaceVisible = WhiteSpaceVisible;
             allowOutlining = AllowOutlining;
             useSpaces = UseSpaces;
             wordWrap = WordWrap;
@@ -525,11 +589,7 @@ namespace Alternet.Editor.Wpf
             tabStops = TabStops;
             colorThemes = VisualThemes;
             activeThemeIndex = ActiveThemeIndex;
-            eventData = EventData;
-            foreach (XmlMacroKeyDataInfo data in eventData)
-            {
-                data.Load();
-            }
+            eventDataList = EventDataList;
         }
 
         #endregion

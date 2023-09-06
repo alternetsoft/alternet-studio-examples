@@ -39,7 +39,7 @@ namespace AlternetStudio.Demo
         /// Gets or sets <see cref="StartDebuggingOptions"/> to use when
         /// the debugging starts while executing commands such as <see cref="Start"/> or <see cref="StepOver"/>.
         /// </summary>
-        public StartDebuggingOptions StartDebuggingOptions { get; set; } = new StartDebuggingOptions();
+        public StartDebuggingOptions StartDebuggingOptions { get; set; } = new DotNetStartDebuggingOptions();
 
         protected IScriptDebugger Debugger
         {
@@ -622,7 +622,7 @@ namespace AlternetStudio.Demo
                 Task.Run(() =>
                     Debugger.AttachToProcessAsync(
                         dialog.SelectedProcess.Id,
-                        new StartDebuggingOptions
+                        new DotNetStartDebuggingOptions
                         {
                             DisableJustMyCode = true,
                         })).Wait();

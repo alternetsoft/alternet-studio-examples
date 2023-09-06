@@ -198,13 +198,14 @@
                                 <Grid>
                                     <Label Content="Keyboard mapping scheme:" Height="28" HorizontalAlignment="Left" Margin="8,8,0,0" Name="laKeyboardMappingScheme" VerticalAlignment="Top" />
                                     <ComboBox Height="23" HorizontalAlignment="Left" Margin="8,32,0,0" Name="cbKeyboardSchemes" VerticalAlignment="Top" Width="192" />
-                                    <Button Content="Save As..." Height="23" HorizontalAlignment="Left" Margin="204,32,0,0" Name="btSaveSchemeAs" VerticalAlignment="Top" Width="104" />
-                                    <Button Content="Delete" Height="23" HorizontalAlignment="Left" Margin="312,32,0,0" Name="btDeleteScheme" VerticalAlignment="Top" Width="75" />
+                                    <Button Content="Save As..." Height="23" HorizontalAlignment="Left" Margin="204,32,0,0" Name="btSaveSchemeAs" VerticalAlignment="Top" Width="104" Visibility="Collapsed"/>
+                                    <Button Content="Delete" Height="23" HorizontalAlignment="Left" Margin="312,32,0,0" Name="btDeleteScheme" VerticalAlignment="Top" Width="75" Visibility="Collapsed"/>
                                     <Label Content="Show commands containing:" Height="28" HorizontalAlignment="Left" Margin="8,60,0,0" Name="laShowCommands" VerticalAlignment="Top" />
-                                    <TextBox Height="23" HorizontalAlignment="Left" Margin="8,80,0,0" Name="tbShowCommands" VerticalAlignment="Top" Width="376" TextChanged="ShowCommandsTextBox_TextChanged" />
-                                    <ListBox Height="147" HorizontalAlignment="Left" Margin="8,109,0,0" Name="lbEventHandlers" VerticalAlignment="Top" Width="376" SelectionChanged="EventHandlersListBox_SelectionChanged" />
-                                    <Label Content="Shortcut(s) for selected command:" Height="28" HorizontalAlignment="Left" Margin="8,258,0,0" Name="laShortcuts" VerticalAlignment="Top" />
-                                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="8,286,0,0" Name="cbShortcuts" VerticalAlignment="Top" Width="296" />
+                                    <TextBox Height="23" HorizontalAlignment="Left" Margin="8,82,0,0" Name="tbShowCommands" VerticalAlignment="Top" Width="376" TextChanged="ShowCommandsTextBox_TextChanged" />
+                                    <ListBox Height="127" HorizontalAlignment="Left" Margin="8,109,0,0" Name="lbEventHandlers" VerticalAlignment="Top" Width="376" SelectionChanged="EventHandlersListBox_SelectionChanged" />
+                                    <Label Content="Shortcut(s) for selected command:" Height="28" HorizontalAlignment="Left" Margin="8,238,0,0" Name="laShortcuts" VerticalAlignment="Top" />
+                                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="8,266,0,0" Name="cbShortcuts" VerticalAlignment="Top" Width="296" IsEditable="True" SelectionChanged="cbShortcuts_SelectionChanged"/>
+                                    <Button Name="UpdateShortcutButton" Content="Update shortcut" Margin="8,294,0,28" HorizontalAlignment="Left" Height="23" Width="100" Click="UpdateShortcutButton_Click"/>
                                 </Grid>
                             </DockPanel>
                         </Grid>

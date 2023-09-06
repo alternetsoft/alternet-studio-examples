@@ -215,7 +215,7 @@ namespace Customize.Dialogs
         /// <summary>
         /// When implemented by a class, represents array of event handlers associated with keys
         /// </summary>
-        IKeyData[] EventData
+        IKeyDataList EventDataList
         {
             get;
             set;

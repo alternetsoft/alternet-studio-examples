@@ -93,7 +93,7 @@ namespace Customize
         private string GetApplicationGlobalSettingsFilePath()
         {
             const string FolderName = "Alternet.Editor.Wpf.Demo.GlobalSettings";
-            const string FileName = "GlobalSettings.xml";
+            const string FileName = "GlobalSettings.v9.xml";
 
             string applicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 

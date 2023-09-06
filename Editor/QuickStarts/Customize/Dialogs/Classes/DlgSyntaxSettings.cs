@@ -12,6 +12,7 @@
 
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 using Alternet.Common;
@@ -110,6 +111,7 @@ namespace Customize.Dialogs
         private System.Windows.Forms.ListBox lbEventHandlers;
         private System.Windows.Forms.Label laShortcuts;
         private System.Windows.Forms.ComboBox cbShortcuts;
+        private System.Windows.Forms.Button UpdateShortcutButton;
         private System.Windows.Forms.ComboBox cbKeyboardSchemes;
         private System.Windows.Forms.GroupBox gbVisualThemes;
         private System.Windows.Forms.ComboBox cbVisualThemes;
@@ -197,6 +199,7 @@ namespace Customize.Dialogs
             this.chbBold = new System.Windows.Forms.CheckBox();
             this.tpKeyboard = new System.Windows.Forms.TabPage();
             this.pnKeyboard = new System.Windows.Forms.Panel();
+            this.UpdateShortcutButton = new System.Windows.Forms.Button();
             this.cbShortcuts = new System.Windows.Forms.ComboBox();
             this.laShortcuts = new System.Windows.Forms.Label();
             this.lbEventHandlers = new System.Windows.Forms.ListBox();
@@ -861,6 +864,7 @@ namespace Customize.Dialogs
 
             // pnKeyboard
             this.pnKeyboard.Controls.Add(this.cbShortcuts);
+            this.pnKeyboard.Controls.Add(this.UpdateShortcutButton);
             this.pnKeyboard.Controls.Add(this.laShortcuts);
             this.pnKeyboard.Controls.Add(this.lbEventHandlers);
             this.pnKeyboard.Controls.Add(this.tbShowCommands);
@@ -880,6 +884,15 @@ namespace Customize.Dialogs
             this.cbShortcuts.Name = "cbShortcuts";
             this.cbShortcuts.Size = new System.Drawing.Size(304, 21);
             this.cbShortcuts.TabIndex = 8;
+            this.cbShortcuts.SelectedIndexChanged += CbShortcuts_SelectedIndexChanged;
+
+            // UpdateShortcutButton
+            this.UpdateShortcutButton.Location = new System.Drawing.Point(8, 319);
+            this.UpdateShortcutButton.Name = "UpdateShortcutButton";
+            this.UpdateShortcutButton.Size = new System.Drawing.Size(100, 21);
+            this.UpdateShortcutButton.Text = "Update shortcut";
+            this.UpdateShortcutButton.TabIndex = 9;
+            this.UpdateShortcutButton.Click += UpdateShortcutButton_Click;
 
             // laShortcuts
             this.laShortcuts.AutoSize = true;
@@ -918,6 +931,7 @@ namespace Customize.Dialogs
             this.btDeleteScheme.Size = new System.Drawing.Size(75, 23);
             this.btDeleteScheme.TabIndex = 3;
             this.btDeleteScheme.Text = "&Delete";
+            this.btDeleteScheme.Visible = false;
 
             // btSaveSchemeAs
             this.btSaveSchemeAs.Enabled = false;
@@ -926,6 +940,7 @@ namespace Customize.Dialogs
             this.btSaveSchemeAs.Size = new System.Drawing.Size(104, 23);
             this.btSaveSchemeAs.TabIndex = 2;
             this.btSaveSchemeAs.Text = "&Save As...";
+            this.btSaveSchemeAs.Visible = false;
 
             // cbKeyboardSchemes
             this.cbKeyboardSchemes.Location = new System.Drawing.Point(8, 24);
@@ -1034,6 +1049,14 @@ namespace Customize.Dialogs
             this.ResumeLayout(false);
         }
 
+        private void CbShortcuts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbShortcuts.SelectedIndex >= 0)
+            {
+                currentKeys = cbShortcuts.SelectedIndex;
+            }
+        }
+
         #endregion
 
         #region Private Fields
@@ -1057,8 +1080,8 @@ namespace Customize.Dialogs
         private string sringControl = "control";
         private string stringCtrl = "CTRL";
         private string stringAlt = "alt";
-
         private string stringShift = "shift";
+        private int currentKeys = -1;
 
         #endregion
 
@@ -1201,8 +1224,10 @@ namespace Customize.Dialogs
             {
                 lbEventHandlers.Sorted = false;
                 lbEventHandlers.Items.Clear();
-                foreach (IKeyData keyData in syntaxSettings.EventData)
+                foreach (IKeyData keyData in syntaxSettings.EventDataList)
                 {
+                    if (string.IsNullOrEmpty(keyData.EventName))
+                        continue;
                     string s = (keyData.Param != null) ? string.Format("{0}{1}", keyData.EventName, keyData.Param.ToString()) : keyData.EventName;
                     if (s != string.Empty)
                     {
@@ -1231,13 +1256,16 @@ namespace Customize.Dialogs
         {
             cbShortcuts.Text = string.Empty;
             cbShortcuts.Items.Clear();
-            string eventName = lbEventHandlers.Items[index].ToString();
-            foreach (IKeyData keyData in syntaxSettings.EventData)
+            string eventName = index >= 0 ? lbEventHandlers.Items[index].ToString() : string.Empty;
+            foreach (IKeyData keyData in syntaxSettings.EventDataList)
             {
-                if ((keyData.EventName != string.Empty) && eventName.StartsWith(keyData.EventName))
+                if (string.IsNullOrEmpty(keyData.EventName))
+                    continue;
+
+                if (eventName.StartsWith(keyData.EventName))
                 {
                     string parName = (eventName.Length > keyData.EventName.Length) ? eventName.Remove(0, keyData.EventName.Length) : string.Empty;
-                    if ((keyData.Param == null) || (keyData.Param.ToString() == parName))
+                    if (((keyData.Param == null) && string.IsNullOrEmpty(parName)) || ((keyData.Param != null) && keyData.Param.ToString() == parName))
                     {
                         string s = ApplyKeyState(keyData);
                         string ss = (s != string.Empty) ? string.Format("{0}, {1}", s, KeyDataToString(keyData.Keys)) : KeyDataToString(keyData.Keys);
@@ -1286,7 +1314,7 @@ namespace Customize.Dialogs
             string result = string.Empty;
             if (key.State > 0)
             {
-                IKeyData[] keys = syntaxSettings.EventData;
+                IKeyData[] keys = syntaxSettings.EventDataList.ToArray();
                 foreach (IKeyData keyData in keys)
                 {
                     if ((keyData.LeaveState == key.State) && (keyData.State == 0))
@@ -1981,6 +2009,38 @@ namespace Customize.Dialogs
         {
             UpdateActiveVisualThemeFont();
         }
+
+        private void UpdateShortcutButton_Click(object sender, EventArgs e)
+        {
+            int index = lbEventHandlers.SelectedIndex;
+            string oldText = cbShortcuts.Items[currentKeys].ToString();
+            string newText = cbShortcuts.Text;
+            if (string.Compare(oldText, newText) == 0)
+            {
+                return;
+            }
+
+            var keys = KeyUtils.KeyDataFromString(oldText);
+            string eventName = index >= 0 ? lbEventHandlers.Items[index].ToString() : string.Empty;
+            foreach (IKeyData keyData in syntaxSettings.EventDataList)
+            {
+                if (string.IsNullOrEmpty(keyData.EventName))
+                    continue;
+                if (eventName.StartsWith(keyData.EventName))
+                {
+                    string parName = (eventName.Length > keyData.EventName.Length) ? eventName.Remove(0, keyData.EventName.Length) : string.Empty;
+                    if ((keyData.Param == null) || (keyData.Param.ToString() == parName))
+                    {
+                        if (keyData.Keys == keys)
+                        {
+                            keyData.Keys = KeyUtils.KeyDataFromString(newText.Replace("+", string.Empty));
+                            cbShortcuts.Items[currentKeys] = newText;
+                        }
+                    }
+                }
+            }
+        }
+
         #endregion
     }
     #endregion

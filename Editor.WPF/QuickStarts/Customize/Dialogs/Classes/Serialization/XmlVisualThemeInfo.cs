@@ -16,7 +16,6 @@ using System.Windows.Media;
 using System.Xml.Serialization;
 
 using Alternet.Common;
-using Alternet.Editor;
 using Alternet.Syntax.Lexer;
 using Alternet.Syntax.Serialization;
 

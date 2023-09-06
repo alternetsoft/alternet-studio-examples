@@ -64,7 +64,7 @@ namespace SnippetsParsers
             : this()
         {
             this.window = window;
-            var readonlyColor = System.Windows.Media.Color.FromRgb(246, 247, 250);
+            var readonlyColor = System.Windows.Media.Color.FromRgb(240, 240, 240);
             window.seTop.ReadonlyBackColor = readonlyColor;
             window.seBottom.ReadonlyBackColor = readonlyColor;
             window.syntaxEdit1.ReadonlyBackColor = readonlyColor;

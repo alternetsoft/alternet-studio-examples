@@ -36,7 +36,7 @@ namespace Customize.Dialogs
         #region Private Fields
 
         private IVisualThemes visualThemes = new VisualThemes();
-        private IKeyData[] eventData = new IKeyData[] { };
+        private IKeyDataList eventDataList = new KeyDataList();
         private NavigateOptions navigateOptions;
         private RichTextBoxScrollBars scrollBars;
         private SelectionOptions selectionOptions;
@@ -545,20 +545,15 @@ namespace Customize.Dialogs
         /// <summary>
         /// Represents array of event handlers associated with keys
         /// </summary>
-        public virtual IKeyData[] EventData
+        public virtual IKeyDataList EventDataList
         {
             get
             {
-                return eventData;
+                return eventDataList;
             }
 
             set
             {
-                if (eventData != value)
-                {
-                    eventData = value;
-                    OnEventDataChanged();
-                }
             }
         }
 
@@ -654,9 +649,7 @@ namespace Customize.Dialogs
                 eventNames = new string[src.EventNames.Length];
                 src.EventNames.CopyTo(eventNames, 0);
 
-                eventData = new IKeyData[src.EventData.Length];
-                src.EventData.CopyTo(eventData, 0);
-
+                eventDataList = src.EventDataList;
                 KeyList = src.KeyList;
             }
         }
@@ -685,7 +678,7 @@ namespace Customize.Dialogs
             WhiteSpaceVisible = edit.WhiteSpace.Visible;
             PageType = edit.Pages.PageType;
             EventNames = edit.KeyList.Handlers.EventNames;
-            EventData = edit.KeyList.EventData;
+            LoadEventData(edit.KeyList.EventData);
             KeyList = (KeyList)edit.KeyList;
 
             Font = edit.Font;
@@ -732,6 +725,7 @@ namespace Customize.Dialogs
                 edit.Pages.PageType = PageType;
 
                 edit.HyperText.HighlightHyperText = HighlightHyperText;
+                ApplyEventData(edit.KeyList, EventDataList);
                 IVisualTheme theme = visualThemes.ActiveTheme;
                 if (withStyles && theme != null)
                     edit.ApplyTheme(theme);
@@ -879,6 +873,80 @@ namespace Customize.Dialogs
         protected virtual void OnEventDataChanged()
         {
         }
+
+        protected virtual void ApplyEventData(IKeyList keyList, IKeyDataList keyDataList)
+        {
+            IKeyData FindKeyData(IList<IKeyData> list, IKeyData keyData)
+            {
+                foreach (var data in list)
+                {
+                    if (data.EventName == keyData.EventName && data.State == keyData.State && data.Keys == keyData.Keys)
+                        return data;
+                    if (string.IsNullOrEmpty(data.EventName) && string.IsNullOrEmpty(keyData.EventName) && data.State == keyData.State && data.Keys == keyData.Keys)
+                        return data;
+                }
+
+                return null;
+            }
+
+            IKeyData FindBestCandidate(IList<IKeyData> list, IKeyData keyData)
+            {
+                foreach (var data in list)
+                {
+                    if (data.EventName == keyData.EventName && data.State == keyData.State && data.Keys != keyData.Keys)
+                        return data;
+                }
+
+                return null;
+            }
+
+            IDictionary<IKeyData, IKeyData> eventsToUpdate = new Dictionary<IKeyData, IKeyData>();
+
+            IList<IKeyData> oldList = new List<IKeyData>();
+            IList<IKeyData> newList = new List<IKeyData>();
+
+            foreach (var keyData in keyList.EventData)
+                oldList.Add(keyData);
+
+            foreach (var keyData in keyDataList)
+                newList.Add(keyData);
+
+            for (int i = oldList.Count - 1; i >= 0; i--)
+            {
+                var newData = FindKeyData(keyDataList, oldList[i]);
+                if (newData != null)
+                {
+                    oldList.RemoveAt(i);
+                    newList.Remove(newData);
+                }
+            }
+
+            foreach (var keyData in oldList)
+            {
+                eventsToUpdate.Add(keyData, FindBestCandidate(newList, keyData));
+            }
+
+            foreach (var key in eventsToUpdate.Keys)
+            {
+                var keyData = eventsToUpdate[key];
+                if (keyData != null)
+                {
+                    keyList.Remove(key.Keys, key.State);
+                    if (key.ActionEx != null)
+                        keyList.Add(keyData.Keys, key.ActionEx, key.Param, key.State, key.LeaveState);
+                    else
+                        keyList.Add(keyData.Keys, key.Action, key.State, key.LeaveState);
+                }
+            }
+        }
+
+        protected virtual void LoadEventData(IKeyData[] keyDates)
+        {
+            eventDataList.Clear();
+            foreach (var data in keyDates)
+                eventDataList.Add(data);
+        }
+
         #endregion
 
         #endregion

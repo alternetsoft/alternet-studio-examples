@@ -320,7 +320,7 @@ namespace SnippetsParsers
             this.syntaxEdit1.Outlining.AllowOutlining = true;
             this.syntaxEdit1.Size = new System.Drawing.Size(686, 355);
             this.syntaxEdit1.Source = this.csSnippetSource;
-            this.syntaxEdit1.SyntaxPaint.ReadonlyBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.syntaxEdit1.SyntaxPaint.ReadonlyBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.syntaxEdit1.TabIndex = 11;
             // 
             // seBottom
@@ -331,7 +331,7 @@ namespace SnippetsParsers
             this.seBottom.Name = "seBottom";
             this.seBottom.ReadOnly = true;
             this.seBottom.Size = new System.Drawing.Size(686, 52);
-            this.seBottom.SyntaxPaint.ReadonlyBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.seBottom.SyntaxPaint.ReadonlyBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.seBottom.TabIndex = 10;
             this.seBottom.Text = "";
             // 

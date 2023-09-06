@@ -43,7 +43,9 @@ namespace Customize.Serialization
         private SelectionOptions selectionOptions = EditConsts.DefaultSelectionOptions;
         private GutterOptions gutterOptions = EditConsts.DefaultGutterOptions;
         private OutlineOptions outlineOptions = EditConsts.DefaultOutlineOptions;
+        private SeparatorOptions separatorOptions = EditConsts.DefaultSeparatorOptions;
         private bool showGutter = true;
+        private bool whiteSpaceVisible = false;
         private bool showMargin = true;
         private bool highlightHyperText = true;
         private bool allowOutlining;
@@ -53,7 +55,7 @@ namespace Customize.Serialization
         private int marginPos = EditConsts.DefaultMarginPosition;
         private int activeThemeIndex = 0;
         private int[] tabStops = { EditConsts.DefaultTabStop };
-        private IKeyData[] eventData = new KeyData[] { };
+        private XmlKeyDataListInfo eventDataList;
         private XmlVisualThemesInfo colorThemes;
 
         #endregion
@@ -240,6 +242,24 @@ namespace Customize.Serialization
         }
 
         /// <summary>
+        /// Stores <c>ISyntaxSettings.SeparatorOptions</c> property.
+        /// </summary>
+        public SeparatorOptions SeparatorOptions
+        {
+            get
+            {
+                return (owner != null) ? owner.SeparatorOptions : separatorOptions;
+            }
+
+            set
+            {
+                separatorOptions = value;
+                if (owner != null)
+                    owner.SeparatorOptions = value;
+            }
+        }
+
+        /// <summary>
         /// Stores <c>ISyntaxSettings.ShowGutter</c> property.
         /// </summary>
         [DefaultValue(true)]
@@ -255,6 +275,25 @@ namespace Customize.Serialization
                 showGutter = value;
                 if (owner != null)
                     owner.ShowGutter = value;
+            }
+        }
+
+        /// <summary>
+        /// Stores <c>ISyntaxSettings.WhiteSpaceVisible</c> property.
+        /// </summary>
+        [DefaultValue(false)]
+        public bool WhiteSpaceVisible
+        {
+            get
+            {
+                return (owner != null) ? owner.WhiteSpaceVisible : whiteSpaceVisible;
+            }
+
+            set
+            {
+                whiteSpaceVisible = value;
+                if (owner != null)
+                    owner.WhiteSpaceVisible = value;
             }
         }
 
@@ -280,7 +319,7 @@ namespace Customize.Serialization
         /// <summary>
         /// Stores <c>ISyntaxSettings.HighlightUrls</c> property.
         /// </summary>
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool HighlightHyperText
         {
             get
@@ -429,6 +468,26 @@ namespace Customize.Serialization
         }
 
         /// <summary>
+        /// Stores <c>ISyntaxSettings.EventDataList</c> property.
+        /// </summary>
+        public XmlKeyDataListInfo EventDataList
+        {
+            get
+            {
+                return (owner != null) ? (XmlKeyDataListInfo)owner.EventDataList.SerializationInfo : eventDataList;
+            }
+
+            set
+            {
+                eventDataList = value;
+                if (owner != null && value != null)
+                {
+                    owner.EventDataList.SerializationInfo = value;
+                }
+            }
+        }
+
+        /// <summary>
         /// Stores <c>ISyntaxSettings.GutterWidth</c> property.
         /// </summary>
         public int ActiveThemeIndex
@@ -443,25 +502,6 @@ namespace Customize.Serialization
                 activeThemeIndex = value;
                 if (owner != null)
                     owner.VisualThemes.ActiveThemeIndex = value;
-            }
-        }
-
-        /// <summary>
-        /// Stores <c>EventHandlers</c> property.
-        /// </summary>
-        [XmlIgnoreAttribute]
-        public IKeyData[] EventData
-        {
-            get
-            {
-                return (owner != null) ? owner.EventData : eventData;
-            }
-
-            set
-            {
-                eventData = value;
-                if (owner != null && value.Length > 0)
-                    owner.EventData = value;
             }
         }
 
@@ -482,7 +522,9 @@ namespace Customize.Serialization
             SelOptions = selectionOptions;
             GutterOptions = gutterOptions;
             OutlineOptions = outlineOptions;
+            SeparatorOptions = separatorOptions;
             ShowGutter = showGutter;
+            WhiteSpaceVisible = whiteSpaceVisible;
             ShowMargin = showMargin;
             HighlightHyperText = highlightHyperText;
             AllowOutlining = allowOutlining;
@@ -494,7 +536,7 @@ namespace Customize.Serialization
             VisualThemes = colorThemes;
             Font = new Font(fontName, fontSize, fontStyle);
             ActiveThemeIndex = activeThemeIndex;
-            EventData = eventData;
+            EventDataList = eventDataList;
         }
 
         /// <summary>
@@ -512,7 +554,9 @@ namespace Customize.Serialization
             selectionOptions = SelOptions;
             gutterOptions = GutterOptions;
             outlineOptions = OutlineOptions;
+            separatorOptions = SeparatorOptions;
             showGutter = ShowGutter;
+            whiteSpaceVisible = WhiteSpaceVisible;
             showMargin = ShowMargin;
             highlightHyperText = HighlightHyperText;
             allowOutlining = AllowOutlining;
@@ -523,11 +567,7 @@ namespace Customize.Serialization
             tabStops = TabStops;
             colorThemes = VisualThemes;
             activeThemeIndex = ActiveThemeIndex;
-            eventData = EventData;
-            foreach (XmlMacroKeyDataInfo data in eventData)
-            {
-                data.Load();
-            }
+            eventDataList = EventDataList;
         }
 
         #endregion

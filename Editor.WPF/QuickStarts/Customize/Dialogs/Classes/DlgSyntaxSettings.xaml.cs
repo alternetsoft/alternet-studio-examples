@@ -12,9 +12,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -49,13 +50,9 @@ namespace Alternet.Editor.Wpf
         private TreeViewItem keyboardNode;
         private TreeViewItem additionalNode;
 
-        private string scontrol = "control";
-        private string sctrl = "CTRL";
-        private string salt = "alt";
-
-        private string sshift = "shift";
         private bool inSelection = false;
         private bool selecting = false;
+        private int currentKeys = -1;
 
         /// <summary>
         /// Initializes a new instance of the <c>DlgSyntaxSettings</c> class with default settings.
@@ -155,8 +152,10 @@ namespace Alternet.Editor.Wpf
         private void UpdateEventHandlers()
         {
             lbEventHandlers.Items.Clear();
-            foreach (IKeyData keyData in syntaxSettings.EventData)
+            foreach (IKeyData keyData in syntaxSettings.EventDataList)
             {
+                if (string.IsNullOrEmpty(keyData.EventName))
+                    continue;
                 string s = (keyData.Param != null) ? string.Format("{0}{1}", keyData.EventName, keyData.Param.ToString()) : keyData.EventName;
                 if (s != string.Empty)
                 {
@@ -171,6 +170,8 @@ namespace Alternet.Editor.Wpf
                 }
             }
 
+            lbEventHandlers.Items.SortDescriptions.Clear();
+            lbEventHandlers.Items.SortDescriptions.Add(new SortDescription(string.Empty, ListSortDirection.Ascending));
             if (lbEventHandlers.Items.Count > 0)
                 lbEventHandlers.SelectedIndex = 0;
         }
@@ -179,16 +180,19 @@ namespace Alternet.Editor.Wpf
         {
             cbShortcuts.Text = string.Empty;
             cbShortcuts.Items.Clear();
-            string eventName = lbEventHandlers.Items[index].ToString();
-            foreach (IKeyData keyData in syntaxSettings.EventData)
+            string eventName = index >= 0 ? lbEventHandlers.Items[index].ToString(): string.Empty;
+            foreach (IKeyData keyData in syntaxSettings.EventDataList)
             {
-                if ((keyData.EventName != string.Empty) && eventName.StartsWith(keyData.EventName))
+                if (string.IsNullOrEmpty(keyData.EventName))
+                    continue;
+
+                if (eventName.StartsWith(keyData.EventName))
                 {
                     string parName = (eventName.Length > keyData.EventName.Length) ? eventName.Remove(0, keyData.EventName.Length) : string.Empty;
-                    if ((keyData.Param == null) || (keyData.Param.ToString() == parName))
+                    if (((keyData.Param == null) && string.IsNullOrEmpty(parName)) || ((keyData.Param != null) && keyData.Param.ToString() == parName))
                     {
                         string s = ApplyKeyState(keyData);
-                        string ss = (s != string.Empty) ? string.Format("{0}, {1}", s, KeyDataToString(keyData.Keys)) : KeyDataToString(keyData.Keys);
+                        string ss = (s != string.Empty) ? string.Format("{0}, {1}", s, KeyUtils.KeyDataToString(keyData.Keys)) : KeyUtils.KeyDataToString(keyData.Keys);
                         cbShortcuts.Items.Add(ss);
                     }
                 }
@@ -198,48 +202,17 @@ namespace Alternet.Editor.Wpf
                 cbShortcuts.SelectedIndex = 0;
         }
 
-        private string KeyDataToString(Keys keyData)
-        {
-            string result = keyData.ToString();
-            string[] s = result.Split(',');
-            bool isCtrl = false;
-            bool isAlt = false;
-            bool isShift = false;
-            result = string.Empty;
-            for (int i = 0; i < s.Length; i++)
-            {
-                if (s[i].IndexOf(scontrol, StringComparison.OrdinalIgnoreCase) >= 0)
-                    isCtrl = true;
-                else
-                    if (s[i].IndexOf(salt, StringComparison.OrdinalIgnoreCase) >= 0)
-                        isAlt = true;
-                    else
-                        if (s[i].IndexOf(sshift, StringComparison.OrdinalIgnoreCase) >= 0)
-                            isShift = true;
-                        else
-                            result = (result != string.Empty) ? string.Format("{0} + {1}", result, s[i]) : s[i];
-            }
-
-            if (isAlt)
-                result = (result != string.Empty) ? string.Format("{0} + {1}", salt.ToUpper(), result) : salt.ToUpper();
-            if (isShift)
-                result = (result != string.Empty) ? string.Format("{0} + {1}", sshift.ToUpper(), result) : sshift.ToUpper();
-            if (isCtrl)
-                result = (result != string.Empty) ? string.Format("{0} + {1}", sctrl, result) : sctrl;
-            return result;
-        }
-
         private string ApplyKeyState(IKeyData key)
         {
             string result = string.Empty;
             if (key.State > 0)
             {
-                IKeyData[] keys = syntaxSettings.EventData;
+                IKeyData[] keys = syntaxSettings.EventDataList.ToArray();
                 foreach (IKeyData keyData in keys)
                 {
                     if ((keyData.LeaveState == key.State) && (keyData.State == 0))
                     {
-                        result = KeyDataToString(keyData.Keys);
+                        result = KeyUtils.KeyDataToString(keyData.Keys);
                         break;
                     }
                 }
@@ -865,6 +838,45 @@ namespace Alternet.Editor.Wpf
                 return;
             curBkColor = System.Drawing.Color.FromArgb(e.NewValue.A, e.NewValue.R, e.NewValue.G, e.NewValue.B);
             StyleFromControl();
+        }
+
+        private void UpdateShortcutButton_Click(object sender, RoutedEventArgs e)
+        {
+            int index = lbEventHandlers.SelectedIndex;
+            string oldText = cbShortcuts.Items[currentKeys].ToString();
+            string newText = cbShortcuts.Text;
+            if (string.Compare(oldText, newText) == 0)
+            {
+                return;
+            }
+
+            var keys = KeyUtils.KeyDataFromString(oldText);
+            string eventName = index >= 0 ? lbEventHandlers.Items[index].ToString() : string.Empty;
+            foreach (IKeyData keyData in syntaxSettings.EventDataList)
+            {
+                if (string.IsNullOrEmpty(keyData.EventName))
+                    continue;
+                if (eventName.StartsWith(keyData.EventName))
+                {
+                    string parName = (eventName.Length > keyData.EventName.Length) ? eventName.Remove(0, keyData.EventName.Length) : string.Empty;
+                    if ((keyData.Param == null) || (keyData.Param.ToString() == parName))
+                    {
+                        if (keyData.Keys == keys)
+                        {
+                            keyData.Keys = KeyUtils.KeyDataFromString(newText.Replace("+", string.Empty));
+                            cbShortcuts.Items[currentKeys] = newText;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void cbShortcuts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbShortcuts.SelectedIndex >= 0)
+            {
+                currentKeys = cbShortcuts.SelectedIndex;
+            }
         }
     }
 }

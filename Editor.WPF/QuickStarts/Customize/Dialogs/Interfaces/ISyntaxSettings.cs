@@ -10,7 +10,6 @@
 */
 #endregion Copyright (c) 2016-2023 Alternet Software
 
-using System.Drawing;
 using System.Windows.Forms;
 
 using Alternet.Syntax.Lexer;
@@ -57,7 +56,7 @@ namespace Alternet.Editor.Wpf
         }
 
         /// <summary>
-        /// When implemented by a class, gets or sets Font object for the <c>SyntaxEdit</c> controls.
+        /// When implemented by a class, gets or sets Font object for the <c>TextEditor</c> controls.
         /// </summary>
         MediaFont Font
         {
@@ -66,7 +65,7 @@ namespace Alternet.Editor.Wpf
         }
 
         /// <summary>
-        /// When implemented by a class, gets or sets options for navigating within <c>SyntaxEdit</c> controls content.
+        /// When implemented by a class, gets or sets options for navigating within <c>TextEditor</c> controls content.
         /// </summary>
         NavigateOptions NavigateOptions
         {
@@ -75,7 +74,7 @@ namespace Alternet.Editor.Wpf
         }
 
         /// <summary>
-        /// When implemented by a class, gets or sets the type of scroll bars to display in the <c>SyntaxEdit</c> controls.
+        /// When implemented by a class, gets or sets the type of scroll bars to display in the <c>TextEditor</c> controls.
         /// </summary>
         RichTextBoxScrollBars ScrollBars
         {
@@ -84,7 +83,7 @@ namespace Alternet.Editor.Wpf
         }
 
         /// <summary>
-        /// When implemented by a class, gets or sets options determining appearance and behavior of the <c>Selection</c> object in <c>SyntaxEdit</c> controls.
+        /// When implemented by a class, gets or sets options determining appearance and behavior of the <c>Selection</c> object in <c>TextEditor</c> controls.
         /// </summary>
         SelectionOptions SelectionOptions
         {
@@ -93,7 +92,7 @@ namespace Alternet.Editor.Wpf
         }
 
         /// <summary>
-        /// When implemented by a class, gets or sets line separator options for SyntaxEdit controls.
+        /// When implemented by a class, gets or sets line separator options for TextEditor controls.
         /// </summary>
         SeparatorOptions SeparatorOptions
         {
@@ -102,7 +101,7 @@ namespace Alternet.Editor.Wpf
         }
 
         /// <summary>
-        /// When implemented by a class, gets or sets outlining options for <c>SyntaxEdit</c> controls.
+        /// When implemented by a class, gets or sets outlining options for <c>TextEditor</c> controls.
         /// </summary>
         OutlineOptions OutlineOptions
         {
@@ -111,7 +110,7 @@ namespace Alternet.Editor.Wpf
         }
 
         /// <summary>
-        /// When implemented by a class, gets or sets a value indicating whether the <c>Margin</c> is visible in <c>SyntaxEdit</c> controls.
+        /// When implemented by a class, gets or sets a value indicating whether the <c>Margin</c> is visible in <c>TextEditor</c> controls.
         /// </summary>
         bool ShowMargin
         {
@@ -138,7 +137,7 @@ namespace Alternet.Editor.Wpf
         }
 
         /// <summary>
-        /// When implemented by a class, gets or sets a value indicating whether urls in the <c>SyntaxEdit</c> controls text should be highlighted.
+        /// When implemented by a class, gets or sets a value indicating whether urls in the <c>TextEditor</c> controls text should be highlighted.
         /// </summary>
         bool HighlightHyperText
         {
@@ -147,7 +146,7 @@ namespace Alternet.Editor.Wpf
         }
 
         /// <summary>
-        /// When implemented by a class, gets or sets a value indicating whether outlining is enabled for <c>SyntaxEdit</c> controls.
+        /// When implemented by a class, gets or sets a value indicating whether outlining is enabled for <c>TextEditor</c> controls.
         /// </summary>
         bool AllowOutlining
         {
@@ -156,7 +155,7 @@ namespace Alternet.Editor.Wpf
         }
 
         /// <summary>
-        /// When implemented by a class, gets or sets a value indicating whether indent operations insert space characters rather than TAB characters in <c>SyntaxEdit</c> controls.
+        /// When implemented by a class, gets or sets a value indicating whether indent operations insert space characters rather than TAB characters in <c>TextEditor</c> controls.
         /// </summary>
         bool UseSpaces
         {
@@ -165,7 +164,7 @@ namespace Alternet.Editor.Wpf
         }
 
         /// <summary>
-        /// When implemented by a class, gets or sets a value indicating whether <c>SyntaxEdit</c> controls automatically wrap words to the beginning of the next line when necessary.
+        /// When implemented by a class, gets or sets a value indicating whether <c>TextEditor</c> controls automatically wrap words to the beginning of the next line when necessary.
         /// </summary>
         bool WordWrap
         {
@@ -183,7 +182,7 @@ namespace Alternet.Editor.Wpf
         }
 
         /// <summary>
-        /// When implemented by a class, gets or sets the width of the <c>Gutter</c> for <c>SyntaxEdit</c> controls.
+        /// When implemented by a class, gets or sets the width of the <c>Gutter</c> for <c>TextEditor</c> controls.
         /// </summary>
         double GutterWidth
         {
@@ -202,7 +201,7 @@ namespace Alternet.Editor.Wpf
         bool VerticalScrollBarVisible { get; set; }
 
         /// <summary>
-        /// When implemented by a class, gets or sets value indicating position, in characters, of the vertical line within the text portion of the <c>SyntaxEdit</c> controls.
+        /// When implemented by a class, gets or sets value indicating position, in characters, of the vertical line within the text portion of the <c>TextEditor</c> controls.
         /// </summary>
         int MarginPos
         {
@@ -211,7 +210,7 @@ namespace Alternet.Editor.Wpf
         }
 
         /// <summary>
-        /// When implemented by a class, gets or sets the character columns that the cursor will move to each time you press Tab in <c>SyntaxEdit</c> controls.
+        /// When implemented by a class, gets or sets the character columns that the cursor will move to each time you press Tab in <c>TextEditor</c> controls.
         /// </summary>
         int[] TabStops
         {
@@ -222,28 +221,28 @@ namespace Alternet.Editor.Wpf
         /// <summary>
         /// When implemented by a class, represents array of event handlers associated with keys
         /// </summary>
-        IKeyData[] EventData
+        IKeyDataList EventDataList
         {
             get;
             set;
         }
 
         /// <summary>
-        /// When implemented by a class, changes values stored in the <c>ISyntaxSettings</c> accordingly to property values of <c>SyntaxEdit</c> control.
+        /// When implemented by a class, changes values stored in the <c>ISyntaxSettings</c> accordingly to property values of <c>TextEditor</c> control.
         /// </summary>
-        /// <param name="edit">Specifies <c>SyntaxEdit</c> to copy properties from.</param>
+        /// <param name="edit">Specifies <c>TextEditor</c> to copy properties from.</param>
         void LoadFromEdit(TextEditor edit);
 
         /// <summary>
-        /// When implemented by a class, assigns key properties of given <c>SyntaxEdit</c> according to values stored in the <c>ISyntaxSettings</c> instance.
+        /// When implemented by a class, assigns key properties of given <c>TextEditor</c> according to values stored in the <c>ISyntaxSettings</c> instance.
         /// </summary>
-        /// <param name="edit">Specifies <c>SyntaxEdit</c> to assign settings.</param>
+        /// <param name="edit">Specifies <c>TextEditor</c> to assign settings.</param>
         void ApplyToEdit(TextEditor edit);
 
         /// <summary>
-        /// When implemented by a class, assigns key properties of given <c>SyntaxEdit</c> according to values stored in the <c>ISyntaxSettings</c> instance.
+        /// When implemented by a class, assigns key properties of given <c>TextEditor</c> according to values stored in the <c>ISyntaxSettings</c> instance.
         /// </summary>
-        /// <param name="edit">Specifies <c>SyntaxEdit</c> to assign settings.</param>
+        /// <param name="edit">Specifies <c>TextEditor</c> to assign settings.</param>
         /// <param name="withStyles">Specifies that color styles should be copied</param>
         void ApplyToEdit(TextEditor edit, bool withStyles);
 

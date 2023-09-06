@@ -25,10 +25,10 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.0.0.1" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.0.0.1" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.0.0.1" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.0.0.1" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.0.3" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.0.3" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.0.3" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.0.3" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -44,10 +44,16 @@
     <Compile Include="ColorPicker\SpectrumSlider.cs" />
     <Compile Include="Dialogs\Classes\CustomVisualTheme.cs" />
     <Compile Include="Dialogs\Classes\DlgSyntaxSettingsConsts.cs" />
+    <Compile Include="Dialogs\Classes\KeyDataList.cs" />
+    <Compile Include="Dialogs\Classes\KeyUtils.cs" />
+    <Compile Include="Dialogs\Classes\Serialization\KeyDataSerialization.cs" />
     <Compile Include="Dialogs\Classes\Serialization\VisualThemeSerialization.cs" />
+    <Compile Include="Dialogs\Classes\Serialization\XmlKeyDataInfo.cs" />
+    <Compile Include="Dialogs\Classes\Serialization\XmlKeyDataListInfo.cs" />
     <Compile Include="Dialogs\Classes\Serialization\XmlVisualThemeInfo.cs" />
     <Compile Include="Dialogs\Classes\Serialization\XmlVisualThemesInfo.cs" />
     <Compile Include="Dialogs\Classes\VisualThemes.cs" />
+    <Compile Include="Dialogs\Interfaces\IKeyDataList.cs" />
     <Compile Include="Dialogs\Interfaces\IVisualThemes.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModel.cs" />
@@ -116,7 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>9.0.0.1</Version>
+      <Version>9.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

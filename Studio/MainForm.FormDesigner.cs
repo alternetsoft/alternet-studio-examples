@@ -645,7 +645,7 @@ namespace AlternetStudio.Demo
                     references.Add("Microsoft.VisualBasic");
 
 #if NET6_0_OR_GREATER
-                EnsureDotNetCoreReferencesAdded(references, null);
+                EnsureDotNetCoreReferencesAdded(references, project.TargetFramework);
 #endif
                 defaultReferences = new DesignerReferencedAssemblies(references.ToArray());
             }
