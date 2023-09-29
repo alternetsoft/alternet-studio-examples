@@ -101,8 +101,6 @@ namespace Alternet.Editor.Wpf.MainDemo_Wpf
                 ImageIndex = 11,
             });
 
-            editor.ReadOnly = true;
-
             if (editor.Find("Main", SearchOptions.EntireScope))
             {
                 editor.Selection.Clear();

@@ -195,10 +195,20 @@
                         <Image Source="/AlternetStudio.Wpf;component/Resources/GoToDefinition.png" />
                     </MenuItem.Icon>
                 </MenuItem>
+                <Separator/>
+                <MenuItem x:Name="gotoDefinitionMenuItem" Header="Go to Definition" Click="GotoDefinitionMenuItem_Click" InputGestureText="F12">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Wpf;component/Resources/GoToDefinition.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="findReferencesMenuItem" Header="Find References" Click="FindReferencesMenuItem_Click" InputGestureText="Shift+F12">
+                </MenuItem>
+                <MenuItem x:Name="findImplementationsMenuItem" Header="Go To Implementation" Click="FindImplementationsMenuItem_Click" InputGestureText="Ctrl+Shift+F12">
+                </MenuItem>
             </MenuItem>
             <UI:DebugMenu Name="debugMenu">
-                <MenuItem x:Name="runToCursorMenuItem" Header="Run To Cursor" InputGestureText="Ctrl+F10" Click="RunToCursorMenuItem_Click"/>
-                <MenuItem x:Name="runParametersMenuItem" Header="Run parameters" Click="RunParametersMenuItem_Click"/>
+                <Separator/>
+                <MenuItem x:Name="runParametersMenuItem" Header="Run parameters..." Click="RunParametersMenuItem_Click"/>
                 <MenuItem x:Name="attachToProcessMenuItem" Header="Attach to Process..." Click="AttachToProcessMenuItem_Click"/>
             </UI:DebugMenu>
             <MenuItem x:Name="helpMenuItem" Header="_Help">

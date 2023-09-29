@@ -1,12 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows.Forms;
 using Alternet.Common;
+using Alternet.Common.TypeScript;
 using Alternet.Common.TypeScript.HostObjects;
 using Alternet.Scripter.Debugger;
 using Alternet.Scripter.Debugger.TypeScript;
-using Alternet.Scripter.Debugger.UI;
 using Alternet.Scripter.TypeScript;
 
 namespace DebuggerUIThread.TypeScript
@@ -114,14 +113,19 @@ namespace DebuggerUIThread.TypeScript
 
         private void StartDebug()
         {
-            debugger?.ScriptRun?.Reset();
-            debugger.StartDebugging(new TypeScriptStartDebuggingOptions { MethodName = "CalculatePI", RunSynchronously = true, BreakOnStart = true });
+            if (debugger.State == DebuggerState.Off)
+            {
+                debugger?.ScriptRun?.Reset();
+                debugger.StartDebugging(new TypeScriptStartDebuggingOptions { MethodName = "CalculatePI", RunSynchronously = true, BreakOnStart = true });
+            }
         }
 
         private void SetScriptSource()
         {
-            ((ScriptRun)debugger.ScriptRun).ScriptHost.HostItemsConfiguration.AddSystemAssemblies(options: HostItemOptions.GlobalMembers | HostItemOptions.GenerateDescriptions)
+            var scriptRun = (ScriptRun)debugger.ScriptRun;
+            scriptRun.ScriptHost.HostItemsConfiguration.AddSystemAssemblies(options: HostItemOptions.GlobalMembers | HostItemOptions.GenerateDescriptions)
                  .AddObject("resultLabel", resultLabel).AddObject("progressBar", progressBar);
+            TypeScriptProject.DefaultProject.HostItemsConfiguration = scriptRun.ScriptHost.HostItemsConfiguration;
         }
 
         private void DebugMeButton_Click(object sender, EventArgs e)

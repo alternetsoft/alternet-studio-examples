@@ -95,6 +95,11 @@ namespace DebuggerIntegration.IronPython.Wpf
             SetScriptSource();
         }
 
+        private void ActivateErrorsTab()
+        {
+            DebuggerPanelsTabControl.FocusPanel(DebuggerPanelKinds.Errors);
+        }
+
         private void OpenProject(string projectFilePath)
         {
             if (Project != null && Project.HasProject)

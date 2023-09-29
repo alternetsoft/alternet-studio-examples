@@ -75,29 +75,31 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.0.3" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Python.WindowsForms" Version="9.0.3" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.Python" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="9.0.3" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Python" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.0.3" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.1.0.0" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Python.WindowsForms" Version="9.1.0.0" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Python" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="9.1.0.0" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Python" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python.Embedded" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox.cs" />
-    <Compile Include="AboutBox.Designer.cs">
+    <Compile Include="Dialogs\AboutBox.cs" />
+    <Compile Include="Dialogs\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="CodeNavigationBar.cs" />
+    <Compile Include="CommandLineParser.cs" />
     <Compile Include="Dialogs\NewFormDialog.cs" />
     <Compile Include="Dialogs\NewFormDialog.Designer.cs" />
     <Compile Include="Main.cs" />
@@ -116,7 +118,7 @@
     <Compile Include="MainForm.Scripter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AboutBox.resx">
+    <EmbeddedResource Include="Dialogs\AboutBox.resx">
       <SubType>Designer</SubType>
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>

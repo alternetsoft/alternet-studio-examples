@@ -187,9 +187,16 @@
                         <Image Source="/AlternetStudio.TypeScript.Wpf;component/Resources/GoToDefinition.png" />
                     </MenuItem.Icon>
                 </MenuItem>
+                <Separator/>
+                <MenuItem x:Name="gotoDefinitionMenuItem" Header="Go to Definition" Click="GotoDefinitionMenuItem_Click" InputGestureText="F12">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Wpf;component/Resources/GoToDefinition.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="findReferencesMenuItem" Header="Find References" Click="FindReferencesMenuItem_Click" InputGestureText="Shift+F12">
+                </MenuItem>
             </MenuItem>
             <UI:DebugMenu Name="debugMenu">
-                <MenuItem x:Name="runToCursorMenuItem" Header="Run To Cursor" InputGestureText="Ctrl+F10" Click="RunToCursorMenuItem_Click"/>
             </UI:DebugMenu>
             <MenuItem x:Name="helpMenuItem" Header="_Help">
                 <MenuItem x:Name="aboutMenuItem" Header="_About AlterNET Studio" Click="AboutMenuItem_Click">

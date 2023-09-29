@@ -119,6 +119,7 @@ namespace AlternetStudio.Demo
 
             editorsTabControl.TabPages.Add(page);
             var edit = CreateDebugEdit();
+            edit.AllowedActions &= ~AllowedActions.FindAllImplementations;
             editors.Add(page, edit);
 
             edit.DefaultMenu.Opened += EditorContextMenu_Opened;

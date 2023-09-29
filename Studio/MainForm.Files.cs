@@ -57,10 +57,6 @@ namespace AlternetStudio.Demo
                 saveFileDialog.InitialDirectory = Path.GetFullPath(startupDirectory);
 
                 var projectDirectory = Path.Combine(startupDirectory, @"Debugger\cs\HelloWorld");
-#if NET6_0_OR_GREATER
-                projectDirectory += "-dotnetcore";
-#endif
-
                 var projectFile = Path.GetFullPath(Path.Combine(projectDirectory, "HelloWorld.csproj"));
                 if (File.Exists(projectFile))
                     OpenProject(projectFile);
@@ -154,6 +150,7 @@ namespace AlternetStudio.Demo
             edit.Dock = DockStyle.Fill;
             edit.Bounds = new Rectangle(0, 0, page.ClientRectangle.Width, page.ClientRectangle.Height);
             edit.HighlightReferences = true;
+            edit.OpenSharedEditorFunc = OpenSharedEditorFunc;
 
             page.Controls.Add(edit as Control);
 
@@ -681,6 +678,28 @@ namespace AlternetStudio.Demo
             return edit;
         }
 
+        private ISyntaxEdit OpenSharedEditorFunc(string fileName)
+        {
+            bool fullPath = PathUtilities.IsPathFullyQualified(fileName);
+            if (fullPath)
+            {
+                var edit = FindFile(fileName);
+                if (edit != null)
+                    return edit as ISyntaxEdit;
+            }
+
+            if (Project != null && Project.HasProject)
+            {
+                if (!fullPath)
+                    fileName = Path.Combine(Path.GetDirectoryName(Project.ProjectFileName), fileName);
+
+                if (!FileBelongsToProject(Project, fileName))
+                    Project.AddFile(fileName, BuildAction.Compile);
+            }
+
+            return OpenFile(fileName) as ISyntaxEdit;
+        }
+
         private void InitCodeEdit(IDebugEdit edit)
         {
             edit.GotoDefinition += DebugEdit_GoToDefinition;
@@ -690,10 +709,10 @@ namespace AlternetStudio.Demo
 
         private void RegisterDesignerImportsInEditor(string fileName, DebugCodeEdit edit)
         {
-            edit.RegisterAssemblies(GetDesignerReferencedAssemblies(fileName).AssemblyNames.ToArray());
             var namespaces = GetDesignerImportedNamespaces(fileName);
+            var rootNamespace = GetRootNamespce(fileName);
             if (namespaces != null)
-                edit.RegisterNamespaces(namespaces.Namespaces);
+                edit.RegisterNamespaces(namespaces.Namespaces, rootNamespace);
         }
 
         private void CodeEdit_StatusChanged(object sender, EventArgs e)
@@ -763,7 +782,7 @@ namespace AlternetStudio.Demo
                 AddDesignFileForParsing(fileName);
             }
             else
-                AddDesignerReferencesToEditor(edit, fileName);
+                AddDesignerReferencesToEditor(edit, fileName, Project.TargetFramework);
 
             UpdateControls();
             return edit;
@@ -840,14 +859,14 @@ namespace AlternetStudio.Demo
 
         private IFormDesignerControl GetFormDesigner(int index)
         {
-                if (editorsTabControl.TabCount == 0)
-                    return null;
+            if (editorsTabControl.TabCount == 0)
+                return null;
 
-                IFormDesignerControl designer;
-                if (!formDesigners.TryGetValue(editorsTabControl.TabPages[index], out designer))
-                    return null;
+            IFormDesignerControl designer;
+            if (!formDesigners.TryGetValue(editorsTabControl.TabPages[index], out designer))
+                return null;
 
-                return designer;
+            return designer;
         }
 
         private IScriptEdit GetEditor(int index)

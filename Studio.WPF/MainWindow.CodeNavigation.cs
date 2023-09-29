@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Threading;
 using Alternet.Common;
 using Alternet.Editor.Common.Wpf;
@@ -144,7 +145,7 @@ namespace AlternetStudio.Wpf.Demo
 
         private bool IsValidLocation(string fileName)
         {
-            return string.IsNullOrEmpty(fileName) && !System.IO.Path.GetFileName(fileName).StartsWith("Alternet_XamlGeneratedCodeFile_");
+            return !string.IsNullOrEmpty(fileName) && !System.IO.Path.GetFileName(fileName).StartsWith("Alternet_XamlGeneratedCodeFile_");
         }
 
         private bool IsValidLocation(SymbolLocation symbol)

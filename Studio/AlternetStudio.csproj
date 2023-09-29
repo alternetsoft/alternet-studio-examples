@@ -25,7 +25,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>9.0.3</Version>
+      <Version>9.1.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -82,22 +82,22 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.WindowsForms" Version="9.0.3" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.0.3" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="9.0.3" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.XAML" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.0.3" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.WindowsForms" Version="9.1.0.0" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.1.0.0" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="9.1.0.0" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.XAML" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dialogs\AttachToProcessDialog.cs" />

@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 
 using Alternet.Common;
+using Alternet.Editor;
 
 namespace Alternet.Editor.Wpf
 {

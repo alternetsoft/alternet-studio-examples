@@ -30,9 +30,7 @@
                 <Separator />
                 <MenuItem Header="E_xit" Name="ExitMenuItem" Click="ExitMenuItem_Click" />
             </MenuItem>
-            <ui:DebugMenu x:Name="DebugMenu">
-                <MenuItem Name="runToolStripMenuItem" Header="Run" Click="RunMenuItem_Click"/>
-            </ui:DebugMenu>
+            <ui:DebugMenu x:Name="DebugMenu" />
             <MenuItem Header="Test Menu Item" Name="TestMenuItem" />
         </Menu>
 

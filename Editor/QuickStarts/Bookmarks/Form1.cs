@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-
+using Alternet.Common;
 using Alternet.Editor;
 using Alternet.Editor.TextSource;
 using Alternet.Syntax.Parsers.Roslyn;
@@ -125,8 +125,20 @@ namespace Bookmarks
             edit.Source.BookMarks.ToggleBookMark(rnd.Next(edit.Lines.Count - 1), int.MaxValue);
             tcEditors.SelectedTab = page;
 
-            for (int i = 0; i < imageList1.Images.Count; i++)
-                edit.Gutter.Images.Images.Add(imageList1.Images[i]);
+            edit.Gutter.AlphaImages = InitCustomImages(edit.Gutter.AlphaImages);
+            edit.Gutter.AlphaImagesHighDpi = InitCustomImages(edit.Gutter.AlphaImagesHighDpi);
+        }
+
+        private AlphaImageList InitCustomImages(AlphaImageList alphaImages)
+        {
+            IList<Image> images = new List<Image>();
+
+            foreach (Image image in alphaImages.Images)
+                images.Add(image);
+
+            foreach (Image image in imageList1.Images)
+                images.Add(image);
+            return new AlphaImageList(images, alphaImages.ImageSize);
         }
 
         private void DoActivate(object sender, ActivateEventArgs e)
@@ -212,7 +224,7 @@ namespace Bookmarks
             if (edit != null)
             {
                 int index = BookMarkManager.SharedBookMarks.NextBookMark(1, edit.Source.FileName);
-                int imgIndex = edit.Gutter.Images.Images.Count - new Random().Next(6) - 1;
+                int imgIndex = edit.Gutter.AlphaImages.Images.Count - new Random().Next(3) - 1;
                 BookMarkManager.SharedBookMarks.ToggleBookMark(edit.Position, 1, imgIndex, imgIndex, "Address", "visit our site", "http://www.alternetsoft.com", null, edit.Source.FileName);
             }
         }

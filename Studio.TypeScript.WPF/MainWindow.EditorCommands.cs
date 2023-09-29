@@ -12,7 +12,9 @@
 
 #endregion Copyright (c) 2016-2023 Alternet Software
 
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using Alternet.Editor.Wpf;
 
 namespace AlternetStudio.TypeScript.Wpf.Demo
@@ -220,6 +222,19 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
             }
 
             UpdateBookmarkButtons();
+        }
+
+        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            if (sender is ContextMenu)
+                UpdateEditorContextMenu((ContextMenu)sender);
+        }
+
+        private void UpdateEditorContextMenu(ContextMenu menu)
+        {
+            var gotoDefinitionItem = menu.Items.Cast<Control>().FirstOrDefault(item => item.Name == "cmiGotoDefinition");
+            if (gotoDefinitionItem != null)
+                gotoDefinitionItem.IsEnabled = CanGotoDefinition();
         }
     }
 }

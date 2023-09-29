@@ -6,6 +6,7 @@ Partial Public Class Form1
         Me.InitializeComponent
     End Sub
 
+    <System.STAThread()> _
     Public Shared Sub Main()
         System.Windows.Forms.Application.EnableVisualStyles
         System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(False)

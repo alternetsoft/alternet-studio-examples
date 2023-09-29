@@ -23,6 +23,7 @@ namespace DebuggerIntegration.Python
 
         private static readonly string[] ProjectSearchDirectories = new[] { ".", @"..\..\..\..\..\..\..\" };
         private static readonly string StartupProjectFileSubPath = @"Resources\Debugger.Python\DebuggerUIThread\Project.pyproj";
+        private static readonly string StartupFileSubPath = @"Resources\Debugger.Python\DebuggerUIThread\CallMethod.py";
         private DebugCodeEditContainer editorTabContainer;
         private ScriptDebugger debugger;
         private DisplayForm displayForm;
@@ -37,7 +38,7 @@ namespace DebuggerIntegration.Python
 
             editorTabContainer.EditorRequested += EditorContainer_EditorRequested;
 
-            OpenProject(FindProjectFile());
+            OpenFile(FindPythonFile());
 
             debugger = new ScriptDebugger
             {
@@ -88,6 +89,9 @@ namespace DebuggerIntegration.Python
             base.OnClosing(e);
         }
 
+        private static string FindPythonFile() =>
+            ProjectSearchDirectories.Select(x => Path.GetFullPath(Path.Combine(Application.StartupPath, x, StartupFileSubPath))).FirstOrDefault(File.Exists);
+
         private static string FindProjectFile() =>
             ProjectSearchDirectories.Select(x => Path.GetFullPath(Path.Combine(Application.StartupPath, x, StartupProjectFileSubPath))).FirstOrDefault(File.Exists);
 
@@ -107,7 +111,7 @@ namespace DebuggerIntegration.Python
 
             CodeEnvironment.PythonPath = embeddedPythonInstaller.EmbeddedPythonHome;
 
-            if (embeddedPythonInstaller.IsPythonInstalled())
+            if (embeddedPythonInstaller.IsPythonInstalled(true))
                 return;
 
             var progressDialog = new ProgressDialog()
@@ -122,7 +126,7 @@ namespace DebuggerIntegration.Python
             {
                 await Task.Run(async () =>
                 {
-                    await embeddedPythonInstaller.SetupPython();
+                    await embeddedPythonInstaller.SetupPython(true);
                 }).ContinueWith(t => progressDialog.Close(), TaskScheduler.FromCurrentSynchronizationContext());
             };
 
@@ -140,6 +144,15 @@ namespace DebuggerIntegration.Python
             SetScriptSource();
             if (displayForm == null)
                 StartDisplayFormThread(DisplayForm.Command.Debug);
+        }
+
+        private void OpenFile(string fileName)
+        {
+            if (Project != null && Project.HasProject)
+                CloseProject(Project);
+            scriptRun1.ScriptSource.FromScriptFile(fileName);
+
+            editorTabContainer.TryActivateEditor(fileName);
         }
 
         private void OpenProject(string projectFilePath)

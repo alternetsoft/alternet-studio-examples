@@ -32,15 +32,15 @@
     <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.0.3" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ExternalAssembly">
@@ -54,9 +54,6 @@
     <None Update="ExternalAssembly.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="IronPython" Version="2.7.11" />
   </ItemGroup>
   <ItemGroup />
 </Project>

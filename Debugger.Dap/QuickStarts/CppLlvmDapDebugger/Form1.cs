@@ -135,7 +135,6 @@ namespace CppLlvmDapDebugger
             edit.GotoDefinition += Edit_GotoDefinition;
             edit.FindAllReferences += Edit_FindAllReferences;
             edit.AllowedActions &= ~AllowedActions.FindAllImplementations;
-
             e.DebugEdit = edit;
         }
 

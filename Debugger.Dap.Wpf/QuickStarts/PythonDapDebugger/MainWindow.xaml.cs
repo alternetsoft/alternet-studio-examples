@@ -49,6 +49,7 @@ namespace PythonDapDebugger.Wpf
 
             DebugMenu.Debugger = debugger;
             DebugMenu.DebuggerPreStartup += OnDebuggerPreStartup;
+            DebugMenu.AllowedDebuggerCommands &= ~Alternet.Scripter.Debugger.AllowedDebuggerCommands.StartWithoutDebug;
 
             DebuggerPanelsTabControl.VisiblePanels &= ~DebuggerPanelKinds.Threads;
             DebuggerPanelsTabControl.Debugger = debugger;

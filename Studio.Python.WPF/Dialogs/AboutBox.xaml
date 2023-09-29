@@ -1,0 +1,16 @@
+﻿<Window x:Class="AlternetStudio.Python.Wpf.Demo.AboutBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        TextOptions.TextFormattingMode="Display"
+        Icon="/AlternetStudio.Python.Wpf;component/Images/Icon.ico"
+        Title="About this demo" Height="285.288" Width="458" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Deactivated="Window_Deactivated">
+    <Grid Margin="0">
+        <Image Height="66" HorizontalAlignment="Left" Margin="12,13,0,0" Name="image1" Stretch="None" VerticalAlignment="Top" Width="137" Source="/AlternetStudio.Python.Wpf;component/Images/logo.png" />
+        <TextBox Height="115" HorizontalAlignment="Left" Name="textBox1" Margin="10,103,0,0" VerticalAlignment="Top" Width="430" Text="AlterNET Studio for Python allows you to extend your WinForms and WPF .NET application with code editing and scripting capabilities. &#xD;&#xA;It provides a set of component libraries that enables users of your applications to write scripts in Python programming language to extend your application with custom functionality; run and debug these scripts with a fully-featured debugging engine." TextWrapping="Wrap" BorderThickness="0" />
+        <Label Content="WWW:" Height="28" HorizontalAlignment="Left" Margin="213,13,0,0" Name="label1" VerticalAlignment="Top" />
+        <Label Content="http://www.alternetsoft.com" Height="28" HorizontalAlignment="Left" Margin="263,13,0,0" Name="laAdress" VerticalAlignment="Top" Cursor="Hand" Foreground="Blue" MouseDown="AdressLabel_Click" />
+        <Label Content="e-mail:" Height="28" HorizontalAlignment="Left" Margin="213,38,0,0" Name="label3" VerticalAlignment="Top" />
+        <Label Content="contact@alternetsoft.com" Height="28" HorizontalAlignment="Left" Margin="263,38,0,0" Name="laMailTo" VerticalAlignment="Top" Cursor="Hand" FontStyle="Normal" Foreground="Blue" MouseDown="MailToLabel_Click" />
+        <Button Content="Close" Height="23" HorizontalAlignment="Left" Margin="365,223,0,-14" Name="btClose" VerticalAlignment="Top" Width="75" Click="CloseButton_Click" />
+    </Grid>
+</Window>

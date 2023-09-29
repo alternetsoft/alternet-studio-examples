@@ -32,6 +32,7 @@ using Alternet.Editor.Common.Wpf;
 using Alternet.Editor.Roslyn.Wpf;
 using Alternet.Editor.Wpf;
 using Alternet.FormDesigner.Wpf;
+using Alternet.Scripter.Debugger;
 using Microsoft.Win32;
 
 namespace AlternetStudio.Wpf.Demo
@@ -279,6 +280,7 @@ namespace AlternetStudio.Wpf.Demo
             findToolButton.Content = LoadImage("FindInFile");
             replaceMenuItem.Icon = LoadImage("ReplaceInFiles");
             replaceToolButton.Content = LoadImage("ReplaceInFiles");
+            gotoDefinitionMenuItem.Icon = LoadImage("GoToDefinition");
 
             undoMenuItem.Icon = LoadImage("Undo");
             undoToolButton.Content = LoadImage("Undo");
@@ -380,7 +382,16 @@ namespace AlternetStudio.Wpf.Demo
         {
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
             {
-                if (Keyboard.IsKeyDown(Key.F10) && runToCursorMenuItem.IsEnabled)
+                if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+                {
+                    if (Keyboard.IsKeyDown(Key.F12) && findImplementationsMenuItem.IsEnabled)
+                    {
+                        e.Handled = true;
+                        FindImplementationsMenuItem_Click(this, new RoutedEventArgs());
+                    }
+                }
+
+                if (Keyboard.IsKeyDown(Key.F10) && debugMenu.RunToCursorMenuItem.IsEnabled)
                 {
                     e.Handled = true;
                     RunToCursorMenuItem_Click(this, new RoutedEventArgs());
@@ -467,6 +478,12 @@ namespace AlternetStudio.Wpf.Demo
             else
                 if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
             {
+                if (Keyboard.IsKeyDown(Key.F12) && findReferencesMenuItem.IsEnabled)
+                {
+                    e.Handled = true;
+                    FindReferencesMenuItem_Click(this, new RoutedEventArgs());
+                }
+
                 if (Keyboard.IsKeyDown(Key.F9) && debugMenu.EvaluateMenuItem.IsEnabled)
                 {
                     e.Handled = true;
@@ -487,6 +504,12 @@ namespace AlternetStudio.Wpf.Demo
             }
             else
             {
+                if (Keyboard.IsKeyDown(Key.F12) && gotoDefinitionMenuItem.IsEnabled)
+                {
+                    e.Handled = true;
+                    GotoDefinitionMenuItem_Click(this, new RoutedEventArgs());
+                }
+
                 if (Keyboard.IsKeyDown(Key.Delete) && deleteMenuItem.IsEnabled)
                 {
                     e.Handled = true;

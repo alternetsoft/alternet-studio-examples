@@ -27,7 +27,7 @@ namespace ExpressionEvaluation
 {
     public class ViewModel
     {
-        private const string ExpressionPython = "(5+4)*2 - 9/3 + 10 + tbExpression.Text.Length";
+        private const string ExpressionPython = "(5+4)*2 - 9/3 + 10 + len(tbExpression.Text)";
         private ScriptRun scriptRun = new ScriptRun();
         private MainWindow window;
         private string dir = AppDomain.CurrentDomain.BaseDirectory + @"\";

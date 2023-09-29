@@ -19,6 +19,7 @@ namespace DebuggerIntegration.IronPython
         private static readonly string[] ProjectSearchDirectories = new[] { ".", @"..\..\..\..\..\..\..\" };
         private static readonly string StartupProjectFileSubPath = @"Resources\Debugger.IronPython\DebuggerIntegration\Project.pyproj";
         private DebugCodeEditContainer editorTabContainer;
+        private ScriptDebugger debugger;
 
         public Form1()
         {
@@ -31,7 +32,7 @@ namespace DebuggerIntegration.IronPython
             OpenProject(FindProjectFile());
             scriptRun1.GlobalItems.Add(new ScriptGlobalItem("TestMenuItem", testMenuItemToolStripMenuItem));
 
-            var debugger = new ScriptDebugger();
+            debugger = new ScriptDebugger();
             debugger.ScriptRun = scriptRun1;
             debuggerControlToolbar1.Debugger = debugger;
             debugMenu1.Debugger = debugger;
@@ -154,10 +155,9 @@ namespace DebuggerIntegration.IronPython
             return false;
         }
 
-        private void RunMenuItem_Click(object sender, System.EventArgs e)
+        private void ActivateErrorsTab()
         {
-            SaveAllModifiedFiles();
-            scriptRun1.Run();
+            debuggerPanelsTabControl.FocusPanel(DebuggerPanelKinds.Errors);
         }
 
         private void OpenProjectToolStripMenuItem_Click(object sender, EventArgs e)
@@ -215,11 +215,6 @@ namespace DebuggerIntegration.IronPython
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void RunProcessMenuItem_Click(object sender, EventArgs e)
-        {
-            scriptRun1.RunProcess(wait: false);
         }
 
         private void FileToolStripMenuItem_DropDownOpening(object sender, System.EventArgs e)

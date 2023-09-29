@@ -15,6 +15,12 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+
+#if !NETFRAMEWORK
+using System.Reflection;
+using System.Runtime.Loader;
+#endif
+
 using System.Windows.Forms;
 
 using Alternet.Editor.Common;
@@ -276,14 +282,26 @@ namespace IsolatedScript
     public sealed class Isolated<T> : IDisposable
         where T : MarshalByRefObject
     {
+#if NETFRAMEWORK
         private AppDomain domain;
+#else
+        private AssemblyLoadContext assemblyLoadContext;
+#endif
+
         private T value;
 
         public Isolated()
         {
+#if NETFRAMEWORK
             domain = AppDomain.CreateDomain("Isolated:" + Guid.NewGuid(), null, AppDomain.CurrentDomain.SetupInformation);
             Type type = typeof(T);
             value = (T)domain.CreateInstanceAndUnwrap(type.Assembly.FullName, type.FullName);
+#else
+            assemblyLoadContext = new IsolatedAssemblyLoadContext(name: "Isolated:" + Guid.NewGuid(), isCollectible: true);
+            Type type = typeof(T);
+            var asm = assemblyLoadContext.LoadFromAssemblyName(type.Assembly.GetName());
+            value = (T)asm.CreateInstance(type.FullName);
+#endif
         }
 
         public T Value
@@ -296,12 +314,35 @@ namespace IsolatedScript
 
         public void Dispose()
         {
+#if NETFRAMEWORK
             if (domain != null)
             {
                 AppDomain.Unload(domain);
 
                 domain = null;
             }
+#else
+            assemblyLoadContext.Unload();
+#endif
         }
     }
+
+#if !NETFRAMEWORK
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "All Isolated classes in the same unit")]
+    public class IsolatedAssemblyLoadContext : AssemblyLoadContext
+    {
+        public IsolatedAssemblyLoadContext(string? name, bool isCollectible = false)
+            : base(name, isCollectible: true)
+        {
+        }
+
+        protected override Assembly Load(AssemblyName assemblyName)
+        {
+            return Default.Assemblies
+                .FirstOrDefault(x => x.FullName == assemblyName.FullName);
+        }
+    }
+#endif
+
 }

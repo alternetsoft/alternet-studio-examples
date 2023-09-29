@@ -97,5 +97,28 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
                 }
             }
         }
+
+        private bool CanGotoDefinition()
+        {
+            var result = false;
+            var edit = ActiveSyntaxEdit;
+            if (edit != null)
+            {
+                var symbol = edit.FindDeclaration(edit.Position);
+                return IsValidLocation(symbol);
+            }
+
+            return result;
+        }
+
+        private bool IsValidLocation(string fileName)
+        {
+            return !string.IsNullOrEmpty(fileName) && !System.IO.Path.GetFileName(fileName).StartsWith("Alternet_XamlGeneratedCodeFile_");
+        }
+
+        private bool IsValidLocation(SymbolLocation symbol)
+        {
+            return symbol != null && IsValidLocation(symbol.FileName);
+        }
     }
 }

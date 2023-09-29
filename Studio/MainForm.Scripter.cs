@@ -31,9 +31,17 @@ namespace AlternetStudio.Demo
 
         protected virtual void RunScriptCore()
         {
-            scriptRun.RunProcess(Project.HasProject ? Project.UserSettings.CommandLineArgs : null);
-            if (scriptRun.ScriptHost.CompileFailed)
-                ActivateErrorsTab();
+            if (!scriptRun.ScriptHost.Compiled)
+            {
+                scriptRun.ScriptHost.Compile();
+                if (scriptRun.ScriptHost.CompileFailed)
+                {
+                    ActivateErrorsTab();
+                    return;
+                }
+            }
+
+            debugger.RunScriptAsync(Project.HasProject ? Project.UserSettings.CommandLineArgs : null);
         }
 
         protected virtual bool CompileCore()
@@ -173,7 +181,7 @@ namespace AlternetStudio.Demo
             }
         }
 
-        private void RunParamentersMenuItem_Click(object sender, EventArgs e)
+        private void RunParametersMenuItem_Click(object sender, EventArgs e)
         {
             ShowRunParametersDialog();
         }
@@ -182,7 +190,8 @@ namespace AlternetStudio.Demo
         {
             if (SaveAllModifiedFiles() && SetScriptSource())
             {
-                errorsControl.Clear();
+                if (errorsControl.UpdateCount == 0)
+                    errorsControl.Clear();
                 return CompileCore();
             }
 
@@ -192,39 +201,45 @@ namespace AlternetStudio.Demo
         private bool CompileAll()
         {
             bool result = true;
-            if (!solution.IsEmpty)
+            errorsControl.Clear();
+            errorsControl.BeginUpdate();
+            try
             {
-                IList<DotNetProject> projects = new List<DotNetProject>();
-
-                foreach (var prj in solution.Projects)
+                if (!solution.IsEmpty)
                 {
-                    if (prj.ProjectReferences.Count == 0)
-                        projects.Add(prj);
-                }
+                    IList<DotNetProject> projects = new List<DotNetProject>();
 
-                foreach (var prj in solution.Projects)
-                {
-                    if (prj.ProjectReferences.Count > 0)
-                        projects.Add(prj);
-                }
-
-                foreach (var prj in projects)
-                {
-                    UpdateScriptProject(prj);
-                    if (!Compile())
+                    foreach (var prj in solution.Projects)
                     {
-                        result = false;
-                        break;
+                        if (prj.ProjectReferences.Count == 0)
+                            projects.Add(prj);
                     }
-                }
 
-                if (Project.HasProject)
-                    UpdateScriptProject(Project);
+                    foreach (var prj in solution.Projects)
+                    {
+                        if (prj.ProjectReferences.Count > 0)
+                            projects.Add(prj);
+                    }
+
+                    foreach (var prj in projects)
+                    {
+                        UpdateScriptProject(prj);
+                        if (!Compile())
+                            result = false;
+                    }
+
+                    if (Project.HasProject)
+                        UpdateScriptProject(Project);
+                }
+                else
+                {
+                    if (!Compile())
+                        result = false;
+                }
             }
-            else
+            finally
             {
-                if (!Compile())
-                    result = false;
+                errorsControl.EndUpdate();
             }
 
             return result;

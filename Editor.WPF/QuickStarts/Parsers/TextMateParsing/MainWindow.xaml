@@ -4,7 +4,7 @@
         xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v9" x:Class="TextMateParsing.MainWindow"
         xmlns:local="clr-namespace:TextMateParsing"
         Icon="/TextMateParsing.Wpf;component/Images/Icon.Ico" 
-        Title="Text Mate Parsing" Height="400" Width="679" Loaded="Window_Loaded">
+        Title="TextMate Parsing" Height="400" Width="679" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>

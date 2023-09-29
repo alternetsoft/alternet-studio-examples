@@ -19,6 +19,7 @@ namespace DebuggerIntegration.Python
             InitializeComponent();
             this.debugger = debugger;
             this.startCommand = startCommand;
+            SetScriptSource();
         }
 
         public enum Command
@@ -105,15 +106,16 @@ namespace DebuggerIntegration.Python
 
         private void RunScript()
         {
-            SetScriptSource();
             ((ScriptRun)debugger.ScriptRun).RunFunction("CalculatePI");
         }
 
         private void StartDebug()
         {
-            SetScriptSource();
-            debugger?.ScriptRun?.Reset();
-            debugger.StartDebugging(new PythonStartDebuggingOptions { MethodName = "CalculatePI", RunSynchronously = true, BreakOnStart = true });
+            if (debugger.State == DebuggerState.Off)
+            {
+                debugger?.ScriptRun?.Reset();
+                debugger.StartDebugging(new PythonStartDebuggingOptions { MethodName = "CalculatePI", RunSynchronously = true, BreakOnStart = true });
+            }
         }
 
         private void SetScriptSource()

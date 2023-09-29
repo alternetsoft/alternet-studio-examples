@@ -44,6 +44,7 @@ namespace SyntaxHighlighting
         private PerlParser perlParser = new PerlParser();
         private PHPParser phpParser = new PHPParser();
         private Python_SchemeParser pythonParser = new Python_SchemeParser();
+        private Parser powerShellParser = new Parser();
         private Sql_SchemeParser sqlParser = new Sql_SchemeParser();
         private TclTkParser tclTkParser = new TclTkParser();
         private UnixShellParser unixShellParser = new UnixShellParser();
@@ -53,7 +54,7 @@ namespace SyntaxHighlighting
         private Xml_SchemeParser xmlParser = new Xml_SchemeParser();
         private XmlScripts_SchemeParser xmlScriptsParser = new XmlScripts_SchemeParser();
         private Parser parser1 = new Parser();
-        private int customSchemeIndex = 24;
+        private int customSchemeIndex = 25;
 
         private string dir = Application.StartupPath + @"\";
 
@@ -76,6 +77,7 @@ namespace SyntaxHighlighting
             new LanguageInfo("Perl", "*.perl", "Perl"),
             new LanguageInfo("Php", "*.php", "PHP"),
             new LanguageInfo("Python", "*.python", "Python"),
+            new LanguageInfo("PowerShell", "*.ps1", "PowerShell"),
             new LanguageInfo("sql_oracle", "*.sql", "SQL"),
             new LanguageInfo("Tcltk", "*.tcltk", "TclTk"),
             new LanguageInfo("unix_shell", "*.unixshell", "Unix Shell"),
@@ -109,6 +111,12 @@ namespace SyntaxHighlighting
             IList<string> langs = new List<string>();
             foreach (LanguageInfo info in langItems)
                 lbLanguages.Items.Add(info.Description);
+            string powerShellPath = Path.Combine(Path.GetFullPath(dir) + @"Resources\Editor\schemes", "powershell.xml");
+            if (File.Exists(powerShellPath))
+            {
+                powerShellParser.Scheme.LoadFile(powerShellPath);
+            }
+
             lbLanguages.SelectedIndex = 0;
         }
 
@@ -163,22 +171,24 @@ namespace SyntaxHighlighting
                 case 16:
                     return pythonParser;
                 case 17:
-                    return sqlParser;
+                    return powerShellParser;
                 case 18:
-                    return tclTkParser;
+                    return sqlParser;
                 case 19:
-                    return unixShellParser;
+                    return tclTkParser;
                 case 20:
-                    return vbNetParser;
+                    return unixShellParser;
                 case 21:
-                    return vbScriptParser;
+                    return vbNetParser;
                 case 22:
-                    return vbScriptsParser;
+                    return vbScriptParser;
                 case 23:
-                    return xmlParser;
+                    return vbScriptsParser;
                 case 24:
-                    return xmlScriptsParser;
+                    return xmlParser;
                 case 25:
+                    return xmlScriptsParser;
+                case 26:
                     return parser1;
                 default:
                     return parser1;

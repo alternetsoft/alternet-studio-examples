@@ -30,14 +30,14 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.TypeScript" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.0.3" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.TypeScript" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs">

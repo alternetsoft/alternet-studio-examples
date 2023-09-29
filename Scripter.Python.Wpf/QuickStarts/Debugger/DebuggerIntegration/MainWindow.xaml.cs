@@ -101,7 +101,7 @@ namespace DebuggerIntegration.Python.Wpf
 
             CodeEnvironment.PythonPath = embeddedPythonInstaller.EmbeddedPythonHome;
 
-            if (embeddedPythonInstaller.IsPythonInstalled())
+            if (embeddedPythonInstaller.IsPythonInstalled(true))
                 return;
 
             var progressDialog = new ProgressDialog()
@@ -115,7 +115,7 @@ namespace DebuggerIntegration.Python.Wpf
             {
                 await Task.Run(async () =>
                 {
-                    await embeddedPythonInstaller.SetupPython();
+                    await embeddedPythonInstaller.SetupPython(true);
                 }).ContinueWith(t => progressDialog.Close(), TaskScheduler.FromCurrentSynchronizationContext());
             };
 
@@ -171,7 +171,6 @@ namespace DebuggerIntegration.Python.Wpf
             edit.LoadFile(e.FileName);
             edit.Lexer = pythonParser;
             edit.AllowedActions &= ~AllowedActions.SetNextStatement;
-
             e.DebugEdit = edit;
         }
 
@@ -247,10 +246,9 @@ namespace DebuggerIntegration.Python.Wpf
             Close();
         }
 
-        private void RunMenuItem_Click(object sender, RoutedEventArgs e)
+        private void ActivateErrorsTab()
         {
-            SaveAllModifiedFiles();
-            scriptRun.Run();
+            DebuggerPanelsTabControl.FocusPanel(DebuggerPanelKinds.Errors);
         }
 
         private void FileMenu_SubmenuOpened(object sender, RoutedEventArgs e)

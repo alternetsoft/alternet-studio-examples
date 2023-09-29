@@ -274,24 +274,14 @@ namespace AlternetStudio.Wpf.Demo
         private void ContextMenu_Opened(object sender, EventArgs e)
         {
             if (sender is ContextMenu)
-            {
-                ContextMenu popMenu = (ContextMenu)sender;
-                bool enabled = CanGotoDefinition();
+                UpdateEditorContextMenu((ContextMenu)sender);
+        }
 
-                for (int i = popMenu.Items.Count - 1; i >= 0; i--)
-                {
-                    if (popMenu.Items[i] is MenuItem)
-                    {
-                        MenuItem item = (MenuItem)popMenu.Items[i];
-                        switch (item.Name)
-                        {
-                            case "GotoMenuItemDefinition":
-                                item.IsEnabled = enabled;
-                                break;
-                        }
-                    }
-                }
-            }
+        private void UpdateEditorContextMenu(ContextMenu menu)
+        {
+            var gotoDefinitionItem = menu.Items.Cast<Control>().FirstOrDefault(item => item.Name == "cmiGotoDefinition");
+            if (gotoDefinitionItem != null)
+                gotoDefinitionItem.IsEnabled = CanGotoDefinition();
         }
     }
 }

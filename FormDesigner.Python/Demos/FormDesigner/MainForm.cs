@@ -20,15 +20,19 @@ using System.Drawing.Design;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Alternet.Common;
 using Alternet.Common.DotNet;
+using Alternet.Common.Python;
 using Alternet.Editor.Common;
 using Alternet.Editor.Python;
 using Alternet.Editor.TextSource;
 using Alternet.FormDesigner.Integration;
 using Alternet.FormDesigner.WinForms;
 using Alternet.Scripter.Python;
+using Alternet.Scripter.Python.Embedded;
 
 namespace Alternet.FormDesigner.Demo
 {
@@ -43,6 +47,7 @@ namespace Alternet.FormDesigner.Demo
 
         public MainForm()
         {
+            SetupPython();
             InitializeComponent();
 
             scriptRun = new ScriptRun();
@@ -57,6 +62,35 @@ namespace Alternet.FormDesigner.Demo
 
             OnSelectedContentTabChanged();
             AutoLoadToolbox();
+        }
+
+        private void SetupPython()
+        {
+            var embeddedPythonInstaller = new EmbeddedPythonInstaller();
+            embeddedPythonInstaller.InstallPath = Path.Combine(Path.GetTempPath(), @"Alternet.Studio.Demo\Scripter.Python\Demos");
+
+            CodeEnvironment.PythonPath = embeddedPythonInstaller.EmbeddedPythonHome;
+
+            if (embeddedPythonInstaller.IsPythonInstalled(true))
+                return;
+
+            var progressDialog = new ProgressDialog()
+            {
+                ShowInTaskbar = true,
+                Text = "Call Method Python Demo",
+                Message = "Deploying Python and packages...",
+                ProgressBarStyle = ProgressBarStyle.Marquee,
+            };
+
+            progressDialog.Load += async (_, __) =>
+            {
+                await Task.Run(async () =>
+                {
+                    await embeddedPythonInstaller.SetupPython(true);
+                }).ContinueWith(t => progressDialog.Close(), TaskScheduler.FromCurrentSynchronizationContext());
+            };
+
+            progressDialog.ShowDialog();
         }
 
         private IScriptEdit ActiveEditor

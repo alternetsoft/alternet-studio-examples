@@ -397,6 +397,7 @@ return string.Empty;";
             StartOffset = CSSnippet.StartMethodOffset;
             EndOffset = CSSnippet.EndMethodOffset;
             Snippet = CSSnippet.MethodSnippet;
+            Options = Options & ~(SyntaxOptions.CodeFixes | SyntaxOptions.CodeRefactors);
         }
 
         public virtual int StartOffset { get; set; }

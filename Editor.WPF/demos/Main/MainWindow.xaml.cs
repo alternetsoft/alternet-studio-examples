@@ -19,6 +19,8 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using Alternet.Common.Wpf;
+using Alternet.Syntax;
+using Alternet.Syntax.Parsers.TextMate;
 
 namespace Alternet.Editor.Wpf.MainDemo_Wpf
 {
@@ -29,6 +31,7 @@ namespace Alternet.Editor.Wpf.MainDemo_Wpf
     {
         private bool contentInitialized;
         private IDemoSettingsControl currentDemoSettingsControl;
+        public static IDictionary<string, IDemoSettingsControl> controls = new Dictionary<string, IDemoSettingsControl>();
         private string sampleDir = AppDomain.CurrentDomain.BaseDirectory + @"\";
 
         public MainWindow()
@@ -181,6 +184,8 @@ namespace Alternet.Editor.Wpf.MainDemo_Wpf
             groups.Add(languagesWithDedicatedParsersGroup);
 
             ProgrammingLanguagesDemoInitializer.InitializeLanguagesWithParsersDemoGroup(languagesWithDedicatedParsersGroup);
+            var textMateItem = new DemoItem { Name = "TextMate", OnInitializeEditor = TextMateItemInit };
+            languagesWithDedicatedParsersGroup.Items.Add(textMateItem);
 
             var programmingLanguagesSupportGroup = new DemoItemsGroup { Name = "Syntax Highlighting" };
             groups.Add(programmingLanguagesSupportGroup);
@@ -230,6 +235,13 @@ namespace Alternet.Editor.Wpf.MainDemo_Wpf
         {
             EnsureContentInitialized();
             SetCurrentDemoSettingsControl(new BookmarksSettingsUserControl());
+        }
+
+        private void TextMateItemInit(TextEditor editor)
+        {
+            EnsureContentInitialized();
+            IDemoSettingsControl control;
+            SetCurrentDemoSettingsControl("TextMateSettingsUserControl", out control);
         }
 
         private void LineStylesItemInit(TextEditor editor)
@@ -300,6 +312,27 @@ namespace Alternet.Editor.Wpf.MainDemo_Wpf
         private void ScrollBarAnnotationsDeinit(TextEditor editor)
         {
             SetCurrentDemoSettingsControl(null);
+        }
+
+        private void SetCurrentDemoSettingsControl(string name, out IDemoSettingsControl control)
+        {
+            if (controls.TryGetValue(name, out control))
+            {
+                SetCurrentDemoSettingsControl(control, Visibility.Visible);
+            }
+            else
+            {
+                control = GetInstance(name);
+                controls[name] = control;
+                SetCurrentDemoSettingsControl(control, Visibility.Visible);
+            }
+        }
+
+        private IDemoSettingsControl GetInstance(string name)
+        {
+            string fullName = "Alternet.Editor.Wpf.MainDemo_Wpf." + name;
+            Type t = Type.GetType(fullName);
+            return Activator.CreateInstance(t) as IDemoSettingsControl;
         }
 
         private void SetCurrentDemoSettingsControl(IDemoSettingsControl control)

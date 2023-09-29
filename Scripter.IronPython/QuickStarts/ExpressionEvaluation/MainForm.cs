@@ -20,7 +20,7 @@ namespace ExpressionEvaluation
 {
     public partial class MainForm : Form
     {
-        private const string ExpressionPython = "(5+4)*2 - 9/3 + 10 + tbExpression.Text.Length";
+        private const string ExpressionPython = "(5+4)*2 - 9/3 + 10 + len(tbExpression.Text)";
 
         public MainForm()
         {

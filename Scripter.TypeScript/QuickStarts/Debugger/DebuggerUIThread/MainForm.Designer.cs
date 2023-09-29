@@ -237,7 +237,8 @@ namespace DebuggerUIThread.TypeScript
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenu;
             this.Name = "MainForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Location = new System.Drawing.Point(192, 170);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Degugging in separate UI thread - TypeScript";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel1.ResumeLayout(false);

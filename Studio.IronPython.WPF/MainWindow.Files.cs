@@ -130,7 +130,9 @@ namespace AlternetStudio.IronPython.Wpf.Demo
             editorsTabControl.SelectedItem = page;
 
             var edit = CreateDebugEdit();
+            edit.AllowedActions &= ~(AllowedActions.SetNextStatement | AllowedActions.FindAllImplementations);
             editors.Add(page, edit);
+            edit.DefaultMenu.Opened += ContextMenu_Opened;
             InitMenuIcons(edit.DefaultMenu);
 
             edit.AllowedActions = edit.AllowedActions & ~AllowedActions.SetNextStatement;

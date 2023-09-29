@@ -12,16 +12,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
 using System.Windows.Input;
 
 using Alternet.Common.Python;
 using Alternet.Editor.Wpf;
-using Alternet.Syntax;
-using Alternet.Syntax.CodeCompletion;
-using Alternet.Syntax.Lexer;
 using Alternet.Syntax.Parsers.Python;
 
 using Microsoft.Win32;
@@ -30,7 +25,7 @@ namespace PythonParser
 {
     public class ViewModel
     {
-        private IronPythonParser ironPythonParser = new IronPythonParser();
+        private PythonNETParser pythonParser = new PythonNETParser();
         private string dir = AppDomain.CurrentDomain.BaseDirectory + @"\";
         private TextEditor edit;
         private OpenFileDialog openFileDialog = new OpenFileDialog { Multiselect = false };
@@ -45,7 +40,7 @@ namespace PythonParser
             this.edit = edit;
             IList<string> paths = new List<string>();
 
-            edit.Lexer = ironPythonParser;
+            edit.Lexer = pythonParser;
             DirectoryInfo dirInfo = new DirectoryInfo(Path.GetFullPath(dir) + @"Resources\Editor\text");
             if (!dirInfo.Exists)
             {
@@ -68,7 +63,7 @@ namespace PythonParser
             imports.Add("System.Windows.Forms");
             var codeEnvironment = new CodeEnvironment(null, paths, imports, null, Alternet.Common.TechnologyEnvironment.WindowsForms);
 
-            ironPythonParser.CodeEnvironment = codeEnvironment;
+            pythonParser.CodeEnvironment = codeEnvironment;
             LoadCommand = new RelayCommand(LoadClick);
             openFileDialog.InitialDirectory = Path.GetFullPath(dir) + @"Resources\Editor\Text\";
             openFileDialog.Filter = "Python files (*.py)|*.py|All files (*.*)|*.*";

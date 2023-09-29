@@ -37,11 +37,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlternetStudio.TypeScript",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesignAndRun", "FormDesigner.TypeScript\QuickStarts\DesignAndRun\DesignAndRun.csproj", "{3113448B-A298-4982-8D10-6A6CF595E49E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2A16DEF1-B240-4172-8027-AAC551CF6C6F}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DebuggerIntegration.TypeScript", "Scripter.TypeScript\QuickStarts\Debugger\DebuggerIntegration\DebuggerIntegration.TypeScript.csproj", "{5720C55C-ED8C-4AF2-AA56-37172BCAD969}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DebuggerUIThread.TypeScript", "Scripter.TypeScript\QuickStarts\Debugger\DebuggerUIThread\DebuggerUIThread.TypeScript.csproj", "{5052F6AA-947B-48D9-9B87-AC900E8F61C0}"

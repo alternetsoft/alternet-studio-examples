@@ -42,6 +42,7 @@ namespace AlternetStudio.Demo
             this.openMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.openProjectMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveProjectMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeProjectMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,8 +74,6 @@ namespace AlternetStudio.Demo
             this.replaceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gotoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startWithoutDebugMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.runToCursorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.runParamentersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gotoDefinitionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findReferencesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findImplementationsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -296,12 +295,6 @@ namespace AlternetStudio.Demo
             this.debugMenu1.Name = "debugMenu1";
             this.debugMenu1.Size = new System.Drawing.Size(54, 20);
             this.debugMenu1.Text = "Debug";
-            this.debugMenu1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.runToCursorMenuItem,
-            this.runParamentersMenuItem,
-            this.gotoDefinitionMenuItem,
-            this.findReferencesMenuItem,
-            this.findImplementationsMenuItem});
             // 
             // fileMenuItem
             // 
@@ -375,6 +368,11 @@ namespace AlternetStudio.Demo
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            // 
+            // toolStripSeparator16
+            // 
+            this.toolStripSeparator16.Name = "toolStripSeparator16";
+            this.toolStripSeparator16.Size = new System.Drawing.Size(149, 6);
             // 
             // openProjectMenuItem
             // 
@@ -581,7 +579,11 @@ namespace AlternetStudio.Demo
             this.searchMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.findMenuItem,
             this.replaceMenuItem,
-            this.gotoMenuItem});
+            this.gotoMenuItem,
+            this.toolStripSeparator16,
+            this.gotoDefinitionMenuItem,
+            this.findReferencesMenuItem,
+            this.findImplementationsMenuItem});
             this.searchMenuItem.Name = "searchMenuItem";
             this.searchMenuItem.Size = new System.Drawing.Size(54, 20);
             this.searchMenuItem.Text = "&Search";
@@ -620,31 +622,12 @@ namespace AlternetStudio.Demo
             this.startWithoutDebugMenuItem.Visible = true;
             this.startWithoutDebugMenuItem.Click += new System.EventHandler(this.StartWithoutDebugMenuItem_Click);
             // 
-            // runToCursorMenuItem
-            // 
-            this.runToCursorMenuItem.Name = "runToCursorMenuItem";
-            this.runToCursorMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F10)));
-            this.runToCursorMenuItem.Size = new System.Drawing.Size(277, 22);
-            this.runToCursorMenuItem.Text = "Run To Cursor";
-            this.runToCursorMenuItem.Visible = true;
-            this.runToCursorMenuItem.Click += new System.EventHandler(this.RunToCursorMenuItem_Click);
-            // 
-            // runParamentersMenuItem
-            // 
-            this.runParamentersMenuItem.Name = "runParamentersMenuItem";
-            this.runParamentersMenuItem.Size = new System.Drawing.Size(277, 22);
-            this.runParamentersMenuItem.Text = "Run Paremeters";
-            this.runParamentersMenuItem.Visible = false;
-            //this.runParamentersMenuItem.Click += new System.EventHandler(this.RunParamentersMenuItem_Click);
-            // 
             // gotoDefinitionMenuItem
             // 
             this.gotoDefinitionMenuItem.Name = "gotoDefinitionMenuItem";
             this.gotoDefinitionMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
             this.gotoDefinitionMenuItem.Size = new System.Drawing.Size(277, 22);
             this.gotoDefinitionMenuItem.Text = "Go to Definition";
-            this.gotoDefinitionMenuItem.Visible = false;
-            this.gotoDefinitionMenuItem.Visible = false;
             this.gotoDefinitionMenuItem.Click += new System.EventHandler(this.GotoDefinitionMenuItem_Click);
             // 
             // findReferencesMenuItem
@@ -653,8 +636,6 @@ namespace AlternetStudio.Demo
             this.findReferencesMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F12)));
             this.findReferencesMenuItem.Size = new System.Drawing.Size(277, 22);
             this.findReferencesMenuItem.Text = "Find References";
-            this.findReferencesMenuItem.Visible = false;
-            this.findReferencesMenuItem.Visible = false;
             this.findReferencesMenuItem.Click += new System.EventHandler(this.FindReferencesMenuItem_Click);
             // 
             // findImplementationsMenuItem
@@ -1510,6 +1491,7 @@ namespace AlternetStudio.Demo
         }
 
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
         private System.Windows.Forms.ToolStripMenuItem openProjectMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveProjectMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeProjectMenuItem;
@@ -1550,7 +1532,6 @@ namespace AlternetStudio.Demo
         private System.Windows.Forms.TabPage projectExplorerTabPage;
         private System.Windows.Forms.ToolStripMenuItem deleteMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-        private System.Windows.Forms.ToolStripMenuItem runParamentersMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gotoDefinitionMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findReferencesMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findImplementationsMenuItem;
@@ -1562,7 +1543,6 @@ namespace AlternetStudio.Demo
         private System.Windows.Forms.ToolStripMenuItem viewDesignerMenuItem;
         private System.Windows.Forms.TabPage codeExplorerTabPage;
         private System.Windows.Forms.TreeView codeExplorerTreeView;
-        private System.Windows.Forms.ToolStripMenuItem runToCursorMenuItem;
         private Alternet.Scripter.Debugger.UI.DebugMenu debugMenu1;
     }
 }

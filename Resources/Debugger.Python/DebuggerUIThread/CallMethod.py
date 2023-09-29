@@ -1,6 +1,5 @@
 def CalculatePI():
     resultLabel.Text = "Calculating..."
-    System.Windows.Forms.Application.DoEvents()
     
     k = 1
     s = 0
@@ -8,7 +7,6 @@ def CalculatePI():
     
     for i in range(iterations):
         progressBar.Value = int((i / iterations) * 100) + 1
-        System.Windows.Forms.Application.DoEvents()
         
         if i % 2 == 0:
             s += 4/k

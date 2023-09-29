@@ -82,7 +82,7 @@ namespace ExpressionEvaluation
 
             CodeEnvironment.PythonPath = embeddedPythonInstaller.EmbeddedPythonHome;
 
-            if (embeddedPythonInstaller.IsPythonInstalled())
+            if (embeddedPythonInstaller.IsPythonInstalled(true))
                 return;
 
             var progressDialog = new ProgressDialog()
@@ -96,7 +96,7 @@ namespace ExpressionEvaluation
             {
                 await Task.Run(async () =>
                 {
-                    await embeddedPythonInstaller.SetupPython();
+                    await embeddedPythonInstaller.SetupPython(true);
                 }).ContinueWith(t => progressDialog.Close(), TaskScheduler.FromCurrentSynchronizationContext());
             };
 

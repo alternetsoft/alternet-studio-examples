@@ -47,8 +47,6 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.debugMenu1 = new Alternet.Scripter.Debugger.UI.DebugMenu();
-            this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.runProcessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testMenuItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editorsTabControl = new System.Windows.Forms.TabControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -163,26 +161,9 @@
             // 
             // debugMenu1
             // 
-            this.debugMenu1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.runToolStripMenuItem,
-            this.runProcessToolStripMenuItem});
             this.debugMenu1.Name = "miDebug";
             this.debugMenu1.Size = new System.Drawing.Size(54, 20);
             this.debugMenu1.Text = "Debug";
-            // 
-            // runToolStripMenuItem
-            // 
-            this.runToolStripMenuItem.Name = "runToolStripMenuItem";
-            this.runToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
-            this.runToolStripMenuItem.Text = "Run";
-            this.runToolStripMenuItem.Click += new System.EventHandler(this.RunMenuItem_Click);
-            // 
-            // runProcessToolStripMenuItem
-            // 
-            this.runProcessToolStripMenuItem.Name = "runProcessToolStripMenuItem";
-            this.runProcessToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
-            this.runProcessToolStripMenuItem.Text = "Run Process";
-            this.runProcessToolStripMenuItem.Click += new System.EventHandler(this.RunProcessMenuItem_Click);
             // 
             // testMenuItemToolStripMenuItem
             // 
@@ -268,7 +249,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.Panel panel1;
         private Alternet.Scripter.Debugger.UI.DebugMenu debugMenu1;
-        private System.Windows.Forms.ToolStripMenuItem runToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem testMenuItemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
@@ -279,7 +259,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem runProcessToolStripMenuItem;
         private System.Windows.Forms.TabControl editorsTabControl;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private Alternet.Scripter.Integration.DebuggerPanelsTabControl debuggerPanelsTabControl;

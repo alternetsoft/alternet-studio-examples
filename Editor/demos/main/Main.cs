@@ -27,7 +27,7 @@ using Alternet.Editor.TextSource;
 using Alternet.Syntax;
 using Alternet.Syntax.Lexer;
 using Alternet.Syntax.Parsers.Advanced;
-
+using Alternet.Syntax.Parsers.TextMate;
 using WeCantSpell.Hunspell;
 
 namespace Alternet.CodeEditor.Demo
@@ -107,12 +107,11 @@ namespace Alternet.CodeEditor.Demo
         private const string FindDesc = "Display Search Dialog";
         private const string ReplaceDesc = "Display Replace Dialog";
         private const string GotoDesc = "Display Goto Line Dialog";
-        private const string ResString = "Alternet.CodeEditor.Demo.Resources.{0}";
 
-        private const string SXmlFileFilter = "Rtf files (*.rtf)|*.rtf|Html files (*.html; *.htm)|*.html;*.htm|Xml files (*.xml)|*.xml|All files (*.*)|*.*";
         private int scrollBoxUpdate;
         private string dir = Application.StartupPath + @"\";
         private Alternet.Syntax.Parsers.Roslyn.CsParser csParser1 = new Alternet.Syntax.Parsers.Roslyn.CsParser();
+        private TextMateParser textMateParser = new TextMateParser();
         private Parser parser1 = new Parser();
         private PropertyGrid propertyGrid = new PropertyGrid();
         private ArrayList obsolete = new ArrayList();
@@ -132,6 +131,64 @@ namespace Alternet.CodeEditor.Demo
             "AccessibleDescription",
             "AccessibleName",
             "AccessibleRole",
+        };
+
+        private LanguageInfo[] langItems =
+        {
+            new LanguageInfo(".adoc", "*.adoc", "Ascii doc"),
+            new LanguageInfo(".bat", "*.bat", "Bat"),
+            new LanguageInfo(".clj", "*clj.", "Clojure"),
+            new LanguageInfo(".coffee", "*.coffee", "Coffeescript"),
+            new LanguageInfo(".c", "*.c", "C"),
+            new LanguageInfo(".cpp", "*.cpp", "C++"),
+            new LanguageInfo(".cu", "*.cu", "Cuda cpp"),
+            new LanguageInfo(".cs", "*.cs", "C#"),
+            new LanguageInfo(".cshtml", "*.cshtml", "Razor"),
+            new LanguageInfo(".css", "*.css", "Css"),
+            new LanguageInfo(".dart", "*.dart", "Dart"),
+            new LanguageInfo(".dockerfile", "*.dockerfile", "Dockerfile"),
+            new LanguageInfo(".fs", "*.fs", "Fsharp"),
+            new LanguageInfo(".gitignore", "*.gitignore", "Ignore"),
+            new LanguageInfo(".go", "*.go", "Go"),
+            new LanguageInfo(".groovy", "*.groovy", "Groovy"),
+            new LanguageInfo(".handlebars", "*.handlebars", "Handlebars"),
+            new LanguageInfo(".hlsl", "*.hlsl", "Hlsl"),
+            new LanguageInfo(".html", "*.html", "Html"),
+            new LanguageInfo(".ini", "*.ini", "Ini"),
+            new LanguageInfo(".java", "*.java", "Java"),
+            new LanguageInfo(".jsx", "*.jsx", "Java Script React"),
+            new LanguageInfo(".js", "*.js", "Java Script"),
+            new LanguageInfo(".json", "*.json", "Json"),
+            new LanguageInfo(".jsonc", "*.jsonc", "Jsonc"),
+            new LanguageInfo(".jl", "*.jl", "Julia"),
+            new LanguageInfo(".less", "*.less", "Less"),
+            new LanguageInfo(".lua", "*.lua", "Lua"),
+            new LanguageInfo(".mak", "*.mak", "Makefile"),
+            new LanguageInfo(".md", "*.md", "Markdown"),
+            new LanguageInfo(".m", "*.m", "Objective-c"),
+            new LanguageInfo(".mm", "*.mm", "Objective-cpp"),
+            new LanguageInfo(".pas", "*.pas", "Pascal"),
+            new LanguageInfo(".pl", "*.pl", "Perl"),
+            new LanguageInfo(".p6", "*.p6", "Perl6"),
+            new LanguageInfo(".php", "*.php", "Php"),
+            new LanguageInfo(".properties", "*.properties", "Properties"),
+            new LanguageInfo(".ps1", "*.ps1", "Power Shell"),
+            new LanguageInfo(".pug", "*.pug", "Jude"),
+            new LanguageInfo(".py", "*.py", "Python"),
+            new LanguageInfo(".r", "*.r", "R"),
+            new LanguageInfo(".rb", "*.rb", "Ruby"),
+            new LanguageInfo(".rs", "*.rs", "Rust"),
+            new LanguageInfo(".scss", "*.scss", "Scss"),
+            new LanguageInfo(".shader", "*.shader", "Shaderlab"),
+            new LanguageInfo(".sh", "*.sh", "Shell Script"),
+            new LanguageInfo(".sql", "*.sql", "Sql"),
+            new LanguageInfo(".swift", "*.swift", "Swift"),
+            new LanguageInfo(".tex", "*.tex", "LaTex"),
+            new LanguageInfo(".ts", "*.ts", "Type Script"),
+            new LanguageInfo(".vb", "*.vb", "Vb"),
+            new LanguageInfo(".xml", "*.xml", "Xml"),
+            new LanguageInfo(".xsl", "*.xsl", "Xsl"),
+            new LanguageInfo(".yml", "*.yml", "Yaml"),
         };
 
         public MainForm()
@@ -197,17 +254,38 @@ namespace Alternet.CodeEditor.Demo
 
         private void InitializeVisualThemeComboBox()
         {
-            visualThemeComboBox.DataSource = Enum.GetValues(typeof(VisualThemeType));
-            visualThemeComboBox.SelectedItem = VisualThemeType.None;
+            visualThemeComboBox.Items.AddRange(Enum.GetNames(typeof(VisualThemeType)));
+            visualThemeComboBox.SelectedIndex = (int)VisualThemeType.None;
         }
 
         private void MainForm_Load(object sender, System.EventArgs e)
         {
+            foreach (LanguageInfo lang in langItems)
+            {
+                LanguagesCombobox.Items.Add(lang.Description);
+            }
+
             DirectoryInfo dirInfo = new DirectoryInfo(Path.GetFullPath(dir) + @"Resources\Editor\text");
             if (!dirInfo.Exists)
             {
                 dir = Application.StartupPath + @"\..\..\..\..\..\..\";
             }
+
+            dirInfo = new DirectoryInfo(Path.GetFullPath(dir) + @"Resources\Editor\TextMate");
+            if (dirInfo.Exists)
+            {
+                FileInfo[] files = dirInfo.GetFiles();
+                for (int j = 0; j < files.Length; j++)
+                {
+                    int idx = FindLangByExt(Path.GetExtension(files[j].Name));
+                    if (idx >= 0)
+                        langItems[idx].FileName = files[j].FullName;
+                }
+            }
+
+            int index = FindLangByExt(".cs");
+            LanguagesCombobox.SelectedIndex = index >= 0 ? index : 0;
+            textMateParser.ThemeName = ThemeName.Light;
 
             FileInfo fileInfo = new FileInfo(dir + @"Resources\Editor\text\c#.cs");
             if (fileInfo.Exists)
@@ -256,7 +334,6 @@ namespace Alternet.CodeEditor.Demo
             UpdatePanels(treeView1.Nodes[0]);
             textSource1.Lexer = csParser1;
             InitializeFonts();
-            syntaxEdit.VisualTheme = new CustomVisualTheme();
         }
 
         private void ProcessDedicatedLanguages()
@@ -270,6 +347,7 @@ namespace Alternet.CodeEditor.Demo
             dedicatedParsers.Add(node.Nodes.Add("XML"), new DemoItem(new XmlParser(), "xml.txt"));
             dedicatedParsers.Add(node.Nodes.Add("HTML"), new DemoItem(new HtmlScriptParser(), "html.txt"));
             dedicatedParsers.Add(node.Nodes.Add("JavaScript"), new DemoItem(new JavaScriptParser(), "java_script.txt"));
+            node.Nodes.Add("TextMate");
             node.Collapse();
         }
 
@@ -278,6 +356,7 @@ namespace Alternet.CodeEditor.Demo
             TreeNode node = treeView1.Nodes.Insert(4, "Syntax Highlighting");
             otherParsers.Add(node.Nodes.Add("x86 Assembler"), new SchemeItem("assembler.xml", "assembler.txt"));
             otherParsers.Add(node.Nodes.Add("Python"), new SchemeItem("python.xml", "python.txt"));
+            otherParsers.Add(node.Nodes.Add("PowerShell"), new SchemeItem("powershell.xml", "powershell.txt"));
             otherParsers.Add(node.Nodes.Add("Ruby"), new SchemeItem("Ruby.xml", "Ruby.txt"));
             otherParsers.Add(node.Nodes.Add("TCL/TK"), new SchemeItem("tcltk.xml", "tcltk.txt"));
             otherParsers.Add(node.Nodes.Add("Unix Shell"), new SchemeItem("unix_shell.xml", "unix_shell.txt"));
@@ -389,23 +468,29 @@ namespace Alternet.CodeEditor.Demo
                         if (root.Index == 2)
                 {
                     switch (node.Index)
-                            {
-                                case 0:
-                                    return pnDialogs;
-                                case 1:
-                                    return pnPrinting;
-                                default:
-                                    return pnDialogs;
-                            }
+                    {
+                        case 0:
+                            return pnDialogs;
+                        case 1:
+                            return pnPrinting;
+                        default:
+                            return pnDialogs;
+                    }
+                }
+                else
+                if (root.Index == 3 && node.Index == 8)
+                {
+                    textSource1.Lexer = textMateParser;
+                    return pnTextMate;
                 }
                 else
                             if (root.Index == 5)
-                                return pnProperties;
-                            else
+                    return pnProperties;
+                else
                                 if (root.Index == 6)
-                                    return pnCompanyInfo;
-                                else
-                                    return null;
+                    return pnCompanyInfo;
+                else
+                    return null;
             }
 
             return pnGutter;
@@ -427,6 +512,7 @@ namespace Alternet.CodeEditor.Demo
             bool isAbout = (panel != null) && panel.Equals(pnCompanyInfo);
             bool isTextSource = (panel != null) && panel.Equals(pnTextSource);
             bool isProperties = (panel != null) && panel.Equals(pnProperties);
+            bool isTextMate = (panel != null) && panel.Equals(pnTextMate);
             if (isAbout)
             {
                 pnManage.Visible = true;
@@ -436,19 +522,24 @@ namespace Alternet.CodeEditor.Demo
             }
             else
                 if (panel == null)
+            {
+                pnManage.Visible = false;
+                pnEditContainer.Visible = true;
+                UpdateEditContent(node);
+                UpdateEditorVisibility(!isAbout, isTextSource, pnMain.Height);
+            }
+            else
+            {
+                pnManage.Visible = true;
+                pnManage.Dock = DockStyle.Top;
+                panel.Dock = DockStyle.Top;
+                pnManage.Height = panel.Height;
+                pnEditContainer.Visible = true;
+                if (isTextMate)
                 {
-                    pnManage.Visible = false;
-                    pnEditContainer.Visible = true;
-                    UpdateEditContent(node);
+                    UpdateTextMateContent();
                 }
-                else
-                {
-                    pnManage.Visible = true;
-                    pnManage.Dock = DockStyle.Top;
-                    panel.Dock = DockStyle.Top;
-                    pnManage.Height = panel.Height;
-                    pnEditContainer.Visible = true;
-                }
+            }
 
             pnPropertyGrid.Visible = isProperties;
             splitter2.Visible = isProperties;
@@ -769,8 +860,27 @@ namespace Alternet.CodeEditor.Demo
 
         private void VisualThemeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            syntaxEdit.VisualThemeType = (VisualThemeType)visualThemeComboBox.SelectedItem;
-            syntaxSplitEdit.VisualThemeType = (VisualThemeType)visualThemeComboBox.SelectedItem;
+            syntaxEdit.VisualThemeType = (VisualThemeType)visualThemeComboBox.SelectedIndex;
+            syntaxSplitEdit.VisualThemeType = (VisualThemeType)visualThemeComboBox.SelectedIndex;
+            OnVisualThemeChanged();
+        }
+
+        private void OnVisualThemeChanged()
+        {
+            switch (syntaxEdit.VisualThemeType)
+            {
+                case VisualThemeType.None:
+                case VisualThemeType.Light:
+                    textMateParser.ThemeName = ThemeName.Light;
+                    break;
+                case VisualThemeType.Dark:
+                case VisualThemeType.VisualStudioCode:
+                    textMateParser.ThemeName = ThemeName.Dark;
+                    break;
+                default:
+                    textMateParser.ThemeName = ThemeName.Light;
+                    break;
+            }
         }
 
         // dialogs
@@ -1935,6 +2045,87 @@ namespace Alternet.CodeEditor.Demo
         {
             syntaxEdit.Source.BookMarks.ToggleBookMark(syntaxEdit.Position, 11);
             syntaxEdit.Source.LineStyles.ToggleLineStyle(syntaxEdit.Position.Y, 0, 1);
+        }
+
+        private void UpdateTextMateContent()
+        {
+            if (LanguagesCombobox.SelectedIndex >= 0)
+            {
+                string fileName = langItems[LanguagesCombobox.SelectedIndex].FileName;
+                if (fileName != string.Empty)
+                {
+                    textMateParser.FileName = fileName;
+                    syntaxEdit.Source.LoadFile(fileName);
+                    syntaxEdit.Source.FileName = fileName;
+                    ReparseText();
+                }
+
+                var brackets = textMateParser.LanguageDefinition?.Brackets;
+                if (brackets != null)
+                {
+                    syntaxEdit.Source.OpenBraces = brackets.ToOpenBrackets();
+                    syntaxEdit.Source.ClosingBraces = brackets.ToCloseBrackets();
+                }
+                else
+                {
+                    syntaxEdit.Source.OpenBraces = new char[] { };
+                    syntaxEdit.Source.ClosingBraces = new char[] { };
+                }
+            }
+        }
+
+        private void LanguagesCombobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateTextMateContent();
+        }
+
+        private void ReparseText()
+        {
+            UpdateParsed(0, int.MaxValue);
+            syntaxEdit.Source.ParseToString(int.MaxValue);
+            syntaxEdit.Invalidate();
+        }
+
+        private void UpdateParsed(int fromIndex, int toIndex)
+        {
+            IStringItem item;
+
+            for (int i = fromIndex; i <= Math.Min(toIndex, syntaxEdit.Source.Lines.Count - 1); i++)
+            {
+                item = syntaxEdit.Source.Lines.GetItem(i);
+                item.State = item.State & ~ItemState.Parsed;
+            }
+
+            syntaxEdit.Source.SetLastParsed(0);
+        }
+
+        private int FindLangByExt(string ext)
+        {
+            for (int i = 0; i < langItems.Length; i++)
+            {
+                if (string.Compare(langItems[i].FileType, ext, true) == 0)
+                    return i;
+            }
+
+            return -1;
+        }
+
+        private struct LanguageInfo
+        {
+            public string FileType;
+            public string FileExt;
+            public string Description;
+            public string SchemeName;
+            public string FileName;
+
+            public LanguageInfo(string fileType, string fileExt, string description)
+            {
+                this.FileType = fileType;
+                this.FileExt = fileExt;
+                this.Description = description;
+                FileName = string.Empty;
+                SchemeName = string.Empty;
+            }
         }
 
         #region Internal Classes

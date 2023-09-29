@@ -24,9 +24,10 @@ hw = c.f()
 #    print(x)
 
 c = "foo\abar"
-cc = c.encode('string_escape')
+cc = c.encode("utf-8")
 
-ccc= cc.decode('string_escape')
+ccc= cc.decode("utf-8")
+
 print(ccc)
 
 MessageBox.Show("From Module: " + MyModule.GetString())

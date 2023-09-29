@@ -108,10 +108,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextMateParsing", "Editor\Q
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PackageReference", "Scripter\QuickStarts\PackageReference\PackageReference.csproj", "{DF5EEDEE-BE80-4141-A742-28578258FAF0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2A16DEF1-B240-4172-8027-AAC551CF6C6F}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScriptHostObject", "Scripter\QuickStarts\ScriptHostObject\ScriptHostObject.csproj", "{ED51FA49-621A-47FD-B20C-9470F0430196}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -473,6 +470,14 @@ Global
 		{DF5EEDEE-BE80-4141-A742-28578258FAF0}.Runtime|Any CPU.Build.0 = Release|Any CPU
 		{DF5EEDEE-BE80-4141-A742-28578258FAF0}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
 		{DF5EEDEE-BE80-4141-A742-28578258FAF0}.Trial|Any CPU.Build.0 = Debug|Any CPU
+		{ED51FA49-621A-47FD-B20C-9470F0430196}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED51FA49-621A-47FD-B20C-9470F0430196}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED51FA49-621A-47FD-B20C-9470F0430196}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED51FA49-621A-47FD-B20C-9470F0430196}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED51FA49-621A-47FD-B20C-9470F0430196}.Runtime|Any CPU.ActiveCfg = Release|Any CPU
+		{ED51FA49-621A-47FD-B20C-9470F0430196}.Runtime|Any CPU.Build.0 = Release|Any CPU
+		{ED51FA49-621A-47FD-B20C-9470F0430196}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED51FA49-621A-47FD-B20C-9470F0430196}.Trial|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -527,6 +532,7 @@ Global
 		{A6C9E71B-0D72-4F2F-AC8E-9CBC8D455614} = {66175006-53A3-4934-9CAA-580B07B9D835}
 		{735B6022-AD7D-4C09-B3D5-3BFCFB7E65DE} = {45C6FD0B-0D9E-42AF-A446-9F36498A2E7F}
 		{DF5EEDEE-BE80-4141-A742-28578258FAF0} = {FF9044DD-98D8-4E04-BAD2-B66FF733CF26}
+		{ED51FA49-621A-47FD-B20C-9470F0430196} = {FF9044DD-98D8-4E04-BAD2-B66FF733CF26}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F273BD5C-AD6F-4106-A530-507C5A115BBC}

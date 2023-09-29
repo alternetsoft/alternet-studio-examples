@@ -383,6 +383,18 @@ namespace AlternetStudio.Wpf.Demo
             return defaultReferences;
         }
 
+        private string GetRootNamespce(string fileName)
+        {
+            if (!Path.GetExtension(fileName).ToLower().Equals(".vb"))
+                return null;
+            var project = GetProject(fileName);
+
+            if (project != null && project.HasProject)
+                return project.RootNamespace;
+
+            return null;
+        }
+
         private string[] GetImportedNamespaces(string fileName)
         {
             if (!Path.GetExtension(fileName).ToLower().Equals(".vb"))

@@ -1,7 +1,9 @@
 
 
 import MyModule
+
 from datetime import date
+
 
 class MyClass:
     """A simple example class"""
@@ -39,6 +41,7 @@ MyClass.ff();
 hw = c.ff();
 
 print(c.i);
+print(date.today());
 
 #while True:
 #    print(x)

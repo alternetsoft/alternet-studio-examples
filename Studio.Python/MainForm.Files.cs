@@ -114,7 +114,7 @@ namespace AlternetStudio.Demo
 
             editorsTabControl.TabPages.Add(page);
             var edit = CreateDebugEdit();
-            edit.AllowedActions &= ~AllowedActions.SetNextStatement;
+            edit.AllowedActions &= ~(AllowedActions.SetNextStatement | AllowedActions.FindAllImplementations);
             editors.Add(page, edit);
 
             edit.DefaultMenu.Opened += EditorContextMenu_Opened;
@@ -150,6 +150,7 @@ namespace AlternetStudio.Demo
             edit.Dock = DockStyle.Fill;
             edit.Bounds = new Rectangle(0, 0, page.ClientRectangle.Width, page.ClientRectangle.Height);
             edit.HighlightReferences = true;
+            edit.Gutter.Options |= GutterOptions.PaintLinesOnGutter;
 
             page.Controls.Add(edit as Control);
 

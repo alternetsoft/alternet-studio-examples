@@ -41,14 +41,14 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
     {
         #region Private Members
 
-        private const int OutputTabIndex = 1;
+        private const int OutputTabIndex = 0;
         private const int CallStackTabIndex = 2;
         private const int WatchesTabIndex = 3;
         private const int ErrorsTabIndex = 4;
         private const int PropertiesImage = 2;
         private const int FolderCloseImage = 7;
         private const int FolderOpenImage = 8;
-        private const int FindResultTabIndex = 6;
+        private const int FindResultTabIndex = 5;
 
         private const string JSFileExtension = ".js";
         private const string TSFileExtension = ".ts";
@@ -231,7 +231,7 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
         {
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
             {
-                if (Keyboard.IsKeyDown(Key.F10) && runToCursorMenuItem.IsEnabled)
+                if (Keyboard.IsKeyDown(Key.F10) && debugMenu.RunToCursorMenuItem.IsEnabled)
                 {
                     e.Handled = true;
                     RunToCursorMenuItem_Click(this, new RoutedEventArgs());
@@ -318,6 +318,12 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
             else
                 if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
             {
+                if (Keyboard.IsKeyDown(Key.F12) && findReferencesMenuItem.IsEnabled)
+                {
+                    e.Handled = true;
+                    FindReferencesMenuItem_Click(this, new RoutedEventArgs());
+                }
+
                 if (Keyboard.IsKeyDown(Key.F9) && debugMenu.EvaluateMenuItem.IsEnabled)
                 {
                     e.Handled = true;
@@ -332,6 +338,12 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
             }
             else
             {
+                if (Keyboard.IsKeyDown(Key.F12) && gotoDefinitionMenuItem.IsEnabled)
+                {
+                    e.Handled = true;
+                    GotoDefinitionMenuItem_Click(this, new RoutedEventArgs());
+                }
+
                 if (Keyboard.IsKeyDown(Key.Delete) && deleteMenuItem.IsEnabled)
                 {
                     e.Handled = true;

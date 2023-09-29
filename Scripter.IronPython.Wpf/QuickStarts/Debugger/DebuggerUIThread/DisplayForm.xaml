@@ -1,0 +1,20 @@
+﻿<Window x:Class="DebuggerUIThread.IronPython.Wpf.DisplayForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="DisplayForm" Height="280" Width="500" WindowStartupLocation="Manual" Loaded="Window_Loaded" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="0" Grid.Row="0" Name="DebugMeButton" Content="Debug Me" Width="170" Height="50" VerticalAlignment="Top" Margin="8,4,0,0" Click="DebugMeButton_Click"></Button>
+        <ProgressBar Grid.Column="1" Grid.Row="0" Name="progressBar" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="8,4,10,0"></ProgressBar>
+        <Button Grid.Column="0" Grid.Row="1" Name="RunMeButton" Content="Run Me" Width="170" Height="50" Margin="8,10,0,0" Click="RunMeButton_Click"></Button>
+        <Label Grid.Column="0" Grid.Row="2" Name="resultLabel" Margin="8, 10, 0, 0"></Label>
+    </Grid>
+</Window>

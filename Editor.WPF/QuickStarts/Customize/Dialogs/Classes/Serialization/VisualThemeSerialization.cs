@@ -13,6 +13,7 @@
 #endregion Copyright (c) 2016-2023 Alternet Software
 
 using Alternet.Common;
+using Alternet.Editor;
 
 namespace Alternet.Editor.Wpf
 {

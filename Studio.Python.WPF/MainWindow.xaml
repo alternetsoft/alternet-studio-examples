@@ -1,0 +1,445 @@
+<Window x:Class="AlternetStudio.Python.Wpf.Demo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:AlternetStudio.Python.Wpf.Demo"
+        TextOptions.TextFormattingMode="Display"
+        xmlns:CUI="clr-namespace:Alternet.Editor.Common.Wpf;assembly=Alternet.Editor.Common.Wpf.v9"
+        xmlns:UI="clr-namespace:Alternet.Scripter.Debugger.UI.Wpf;assembly=Alternet.Scripter.Debugger.UI.Wpf.v9"
+        Title="AlterNET Studio - Python" Height="564" Width="808" WindowState="Maximized" Loaded="Window_Loaded"
+        Icon="/AlternetStudio.Python.Wpf;component/Images/Icon.ico" Closing="Window_Closing" Closed="Window_Closed" KeyDown="Window_KeyDown">
+    <Window.Resources>
+        <local:ImageConverter x:Key="imageConverter" />
+        <DataTemplate x:Key="ImageTemplate">
+            <DockPanel>
+                <Image Width="16" Height="16" Stretch="Fill" Source="{Binding Image}"/>
+                <Label Content="{Binding Line}"/>
+            </DockPanel>
+        </DataTemplate>
+        <Style TargetType="Image" x:Key="ToolbarImageStyle">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.4" />
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="Width" Value="16" />
+            <Setter Property="Height" Value="16" />
+        </Style>
+        <ContextMenu x:Key="contextMenuMain">
+            <MenuItem Name="cutContextMenuItem" Header="_Cut" Click="CutMenuItem_Click">
+                <MenuItem.Icon>
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Cut.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Name="ccopyMenuItem" Header="_Copy" Click="CopyMenuItem_Click">
+                <MenuItem.Icon>
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Copy.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Name="cpasteMenuItem" Header="_Paste" Click="PasteMenuItem_Click">
+                <MenuItem.Icon>
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Paste.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <Separator />
+            <MenuItem Name="openContextMenuItem" Header="_Open" Click="OpenMenuItem_Click">
+                <MenuItem.Icon>
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/OpenFile.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <Separator />
+            <MenuItem Name="findContextMenuItem" Header="_Find" Click="FindMenuItem_Click">
+                <MenuItem.Icon>
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/FindInFile.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Name="replaceContextMenuItem" Header="_Replace" Click="ReplaceMenuItem_Click">
+                <MenuItem.Icon>
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/ReplaceInFiles.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Name="gotoContextMenuItem" Header="_Go to Line Number" Click="GotoMenuItem_Click">
+            </MenuItem>
+            <Separator />
+            <Separator />
+            <MenuItem Name="aboutContextMenuItem" Header="_About AlterNET Studio" Click="AboutMenuItem_Click">
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="filesMenu">
+        </ContextMenu>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" IsMainMenu="True" VerticalAlignment="Top">
+            <MenuItem Header="_File">
+                <MenuItem x:Name="newMenuItem" Header="_New">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/NewFile.png" />
+                    </MenuItem.Icon>
+                    <MenuItem x:Name="newFileMenuItem" Header="File..." Click="NewMenuItem_Click"/>
+                    <MenuItem x:Name="newProjectMenuItem" Header="Project..." Click="NewProjectMenuItem_Click"/>
+                </MenuItem>
+                <MenuItem x:Name="openMenuItem" Header="_Open..." Click="OpenMenuItem_Click" InputGestureText="Ctrl+O">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/OpenFile.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="closeFileMenuItem" Header="Close" Click="CloseFileMenuItem_Click" >
+                </MenuItem>
+                <Separator />
+                <MenuItem x:Name="openProjectMenuItem" Header="_Open Project..." Click="OpenProjectMenuItem_Click" >
+                </MenuItem>
+                <MenuItem x:Name="saveProjectMenuItem" Header="_Save Project" Click="SaveProjectMenuItem_Click" >
+                </MenuItem>
+                <MenuItem x:Name="closeProjectMenuItem" Header="_Close Project" Click="CloseProjectMenuItem_Click">
+                </MenuItem>
+                <Separator />
+                <MenuItem x:Name="saveMenuItem" Header="_Save" Click="SaveMenuItem_Click" InputGestureText="Ctrl+S">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Save.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="saveMenuItemAs" Header="_Save As..." Click="SaveAsMenuItem_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/SaveAs.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="saveMenuItemAll" Header="_Save All" Click="SaveAllMenuItem_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/SaveAll.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem x:Name="printPreviewMenuItem" Header="_Print Preview..." Click="PrintPreviewMenuItem_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/PrintPreview.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="printMenuItem" Header="_Print..." Click="PrintMenuItem_Click" InputGestureText="Ctrl+P">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Print.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                 <Separator />
+                <MenuItem x:Name="exitMenuItem" Header="_Exit" Click="ExitMenuItem_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Exit.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem x:Name="editMenuItem" Header="_Edit">
+                <MenuItem x:Name="undoMenuItem" Header="Undo" Click="UndoMenuItem_Click" InputGestureText="Ctrl+Z">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Undo.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="redoMenuItem" Header="Redo" Click="RedoMenuItem_Click" InputGestureText="Ctrl+Y">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Redo.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem x:Name="cutMenuItem" Header="Cut" Click="CutMenuItem_Click" InputGestureText="Ctrl+X">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Cut.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="copyMenuItem" Header="_Copy" Click="CopyMenuItem_Click" InputGestureText="Ctrl+C">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Copy.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="pasteMenuItem" Header="Paste" Click="PasteMenuItem_Click" InputGestureText="Ctrl+V">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Paste.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem x:Name="deleteMenuItem" Header="Delete" Click="DeleteMenuItem_Click" InputGestureText="Del"/>
+                <Separator />
+                <MenuItem x:Name="selectAllMenuItem" Header="_Select All" Click="SelectAllMenuItem_Click" InputGestureText="Ctrl+A">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/SelectAll.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem x:Name="viewMenuItem" Header="_View" Visibility="Collapsed">
+                <MenuItem x:Name="viewCodeMenuItem" Header="Code" InputGestureText="F7" Visibility="Hidden"/>
+                <MenuItem x:Name="viewDesignerMenuItem" Header="Designer" InputGestureText="Shift+F7" Visibility="Hidden"/>
+            </MenuItem>
+            <MenuItem x:Name="searchMenuItem" Header="_Search">
+                <MenuItem x:Name="findMenuItem" Header="_Find..." Click="FindMenuItem_Click" InputGestureText="Ctrl+F">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/FindInFile.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="replaceMenuItem" Header="Replace..." Click="ReplaceMenuItem_Click" InputGestureText="Ctrl+H">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/ReplaceInFiles.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="gotoMenuItem" Header="_Go to Line Number..." Click="GotoMenuItem_Click" InputGestureText="Ctrl+G">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/GoToDefinition.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem x:Name="gotoDefinitionMenuItem" Header="Go to Definition" Click="GotoDefinitionMenuItem_Click" InputGestureText="F12">
+                    <MenuItem.Icon>
+                        <Image Source="/AlternetStudio.Python.Wpf;component/Resources/GoToDefinition.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="findReferencesMenuItem" Header="Find References" Click="FindReferencesMenuItem_Click" InputGestureText="Shift+F12">
+                </MenuItem>
+            </MenuItem>
+            <UI:DebugMenu Name="debugMenu">
+            </UI:DebugMenu>
+            <MenuItem x:Name="helpMenuItem" Header="_Help">
+                <MenuItem x:Name="aboutMenuItem" Header="_About AlterNET Studio" Click="AboutMenuItem_Click">
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <ToolBar Background="Transparent" Margin="0,0,0,0" Name="toolBar1" VerticalAlignment="Top">
+                <Button HorizontalAlignment="Left"  Name="newStripSplitButton" VerticalAlignment="Top" Click="NewStripSplitButton_Click">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image x:Name="newStripSplitImage" Source="/AlternetStudio.Python.Wpf;component/Resources/NewFile.png" Style="{StaticResource ToolbarImageStyle}"/>
+                            <Path x:Name="BtnArrow1" VerticalAlignment="Center" Width="8" Margin="2,0,2,0" Fill="#FF527DB5" Stretch="Uniform" HorizontalAlignment="Right" Data="F1 M 301.14,-189.041L 311.57,-189.041L 306.355,-182.942L 301.14,-189.041 Z "/>
+                        </StackPanel>
+                    </Button.Content>
+                    <Button.ContextMenu>
+                        <ContextMenu >
+                            <MenuItem Name="newFile" Header="File..." Click="NewMenuItem_Click"/>
+                            <MenuItem Name="newProject" Header="Project..." Click="NewProjectMenuItem_Click"/>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+                <Button ToolTip="Open" Name="openToolButton" Padding="1" Click="OpenMenuItem_Click">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/OpenFile.png" Style="{StaticResource ToolbarImageStyle}" Stretch="None"></Image>
+                </Button>
+                <Button ToolTip="Save" Name="saveToolButton" Padding="1" Click="SaveMenuItem_Click">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Save.png" Style="{StaticResource ToolbarImageStyle}" Stretch="None"></Image>
+                </Button>
+                <Separator/>
+                <Button ToolTip="Cut" Name="cutToolButton" Padding="1" Click="CutMenuItem_Click">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Cut.png" Style="{StaticResource ToolbarImageStyle}" Stretch="None"></Image>
+                </Button>
+                <Button ToolTip="Copy" Name="copyToolButton" Padding="1" Click="CopyMenuItem_Click">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Copy.png" Style="{StaticResource ToolbarImageStyle}" Stretch="None"></Image>
+                </Button>
+                <Button ToolTip="Paste" Name="pasteToolButton" Padding="1" Click="PasteMenuItem_Click">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Paste.png" Style="{StaticResource ToolbarImageStyle}" Stretch="None"></Image>
+                </Button>
+                <Button ToolTip="Undo" Name="undoToolButton" Padding="1" Click="UndoMenuItem_Click">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Undo.png" Style="{StaticResource ToolbarImageStyle}" Stretch="None"></Image>
+                </Button>
+                <Button ToolTip="Redo" Name="redoToolButton" Padding="1" Click="RedoMenuItem_Click">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Redo.png" Style="{StaticResource ToolbarImageStyle}" Stretch="None"></Image>
+                </Button>
+                <Separator/>
+                <Button ToolTip="Find" Name="findToolButton" Padding="1" Click="FindMenuItem_Click">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/FindInFile.png" Style="{StaticResource ToolbarImageStyle}" Stretch="None"></Image>
+                </Button>
+                <Button ToolTip="Replace" Name="replaceToolButton" Padding="1" Click="ReplaceMenuItem_Click">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/ReplaceInFiles.png" Style="{StaticResource ToolbarImageStyle}" Stretch="None"></Image>
+                </Button>
+                <Button ToolTip="Goto" Name="gotoToolButton" Padding="1">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/GoToDefinition.png" Style="{StaticResource ToolbarImageStyle}" Stretch="None"></Image>
+                </Button>
+                <Separator/>
+                <Button ToolTip="Print Preview" Name="printPreviewToolButton" Padding="1" Click="PrintPreviewMenuItem_Click">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/PrintPreview.png" Style="{StaticResource ToolbarImageStyle}" Stretch="None"></Image>
+                </Button>
+                <Button ToolTip="Print" Name="printToolButton" Padding="1" Click="PrintMenuItem_Click">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Print.png" Style="{StaticResource ToolbarImageStyle}" Stretch="None"></Image>
+                </Button>
+                <Separator/>
+                <Button ToolTip="Toggle a bookmark on the current line. (Ctrl + K, Ctrl + K)" Name="toggleBookmarkToolButton" Padding="1" Click="ToggleBookmarkMenuItem_Click">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Bookmark.png" Style="{StaticResource ToolbarImageStyle}"/>
+                </Button>
+                <Button ToolTip="Move the caret to the previous bookmark. (Ctrl + K, Ctrl + P)" Name="prevBookmarkToolButton" Padding="1" Click="PrevBookmarkMenuItem_Click">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/PreviousBookmark.png" Style="{StaticResource ToolbarImageStyle}"/>
+                </Button>
+                <Button ToolTip="Move the caret to the next bookmark. (Ctrl + K, Ctrl + N)" Name="nextBookmarkToolButton" Padding="1" Click="NextBookmarkMenuItem_Click">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/NextBookmark.png" Style="{StaticResource ToolbarImageStyle}"/>
+                </Button>
+                <Button ToolTip="Clear all bookmarks in all files. (Ctrl + K, Ctrl + L)" Name="clearAllBookmarksToolButton" Padding="1" Click="ClearAllBookmarksMenuItem_Click">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/ClearBookmark.png" Style="{StaticResource ToolbarImageStyle}"/>
+                </Button>
+                <Separator/>
+                <Button ToolTip="Navigate Backward" Name="historyBackwardToolButton" Padding="1" Click="Backward_Click">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Backwards.png" Style="{StaticResource ToolbarImageStyle}" Stretch="None"></Image>
+                </Button>
+                <Button Name="backwardMenu" Padding="1" Click="BackwardMenu_Click">
+                    <Button.Content>
+                        <Path x:Name="BtnArrow" VerticalAlignment="Center" Width="8" Fill="#FF527DB5" Stretch="Uniform" HorizontalAlignment="Right" Data="F1 M 301.14,-189.041L 311.57,-189.041L 306.355,-182.942L 301.14,-189.041 Z "/>
+                    </Button.Content>
+                    <Button.ContextMenu>
+                        <ContextMenu>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+                <Button ToolTip="Navigate Forward" Name="historyForwardToolButton" Padding="1" Click="Forward_Click">
+                    <Image Source="/AlternetStudio.Python.Wpf;component/Resources/Forwards.png" Style="{StaticResource ToolbarImageStyle}" Stretch="None"></Image>
+                </Button>
+            </ToolBar>
+            <UI:DebuggerControlToolbar Background="Transparent" Margin="0,0,0,0" VerticalAlignment="Top" Name="debuggerControlToolbar">
+            </UI:DebuggerControlToolbar>
+        </StackPanel>
+        <DockPanel Grid.Row="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="240"/>
+                </Grid.ColumnDefinitions>
+                <DockPanel Grid.Column="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="24"/>
+                            <RowDefinition Height="70*"/>
+                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="164"/>
+                        </Grid.RowDefinitions>
+                        <DockPanel Grid.Row="0" DockPanel.Dock="Top" Height="24" HorizontalAlignment="Stretch" Name="pnCombo" VerticalAlignment="Top">
+                             <ComboBox Height="25" Name="classesComboBox" Width="333" HorizontalAlignment="Left">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,0,0,0" Width="Auto">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Height="16" Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,2" Name="image1" Stretch="None" VerticalAlignment="Top" Width="18" Source="{Binding ImageIndex, Converter={StaticResource imageConverter}}" />
+                                <TextBlock FontWeight="Bold" Grid.Column="1" Text="{Binding Text}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                                <ComboBox Height="25" Name="methodsComboBox" Width="Auto" HorizontalAlignment="Stretch">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,0,0,0" Width="Auto">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Height="16" Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,2" Name="image1" Stretch="None" VerticalAlignment="Top" Width="18" Source="{Binding ImageIndex, Converter={StaticResource imageConverter}}" />
+                                <TextBlock FontWeight="Bold" Grid.Column="1" Text="{Binding Text}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                          </DockPanel>
+                        <TabControl Grid.Row="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Name="editorsTabControl" SelectionChanged="EditorsTabControl_SelectionChanged"></TabControl>
+                        <GridSplitter Grid.Row="2" Grid.ColumnSpan="3" Height="5" HorizontalAlignment="Stretch"/>
+            <TabControl Grid.Row="3" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Name="bottomTabControl" VerticalAlignment="Stretch" SelectionChanged="BottomTabControl_SelectionChanged">
+                <TabItem Header="Output" Name="outputTabItem">
+                    <Grid>
+                        <UI:Output Name="outputControl"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Breakpoints" Name="breakpointsTabItem">
+                    <Grid>
+                                    <UI:Breakpoints Name="breakpointsControl" BreakpointDeleted="BreakpointsControl_BreakpointDeleted" BreakpointStateChanged="BreakpointsControl_BreakpointStateChanged" BreakpointClick="BreakpointsControl_BreakpointClick" />
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Call Stack" Name="callStackTabItem">
+                    <Grid>
+                        <UI:CallStack Name="callStackControl"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Locals" Name="localsTabPage">
+                    <Grid>
+                        <UI:Locals Name="localsControl"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Watch" Name="watchTabItem">
+                    <Grid>
+                        <UI:Watches Name="watchesControl"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Error List" Name="errorsTabItem">
+                    <Grid>
+                        <UI:Errors Name="errorsControl" ErrorClick="ErrorsControl_ErrorClick"/>
+                    </Grid>
+                </TabItem>
+                            <TabItem Header="Find Results" Name="findResultsTabItem">
+                                <Grid>
+                                    <CUI:FindResults Name="findResultsControl"/>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+                </DockPanel>
+                <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch" ShowsPreview="False"/>
+                <TabControl Grid.Column="2" >
+                    <TabItem Header="Project Explorer">
+                        <Grid Height="Auto">
+                            <TreeView HorizontalAlignment="Stretch" Name="projectExplorerTreeView" VerticalAlignment="Stretch" Height="Auto"  ContextMenuOpening="ProjectExplorerTreeView_ContextMenuOpening">
+                                <TreeView.Resources>
+                                    <ContextMenu x:Key ="SolutionContext" StaysOpen="true">
+                                        <MenuItem x:Name="addFileContextMenuItem" Header="Add File" Click="AddFile_Click"/>
+                                        <MenuItem x:Name="removeFileContextMenuItem" Header="Remove File" Click="RemoveFile_Click"/>
+                                        <MenuItem x:Name="addReferenceContextMenuItem" Header="Add Reference" Click="AddReference_Click"/>
+                                        <MenuItem x:Name="removeReferenceContextMenuItem" Header="Remove Reference" Click="RemoveReference_Click"/>
+                                    </ContextMenu>
+                                    <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
+                                        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnItemPreviewMouseLeftButtonDown"/>
+                                        <Setter Property="HeaderTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal" Margin="0,2">
+                                                        <Image x:Name="img" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" 
+                                       Source="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem}, Path=DataContext}"/>
+                                                        <TextBlock Text="{Binding}" Margin="5,0,10,0" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </TreeView.Resources>
+                            </TreeView>
+                        </Grid>                        
+                    </TabItem>
+                    <TabItem Header="Code Explorer">
+                        <Grid Height="Auto">
+                            <TreeView HorizontalAlignment="Stretch" Name="codeExplorerTreeView" VerticalAlignment="Stretch" Height="Auto">
+                                <TreeView.Resources>
+                                    <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
+                                        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnCodeItemPreviewMouseLeftButtonDown"/>
+                                        <Setter Property="HeaderTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal" Margin="0,2">
+                                                        <Image x:Name="img" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" 
+                                       Source="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeViewItem}, Path=DataContext, Converter={StaticResource imageConverter}}"/>
+                                                        <TextBlock Text="{Binding}" Margin="5,0,10,0" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </TreeView.Resources>
+                            </TreeView>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+                <GroupBox Grid.Column="1" Header="" Margin="0,0,0,0" Width="0" HorizontalAlignment="Right" Visibility="Hidden">
+                <Grid Height="Auto">
+                </Grid>
+            </GroupBox>
+            </Grid>
+        </DockPanel>
+        <StatusBar Grid.Row="3" Name="statusBar1" VerticalAlignment="Bottom" VerticalContentAlignment="Center">
+            <StatusBarItem HorizontalAlignment="Left" Name="positionStatusLabel" Width="144" />
+            <StatusBarItem HorizontalAlignment="Left" Name="modifiedStatusLabel" Width="97" />
+            <StatusBarItem HorizontalAlignment="Stretch" Name="overwriteStatusLabel" />
+        </StatusBar>
+    </Grid>
+</Window>

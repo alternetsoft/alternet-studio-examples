@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -27,6 +28,7 @@ using Alternet.Editor.Roslyn.Wpf;
 using Alternet.Editor.Wpf;
 using Alternet.FormDesigner.Integration.Wpf;
 using Alternet.FormDesigner.Wpf;
+using Alternet.FormDesigner.Wpf.Toolbox;
 using Alternet.Scripter;
 using Microsoft.Win32;
 
@@ -58,6 +60,7 @@ namespace FormDesigner.Wpf
             if (foundXamlFiles.Any())
                 OpenAllFormFiles(foundXamlFiles.First());
             UpdateEditorButtons();
+            AutoLoadToolbox();
         }
 
         public IFormDesignerControl ActiveDesigner
@@ -91,6 +94,12 @@ namespace FormDesigner.Wpf
             foreach (var key in dictionary.Where(
                 kvp => EqualityComparer<V>.Default.Equals(kvp.Value, value)).Select(x => x.Key).ToArray())
                 dictionary.Remove(key);
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            AutoSaveToolbox();
+            base.OnClosing(e);
         }
 
         private string GetTestFilesDirectoryPath()
@@ -1206,6 +1215,42 @@ namespace FormDesigner.Wpf
                 return;
 
             SaveDesignerFiles(ActiveDesigner);
+        }
+
+        private void AutoLoadToolbox()
+        {
+            var toolboxAutoSaveFileName = GetToolboxAutoSaveFileName();
+            if (File.Exists(toolboxAutoSaveFileName))
+            {
+                using (var fs = new FileStream(toolboxAutoSaveFileName, FileMode.Open))
+                {
+                    try
+                    {
+                        toolbox.Load(fs);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Error autoloading the toolbox - resetting. Exception: " + e);
+                        toolbox.Reset();
+                    }
+                }
+            }
+        }
+
+        private void AutoSaveToolbox()
+        {
+            var toolboxAutoSaveFileName = GetToolboxAutoSaveFileName();
+            using (var fs = new FileStream(toolboxAutoSaveFileName, FileMode.Create))
+                toolbox.Save(fs);
+        }
+
+        private string GetToolboxAutoSaveFileName()
+        {
+            var directory = Path.Combine(Path.GetTempPath(), "FormDesigner.Wpf.Demo", "dotnet-" + Environment.Version.ToString(2));
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            return Path.Combine(directory, "ToolboxAutoSave.xml");
         }
 
         internal class CustomizedFormDesignerControl : FormDesignerControl

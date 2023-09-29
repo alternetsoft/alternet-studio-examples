@@ -73,8 +73,7 @@ namespace AlternetStudio.Demo
             this.gotoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.debugMenu = new Alternet.Scripter.Debugger.UI.DebugMenu();
             this.startWithoutDebugMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.runToCursorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.runParamentersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runParametersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gotoDefinitionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findReferencesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findImplementationsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -106,6 +105,8 @@ namespace AlternetStudio.Demo
             this.historyBackwardContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.historyForwardToolButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
             this.toggleBookmarkToolButton = new System.Windows.Forms.ToolStripButton();
             this.prevBookmarkToolButton = new System.Windows.Forms.ToolStripButton();
             this.nextBookmarkToolButton = new System.Windows.Forms.ToolStripButton();
@@ -582,7 +583,11 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.searchMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.findMenuItem,
             this.replaceMenuItem,
-            this.gotoMenuItem});
+            this.gotoMenuItem,
+            this.toolStripSeparator16,
+            this.gotoDefinitionMenuItem,
+            this.findReferencesMenuItem,
+            this.findImplementationsMenuItem});
             this.searchMenuItem.Name = "searchMenuItem";
             this.searchMenuItem.Size = new System.Drawing.Size(54, 20);
             this.searchMenuItem.Text = "&Search";
@@ -615,11 +620,8 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // debugMenu
             // 
             this.debugMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.runToCursorMenuItem,
-            this.runParamentersMenuItem,
-            this.gotoDefinitionMenuItem,
-            this.findReferencesMenuItem,
-            this.findImplementationsMenuItem,
+            this.toolStripSeparator17,
+            this.runParametersMenuItem,
             this.attachToProcessMenuItem});
             this.debugMenu.Name = "debugMenu";
             this.debugMenu.Size = new System.Drawing.Size(54, 20);
@@ -634,20 +636,12 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.startWithoutDebugMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
             this.startWithoutDebugMenuItem.Click += new System.EventHandler(this.StartWithoutDebugMenuItem_Click);
             // 
-            // runToCursorMenuItem
+            // runParametersMenuItem
             // 
-            this.runToCursorMenuItem.Name = "runToCursorMenuItem";
-            this.runToCursorMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F10)));
-            this.runToCursorMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.runToCursorMenuItem.Text = "Run To Cursor";
-            this.runToCursorMenuItem.Click += new System.EventHandler(this.RunToCursorMenuItem_Click);
-            // 
-            // runParamentersMenuItem
-            // 
-            this.runParamentersMenuItem.Name = "runParamentersMenuItem";
-            this.runParamentersMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.runParamentersMenuItem.Text = "Run Paremeters";
-            this.runParamentersMenuItem.Click += new System.EventHandler(this.RunParamentersMenuItem_Click);
+            this.runParametersMenuItem.Name = "runParametersMenuItem";
+            this.runParametersMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.runParametersMenuItem.Text = "Run Paremeters...";
+            this.runParametersMenuItem.Click += new System.EventHandler(this.RunParametersMenuItem_Click);
             // 
             // gotoDefinitionMenuItem
             // 
@@ -927,8 +921,18 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // 
             // toolStripSeparator15
             // 
-            this.toolStripSeparator15.Name = "toolStripSeparator5";
+            this.toolStripSeparator15.Name = "toolStripSeparator15";
             this.toolStripSeparator15.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator16
+            // 
+            this.toolStripSeparator16.Name = "toolStripSeparator16";
+            this.toolStripSeparator16.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator17
+            // 
+            this.toolStripSeparator17.Name = "toolStripSeparator17";
+            this.toolStripSeparator17.Size = new System.Drawing.Size(6, 25);
             // 
             // toggleBookmarkToolButton
             // 
@@ -1564,6 +1568,8 @@ this.panelProperties = new System.Windows.Forms.Panel();
         private System.Windows.Forms.ToolStripSplitButton historyBackwardToolSplitButton;
         private System.Windows.Forms.ContextMenuStrip historyBackwardContextMenu;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
         private System.Windows.Forms.ToolStripButton toggleBookmarkToolButton;
         private System.Windows.Forms.ToolStripButton prevBookmarkToolButton;
         private System.Windows.Forms.ToolStripButton nextBookmarkToolButton;
@@ -1637,7 +1643,7 @@ this.panelProperties = new System.Windows.Forms.Panel();
         private System.Windows.Forms.TabPage toolboxTabPage;
         private System.Windows.Forms.ToolStripMenuItem deleteMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-        private System.Windows.Forms.ToolStripMenuItem runParamentersMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runParametersMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gotoDefinitionMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findReferencesMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findImplementationsMenuItem;
@@ -1649,7 +1655,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
         private System.Windows.Forms.ToolStripMenuItem viewDesignerMenuItem;
         private System.Windows.Forms.TabPage codeExplorerTabPage;
         private System.Windows.Forms.TreeView codeExplorerTreeView;
-        private System.Windows.Forms.ToolStripMenuItem runToCursorMenuItem;
         private System.Windows.Forms.TabPage outlineTabPage;
         private Alternet.Scripter.Debugger.UI.DebugMenu debugMenu;
         private System.Windows.Forms.ToolStripMenuItem attachToProcessMenuItem;

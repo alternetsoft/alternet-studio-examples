@@ -27,8 +27,6 @@ namespace PackageReference
     {
         protected DotNetProject Project { get; private set; } = new DotNetProject();
 
-        private const string SourceFileSubPath = "PackageReference.cs";
-
         private static readonly string[] ProjectSearchDirectories = new[] { ".", @"..\..\..\..\..\..\" };
         private static readonly string StartupProjectFileSubPath = @"Resources\Debugger\CS\PackageReferenceTest\PackageReferenceTest.csproj";
 
@@ -67,12 +65,6 @@ namespace PackageReference
                 edit.LoadFile(fileName);
 
             edit.Source.FileName = fileName;
-        }
-
-        private void CreateEditor(Control parent)
-        {
-            var sourceFileFullPath = GetSourceFileFullPath(SourceFileSubPath);
-            edit = CreateEditor(sourceFileFullPath, parent);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -117,20 +109,6 @@ namespace PackageReference
         private void RunButton_Click(object sender, EventArgs e)
         {
             RunScript();
-        }
-
-        private string GetSourceFileFullPath(string sourceFileSubPath)
-        {
-            const string ResourcesFolderName = @"Resources\Scripter";
-            var path = Path.Combine(Application.StartupPath, ResourcesFolderName, sourceFileSubPath);
-            if (!File.Exists(path))
-            {
-                path = Path.GetFullPath(Path.Combine(Application.StartupPath + @"\..\..\..\..\..\..\", ResourcesFolderName, sourceFileSubPath));
-                if (!File.Exists(path))
-                    throw new Exception("File not found: " + path);
-            }
-
-            return path;
         }
     }
 }

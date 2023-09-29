@@ -30,12 +30,13 @@
     <None Remove="ThemeSettingsUserControl.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.0.3" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TextMate" Version="9.1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -61,6 +62,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BookmarksSettingsUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TextMateSettingsUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -171,7 +176,11 @@
     <Compile Include="ScrollBarAnnotationsUserControl.xaml.cs">
       <DependentUpon>ScrollBarAnnotationsUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TextMateSettingsUserControl.xaml.cs">
+      <DependentUpon>TextMateSettingsUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ThemeSettingsUserControl.xaml.cs" />
+    <Compile Include="ViewModel.cs" />
     <Compile Include="WordWrapSettingsUserControl.xaml.cs">
       <DependentUpon>WordWrapSettingsUserControl.xaml</DependentUpon>
     </Compile>
@@ -231,7 +240,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>9.0.3</Version>
+      <Version>9.1.0.0</Version>
     </PackageReference>
     <PackageReference Include="WeCantSpell.Hunspell" Version="3.0.1" />
   </ItemGroup>

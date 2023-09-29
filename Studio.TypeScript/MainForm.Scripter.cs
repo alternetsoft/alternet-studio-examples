@@ -15,6 +15,7 @@
 using System;
 using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 using Alternet.Common.TypeScript.HostObjects;
 using Alternet.Editor.Common;
 using Alternet.Editor.TypeScript;
@@ -30,12 +31,17 @@ namespace AlternetStudio.Demo
 
         protected virtual void RunScriptCore()
         {
-            if (!scriptRun.Compiled)
-                scriptRun.Compile();
-            if (scriptRun.ScriptHost.CompileFailed)
-                ActivateErrorsTab();
+            if (!scriptRun.ScriptHost.Compiled)
+            {
+                scriptRun.ScriptHost.Compile();
+                if (scriptRun.ScriptHost.CompileFailed)
+                {
+                    ActivateErrorsTab();
+                    return;
+                }
+            }
 
-            scriptRun.RunAsync();
+            debugger.RunScriptAsync();
         }
 
         private void InitializeScripter()

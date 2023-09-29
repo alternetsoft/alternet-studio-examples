@@ -14,20 +14,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-using Alternet.Common;
-using Alternet.Common.Projects;
 using Alternet.Common.Wpf;
 using Alternet.Editor.Common.Wpf;
-using Alternet.Editor.IronPython.Wpf;
 using Alternet.Editor.Wpf;
-using Alternet.Scripter.Debugger;
-using Alternet.Scripter.Debugger.UI.Wpf;
 
 using Microsoft.Win32;
 
@@ -40,19 +34,12 @@ namespace AlternetStudio.IronPython.Wpf.Demo
     {
         #region Private Members
 
+        private const int OutputTabIndex = 0;
         private const int CallStackTabIndex = 2;
         private const int VariablesInScopeTabIndex = 3;
         private const int WatchesTabIndex = 4;
         private const int ErrorsTabIndex = 5;
-        private const int PropertiesImage = 2;
-        private const int FolderCloseImage = 7;
-        private const int FolderOpenImage = 8;
-        private const int FindResultTabIndex = 7;
-
-        private const string JSFileExtension = ".js";
-        private const string TSFileExtension = ".ts";
-
-        private const int SizeGap = 6;
+        private const int FindResultTabIndex = 6;
 
         private SaveFileDialog saveFileDialog = new SaveFileDialog();
         private OpenFileDialog openFileDialog = new OpenFileDialog { Multiselect = false };
@@ -237,12 +224,6 @@ namespace AlternetStudio.IronPython.Wpf.Demo
         {
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
             {
-                if (Keyboard.IsKeyDown(Key.F10) && runToCursorMenuItem.IsEnabled)
-                {
-                    e.Handled = true;
-                    RunToCursorMenuItem_Click(this, new RoutedEventArgs());
-                }
-
                 if (Keyboard.IsKeyDown(Key.F5) && debugMenu.StartWithoutDebugMenuItem.IsEnabled)
                 {
                     e.Handled = true;
@@ -324,6 +305,12 @@ namespace AlternetStudio.IronPython.Wpf.Demo
             else
                 if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
             {
+                if (Keyboard.IsKeyDown(Key.F12) && findReferencesMenuItem.IsEnabled)
+                {
+                    e.Handled = true;
+                    FindReferencesMenuItem_Click(this, new RoutedEventArgs());
+                }
+
                 if (Keyboard.IsKeyDown(Key.F9) && debugMenu.EvaluateMenuItem.IsEnabled)
                 {
                     e.Handled = true;
@@ -338,6 +325,12 @@ namespace AlternetStudio.IronPython.Wpf.Demo
             }
             else
             {
+                if (Keyboard.IsKeyDown(Key.F12) && gotoDefinitionMenuItem.IsEnabled)
+                {
+                    e.Handled = true;
+                    GotoDefinitionMenuItem_Click(this, new RoutedEventArgs());
+                }
+
                 if (Keyboard.IsKeyDown(Key.Delete) && deleteMenuItem.IsEnabled)
                 {
                     e.Handled = true;

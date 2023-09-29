@@ -19,50 +19,45 @@ namespace Alternet.CodeEditor.Demo
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Gutter");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Margin");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Line Numbers");
-            System.Windows.Forms.TreeNode treeNode112 = new System.Windows.Forms.TreeNode("Line Styles");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Miscellaneous");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Pages & Rulers");
-            System.Windows.Forms.TreeNode treeNode111 = new System.Windows.Forms.TreeNode("Visual Themes");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Appearance", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode112,
-            treeNode111,
-            treeNode4,
-            treeNode5});
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Outlining");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Text Source");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Navigation");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Selection");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("WordWrap & Scrolling");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Spelling & HyperText");
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Scroll Bar Annotations");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Behavior", new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode8,
-            treeNode9,
-            treeNode10,
-            treeNode11,
-            treeNode12,
-            treeNode22});
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Common Dialogs");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Printing & Exporting");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Dialogs", new System.Windows.Forms.TreeNode[] {
-            treeNode14,
-            treeNode15});
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Properties");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("About");
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Company Info", new System.Windows.Forms.TreeNode[] {
-            treeNode18});
-            Alternet.Editor.ScrollingButton scrollingButton1 = new Alternet.Editor.ScrollingButton();
-            Alternet.Editor.ScrollingButton scrollingButton2 = new Alternet.Editor.ScrollingButton();
-            Alternet.Editor.ScrollingButton scrollingButton3 = new Alternet.Editor.ScrollingButton();
-            Alternet.Editor.ScrollingButton scrollingButton4 = new Alternet.Editor.ScrollingButton();
-            Alternet.Editor.ScrollingButton scrollingButton5 = new Alternet.Editor.ScrollingButton();
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Gutter");
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Margin");
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Line Numbers");
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Line Styles");
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Visual Themes");
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Miscellaneous");
+            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Pages & Rulers");
+            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Appearance", new System.Windows.Forms.TreeNode[] {
+            treeNode23,
+            treeNode24,
+            treeNode25,
+            treeNode26,
+            treeNode27,
+            treeNode28,
+            treeNode29});
+            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Outlining");
+            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Text Source");
+            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("Navigation");
+            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("Selection");
+            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("WordWrap & Scrolling");
+            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Spelling & HyperText");
+            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("Scroll Bar Annotations");
+            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("Behavior", new System.Windows.Forms.TreeNode[] {
+            treeNode31,
+            treeNode32,
+            treeNode33,
+            treeNode34,
+            treeNode35,
+            treeNode36,
+            treeNode37});
+            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("Common Dialogs");
+            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("Printing & Exporting");
+            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("Dialogs", new System.Windows.Forms.TreeNode[] {
+            treeNode39,
+            treeNode40});
+            System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("Properties");
+            System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("About");
+            System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("Company Info", new System.Windows.Forms.TreeNode[] {
+            treeNode43});
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.btPrintSetup = new System.Windows.Forms.Button();
             this.btPrintOptions = new System.Windows.Forms.Button();
@@ -128,13 +123,15 @@ namespace Alternet.CodeEditor.Demo
             this.nudLineNumbersStart = new System.Windows.Forms.NumericUpDown();
             this.cbLineNumbersAlign = new System.Windows.Forms.ComboBox();
             this.pnLineNumbers = new System.Windows.Forms.Panel();
-            this.pnLineStyles = new System.Windows.Forms.Panel();
             this.gbLineNumbers = new System.Windows.Forms.GroupBox();
             this.laLineNumbersAlign = new System.Windows.Forms.Label();
             this.chbLinesOnGutter = new System.Windows.Forms.CheckBox();
             this.chbLineNumbers = new System.Windows.Forms.CheckBox();
             this.chbLinesBeyondEof = new System.Windows.Forms.CheckBox();
             this.chbHighlightCurrentLine = new System.Windows.Forms.CheckBox();
+            this.pnLineStyles = new System.Windows.Forms.Panel();
+            this.btStepOver = new System.Windows.Forms.Button();
+            this.btSetBreakpoint = new System.Windows.Forms.Button();
             this.tpLineNumbers = new System.Windows.Forms.TabPage();
             this.tpLineStyles = new System.Windows.Forms.TabPage();
             this.gbBraces = new System.Windows.Forms.GroupBox();
@@ -196,7 +193,9 @@ namespace Alternet.CodeEditor.Demo
             this.pnTextSource = new System.Windows.Forms.Panel();
             this.laSource = new System.Windows.Forms.Label();
             this.tpPageLayout = new System.Windows.Forms.TabPage();
+            this.tpTextMate = new System.Windows.Forms.TabPage();
             this.pnPageLayout = new System.Windows.Forms.Panel();
+            this.pnTextMate = new System.Windows.Forms.Panel();
             this.gbRulers = new System.Windows.Forms.GroupBox();
             this.chbVertRuler = new System.Windows.Forms.CheckBox();
             this.chbHorzRuler = new System.Windows.Forms.CheckBox();
@@ -213,30 +212,32 @@ namespace Alternet.CodeEditor.Demo
             this.tpSpellAndUrl = new System.Windows.Forms.TabPage();
             this.pnSpellAndUrl = new System.Windows.Forms.Panel();
             this.gbSpellAndUrl = new System.Windows.Forms.GroupBox();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tpScrollbarAnnotations = new System.Windows.Forms.TabPage();
             this.pnScrollbarAnnotations = new System.Windows.Forms.Panel();
-            this.bookmarksTypeCheckBox = new System.Windows.Forms.CheckBox();
-            this.changedLinesTypeCheckBox = new System.Windows.Forms.CheckBox();
-            this.scrollBarAnnotationsEnabledCheckBox = new System.Windows.Forms.CheckBox();
-            this.tpVisualThemes = new System.Windows.Forms.TabPage();
-            this.pnVisualThemes = new System.Windows.Forms.Panel();
-            this.visualThemeComboBox = new System.Windows.Forms.ComboBox();
-            this.visualThemeLabel = new System.Windows.Forms.Label();
+            this.separatorTextBox = new System.Windows.Forms.TextBox();
+            this.changeErrorsAppearanceCheckBox = new System.Windows.Forms.CheckBox();
+            this.customAnnotationsCheckBox = new System.Windows.Forms.CheckBox();
+            this.saveButton = new System.Windows.Forms.Button();
+            this.scrollBarsVisualStyleComboBox = new System.Windows.Forms.ComboBox();
+            this.scrollBarsVisualStyleLabel = new System.Windows.Forms.Label();
             this.customTypeCheckBox = new System.Windows.Forms.CheckBox();
             this.cursorPositionTypeCheckBox = new System.Windows.Forms.CheckBox();
             this.syntaxErrorsTypeCheckBox = new System.Windows.Forms.CheckBox();
             this.searchResultsTypeCheckBox = new System.Windows.Forms.CheckBox();
-            this.scrollBarsVisualStyleComboBox = new System.Windows.Forms.ComboBox();
-            this.scrollBarsVisualStyleLabel = new System.Windows.Forms.Label();
-            this.changeErrorsAppearanceCheckBox = new System.Windows.Forms.CheckBox();
-            this.customAnnotationsCheckBox = new System.Windows.Forms.CheckBox();
-            this.saveButton = new System.Windows.Forms.Button();
-            this.btSetBreakpoint = new System.Windows.Forms.Button();
-            this.btStepOver = new System.Windows.Forms.Button();
-            this.separatorTextBox = new System.Windows.Forms.TextBox();
+            this.bookmarksTypeCheckBox = new System.Windows.Forms.CheckBox();
+            this.changedLinesTypeCheckBox = new System.Windows.Forms.CheckBox();
+            this.scrollBarAnnotationsEnabledCheckBox = new System.Windows.Forms.CheckBox();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tpVisualThemes = new System.Windows.Forms.TabPage();
+            this.pnVisualThemes = new System.Windows.Forms.Panel();
+            this.visualThemeComboBox = new System.Windows.Forms.ComboBox();
+            this.visualThemeLabel = new System.Windows.Forms.Label();
+            this.LanguagesCombobox = new System.Windows.Forms.ComboBox();
+            this.LanguagesLabel = new System.Windows.Forms.Label();
+            this.pnDescription = new System.Windows.Forms.Panel();
+            this.laDescription = new System.Windows.Forms.Label();
             this.gbSelection.SuspendLayout();
             this.gbNavigateOptions.SuspendLayout();
             this.pnNavigate.SuspendLayout();
@@ -255,8 +256,8 @@ namespace Alternet.CodeEditor.Demo
             this.gbOther.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudLineNumbersStart)).BeginInit();
             this.pnLineNumbers.SuspendLayout();
-            this.pnLineStyles.SuspendLayout();
             this.gbLineNumbers.SuspendLayout();
+            this.pnLineStyles.SuspendLayout();
             this.tpLineNumbers.SuspendLayout();
             this.tpLineStyles.SuspendLayout();
             this.gbBraces.SuspendLayout();
@@ -284,7 +285,9 @@ namespace Alternet.CodeEditor.Demo
             this.tpTextSource.SuspendLayout();
             this.pnTextSource.SuspendLayout();
             this.tpPageLayout.SuspendLayout();
+            this.tpTextMate.SuspendLayout();
             this.pnPageLayout.SuspendLayout();
+            this.pnTextMate.SuspendLayout();
             this.gbRulers.SuspendLayout();
             this.gbPages.SuspendLayout();
             this.tpSpellAndUrl.SuspendLayout();
@@ -292,6 +295,9 @@ namespace Alternet.CodeEditor.Demo
             this.gbSpellAndUrl.SuspendLayout();
             this.tpScrollbarAnnotations.SuspendLayout();
             this.pnScrollbarAnnotations.SuspendLayout();
+            this.tpVisualThemes.SuspendLayout();
+            this.pnVisualThemes.SuspendLayout();
+            this.pnDescription.SuspendLayout();
             this.SuspendLayout();
             // 
             // imageList2
@@ -307,9 +313,10 @@ namespace Alternet.CodeEditor.Demo
             // btPrintSetup
             // 
             this.btPrintSetup.BackColor = System.Drawing.SystemColors.Control;
-            this.btPrintSetup.Location = new System.Drawing.Point(200, 56);
+            this.btPrintSetup.Location = new System.Drawing.Point(267, 69);
+            this.btPrintSetup.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btPrintSetup.Name = "btPrintSetup";
-            this.btPrintSetup.Size = new System.Drawing.Size(80, 23);
+            this.btPrintSetup.Size = new System.Drawing.Size(107, 28);
             this.btPrintSetup.TabIndex = 11;
             this.btPrintSetup.Text = "Page Setup";
             this.btPrintSetup.UseVisualStyleBackColor = false;
@@ -319,9 +326,10 @@ namespace Alternet.CodeEditor.Demo
             // btPrintOptions
             // 
             this.btPrintOptions.BackColor = System.Drawing.SystemColors.Control;
-            this.btPrintOptions.Location = new System.Drawing.Point(200, 24);
+            this.btPrintOptions.Location = new System.Drawing.Point(267, 30);
+            this.btPrintOptions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btPrintOptions.Name = "btPrintOptions";
-            this.btPrintOptions.Size = new System.Drawing.Size(80, 23);
+            this.btPrintOptions.Size = new System.Drawing.Size(107, 28);
             this.btPrintOptions.TabIndex = 8;
             this.btPrintOptions.Text = "Print Options";
             this.btPrintOptions.UseVisualStyleBackColor = false;
@@ -330,9 +338,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbPersistentBlocks
             // 
-            this.chbPersistentBlocks.Location = new System.Drawing.Point(296, 40);
+            this.chbPersistentBlocks.Location = new System.Drawing.Point(395, 49);
+            this.chbPersistentBlocks.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbPersistentBlocks.Name = "chbPersistentBlocks";
-            this.chbPersistentBlocks.Size = new System.Drawing.Size(112, 21);
+            this.chbPersistentBlocks.Size = new System.Drawing.Size(149, 26);
             this.chbPersistentBlocks.TabIndex = 12;
             this.chbPersistentBlocks.Text = "Persistent Blocks";
             this.chbPersistentBlocks.CheckedChanged += new System.EventHandler(this.PersistenlocksCheckBoxTextBox_CheckedChanged);
@@ -341,9 +350,10 @@ namespace Alternet.CodeEditor.Demo
             // btPrint
             // 
             this.btPrint.BackColor = System.Drawing.SystemColors.Control;
-            this.btPrint.Location = new System.Drawing.Point(104, 56);
+            this.btPrint.Location = new System.Drawing.Point(139, 69);
+            this.btPrint.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btPrint.Name = "btPrint";
-            this.btPrint.Size = new System.Drawing.Size(80, 23);
+            this.btPrint.Size = new System.Drawing.Size(107, 28);
             this.btPrint.TabIndex = 10;
             this.btPrint.Text = "Print";
             this.btPrint.UseVisualStyleBackColor = false;
@@ -352,9 +362,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // HighlightSelectedWordsCheckBox
             // 
-            this.HighlightSelectedWordsCheckBox.Location = new System.Drawing.Point(296, 16);
+            this.HighlightSelectedWordsCheckBox.Location = new System.Drawing.Point(395, 20);
+            this.HighlightSelectedWordsCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.HighlightSelectedWordsCheckBox.Name = "HighlightSelectedWordsCheckBox";
-            this.HighlightSelectedWordsCheckBox.Size = new System.Drawing.Size(152, 21);
+            this.HighlightSelectedWordsCheckBox.Size = new System.Drawing.Size(203, 26);
             this.HighlightSelectedWordsCheckBox.TabIndex = 11;
             this.HighlightSelectedWordsCheckBox.Text = "Highlight Selected Words";
             this.HighlightSelectedWordsCheckBox.CheckedChanged += new System.EventHandler(this.HighlightSelectedWordsCheckBox_CheckedChanged);
@@ -362,9 +373,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbOverwriteBlocks
             // 
-            this.chbOverwriteBlocks.Location = new System.Drawing.Point(296, 64);
+            this.chbOverwriteBlocks.Location = new System.Drawing.Point(395, 79);
+            this.chbOverwriteBlocks.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbOverwriteBlocks.Name = "chbOverwriteBlocks";
-            this.chbOverwriteBlocks.Size = new System.Drawing.Size(112, 21);
+            this.chbOverwriteBlocks.Size = new System.Drawing.Size(149, 26);
             this.chbOverwriteBlocks.TabIndex = 13;
             this.chbOverwriteBlocks.Text = "Overwrite Blocks";
             this.chbOverwriteBlocks.CheckedChanged += new System.EventHandler(this.OverwriteBlocksCheckBox_CheckedChanged);
@@ -373,9 +385,10 @@ namespace Alternet.CodeEditor.Demo
             // btPrintPreview
             // 
             this.btPrintPreview.BackColor = System.Drawing.SystemColors.Control;
-            this.btPrintPreview.Location = new System.Drawing.Point(8, 56);
+            this.btPrintPreview.Location = new System.Drawing.Point(11, 69);
+            this.btPrintPreview.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btPrintPreview.Name = "btPrintPreview";
-            this.btPrintPreview.Size = new System.Drawing.Size(80, 23);
+            this.btPrintPreview.Size = new System.Drawing.Size(107, 28);
             this.btPrintPreview.TabIndex = 9;
             this.btPrintPreview.Text = "Print Preview";
             this.btPrintPreview.UseVisualStyleBackColor = false;
@@ -393,18 +406,21 @@ namespace Alternet.CodeEditor.Demo
             this.gbSelection.Controls.Add(this.chbSelectBeyondEol);
             this.gbSelection.Controls.Add(this.chbDisableDragging);
             this.gbSelection.Controls.Add(this.chbDisableSelection);
-            this.gbSelection.Location = new System.Drawing.Point(8, 8);
+            this.gbSelection.Location = new System.Drawing.Point(11, 10);
+            this.gbSelection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbSelection.Name = "gbSelection";
-            this.gbSelection.Size = new System.Drawing.Size(496, 96);
+            this.gbSelection.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbSelection.Size = new System.Drawing.Size(661, 118);
             this.gbSelection.TabIndex = 2;
             this.gbSelection.TabStop = false;
             this.gbSelection.Text = "Selection Options";
             // 
             // chbSelectLineOnDblClick
             // 
-            this.chbSelectLineOnDblClick.Location = new System.Drawing.Point(144, 64);
+            this.chbSelectLineOnDblClick.Location = new System.Drawing.Point(192, 79);
+            this.chbSelectLineOnDblClick.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbSelectLineOnDblClick.Name = "chbSelectLineOnDblClick";
-            this.chbSelectLineOnDblClick.Size = new System.Drawing.Size(140, 21);
+            this.chbSelectLineOnDblClick.Size = new System.Drawing.Size(187, 26);
             this.chbSelectLineOnDblClick.TabIndex = 10;
             this.chbSelectLineOnDblClick.Text = "Select Line on DblClick";
             this.chbSelectLineOnDblClick.CheckedChanged += new System.EventHandler(this.SelectLineOnDblClickCheckBox_CheckedChanged);
@@ -412,9 +428,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbHideSelection
             // 
-            this.chbHideSelection.Location = new System.Drawing.Point(144, 40);
+            this.chbHideSelection.Location = new System.Drawing.Point(192, 49);
+            this.chbHideSelection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbHideSelection.Name = "chbHideSelection";
-            this.chbHideSelection.Size = new System.Drawing.Size(104, 21);
+            this.chbHideSelection.Size = new System.Drawing.Size(139, 26);
             this.chbHideSelection.TabIndex = 9;
             this.chbHideSelection.Text = "Hide Selection";
             this.chbHideSelection.CheckedChanged += new System.EventHandler(this.HideSelectionCheckBox_CheckedChanged);
@@ -422,9 +439,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbUseColors
             // 
-            this.chbUseColors.Location = new System.Drawing.Point(144, 16);
+            this.chbUseColors.Location = new System.Drawing.Point(192, 20);
+            this.chbUseColors.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbUseColors.Name = "chbUseColors";
-            this.chbUseColors.Size = new System.Drawing.Size(104, 21);
+            this.chbUseColors.Size = new System.Drawing.Size(139, 26);
             this.chbUseColors.TabIndex = 8;
             this.chbUseColors.Text = "Use Colors";
             this.chbUseColors.CheckedChanged += new System.EventHandler(this.UseColorsCheckBox_CheckedChanged);
@@ -432,9 +450,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbSelectBeyondEol
             // 
-            this.chbSelectBeyondEol.Location = new System.Drawing.Point(8, 64);
+            this.chbSelectBeyondEol.Location = new System.Drawing.Point(11, 79);
+            this.chbSelectBeyondEol.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbSelectBeyondEol.Name = "chbSelectBeyondEol";
-            this.chbSelectBeyondEol.Size = new System.Drawing.Size(120, 21);
+            this.chbSelectBeyondEol.Size = new System.Drawing.Size(160, 26);
             this.chbSelectBeyondEol.TabIndex = 7;
             this.chbSelectBeyondEol.Text = "Select Beyond Eol";
             this.chbSelectBeyondEol.CheckedChanged += new System.EventHandler(this.SeleceyondEolCheckBoxTextBox_CheckedChanged);
@@ -442,9 +461,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbDisableDragging
             // 
-            this.chbDisableDragging.Location = new System.Drawing.Point(8, 40);
+            this.chbDisableDragging.Location = new System.Drawing.Point(11, 49);
+            this.chbDisableDragging.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbDisableDragging.Name = "chbDisableDragging";
-            this.chbDisableDragging.Size = new System.Drawing.Size(112, 21);
+            this.chbDisableDragging.Size = new System.Drawing.Size(149, 26);
             this.chbDisableDragging.TabIndex = 6;
             this.chbDisableDragging.Text = "Disable Dragging";
             this.chbDisableDragging.CheckedChanged += new System.EventHandler(this.DisableDraggingCheckBox_CheckedChanged);
@@ -452,9 +472,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbDisableSelection
             // 
-            this.chbDisableSelection.Location = new System.Drawing.Point(8, 16);
+            this.chbDisableSelection.Location = new System.Drawing.Point(11, 20);
+            this.chbDisableSelection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbDisableSelection.Name = "chbDisableSelection";
-            this.chbDisableSelection.Size = new System.Drawing.Size(112, 21);
+            this.chbDisableSelection.Size = new System.Drawing.Size(149, 26);
             this.chbDisableSelection.TabIndex = 5;
             this.chbDisableSelection.Text = "Disable Selection";
             this.chbDisableSelection.CheckedChanged += new System.EventHandler(this.DisableSelectionCheckBox_CheckedChanged);
@@ -467,18 +488,21 @@ namespace Alternet.CodeEditor.Demo
             this.gbNavigateOptions.Controls.Add(this.chbUpAtLineBegin);
             this.gbNavigateOptions.Controls.Add(this.chbBeyondEof);
             this.gbNavigateOptions.Controls.Add(this.chbBeyondEol);
-            this.gbNavigateOptions.Location = new System.Drawing.Point(8, 8);
+            this.gbNavigateOptions.Location = new System.Drawing.Point(11, 10);
+            this.gbNavigateOptions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbNavigateOptions.Name = "gbNavigateOptions";
-            this.gbNavigateOptions.Size = new System.Drawing.Size(496, 96);
+            this.gbNavigateOptions.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbNavigateOptions.Size = new System.Drawing.Size(661, 118);
             this.gbNavigateOptions.TabIndex = 0;
             this.gbNavigateOptions.TabStop = false;
             this.gbNavigateOptions.Text = "Navigate Options";
             // 
             // chbMoveOnRightButton
             // 
-            this.chbMoveOnRightButton.Location = new System.Drawing.Point(144, 64);
+            this.chbMoveOnRightButton.Location = new System.Drawing.Point(192, 79);
+            this.chbMoveOnRightButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbMoveOnRightButton.Name = "chbMoveOnRightButton";
-            this.chbMoveOnRightButton.Size = new System.Drawing.Size(136, 21);
+            this.chbMoveOnRightButton.Size = new System.Drawing.Size(181, 26);
             this.chbMoveOnRightButton.TabIndex = 4;
             this.chbMoveOnRightButton.Text = "Move on Right Button";
             this.chbMoveOnRightButton.CheckedChanged += new System.EventHandler(this.MoveOnRighuttonCheckBoxTextBox_CheckedChanged);
@@ -486,9 +510,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbDownAtLineEnd
             // 
-            this.chbDownAtLineEnd.Location = new System.Drawing.Point(144, 40);
+            this.chbDownAtLineEnd.Location = new System.Drawing.Point(192, 49);
+            this.chbDownAtLineEnd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbDownAtLineEnd.Name = "chbDownAtLineEnd";
-            this.chbDownAtLineEnd.Size = new System.Drawing.Size(112, 21);
+            this.chbDownAtLineEnd.Size = new System.Drawing.Size(149, 26);
             this.chbDownAtLineEnd.TabIndex = 3;
             this.chbDownAtLineEnd.Text = "Down at Line End";
             this.chbDownAtLineEnd.CheckedChanged += new System.EventHandler(this.DownAtLineEndCheckBox_CheckedChanged);
@@ -496,9 +521,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbUpAtLineBegin
             // 
-            this.chbUpAtLineBegin.Location = new System.Drawing.Point(144, 16);
+            this.chbUpAtLineBegin.Location = new System.Drawing.Point(192, 20);
+            this.chbUpAtLineBegin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbUpAtLineBegin.Name = "chbUpAtLineBegin";
-            this.chbUpAtLineBegin.Size = new System.Drawing.Size(112, 21);
+            this.chbUpAtLineBegin.Size = new System.Drawing.Size(149, 26);
             this.chbUpAtLineBegin.TabIndex = 2;
             this.chbUpAtLineBegin.Text = "Up at Line Begin";
             this.chbUpAtLineBegin.CheckedChanged += new System.EventHandler(this.UpAtLineBeginCheckBox_CheckedChanged);
@@ -506,9 +532,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbBeyondEof
             // 
-            this.chbBeyondEof.Location = new System.Drawing.Point(8, 40);
+            this.chbBeyondEof.Location = new System.Drawing.Point(11, 49);
+            this.chbBeyondEof.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbBeyondEof.Name = "chbBeyondEof";
-            this.chbBeyondEof.Size = new System.Drawing.Size(104, 21);
+            this.chbBeyondEof.Size = new System.Drawing.Size(139, 26);
             this.chbBeyondEof.TabIndex = 1;
             this.chbBeyondEof.Text = "Beyond Eof";
             this.chbBeyondEof.CheckedChanged += new System.EventHandler(this.BeyondEofCheckBox_CheckedChanged);
@@ -516,9 +543,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbBeyondEol
             // 
-            this.chbBeyondEol.Location = new System.Drawing.Point(8, 16);
+            this.chbBeyondEol.Location = new System.Drawing.Point(11, 20);
+            this.chbBeyondEol.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbBeyondEol.Name = "chbBeyondEol";
-            this.chbBeyondEol.Size = new System.Drawing.Size(104, 21);
+            this.chbBeyondEol.Size = new System.Drawing.Size(139, 26);
             this.chbBeyondEol.TabIndex = 0;
             this.chbBeyondEol.Text = "Beyond Eol";
             this.chbBeyondEol.CheckedChanged += new System.EventHandler(this.BeyondEolCheckBox_CheckedChanged);
@@ -531,16 +559,18 @@ namespace Alternet.CodeEditor.Demo
             this.pnNavigate.Controls.Add(this.gbNavigateOptions);
             this.pnNavigate.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnNavigate.Location = new System.Drawing.Point(0, 0);
+            this.pnNavigate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnNavigate.Name = "pnNavigate";
-            this.pnNavigate.Size = new System.Drawing.Size(809, 112);
+            this.pnNavigate.Size = new System.Drawing.Size(1081, 137);
             this.pnNavigate.TabIndex = 1;
             // 
             // tpNavigate
             // 
             this.tpNavigate.Controls.Add(this.pnNavigate);
-            this.tpNavigate.Location = new System.Drawing.Point(4, 22);
+            this.tpNavigate.Location = new System.Drawing.Point(4, 25);
+            this.tpNavigate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tpNavigate.Name = "tpNavigate";
-            this.tpNavigate.Size = new System.Drawing.Size(809, 118);
+            this.tpNavigate.Size = new System.Drawing.Size(1081, 148);
             this.tpNavigate.TabIndex = 7;
             this.tpNavigate.Text = "Navigate";
             this.tpNavigate.Visible = false;
@@ -552,16 +582,18 @@ namespace Alternet.CodeEditor.Demo
             this.pnSelection.Controls.Add(this.gbSelection);
             this.pnSelection.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnSelection.Location = new System.Drawing.Point(0, 0);
+            this.pnSelection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnSelection.Name = "pnSelection";
-            this.pnSelection.Size = new System.Drawing.Size(809, 112);
+            this.pnSelection.Size = new System.Drawing.Size(1081, 137);
             this.pnSelection.TabIndex = 0;
             // 
             // chbAllowOutlining
             // 
             this.chbAllowOutlining.BackColor = System.Drawing.SystemColors.Control;
-            this.chbAllowOutlining.Location = new System.Drawing.Point(8, 16);
+            this.chbAllowOutlining.Location = new System.Drawing.Point(11, 20);
+            this.chbAllowOutlining.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbAllowOutlining.Name = "chbAllowOutlining";
-            this.chbAllowOutlining.Size = new System.Drawing.Size(104, 21);
+            this.chbAllowOutlining.Size = new System.Drawing.Size(139, 26);
             this.chbAllowOutlining.TabIndex = 0;
             this.chbAllowOutlining.Text = "Allow Outlining";
             this.chbAllowOutlining.UseVisualStyleBackColor = false;
@@ -576,9 +608,11 @@ namespace Alternet.CodeEditor.Demo
             this.gbOutlining.Controls.Add(this.chbDrawLines);
             this.gbOutlining.Controls.Add(this.chbDrawOnGutter);
             this.gbOutlining.Controls.Add(this.chbShowHints);
-            this.gbOutlining.Location = new System.Drawing.Point(8, 8);
+            this.gbOutlining.Location = new System.Drawing.Point(11, 10);
+            this.gbOutlining.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbOutlining.Name = "gbOutlining";
-            this.gbOutlining.Size = new System.Drawing.Size(496, 96);
+            this.gbOutlining.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbOutlining.Size = new System.Drawing.Size(661, 118);
             this.gbOutlining.TabIndex = 5;
             this.gbOutlining.TabStop = false;
             this.gbOutlining.Text = "Outlining";
@@ -586,9 +620,10 @@ namespace Alternet.CodeEditor.Demo
             // chbDrawButtons
             // 
             this.chbDrawButtons.BackColor = System.Drawing.SystemColors.Control;
-            this.chbDrawButtons.Location = new System.Drawing.Point(144, 16);
+            this.chbDrawButtons.Location = new System.Drawing.Point(192, 20);
+            this.chbDrawButtons.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbDrawButtons.Name = "chbDrawButtons";
-            this.chbDrawButtons.Size = new System.Drawing.Size(104, 21);
+            this.chbDrawButtons.Size = new System.Drawing.Size(139, 26);
             this.chbDrawButtons.TabIndex = 3;
             this.chbDrawButtons.Text = "Draw Buttons";
             this.chbDrawButtons.UseVisualStyleBackColor = false;
@@ -598,9 +633,10 @@ namespace Alternet.CodeEditor.Demo
             // chbDrawLines
             // 
             this.chbDrawLines.BackColor = System.Drawing.SystemColors.Control;
-            this.chbDrawLines.Location = new System.Drawing.Point(8, 64);
+            this.chbDrawLines.Location = new System.Drawing.Point(11, 79);
+            this.chbDrawLines.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbDrawLines.Name = "chbDrawLines";
-            this.chbDrawLines.Size = new System.Drawing.Size(104, 21);
+            this.chbDrawLines.Size = new System.Drawing.Size(139, 26);
             this.chbDrawLines.TabIndex = 2;
             this.chbDrawLines.Text = "Draw Lines";
             this.chbDrawLines.UseVisualStyleBackColor = false;
@@ -610,9 +646,10 @@ namespace Alternet.CodeEditor.Demo
             // chbDrawOnGutter
             // 
             this.chbDrawOnGutter.BackColor = System.Drawing.SystemColors.Control;
-            this.chbDrawOnGutter.Location = new System.Drawing.Point(8, 40);
+            this.chbDrawOnGutter.Location = new System.Drawing.Point(11, 49);
+            this.chbDrawOnGutter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbDrawOnGutter.Name = "chbDrawOnGutter";
-            this.chbDrawOnGutter.Size = new System.Drawing.Size(104, 21);
+            this.chbDrawOnGutter.Size = new System.Drawing.Size(139, 26);
             this.chbDrawOnGutter.TabIndex = 1;
             this.chbDrawOnGutter.Text = "Draw on Gutter";
             this.chbDrawOnGutter.UseVisualStyleBackColor = false;
@@ -622,9 +659,10 @@ namespace Alternet.CodeEditor.Demo
             // chbShowHints
             // 
             this.chbShowHints.BackColor = System.Drawing.SystemColors.Control;
-            this.chbShowHints.Location = new System.Drawing.Point(144, 40);
+            this.chbShowHints.Location = new System.Drawing.Point(192, 49);
+            this.chbShowHints.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbShowHints.Name = "chbShowHints";
-            this.chbShowHints.Size = new System.Drawing.Size(104, 21);
+            this.chbShowHints.Size = new System.Drawing.Size(139, 26);
             this.chbShowHints.TabIndex = 4;
             this.chbShowHints.Text = "Display Hints";
             this.chbShowHints.UseVisualStyleBackColor = false;
@@ -638,25 +676,28 @@ namespace Alternet.CodeEditor.Demo
             this.pnOutlining.Controls.Add(this.gbOutlining);
             this.pnOutlining.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnOutlining.Location = new System.Drawing.Point(0, 0);
+            this.pnOutlining.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnOutlining.Name = "pnOutlining";
-            this.pnOutlining.Size = new System.Drawing.Size(809, 112);
+            this.pnOutlining.Size = new System.Drawing.Size(1081, 137);
             this.pnOutlining.TabIndex = 3;
             // 
             // tpOutlining
             // 
             this.tpOutlining.Controls.Add(this.pnOutlining);
-            this.tpOutlining.Location = new System.Drawing.Point(4, 22);
+            this.tpOutlining.Location = new System.Drawing.Point(4, 25);
+            this.tpOutlining.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tpOutlining.Name = "tpOutlining";
-            this.tpOutlining.Size = new System.Drawing.Size(809, 118);
+            this.tpOutlining.Size = new System.Drawing.Size(1081, 148);
             this.tpOutlining.TabIndex = 4;
             this.tpOutlining.Text = "Outlining";
             this.tpOutlining.Visible = false;
             // 
             // chbShowHyperTextHints
             // 
-            this.chbShowHyperTextHints.Location = new System.Drawing.Point(22, 63);
+            this.chbShowHyperTextHints.Location = new System.Drawing.Point(29, 78);
+            this.chbShowHyperTextHints.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbShowHyperTextHints.Name = "chbShowHyperTextHints";
-            this.chbShowHyperTextHints.Size = new System.Drawing.Size(104, 21);
+            this.chbShowHyperTextHints.Size = new System.Drawing.Size(139, 26);
             this.chbShowHyperTextHints.TabIndex = 3;
             this.chbShowHyperTextHints.Text = "Display Hints";
             this.chbShowHyperTextHints.CheckedChanged += new System.EventHandler(this.ShowHyperTextHintsCheckBox_CheckedChanged);
@@ -664,9 +705,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbCheckSpelling
             // 
-            this.chbCheckSpelling.Location = new System.Drawing.Point(8, 16);
+            this.chbCheckSpelling.Location = new System.Drawing.Point(11, 20);
+            this.chbCheckSpelling.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbCheckSpelling.Name = "chbCheckSpelling";
-            this.chbCheckSpelling.Size = new System.Drawing.Size(104, 21);
+            this.chbCheckSpelling.Size = new System.Drawing.Size(139, 26);
             this.chbCheckSpelling.TabIndex = 0;
             this.chbCheckSpelling.Text = "Check Spelling";
             this.chbCheckSpelling.CheckedChanged += new System.EventHandler(this.CheckSpellingCheckBox_CheckedChanged);
@@ -675,18 +717,20 @@ namespace Alternet.CodeEditor.Demo
             // tpSelection
             // 
             this.tpSelection.Controls.Add(this.pnSelection);
-            this.tpSelection.Location = new System.Drawing.Point(4, 22);
+            this.tpSelection.Location = new System.Drawing.Point(4, 25);
+            this.tpSelection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tpSelection.Name = "tpSelection";
-            this.tpSelection.Size = new System.Drawing.Size(809, 118);
+            this.tpSelection.Size = new System.Drawing.Size(1081, 148);
             this.tpSelection.TabIndex = 11;
             this.tpSelection.Text = "Selection";
             // 
             // btHtml
             // 
             this.btHtml.BackColor = System.Drawing.SystemColors.Control;
-            this.btHtml.Location = new System.Drawing.Point(104, 24);
+            this.btHtml.Location = new System.Drawing.Point(139, 30);
+            this.btHtml.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btHtml.Name = "btHtml";
-            this.btHtml.Size = new System.Drawing.Size(80, 23);
+            this.btHtml.Size = new System.Drawing.Size(107, 28);
             this.btHtml.TabIndex = 7;
             this.btHtml.Text = "HTML";
             this.btHtml.UseVisualStyleBackColor = false;
@@ -701,9 +745,11 @@ namespace Alternet.CodeEditor.Demo
             this.gbPrint.Controls.Add(this.btPrintPreview);
             this.gbPrint.Controls.Add(this.btHtml);
             this.gbPrint.Controls.Add(this.btRtf);
-            this.gbPrint.Location = new System.Drawing.Point(8, 8);
+            this.gbPrint.Location = new System.Drawing.Point(11, 10);
+            this.gbPrint.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbPrint.Name = "gbPrint";
-            this.gbPrint.Size = new System.Drawing.Size(496, 96);
+            this.gbPrint.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbPrint.Size = new System.Drawing.Size(661, 118);
             this.gbPrint.TabIndex = 6;
             this.gbPrint.TabStop = false;
             this.gbPrint.Text = "Printing && Exporting";
@@ -711,9 +757,10 @@ namespace Alternet.CodeEditor.Demo
             // btRtf
             // 
             this.btRtf.BackColor = System.Drawing.SystemColors.Control;
-            this.btRtf.Location = new System.Drawing.Point(8, 24);
+            this.btRtf.Location = new System.Drawing.Point(11, 30);
+            this.btRtf.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btRtf.Name = "btRtf";
-            this.btRtf.Size = new System.Drawing.Size(80, 23);
+            this.btRtf.Size = new System.Drawing.Size(107, 28);
             this.btRtf.TabIndex = 6;
             this.btRtf.Text = "RTF";
             this.btRtf.UseVisualStyleBackColor = false;
@@ -727,16 +774,18 @@ namespace Alternet.CodeEditor.Demo
             this.pnPrinting.Controls.Add(this.gbPrint);
             this.pnPrinting.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnPrinting.Location = new System.Drawing.Point(0, 0);
+            this.pnPrinting.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnPrinting.Name = "pnPrinting";
-            this.pnPrinting.Size = new System.Drawing.Size(809, 112);
+            this.pnPrinting.Size = new System.Drawing.Size(1081, 137);
             this.pnPrinting.TabIndex = 1;
             // 
             // tpPrinting
             // 
             this.tpPrinting.Controls.Add(this.pnPrinting);
-            this.tpPrinting.Location = new System.Drawing.Point(4, 22);
+            this.tpPrinting.Location = new System.Drawing.Point(4, 25);
+            this.tpPrinting.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tpPrinting.Name = "tpPrinting";
-            this.tpPrinting.Size = new System.Drawing.Size(809, 118);
+            this.tpPrinting.Size = new System.Drawing.Size(1081, 148);
             this.tpPrinting.TabIndex = 3;
             this.tpPrinting.Text = "Printing";
             this.tpPrinting.Visible = false;
@@ -748,8 +797,9 @@ namespace Alternet.CodeEditor.Demo
             this.pnDialogs.Controls.Add(this.gbDialogs);
             this.pnDialogs.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnDialogs.Location = new System.Drawing.Point(0, 0);
+            this.pnDialogs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnDialogs.Name = "pnDialogs";
-            this.pnDialogs.Size = new System.Drawing.Size(809, 112);
+            this.pnDialogs.Size = new System.Drawing.Size(1081, 137);
             this.pnDialogs.TabIndex = 1;
             // 
             // gbDialogs
@@ -759,9 +809,11 @@ namespace Alternet.CodeEditor.Demo
             this.gbDialogs.Controls.Add(this.FindNextButton);
             this.gbDialogs.Controls.Add(this.btSave);
             this.gbDialogs.Controls.Add(this.btLoad);
-            this.gbDialogs.Location = new System.Drawing.Point(8, 8);
+            this.gbDialogs.Location = new System.Drawing.Point(11, 10);
+            this.gbDialogs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbDialogs.Name = "gbDialogs";
-            this.gbDialogs.Size = new System.Drawing.Size(496, 96);
+            this.gbDialogs.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbDialogs.Size = new System.Drawing.Size(661, 118);
             this.gbDialogs.TabIndex = 6;
             this.gbDialogs.TabStop = false;
             this.gbDialogs.Text = "Dialogs";
@@ -769,9 +821,10 @@ namespace Alternet.CodeEditor.Demo
             // btGoto
             // 
             this.btGoto.BackColor = System.Drawing.SystemColors.Control;
-            this.btGoto.Location = new System.Drawing.Point(200, 24);
+            this.btGoto.Location = new System.Drawing.Point(267, 30);
+            this.btGoto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btGoto.Name = "btGoto";
-            this.btGoto.Size = new System.Drawing.Size(80, 23);
+            this.btGoto.Size = new System.Drawing.Size(107, 28);
             this.btGoto.TabIndex = 10;
             this.btGoto.Text = "Go to Line";
             this.btGoto.UseVisualStyleBackColor = false;
@@ -781,21 +834,23 @@ namespace Alternet.CodeEditor.Demo
             // btReplace
             // 
             this.btReplace.BackColor = System.Drawing.SystemColors.Control;
-            this.btReplace.Location = new System.Drawing.Point(104, 56);
+            this.btReplace.Location = new System.Drawing.Point(139, 69);
+            this.btReplace.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btReplace.Name = "btReplace";
-            this.btReplace.Size = new System.Drawing.Size(80, 23);
+            this.btReplace.Size = new System.Drawing.Size(107, 28);
             this.btReplace.TabIndex = 9;
             this.btReplace.Text = "Replace";
             this.btReplace.UseVisualStyleBackColor = false;
             this.btReplace.Click += new System.EventHandler(this.ReplaceButton_Click);
             this.btReplace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ReplaceButton_MouseMove);
             // 
-            // btFind
+            // FindNextButton
             // 
             this.FindNextButton.BackColor = System.Drawing.SystemColors.Control;
-            this.FindNextButton.Location = new System.Drawing.Point(104, 24);
-            this.FindNextButton.Name = "btFind";
-            this.FindNextButton.Size = new System.Drawing.Size(80, 23);
+            this.FindNextButton.Location = new System.Drawing.Point(139, 30);
+            this.FindNextButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FindNextButton.Name = "FindNextButton";
+            this.FindNextButton.Size = new System.Drawing.Size(107, 28);
             this.FindNextButton.TabIndex = 8;
             this.FindNextButton.Text = "Find Next";
             this.FindNextButton.UseVisualStyleBackColor = false;
@@ -805,9 +860,10 @@ namespace Alternet.CodeEditor.Demo
             // btSave
             // 
             this.btSave.BackColor = System.Drawing.SystemColors.Control;
-            this.btSave.Location = new System.Drawing.Point(8, 56);
+            this.btSave.Location = new System.Drawing.Point(11, 69);
+            this.btSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(80, 23);
+            this.btSave.Size = new System.Drawing.Size(107, 28);
             this.btSave.TabIndex = 7;
             this.btSave.Text = "Save";
             this.btSave.UseVisualStyleBackColor = false;
@@ -817,9 +873,10 @@ namespace Alternet.CodeEditor.Demo
             // btLoad
             // 
             this.btLoad.BackColor = System.Drawing.SystemColors.Control;
-            this.btLoad.Location = new System.Drawing.Point(8, 24);
+            this.btLoad.Location = new System.Drawing.Point(11, 30);
+            this.btLoad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btLoad.Name = "btLoad";
-            this.btLoad.Size = new System.Drawing.Size(80, 23);
+            this.btLoad.Size = new System.Drawing.Size(107, 28);
             this.btLoad.TabIndex = 6;
             this.btLoad.Text = "Load";
             this.btLoad.UseVisualStyleBackColor = false;
@@ -829,18 +886,20 @@ namespace Alternet.CodeEditor.Demo
             // tpDialogs
             // 
             this.tpDialogs.Controls.Add(this.pnDialogs);
-            this.tpDialogs.Location = new System.Drawing.Point(4, 22);
+            this.tpDialogs.Location = new System.Drawing.Point(4, 25);
+            this.tpDialogs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tpDialogs.Name = "tpDialogs";
-            this.tpDialogs.Size = new System.Drawing.Size(809, 118);
+            this.tpDialogs.Size = new System.Drawing.Size(1081, 148);
             this.tpDialogs.TabIndex = 2;
             this.tpDialogs.Text = "Dialogs";
             this.tpDialogs.Visible = false;
             // 
             // chbQuickInfoTips
             // 
-            this.chbQuickInfoTips.Location = new System.Drawing.Point(120, 16);
+            this.chbQuickInfoTips.Location = new System.Drawing.Point(160, 20);
+            this.chbQuickInfoTips.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbQuickInfoTips.Name = "chbQuickInfoTips";
-            this.chbQuickInfoTips.Size = new System.Drawing.Size(96, 21);
+            this.chbQuickInfoTips.Size = new System.Drawing.Size(128, 26);
             this.chbQuickInfoTips.TabIndex = 4;
             this.chbQuickInfoTips.Text = "Quick Info Tips";
             this.chbQuickInfoTips.CheckedChanged += new System.EventHandler(this.QuickInfoTipsCheckBox_CheckedChanged);
@@ -848,9 +907,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbTransparent
             // 
-            this.chbTransparent.Location = new System.Drawing.Point(8, 64);
+            this.chbTransparent.Location = new System.Drawing.Point(11, 79);
+            this.chbTransparent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbTransparent.Name = "chbTransparent";
-            this.chbTransparent.Size = new System.Drawing.Size(112, 21);
+            this.chbTransparent.Size = new System.Drawing.Size(149, 26);
             this.chbTransparent.TabIndex = 3;
             this.chbTransparent.Text = "Use Background";
             this.chbTransparent.CheckedChanged += new System.EventHandler(this.TransparentCheckBox_CheckedChanged);
@@ -858,9 +918,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbHighlightReferences
             // 
-            this.chbHighlightReferences.Location = new System.Drawing.Point(120, 64);
+            this.chbHighlightReferences.Location = new System.Drawing.Point(160, 79);
+            this.chbHighlightReferences.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbHighlightReferences.Name = "chbHighlightReferences";
-            this.chbHighlightReferences.Size = new System.Drawing.Size(129, 21);
+            this.chbHighlightReferences.Size = new System.Drawing.Size(172, 26);
             this.chbHighlightReferences.TabIndex = 6;
             this.chbHighlightReferences.Text = "Highlight References";
             this.chbHighlightReferences.CheckedChanged += new System.EventHandler(this.HighlightReferencesCheckBox_CheckedChanged);
@@ -868,9 +929,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // cbTempHighlightBraces
             // 
-            this.cbTempHighlightBraces.Location = new System.Drawing.Point(8, 64);
+            this.cbTempHighlightBraces.Location = new System.Drawing.Point(11, 79);
+            this.cbTempHighlightBraces.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbTempHighlightBraces.Name = "cbTempHighlightBraces";
-            this.cbTempHighlightBraces.Size = new System.Drawing.Size(112, 21);
+            this.cbTempHighlightBraces.Size = new System.Drawing.Size(149, 26);
             this.cbTempHighlightBraces.TabIndex = 3;
             this.cbTempHighlightBraces.Text = "Temp Highlight";
             this.cbTempHighlightBraces.CheckedChanged += new System.EventHandler(this.TempHighlighracesComboBoxTextBox_CheckedChanged);
@@ -878,9 +940,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbSeparateLines
             // 
-            this.chbSeparateLines.Location = new System.Drawing.Point(8, 16);
+            this.chbSeparateLines.Location = new System.Drawing.Point(11, 20);
+            this.chbSeparateLines.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbSeparateLines.Name = "chbSeparateLines";
-            this.chbSeparateLines.Size = new System.Drawing.Size(104, 21);
+            this.chbSeparateLines.Size = new System.Drawing.Size(139, 26);
             this.chbSeparateLines.TabIndex = 1;
             this.chbSeparateLines.Text = "Separate Lines";
             this.chbSeparateLines.CheckedChanged += new System.EventHandler(this.SeparateLinesCheckBox_CheckedChanged);
@@ -888,9 +951,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbWhiteSpaceVisible
             // 
-            this.chbWhiteSpaceVisible.Location = new System.Drawing.Point(8, 40);
+            this.chbWhiteSpaceVisible.Location = new System.Drawing.Point(11, 49);
+            this.chbWhiteSpaceVisible.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbWhiteSpaceVisible.Name = "chbWhiteSpaceVisible";
-            this.chbWhiteSpaceVisible.Size = new System.Drawing.Size(120, 21);
+            this.chbWhiteSpaceVisible.Size = new System.Drawing.Size(160, 26);
             this.chbWhiteSpaceVisible.TabIndex = 2;
             this.chbWhiteSpaceVisible.Text = "Whitespace Visible";
             this.chbWhiteSpaceVisible.CheckedChanged += new System.EventHandler(this.WhiteSpaceVisibleCheckBox_CheckedChanged);
@@ -898,9 +962,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbUseRoundRect
             // 
-            this.chbUseRoundRect.Location = new System.Drawing.Point(8, 40);
+            this.chbUseRoundRect.Location = new System.Drawing.Point(11, 49);
+            this.chbUseRoundRect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbUseRoundRect.Name = "chbUseRoundRect";
-            this.chbUseRoundRect.Size = new System.Drawing.Size(162, 21);
+            this.chbUseRoundRect.Size = new System.Drawing.Size(216, 26);
             this.chbUseRoundRect.TabIndex = 2;
             this.chbUseRoundRect.Text = "Draw Frame around Braces";
             this.chbUseRoundRect.CheckedChanged += new System.EventHandler(this.UseRoundRectCheckBox_CheckedChanged);
@@ -913,56 +978,59 @@ namespace Alternet.CodeEditor.Demo
             this.treeView1.ForeColor = System.Drawing.SystemColors.WindowText;
             this.treeView1.HideSelection = false;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
+            this.treeView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "";
-            treeNode1.Text = "Gutter";
-            treeNode2.Name = "";
-            treeNode2.Text = "Margin";
-            treeNode3.Name = "";
-            treeNode3.Text = "Line Numbers";
-            treeNode112.Name = "";
-            treeNode112.Text = "Line Styles";
-            treeNode4.Name = "";
-            treeNode4.Text = "Miscellaneous";
-            treeNode5.Name = "";
-            treeNode5.Text = "Pages & Rulers";
-            treeNode6.Name = "";
-            treeNode6.Text = "Appearance";
-            treeNode7.Name = "";
-            treeNode7.Text = "Outlining";
-            treeNode8.Name = "";
-            treeNode8.Text = "Text Source";
-            treeNode9.Name = "";
-            treeNode9.Text = "Navigation";
-            treeNode10.Name = "";
-            treeNode10.Text = "Selection";
-            treeNode11.Name = "";
-            treeNode11.Text = "WordWrap & Scrolling";
-            treeNode12.Name = "";
-            treeNode12.Text = "Spelling & HyperText";
-            treeNode22.Name = "";
-            treeNode22.Text = "Scroll Bar Annotations";
-            treeNode13.Name = "";
-            treeNode13.Text = "Behavior";
-            treeNode14.Name = "";
-            treeNode14.Text = "Common Dialogs";
-            treeNode15.Name = "";
-            treeNode15.Text = "Printing & Exporting";
-            treeNode16.Name = "";
-            treeNode16.Text = "Dialogs";
-            treeNode17.Name = "";
-            treeNode17.Text = "Properties";
-            treeNode18.Name = "";
-            treeNode18.Text = "About";
-            treeNode19.Name = "";
-            treeNode19.Text = "Company Info";
+            treeNode23.Name = "";
+            treeNode23.Text = "Gutter";
+            treeNode24.Name = "";
+            treeNode24.Text = "Margin";
+            treeNode25.Name = "";
+            treeNode25.Text = "Line Numbers";
+            treeNode26.Name = "";
+            treeNode26.Text = "Line Styles";
+            treeNode27.Name = "";
+            treeNode27.Text = "Visual Themes";
+            treeNode28.Name = "";
+            treeNode28.Text = "Miscellaneous";
+            treeNode29.Name = "";
+            treeNode29.Text = "Pages & Rulers";
+            treeNode30.Name = "";
+            treeNode30.Text = "Appearance";
+            treeNode31.Name = "";
+            treeNode31.Text = "Outlining";
+            treeNode32.Name = "";
+            treeNode32.Text = "Text Source";
+            treeNode33.Name = "";
+            treeNode33.Text = "Navigation";
+            treeNode34.Name = "";
+            treeNode34.Text = "Selection";
+            treeNode35.Name = "";
+            treeNode35.Text = "WordWrap & Scrolling";
+            treeNode36.Name = "";
+            treeNode36.Text = "Spelling & HyperText";
+            treeNode37.Name = "";
+            treeNode37.Text = "Scroll Bar Annotations";
+            treeNode38.Name = "";
+            treeNode38.Text = "Behavior";
+            treeNode39.Name = "";
+            treeNode39.Text = "Common Dialogs";
+            treeNode40.Name = "";
+            treeNode40.Text = "Printing & Exporting";
+            treeNode41.Name = "";
+            treeNode41.Text = "Dialogs";
+            treeNode42.Name = "";
+            treeNode42.Text = "Properties";
+            treeNode43.Name = "";
+            treeNode43.Text = "About";
+            treeNode44.Name = "";
+            treeNode44.Text = "Company Info";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode6,
-            treeNode13,
-            treeNode16,
-            treeNode17,
-            treeNode19});
-            this.treeView1.Size = new System.Drawing.Size(160, 733);
+            treeNode30,
+            treeNode38,
+            treeNode41,
+            treeNode42,
+            treeNode44});
+            this.treeView1.Size = new System.Drawing.Size(212, 788);
             this.treeView1.TabIndex = 11;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeView1_AfterSelect);
             // 
@@ -976,9 +1044,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbDrawColumnsIndent
             // 
-            this.chbDrawColumnsIndent.Location = new System.Drawing.Point(120, 40);
+            this.chbDrawColumnsIndent.Location = new System.Drawing.Point(160, 49);
+            this.chbDrawColumnsIndent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbDrawColumnsIndent.Name = "chbDrawColumnsIndent";
-            this.chbDrawColumnsIndent.Size = new System.Drawing.Size(130, 21);
+            this.chbDrawColumnsIndent.Size = new System.Drawing.Size(173, 26);
             this.chbDrawColumnsIndent.TabIndex = 5;
             this.chbDrawColumnsIndent.Text = "Draw Columns Indent";
             this.chbDrawColumnsIndent.CheckedChanged += new System.EventHandler(this.DrawColumnsIndentCheckBox_CheckedChanged);
@@ -988,9 +1057,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             this.chbLineModificator.Checked = true;
             this.chbLineModificator.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbLineModificator.Location = new System.Drawing.Point(144, 16);
+            this.chbLineModificator.Location = new System.Drawing.Point(192, 20);
+            this.chbLineModificator.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbLineModificator.Name = "chbLineModificator";
-            this.chbLineModificator.Size = new System.Drawing.Size(112, 21);
+            this.chbLineModificator.Size = new System.Drawing.Size(149, 26);
             this.chbLineModificator.TabIndex = 3;
             this.chbLineModificator.Text = "Line Modificators";
             this.chbLineModificator.CheckedChanged += new System.EventHandler(this.LineModificatorCheckBox_CheckedChanged);
@@ -999,9 +1069,10 @@ namespace Alternet.CodeEditor.Demo
             // laLineNumbersStart
             // 
             this.laLineNumbersStart.AutoSize = true;
-            this.laLineNumbersStart.Location = new System.Drawing.Point(296, 19);
+            this.laLineNumbersStart.Location = new System.Drawing.Point(395, 23);
+            this.laLineNumbersStart.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.laLineNumbersStart.Name = "laLineNumbersStart";
-            this.laLineNumbersStart.Size = new System.Drawing.Size(93, 13);
+            this.laLineNumbersStart.Size = new System.Drawing.Size(115, 16);
             this.laLineNumbersStart.TabIndex = 5;
             this.laLineNumbersStart.Text = "Line numbers start";
             // 
@@ -1013,28 +1084,32 @@ namespace Alternet.CodeEditor.Demo
             this.gbOther.Controls.Add(this.chbHighlightReferences);
             this.gbOther.Controls.Add(this.chbSeparateLines);
             this.gbOther.Controls.Add(this.chbWhiteSpaceVisible);
-            this.gbOther.Location = new System.Drawing.Point(8, 8);
+            this.gbOther.Location = new System.Drawing.Point(11, 10);
+            this.gbOther.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbOther.Name = "gbOther";
-            this.gbOther.Size = new System.Drawing.Size(256, 96);
+            this.gbOther.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbOther.Size = new System.Drawing.Size(341, 118);
             this.gbOther.TabIndex = 4;
             this.gbOther.TabStop = false;
             this.gbOther.Text = "Miscellaneous";
             // 
             // nudLineNumbersStart
             // 
-            this.nudLineNumbersStart.Location = new System.Drawing.Point(400, 16);
+            this.nudLineNumbersStart.Location = new System.Drawing.Point(533, 20);
+            this.nudLineNumbersStart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nudLineNumbersStart.Name = "nudLineNumbersStart";
-            this.nudLineNumbersStart.Size = new System.Drawing.Size(64, 20);
+            this.nudLineNumbersStart.Size = new System.Drawing.Size(85, 22);
             this.nudLineNumbersStart.TabIndex = 7;
             this.nudLineNumbersStart.ValueChanged += new System.EventHandler(this.LineNumbersStartNumeric_ValueChanged);
             // 
             // cbLineNumbersAlign
             // 
             this.cbLineNumbersAlign.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbLineNumbersAlign.ItemHeight = 13;
-            this.cbLineNumbersAlign.Location = new System.Drawing.Point(400, 40);
+            this.cbLineNumbersAlign.ItemHeight = 16;
+            this.cbLineNumbersAlign.Location = new System.Drawing.Point(533, 49);
+            this.cbLineNumbersAlign.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbLineNumbersAlign.Name = "cbLineNumbersAlign";
-            this.cbLineNumbersAlign.Size = new System.Drawing.Size(64, 21);
+            this.cbLineNumbersAlign.Size = new System.Drawing.Size(84, 24);
             this.cbLineNumbersAlign.TabIndex = 8;
             this.cbLineNumbersAlign.SelectedIndexChanged += new System.EventHandler(this.LineNumbersAlignComboBox_SelectedIndexChanged);
             this.cbLineNumbersAlign.MouseMove += new System.Windows.Forms.MouseEventHandler(this.LineNumbersAlignCheckBox_MouseMove);
@@ -1045,40 +1120,10 @@ namespace Alternet.CodeEditor.Demo
             this.pnLineNumbers.Controls.Add(this.gbLineNumbers);
             this.pnLineNumbers.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnLineNumbers.Location = new System.Drawing.Point(0, 0);
+            this.pnLineNumbers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnLineNumbers.Name = "pnLineNumbers";
-            this.pnLineNumbers.Size = new System.Drawing.Size(809, 112);
+            this.pnLineNumbers.Size = new System.Drawing.Size(1081, 137);
             this.pnLineNumbers.TabIndex = 0;
-            // 
-            // pnLineStyles
-            // 
-            this.pnLineStyles.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnLineStyles.Controls.Add(this.btStepOver);
-            this.pnLineStyles.Controls.Add(this.btSetBreakpoint);
-            this.pnLineStyles.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnLineStyles.Location = new System.Drawing.Point(0, 0);
-            this.pnLineStyles.Name = "pnLineStyles";
-            this.pnLineStyles.Size = new System.Drawing.Size(809, 112);
-            this.pnLineStyles.TabIndex = 0;
-            // 
-            // btSetBreakpoint
-            // 
-            this.btSetBreakpoint.Location = new System.Drawing.Point(92, 24);
-            this.btSetBreakpoint.Name = "btSetBreakpoint";
-            this.btSetBreakpoint.Size = new System.Drawing.Size(106, 23);
-            this.btSetBreakpoint.TabIndex = 2;
-            this.btSetBreakpoint.Text = "Toggle Breakpoint";
-            this.btSetBreakpoint.Click += new System.EventHandler(this.SereakpointTextBox_ButtonClick);
-            this.btSetBreakpoint.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SereakpointButtonTextBox_MouseMove);
-            // 
-            // btStepOver
-            // 
-            this.btStepOver.Location = new System.Drawing.Point(8, 24);
-            this.btStepOver.Name = "btStepOver";
-            this.btStepOver.Size = new System.Drawing.Size(75, 23);
-            this.btStepOver.TabIndex = 1;
-            this.btStepOver.Text = "Step Over";
-            this.btStepOver.Click += new System.EventHandler(this.StepOver_ButtonClick);
-            this.btStepOver.MouseMove += new System.Windows.Forms.MouseEventHandler(this.StepOverButton_MouseMove);
             // 
             // gbLineNumbers
             // 
@@ -1091,9 +1136,11 @@ namespace Alternet.CodeEditor.Demo
             this.gbLineNumbers.Controls.Add(this.chbLineNumbers);
             this.gbLineNumbers.Controls.Add(this.chbLinesBeyondEof);
             this.gbLineNumbers.Controls.Add(this.chbHighlightCurrentLine);
-            this.gbLineNumbers.Location = new System.Drawing.Point(8, 8);
+            this.gbLineNumbers.Location = new System.Drawing.Point(11, 10);
+            this.gbLineNumbers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbLineNumbers.Name = "gbLineNumbers";
-            this.gbLineNumbers.Size = new System.Drawing.Size(496, 96);
+            this.gbLineNumbers.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbLineNumbers.Size = new System.Drawing.Size(661, 118);
             this.gbLineNumbers.TabIndex = 3;
             this.gbLineNumbers.TabStop = false;
             this.gbLineNumbers.Text = "Line Numbers";
@@ -1101,17 +1148,19 @@ namespace Alternet.CodeEditor.Demo
             // laLineNumbersAlign
             // 
             this.laLineNumbersAlign.AutoSize = true;
-            this.laLineNumbersAlign.Location = new System.Drawing.Point(296, 43);
+            this.laLineNumbersAlign.Location = new System.Drawing.Point(395, 53);
+            this.laLineNumbersAlign.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.laLineNumbersAlign.Name = "laLineNumbersAlign";
-            this.laLineNumbersAlign.Size = new System.Drawing.Size(95, 13);
+            this.laLineNumbersAlign.Size = new System.Drawing.Size(119, 16);
             this.laLineNumbersAlign.TabIndex = 6;
             this.laLineNumbersAlign.Text = "Line numbers align";
             // 
             // chbLinesOnGutter
             // 
-            this.chbLinesOnGutter.Location = new System.Drawing.Point(8, 40);
+            this.chbLinesOnGutter.Location = new System.Drawing.Point(11, 49);
+            this.chbLinesOnGutter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbLinesOnGutter.Name = "chbLinesOnGutter";
-            this.chbLinesOnGutter.Size = new System.Drawing.Size(104, 21);
+            this.chbLinesOnGutter.Size = new System.Drawing.Size(139, 26);
             this.chbLinesOnGutter.TabIndex = 1;
             this.chbLinesOnGutter.Text = "Lines on Gutter";
             this.chbLinesOnGutter.CheckedChanged += new System.EventHandler(this.LinesOnGutterCheckBox_CheckedChanged);
@@ -1119,9 +1168,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbLineNumbers
             // 
-            this.chbLineNumbers.Location = new System.Drawing.Point(8, 16);
+            this.chbLineNumbers.Location = new System.Drawing.Point(11, 20);
+            this.chbLineNumbers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbLineNumbers.Name = "chbLineNumbers";
-            this.chbLineNumbers.Size = new System.Drawing.Size(104, 21);
+            this.chbLineNumbers.Size = new System.Drawing.Size(139, 26);
             this.chbLineNumbers.TabIndex = 0;
             this.chbLineNumbers.Text = "Line Numbers";
             this.chbLineNumbers.CheckedChanged += new System.EventHandler(this.LineNumbersCheckBox_CheckedChanged);
@@ -1129,9 +1179,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbLinesBeyondEof
             // 
-            this.chbLinesBeyondEof.Location = new System.Drawing.Point(8, 64);
+            this.chbLinesBeyondEof.Location = new System.Drawing.Point(11, 79);
+            this.chbLinesBeyondEof.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbLinesBeyondEof.Name = "chbLinesBeyondEof";
-            this.chbLinesBeyondEof.Size = new System.Drawing.Size(112, 21);
+            this.chbLinesBeyondEof.Size = new System.Drawing.Size(149, 26);
             this.chbLinesBeyondEof.TabIndex = 2;
             this.chbLinesBeyondEof.Text = "Lines Beyond Eof";
             this.chbLinesBeyondEof.CheckedChanged += new System.EventHandler(this.LinesBeyondEofCheckBox_CheckedChanged);
@@ -1139,20 +1190,56 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbHighlightCurrentLine
             // 
-            this.chbHighlightCurrentLine.Location = new System.Drawing.Point(144, 40);
+            this.chbHighlightCurrentLine.Location = new System.Drawing.Point(192, 49);
+            this.chbHighlightCurrentLine.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbHighlightCurrentLine.Name = "chbHighlightCurrentLine";
-            this.chbHighlightCurrentLine.Size = new System.Drawing.Size(136, 21);
+            this.chbHighlightCurrentLine.Size = new System.Drawing.Size(181, 26);
             this.chbHighlightCurrentLine.TabIndex = 4;
             this.chbHighlightCurrentLine.Text = "Highlight Current Line";
             this.chbHighlightCurrentLine.CheckedChanged += new System.EventHandler(this.HighlightCurrentLineCheckBox_CheckedChanged);
             this.chbHighlightCurrentLine.MouseMove += new System.Windows.Forms.MouseEventHandler(this.HighlightCurrentLineCheckBox_MouseMove);
             // 
+            // pnLineStyles
+            // 
+            this.pnLineStyles.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnLineStyles.Controls.Add(this.btStepOver);
+            this.pnLineStyles.Controls.Add(this.btSetBreakpoint);
+            this.pnLineStyles.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnLineStyles.Location = new System.Drawing.Point(0, 0);
+            this.pnLineStyles.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnLineStyles.Name = "pnLineStyles";
+            this.pnLineStyles.Size = new System.Drawing.Size(1081, 137);
+            this.pnLineStyles.TabIndex = 0;
+            // 
+            // btStepOver
+            // 
+            this.btStepOver.Location = new System.Drawing.Point(11, 30);
+            this.btStepOver.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btStepOver.Name = "btStepOver";
+            this.btStepOver.Size = new System.Drawing.Size(100, 28);
+            this.btStepOver.TabIndex = 1;
+            this.btStepOver.Text = "Step Over";
+            this.btStepOver.Click += new System.EventHandler(this.StepOver_ButtonClick);
+            this.btStepOver.MouseMove += new System.Windows.Forms.MouseEventHandler(this.StepOverButton_MouseMove);
+            // 
+            // btSetBreakpoint
+            // 
+            this.btSetBreakpoint.Location = new System.Drawing.Point(123, 30);
+            this.btSetBreakpoint.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btSetBreakpoint.Name = "btSetBreakpoint";
+            this.btSetBreakpoint.Size = new System.Drawing.Size(141, 28);
+            this.btSetBreakpoint.TabIndex = 2;
+            this.btSetBreakpoint.Text = "Toggle Breakpoint";
+            this.btSetBreakpoint.Click += new System.EventHandler(this.SereakpointTextBox_ButtonClick);
+            this.btSetBreakpoint.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SereakpointButtonTextBox_MouseMove);
+            // 
             // tpLineNumbers
             // 
             this.tpLineNumbers.Controls.Add(this.pnLineNumbers);
-            this.tpLineNumbers.Location = new System.Drawing.Point(4, 22);
+            this.tpLineNumbers.Location = new System.Drawing.Point(4, 25);
+            this.tpLineNumbers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tpLineNumbers.Name = "tpLineNumbers";
-            this.tpLineNumbers.Size = new System.Drawing.Size(809, 118);
+            this.tpLineNumbers.Size = new System.Drawing.Size(1081, 148);
             this.tpLineNumbers.TabIndex = 10;
             this.tpLineNumbers.Text = "Line Numbers";
             this.tpLineNumbers.Visible = false;
@@ -1160,9 +1247,10 @@ namespace Alternet.CodeEditor.Demo
             // tpLineStyles
             // 
             this.tpLineStyles.Controls.Add(this.pnLineStyles);
-            this.tpLineStyles.Location = new System.Drawing.Point(4, 22);
+            this.tpLineStyles.Location = new System.Drawing.Point(4, 25);
+            this.tpLineStyles.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tpLineStyles.Name = "tpLineStyles";
-            this.tpLineStyles.Size = new System.Drawing.Size(809, 118);
+            this.tpLineStyles.Size = new System.Drawing.Size(1081, 148);
             this.tpLineStyles.TabIndex = 11;
             this.tpLineStyles.Text = "Line Styles";
             this.tpLineStyles.Visible = false;
@@ -1172,18 +1260,21 @@ namespace Alternet.CodeEditor.Demo
             this.gbBraces.Controls.Add(this.cbTempHighlightBraces);
             this.gbBraces.Controls.Add(this.chbUseRoundRect);
             this.gbBraces.Controls.Add(this.chbHighlightBraces);
-            this.gbBraces.Location = new System.Drawing.Point(272, 8);
+            this.gbBraces.Location = new System.Drawing.Point(363, 10);
+            this.gbBraces.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbBraces.Name = "gbBraces";
-            this.gbBraces.Size = new System.Drawing.Size(232, 96);
+            this.gbBraces.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbBraces.Size = new System.Drawing.Size(309, 118);
             this.gbBraces.TabIndex = 5;
             this.gbBraces.TabStop = false;
             this.gbBraces.Text = "Braces";
             // 
             // chbHighlightBraces
             // 
-            this.chbHighlightBraces.Location = new System.Drawing.Point(8, 16);
+            this.chbHighlightBraces.Location = new System.Drawing.Point(11, 20);
+            this.chbHighlightBraces.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbHighlightBraces.Name = "chbHighlightBraces";
-            this.chbHighlightBraces.Size = new System.Drawing.Size(112, 21);
+            this.chbHighlightBraces.Size = new System.Drawing.Size(149, 26);
             this.chbHighlightBraces.TabIndex = 1;
             this.chbHighlightBraces.Text = "Highlight Braces";
             this.chbHighlightBraces.CheckedChanged += new System.EventHandler(this.HighlighracesCheckBoxTextBox_CheckedChanged);
@@ -1196,16 +1287,18 @@ namespace Alternet.CodeEditor.Demo
             this.pnOther.Controls.Add(this.gbOther);
             this.pnOther.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnOther.Location = new System.Drawing.Point(0, 0);
+            this.pnOther.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnOther.Name = "pnOther";
-            this.pnOther.Size = new System.Drawing.Size(809, 112);
+            this.pnOther.Size = new System.Drawing.Size(1081, 137);
             this.pnOther.TabIndex = 0;
             // 
             // tpOther
             // 
             this.tpOther.Controls.Add(this.pnOther);
-            this.tpOther.Location = new System.Drawing.Point(4, 22);
+            this.tpOther.Location = new System.Drawing.Point(4, 25);
+            this.tpOther.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tpOther.Name = "tpOther";
-            this.tpOther.Size = new System.Drawing.Size(809, 118);
+            this.tpOther.Size = new System.Drawing.Size(1081, 148);
             this.tpOther.TabIndex = 12;
             this.tpOther.Text = "Miscellaneous";
             // 
@@ -1213,16 +1306,18 @@ namespace Alternet.CodeEditor.Demo
             // 
             this.pnProperties.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnProperties.Location = new System.Drawing.Point(0, 0);
+            this.pnProperties.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnProperties.Name = "pnProperties";
-            this.pnProperties.Size = new System.Drawing.Size(809, 0);
+            this.pnProperties.Size = new System.Drawing.Size(1081, 0);
             this.pnProperties.TabIndex = 0;
             // 
             // tpProperties
             // 
             this.tpProperties.Controls.Add(this.pnProperties);
-            this.tpProperties.Location = new System.Drawing.Point(4, 22);
+            this.tpProperties.Location = new System.Drawing.Point(4, 25);
+            this.tpProperties.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tpProperties.Name = "tpProperties";
-            this.tpProperties.Size = new System.Drawing.Size(809, 118);
+            this.tpProperties.Size = new System.Drawing.Size(1081, 148);
             this.tpProperties.TabIndex = 14;
             this.tpProperties.Text = "Properties";
             // 
@@ -1230,18 +1325,20 @@ namespace Alternet.CodeEditor.Demo
             // 
             this.tbCompanyInfo.BackColor = System.Drawing.SystemColors.Control;
             this.tbCompanyInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbCompanyInfo.Location = new System.Drawing.Point(25, 103);
+            this.tbCompanyInfo.Location = new System.Drawing.Point(33, 127);
+            this.tbCompanyInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbCompanyInfo.Multiline = true;
             this.tbCompanyInfo.Name = "tbCompanyInfo";
-            this.tbCompanyInfo.Size = new System.Drawing.Size(400, 82);
+            this.tbCompanyInfo.Size = new System.Drawing.Size(533, 101);
             this.tbCompanyInfo.TabIndex = 9;
             this.tbCompanyInfo.Text = resources.GetString("tbCompanyInfo.Text");
             // 
             // chbHighlightUrls
             // 
-            this.chbHighlightUrls.Location = new System.Drawing.Point(8, 40);
+            this.chbHighlightUrls.Location = new System.Drawing.Point(11, 49);
+            this.chbHighlightUrls.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbHighlightUrls.Name = "chbHighlightUrls";
-            this.chbHighlightUrls.Size = new System.Drawing.Size(104, 21);
+            this.chbHighlightUrls.Size = new System.Drawing.Size(139, 26);
             this.chbHighlightUrls.TabIndex = 2;
             this.chbHighlightUrls.Text = "Highlight Urls";
             this.chbHighlightUrls.CheckedChanged += new System.EventHandler(this.HighlightUrlsCheckBox_CheckedChanged);
@@ -1250,9 +1347,10 @@ namespace Alternet.CodeEditor.Demo
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(22, 221);
+            this.label6.Location = new System.Drawing.Point(29, 272);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(142, 13);
+            this.label6.Size = new System.Drawing.Size(180, 16);
             this.label6.TabIndex = 6;
             this.label6.Text = "AlterNET Code Editor Library";
             this.label6.Visible = false;
@@ -1270,8 +1368,9 @@ namespace Alternet.CodeEditor.Demo
             this.pnCompanyInfo.Controls.Add(this.pictureBox1);
             this.pnCompanyInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnCompanyInfo.Location = new System.Drawing.Point(0, 0);
+            this.pnCompanyInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnCompanyInfo.Name = "pnCompanyInfo";
-            this.pnCompanyInfo.Size = new System.Drawing.Size(809, 118);
+            this.pnCompanyInfo.Size = new System.Drawing.Size(1081, 148);
             this.pnCompanyInfo.TabIndex = 1;
             // 
             // laMailTo
@@ -1280,9 +1379,10 @@ namespace Alternet.CodeEditor.Demo
             this.laMailTo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.laMailTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.laMailTo.ForeColor = System.Drawing.Color.Blue;
-            this.laMailTo.Location = new System.Drawing.Point(243, 63);
+            this.laMailTo.Location = new System.Drawing.Point(324, 78);
+            this.laMailTo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.laMailTo.Name = "laMailTo";
-            this.laMailTo.Size = new System.Drawing.Size(159, 13);
+            this.laMailTo.Size = new System.Drawing.Size(210, 17);
             this.laMailTo.TabIndex = 5;
             this.laMailTo.Text = "mailto:contact@alternetsoft.com";
             this.laMailTo.Click += new System.EventHandler(this.MailToLabel_Click);
@@ -1290,9 +1390,10 @@ namespace Alternet.CodeEditor.Demo
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(203, 63);
+            this.label4.Location = new System.Drawing.Point(271, 78);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 13);
+            this.label4.Size = new System.Drawing.Size(47, 16);
             this.label4.TabIndex = 4;
             this.label4.Text = "e-mail:";
             // 
@@ -1302,9 +1403,10 @@ namespace Alternet.CodeEditor.Demo
             this.laAdress.Cursor = System.Windows.Forms.Cursors.Hand;
             this.laAdress.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.laAdress.ForeColor = System.Drawing.Color.Blue;
-            this.laAdress.Location = new System.Drawing.Point(243, 36);
+            this.laAdress.Location = new System.Drawing.Point(324, 44);
+            this.laAdress.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.laAdress.Name = "laAdress";
-            this.laAdress.Size = new System.Drawing.Size(140, 13);
+            this.laAdress.Size = new System.Drawing.Size(176, 17);
             this.laAdress.TabIndex = 3;
             this.laAdress.Text = "http://www.alternetsoft.com";
             this.laAdress.Click += new System.EventHandler(this.AdressLebel_Click);
@@ -1312,18 +1414,20 @@ namespace Alternet.CodeEditor.Demo
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(203, 39);
+            this.label2.Location = new System.Drawing.Point(271, 48);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 13);
+            this.label2.Size = new System.Drawing.Size(49, 16);
             this.label2.TabIndex = 2;
             this.label2.Text = "WWW:";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(25, 34);
+            this.pictureBox1.Location = new System.Drawing.Point(33, 42);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(110, 55);
+            this.pictureBox1.Size = new System.Drawing.Size(90, 45);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -1331,9 +1435,10 @@ namespace Alternet.CodeEditor.Demo
             // btShowBookmarks
             // 
             this.btShowBookmarks.BackColor = System.Drawing.SystemColors.Control;
-            this.btShowBookmarks.Location = new System.Drawing.Point(184, 48);
+            this.btShowBookmarks.Location = new System.Drawing.Point(245, 59);
+            this.btShowBookmarks.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btShowBookmarks.Name = "btShowBookmarks";
-            this.btShowBookmarks.Size = new System.Drawing.Size(104, 23);
+            this.btShowBookmarks.Size = new System.Drawing.Size(139, 28);
             this.btShowBookmarks.TabIndex = 10;
             this.btShowBookmarks.Text = "Set Bookmarks";
             this.btShowBookmarks.UseVisualStyleBackColor = false;
@@ -1343,18 +1448,20 @@ namespace Alternet.CodeEditor.Demo
             // tpCompanyInfo
             // 
             this.tpCompanyInfo.Controls.Add(this.pnCompanyInfo);
-            this.tpCompanyInfo.Location = new System.Drawing.Point(4, 22);
+            this.tpCompanyInfo.Location = new System.Drawing.Point(4, 25);
+            this.tpCompanyInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tpCompanyInfo.Name = "tpCompanyInfo";
-            this.tpCompanyInfo.Size = new System.Drawing.Size(809, 118);
+            this.tpCompanyInfo.Size = new System.Drawing.Size(1081, 148);
             this.tpCompanyInfo.TabIndex = 8;
             this.tpCompanyInfo.Text = "Company Info";
             this.tpCompanyInfo.Visible = false;
             // 
             // chbDrawLineBookmarks
             // 
-            this.chbDrawLineBookmarks.Location = new System.Drawing.Point(8, 64);
+            this.chbDrawLineBookmarks.Location = new System.Drawing.Point(11, 79);
+            this.chbDrawLineBookmarks.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbDrawLineBookmarks.Name = "chbDrawLineBookmarks";
-            this.chbDrawLineBookmarks.Size = new System.Drawing.Size(136, 21);
+            this.chbDrawLineBookmarks.Size = new System.Drawing.Size(181, 26);
             this.chbDrawLineBookmarks.TabIndex = 2;
             this.chbDrawLineBookmarks.Text = "Draw Line Bookmarks";
             this.chbDrawLineBookmarks.CheckedChanged += new System.EventHandler(this.DrawLineBookmarksCheckBox_CheckedChanged);
@@ -1363,9 +1470,10 @@ namespace Alternet.CodeEditor.Demo
             // tpMargin
             // 
             this.tpMargin.Controls.Add(this.pnMargin);
-            this.tpMargin.Location = new System.Drawing.Point(4, 22);
+            this.tpMargin.Location = new System.Drawing.Point(4, 25);
+            this.tpMargin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tpMargin.Name = "tpMargin";
-            this.tpMargin.Size = new System.Drawing.Size(809, 118);
+            this.tpMargin.Size = new System.Drawing.Size(1081, 148);
             this.tpMargin.TabIndex = 9;
             this.tpMargin.Text = "Margin";
             this.tpMargin.Visible = false;
@@ -1376,8 +1484,9 @@ namespace Alternet.CodeEditor.Demo
             this.pnMargin.Controls.Add(this.gbMargin);
             this.pnMargin.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnMargin.Location = new System.Drawing.Point(0, 0);
+            this.pnMargin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnMargin.Name = "pnMargin";
-            this.pnMargin.Size = new System.Drawing.Size(809, 112);
+            this.pnMargin.Size = new System.Drawing.Size(1081, 137);
             this.pnMargin.TabIndex = 0;
             // 
             // gbMargin
@@ -1388,18 +1497,21 @@ namespace Alternet.CodeEditor.Demo
             this.gbMargin.Controls.Add(this.nudMarginPos);
             this.gbMargin.Controls.Add(this.laMarginPos);
             this.gbMargin.Controls.Add(this.chbShowMargin);
-            this.gbMargin.Location = new System.Drawing.Point(8, 8);
+            this.gbMargin.Location = new System.Drawing.Point(11, 10);
+            this.gbMargin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbMargin.Name = "gbMargin";
-            this.gbMargin.Size = new System.Drawing.Size(496, 96);
+            this.gbMargin.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbMargin.Size = new System.Drawing.Size(661, 118);
             this.gbMargin.TabIndex = 0;
             this.gbMargin.TabStop = false;
             this.gbMargin.Text = "Margin";
             // 
             // chbColumnsVisible
             // 
-            this.chbColumnsVisible.Location = new System.Drawing.Point(168, 64);
+            this.chbColumnsVisible.Location = new System.Drawing.Point(224, 79);
+            this.chbColumnsVisible.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbColumnsVisible.Name = "chbColumnsVisible";
-            this.chbColumnsVisible.Size = new System.Drawing.Size(120, 21);
+            this.chbColumnsVisible.Size = new System.Drawing.Size(160, 26);
             this.chbColumnsVisible.TabIndex = 7;
             this.chbColumnsVisible.Text = "Columns Visible";
             this.chbColumnsVisible.CheckedChanged += new System.EventHandler(this.ColumnsVisibleCheckBox_CheckedChanged);
@@ -1407,9 +1519,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbShowMarginHints
             // 
-            this.chbShowMarginHints.Location = new System.Drawing.Point(168, 40);
+            this.chbShowMarginHints.Location = new System.Drawing.Point(224, 49);
+            this.chbShowMarginHints.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbShowMarginHints.Name = "chbShowMarginHints";
-            this.chbShowMarginHints.Size = new System.Drawing.Size(120, 21);
+            this.chbShowMarginHints.Size = new System.Drawing.Size(160, 26);
             this.chbShowMarginHints.TabIndex = 6;
             this.chbShowMarginHints.Text = "Display Drag Hints";
             this.chbShowMarginHints.CheckedChanged += new System.EventHandler(this.ShowMarginHintsCheckBox_CheckedChanged);
@@ -1417,9 +1530,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbAllowDragMargin
             // 
-            this.chbAllowDragMargin.Location = new System.Drawing.Point(168, 16);
+            this.chbAllowDragMargin.Location = new System.Drawing.Point(224, 20);
+            this.chbAllowDragMargin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbAllowDragMargin.Name = "chbAllowDragMargin";
-            this.chbAllowDragMargin.Size = new System.Drawing.Size(120, 21);
+            this.chbAllowDragMargin.Size = new System.Drawing.Size(160, 26);
             this.chbAllowDragMargin.TabIndex = 5;
             this.chbAllowDragMargin.Text = "Allow Drag Margin";
             this.chbAllowDragMargin.CheckedChanged += new System.EventHandler(this.AllowDragMarginCheckBox_CheckedChanged);
@@ -1427,26 +1541,29 @@ namespace Alternet.CodeEditor.Demo
             // 
             // nudMarginPos
             // 
-            this.nudMarginPos.Location = new System.Drawing.Point(88, 40);
+            this.nudMarginPos.Location = new System.Drawing.Point(117, 49);
+            this.nudMarginPos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nudMarginPos.Name = "nudMarginPos";
-            this.nudMarginPos.Size = new System.Drawing.Size(64, 20);
+            this.nudMarginPos.Size = new System.Drawing.Size(85, 22);
             this.nudMarginPos.TabIndex = 4;
             this.nudMarginPos.ValueChanged += new System.EventHandler(this.MarginPosNumeric_ValueChanged);
             // 
             // laMarginPos
             // 
             this.laMarginPos.AutoSize = true;
-            this.laMarginPos.Location = new System.Drawing.Point(8, 43);
+            this.laMarginPos.Location = new System.Drawing.Point(11, 53);
+            this.laMarginPos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.laMarginPos.Name = "laMarginPos";
-            this.laMarginPos.Size = new System.Drawing.Size(78, 13);
+            this.laMarginPos.Size = new System.Drawing.Size(98, 16);
             this.laMarginPos.TabIndex = 3;
             this.laMarginPos.Text = "Margin position";
             // 
             // chbShowMargin
             // 
-            this.chbShowMargin.Location = new System.Drawing.Point(8, 16);
+            this.chbShowMargin.Location = new System.Drawing.Point(11, 20);
+            this.chbShowMargin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbShowMargin.Name = "chbShowMargin";
-            this.chbShowMargin.Size = new System.Drawing.Size(96, 21);
+            this.chbShowMargin.Size = new System.Drawing.Size(128, 26);
             this.chbShowMargin.TabIndex = 0;
             this.chbShowMargin.Text = "Display Margin";
             this.chbShowMargin.CheckedChanged += new System.EventHandler(this.ShowMarginCheckBox_CheckedChanged);
@@ -1454,9 +1571,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbPaintBookMarks
             // 
-            this.chbPaintBookMarks.Location = new System.Drawing.Point(8, 40);
+            this.chbPaintBookMarks.Location = new System.Drawing.Point(11, 49);
+            this.chbPaintBookMarks.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbPaintBookMarks.Name = "chbPaintBookMarks";
-            this.chbPaintBookMarks.Size = new System.Drawing.Size(112, 21);
+            this.chbPaintBookMarks.Size = new System.Drawing.Size(149, 26);
             this.chbPaintBookMarks.TabIndex = 1;
             this.chbPaintBookMarks.Text = "Paint Bookmarks";
             this.chbPaintBookMarks.CheckedChanged += new System.EventHandler(this.PainookMarksCheckBoxTextBox_CheckedChanged);
@@ -1467,56 +1585,26 @@ namespace Alternet.CodeEditor.Demo
             this.syntaxEdit.BackColor = System.Drawing.SystemColors.Window;
             this.syntaxEdit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("syntaxEdit.BackgroundImage")));
             this.syntaxEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.syntaxEdit.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.syntaxEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.syntaxEdit.EditMargin.ColumnPositions = new int[] {
         16,
         48};
             this.syntaxEdit.Location = new System.Drawing.Point(0, 0);
+            this.syntaxEdit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.syntaxEdit.Name = "syntaxEdit";
-            this.syntaxEdit.Scrolling.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.syntaxEdit.Outlining.AllowOutlining = true;
-            this.syntaxEdit.Outlining.ImageSize = 8;
-            scrollingButton1.Description = "Normal Mode";
-            scrollingButton1.ImageIndex = 0;
-            scrollingButton1.Images = this.imageList2;
-            scrollingButton1.Name = "Normal";
-            scrollingButton2.Description = "Page Layout Mode";
-            scrollingButton2.ImageIndex = 1;
-            scrollingButton2.Images = this.imageList2;
-            scrollingButton2.Name = "PageLayout";
-            scrollingButton3.Description = "Page Breaks Mode";
-            scrollingButton3.ImageIndex = 2;
-            scrollingButton3.Images = this.imageList2;
-            scrollingButton3.Name = "PageBreaks";
-            this.syntaxEdit.Scrolling.HorzButtons.Add(scrollingButton1);
-            this.syntaxEdit.Scrolling.HorzButtons.Add(scrollingButton2);
-            this.syntaxEdit.Scrolling.HorzButtons.Add(scrollingButton3);
-            this.syntaxEdit.Scrolling.Options = ((Alternet.Editor.ScrollingOptions)((((((Alternet.Editor.ScrollingOptions.SmoothScroll | Alternet.Editor.ScrollingOptions.UseScrollDelta | Alternet.Editor.ScrollingOptions.VerticalScrollBarAnnotations)
-            | Alternet.Editor.ScrollingOptions.AllowSplitHorz)
-            | Alternet.Editor.ScrollingOptions.AllowSplitVert)
-            | Alternet.Editor.ScrollingOptions.HorzButtons)
-            | Alternet.Editor.ScrollingOptions.VertButtons)));
-            scrollingButton4.Description = "Page Down";
-            scrollingButton4.ImageIndex = 3;
-            scrollingButton4.Images = this.imageList2;
-            scrollingButton4.Name = "PageDown";
-            scrollingButton5.Description = "Page Up";
-            scrollingButton5.ImageIndex = 4;
-            scrollingButton5.Images = this.imageList2;
-            scrollingButton5.Name = "PageUp";
-            this.syntaxEdit.Scrolling.VertButtons.Add(scrollingButton4);
-            this.syntaxEdit.Scrolling.VertButtons.Add(scrollingButton5);
-            this.syntaxEdit.SearchGlobal = false;
-            this.syntaxEdit.Size = new System.Drawing.Size(590, 488);
+            this.syntaxEdit.Scrolling.Options = ((Alternet.Editor.ScrollingOptions)(((((((Alternet.Editor.ScrollingOptions.SmoothScroll | Alternet.Editor.ScrollingOptions.UseScrollDelta) 
+            | Alternet.Editor.ScrollingOptions.AllowSplitHorz) 
+            | Alternet.Editor.ScrollingOptions.AllowSplitVert) 
+            | Alternet.Editor.ScrollingOptions.HorzButtons) 
+            | Alternet.Editor.ScrollingOptions.VertButtons) 
+            | Alternet.Editor.ScrollingOptions.VerticalScrollBarAnnotations)));
+            this.syntaxEdit.Scrolling.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.syntaxEdit.Size = new System.Drawing.Size(788, 488);
             this.syntaxEdit.Source = this.textSource1;
             this.syntaxEdit.TabIndex = 38;
             this.syntaxEdit.WordSpell += new Alternet.Editor.TextSource.WordSpellEvent(this.SyntaxEdit_WordSpell);
             this.syntaxEdit.ScrollButtonClick += new System.EventHandler(this.SyntaxEdit_ScrollButtonClick);
-            // 
-            // textSource1
-            // 
-            this.textSource1.OptimizedForMemory = false;
             // 
             // gbGutter
             // 
@@ -1526,9 +1614,11 @@ namespace Alternet.CodeEditor.Demo
             this.gbGutter.Controls.Add(this.laGutterWidth);
             this.gbGutter.Controls.Add(this.nudGutterWidth);
             this.gbGutter.Controls.Add(this.chbShowGutter);
-            this.gbGutter.Location = new System.Drawing.Point(8, 8);
+            this.gbGutter.Location = new System.Drawing.Point(11, 10);
+            this.gbGutter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbGutter.Name = "gbGutter";
-            this.gbGutter.Size = new System.Drawing.Size(496, 96);
+            this.gbGutter.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbGutter.Size = new System.Drawing.Size(661, 118);
             this.gbGutter.TabIndex = 0;
             this.gbGutter.TabStop = false;
             this.gbGutter.Text = "Gutter";
@@ -1536,25 +1626,28 @@ namespace Alternet.CodeEditor.Demo
             // laGutterWidth
             // 
             this.laGutterWidth.AutoSize = true;
-            this.laGutterWidth.Location = new System.Drawing.Point(144, 19);
+            this.laGutterWidth.Location = new System.Drawing.Point(192, 23);
+            this.laGutterWidth.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.laGutterWidth.Name = "laGutterWidth";
-            this.laGutterWidth.Size = new System.Drawing.Size(67, 13);
+            this.laGutterWidth.Size = new System.Drawing.Size(79, 16);
             this.laGutterWidth.TabIndex = 6;
             this.laGutterWidth.Text = "Gutter Width";
             // 
             // nudGutterWidth
             // 
-            this.nudGutterWidth.Location = new System.Drawing.Point(224, 16);
+            this.nudGutterWidth.Location = new System.Drawing.Point(299, 20);
+            this.nudGutterWidth.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nudGutterWidth.Name = "nudGutterWidth";
-            this.nudGutterWidth.Size = new System.Drawing.Size(64, 20);
+            this.nudGutterWidth.Size = new System.Drawing.Size(85, 22);
             this.nudGutterWidth.TabIndex = 8;
             this.nudGutterWidth.ValueChanged += new System.EventHandler(this.GutterWidthNumeric_ValueChanged);
             // 
             // chbShowGutter
             // 
-            this.chbShowGutter.Location = new System.Drawing.Point(8, 16);
+            this.chbShowGutter.Location = new System.Drawing.Point(11, 20);
+            this.chbShowGutter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbShowGutter.Name = "chbShowGutter";
-            this.chbShowGutter.Size = new System.Drawing.Size(104, 21);
+            this.chbShowGutter.Size = new System.Drawing.Size(139, 26);
             this.chbShowGutter.TabIndex = 0;
             this.chbShowGutter.Text = "Display Gutter";
             this.chbShowGutter.CheckedChanged += new System.EventHandler(this.ShowGutterCheckBox_CheckedChanged);
@@ -1565,8 +1658,9 @@ namespace Alternet.CodeEditor.Demo
             this.splitter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.splitter1.Location = new System.Drawing.Point(0, 488);
+            this.splitter1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(590, 5);
+            this.splitter1.Size = new System.Drawing.Size(788, 6);
             this.splitter1.TabIndex = 37;
             this.splitter1.TabStop = false;
             // 
@@ -1579,8 +1673,9 @@ namespace Alternet.CodeEditor.Demo
             this.pnMain.Controls.Add(this.treeView1);
             this.pnMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnMain.Location = new System.Drawing.Point(0, 0);
+            this.pnMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnMain.Name = "pnMain";
-            this.pnMain.Size = new System.Drawing.Size(977, 733);
+            this.pnMain.Size = new System.Drawing.Size(1303, 788);
             this.pnMain.TabIndex = 2;
             // 
             // pnEditContainer
@@ -1589,9 +1684,10 @@ namespace Alternet.CodeEditor.Demo
             this.pnEditContainer.Controls.Add(this.splitter1);
             this.pnEditContainer.Controls.Add(this.syntaxSplitEdit);
             this.pnEditContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnEditContainer.Location = new System.Drawing.Point(160, 144);
+            this.pnEditContainer.Location = new System.Drawing.Point(212, 177);
+            this.pnEditContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnEditContainer.Name = "pnEditContainer";
-            this.pnEditContainer.Size = new System.Drawing.Size(590, 589);
+            this.pnEditContainer.Size = new System.Drawing.Size(788, 611);
             this.pnEditContainer.TabIndex = 39;
             // 
             // syntaxSplitEdit
@@ -1599,40 +1695,40 @@ namespace Alternet.CodeEditor.Demo
             this.syntaxSplitEdit.BackColor = System.Drawing.SystemColors.Window;
             this.syntaxSplitEdit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("syntaxSplitEdit.BackgroundImage")));
             this.syntaxSplitEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.syntaxSplitEdit.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.syntaxSplitEdit.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.syntaxSplitEdit.EditMargin.ColumnPositions = new int[] {
         16,
         48};
-            this.syntaxSplitEdit.Location = new System.Drawing.Point(0, 493);
+            this.syntaxSplitEdit.Location = new System.Drawing.Point(0, 494);
+            this.syntaxSplitEdit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.syntaxSplitEdit.Name = "syntaxSplitEdit";
             this.syntaxSplitEdit.Outlining.AllowOutlining = true;
-            this.syntaxSplitEdit.Outlining.ImageSize = 8;
-            this.syntaxSplitEdit.Scrolling.Options = ((Alternet.Editor.ScrollingOptions)((((((Alternet.Editor.ScrollingOptions.SmoothScroll | Alternet.Editor.ScrollingOptions.UseScrollDelta)
-            | Alternet.Editor.ScrollingOptions.AllowSplitHorz)
-            | Alternet.Editor.ScrollingOptions.AllowSplitVert)
-            | Alternet.Editor.ScrollingOptions.HorzButtons)
+            this.syntaxSplitEdit.Scrolling.Options = ((Alternet.Editor.ScrollingOptions)((((((Alternet.Editor.ScrollingOptions.SmoothScroll | Alternet.Editor.ScrollingOptions.UseScrollDelta) 
+            | Alternet.Editor.ScrollingOptions.AllowSplitHorz) 
+            | Alternet.Editor.ScrollingOptions.AllowSplitVert) 
+            | Alternet.Editor.ScrollingOptions.HorzButtons) 
             | Alternet.Editor.ScrollingOptions.VertButtons)));
-            this.syntaxSplitEdit.SearchGlobal = false;
-            this.syntaxSplitEdit.Size = new System.Drawing.Size(590, 96);
+            this.syntaxSplitEdit.Size = new System.Drawing.Size(788, 117);
             this.syntaxSplitEdit.Source = this.textSource1;
             this.syntaxSplitEdit.TabIndex = 36;
             // 
             // splitter2
             // 
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.splitter2.Location = new System.Drawing.Point(750, 144);
+            this.splitter2.Location = new System.Drawing.Point(1000, 177);
+            this.splitter2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(3, 589);
+            this.splitter2.Size = new System.Drawing.Size(4, 611);
             this.splitter2.TabIndex = 38;
             this.splitter2.TabStop = false;
             // 
             // pnPropertyGrid
             // 
             this.pnPropertyGrid.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnPropertyGrid.Location = new System.Drawing.Point(753, 144);
+            this.pnPropertyGrid.Location = new System.Drawing.Point(1004, 177);
+            this.pnPropertyGrid.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnPropertyGrid.Name = "pnPropertyGrid";
-            this.pnPropertyGrid.Size = new System.Drawing.Size(224, 589);
+            this.pnPropertyGrid.Size = new System.Drawing.Size(299, 611);
             this.pnPropertyGrid.TabIndex = 36;
             this.pnPropertyGrid.Visible = false;
             // 
@@ -1640,9 +1736,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             this.pnManage.Controls.Add(this.tcContainer);
             this.pnManage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnManage.Location = new System.Drawing.Point(160, 0);
+            this.pnManage.Location = new System.Drawing.Point(212, 0);
+            this.pnManage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnManage.Name = "pnManage";
-            this.pnManage.Size = new System.Drawing.Size(817, 144);
+            this.pnManage.Size = new System.Drawing.Size(1091, 177);
             this.pnManage.TabIndex = 0;
             // 
             // tcContainer
@@ -1653,6 +1750,7 @@ namespace Alternet.CodeEditor.Demo
             this.tcContainer.Controls.Add(this.tpWordWrap);
             this.tcContainer.Controls.Add(this.tpTextSource);
             this.tcContainer.Controls.Add(this.tpPageLayout);
+            this.tcContainer.Controls.Add(this.tpTextMate);
             this.tcContainer.Controls.Add(this.tpSpellAndUrl);
             this.tcContainer.Controls.Add(this.tpProperties);
             this.tcContainer.Controls.Add(this.tpOutlining);
@@ -1666,18 +1764,20 @@ namespace Alternet.CodeEditor.Demo
             this.tcContainer.Controls.Add(this.tpScrollbarAnnotations);
             this.tcContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcContainer.Location = new System.Drawing.Point(0, 0);
+            this.tcContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tcContainer.Name = "tcContainer";
             this.tcContainer.SelectedIndex = 0;
-            this.tcContainer.Size = new System.Drawing.Size(817, 144);
+            this.tcContainer.Size = new System.Drawing.Size(1091, 177);
             this.tcContainer.TabIndex = 2;
             this.tcContainer.Visible = false;
             // 
             // tpGutter
             // 
             this.tpGutter.Controls.Add(this.pnGutter);
-            this.tpGutter.Location = new System.Drawing.Point(4, 22);
+            this.tpGutter.Location = new System.Drawing.Point(4, 25);
+            this.tpGutter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tpGutter.Name = "tpGutter";
-            this.tpGutter.Size = new System.Drawing.Size(809, 118);
+            this.tpGutter.Size = new System.Drawing.Size(1083, 148);
             this.tpGutter.TabIndex = 0;
             this.tpGutter.Text = "Gutter";
             // 
@@ -1688,16 +1788,18 @@ namespace Alternet.CodeEditor.Demo
             this.pnGutter.Controls.Add(this.gbGutter);
             this.pnGutter.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnGutter.Location = new System.Drawing.Point(0, 0);
+            this.pnGutter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnGutter.Name = "pnGutter";
-            this.pnGutter.Size = new System.Drawing.Size(809, 112);
+            this.pnGutter.Size = new System.Drawing.Size(1083, 137);
             this.pnGutter.TabIndex = 1;
             // 
             // tpWordWrap
             // 
             this.tpWordWrap.Controls.Add(this.pnWordWrap);
-            this.tpWordWrap.Location = new System.Drawing.Point(4, 22);
+            this.tpWordWrap.Location = new System.Drawing.Point(4, 25);
+            this.tpWordWrap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tpWordWrap.Name = "tpWordWrap";
-            this.tpWordWrap.Size = new System.Drawing.Size(809, 118);
+            this.tpWordWrap.Size = new System.Drawing.Size(1081, 148);
             this.tpWordWrap.TabIndex = 1;
             this.tpWordWrap.Text = "WordWrap";
             this.tpWordWrap.Visible = false;
@@ -1709,8 +1811,9 @@ namespace Alternet.CodeEditor.Demo
             this.pnWordWrap.Controls.Add(this.gbWordWrap);
             this.pnWordWrap.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnWordWrap.Location = new System.Drawing.Point(0, 0);
+            this.pnWordWrap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnWordWrap.Name = "pnWordWrap";
-            this.pnWordWrap.Size = new System.Drawing.Size(809, 112);
+            this.pnWordWrap.Size = new System.Drawing.Size(1081, 137);
             this.pnWordWrap.TabIndex = 1;
             // 
             // gbWordWrap
@@ -1723,18 +1826,21 @@ namespace Alternet.CodeEditor.Demo
             this.gbWordWrap.Controls.Add(this.chbWordWrap);
             this.gbWordWrap.Controls.Add(this.chbShowScrollHint);
             this.gbWordWrap.Controls.Add(this.chbSmoothScroll);
-            this.gbWordWrap.Location = new System.Drawing.Point(8, 8);
+            this.gbWordWrap.Location = new System.Drawing.Point(11, 10);
+            this.gbWordWrap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbWordWrap.Name = "gbWordWrap";
-            this.gbWordWrap.Size = new System.Drawing.Size(496, 96);
+            this.gbWordWrap.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbWordWrap.Size = new System.Drawing.Size(661, 118);
             this.gbWordWrap.TabIndex = 13;
             this.gbWordWrap.TabStop = false;
             this.gbWordWrap.Text = "Word Wrap && Scrolling";
             // 
             // chbFlatScrollBars
             // 
-            this.chbFlatScrollBars.Location = new System.Drawing.Point(288, 40);
+            this.chbFlatScrollBars.Location = new System.Drawing.Point(384, 49);
+            this.chbFlatScrollBars.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbFlatScrollBars.Name = "chbFlatScrollBars";
-            this.chbFlatScrollBars.Size = new System.Drawing.Size(104, 21);
+            this.chbFlatScrollBars.Size = new System.Drawing.Size(139, 26);
             this.chbFlatScrollBars.TabIndex = 8;
             this.chbFlatScrollBars.Text = "Flat Scroll";
             this.chbFlatScrollBars.Visible = false;
@@ -1742,9 +1848,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbSystemScrollBars
             // 
-            this.chbSystemScrollBars.Location = new System.Drawing.Point(288, 16);
+            this.chbSystemScrollBars.Location = new System.Drawing.Point(384, 20);
+            this.chbSystemScrollBars.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbSystemScrollBars.Name = "chbSystemScrollBars";
-            this.chbSystemScrollBars.Size = new System.Drawing.Size(104, 21);
+            this.chbSystemScrollBars.Size = new System.Drawing.Size(139, 26);
             this.chbSystemScrollBars.TabIndex = 7;
             this.chbSystemScrollBars.Text = "System Scroll";
             this.chbSystemScrollBars.Visible = false;
@@ -1752,9 +1859,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbScrollButtons
             // 
-            this.chbScrollButtons.Location = new System.Drawing.Point(144, 64);
+            this.chbScrollButtons.Location = new System.Drawing.Point(192, 79);
+            this.chbScrollButtons.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbScrollButtons.Name = "chbScrollButtons";
-            this.chbScrollButtons.Size = new System.Drawing.Size(104, 21);
+            this.chbScrollButtons.Size = new System.Drawing.Size(139, 26);
             this.chbScrollButtons.TabIndex = 6;
             this.chbScrollButtons.Text = "Scroll Buttons";
             this.chbScrollButtons.CheckedChanged += new System.EventHandler(this.ScroluttonsCheckBoxLisoxTextBox_CheckedChanged);
@@ -1762,9 +1870,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbAllowSplit
             // 
-            this.chbAllowSplit.Location = new System.Drawing.Point(144, 40);
+            this.chbAllowSplit.Location = new System.Drawing.Point(192, 49);
+            this.chbAllowSplit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbAllowSplit.Name = "chbAllowSplit";
-            this.chbAllowSplit.Size = new System.Drawing.Size(104, 21);
+            this.chbAllowSplit.Size = new System.Drawing.Size(139, 26);
             this.chbAllowSplit.TabIndex = 5;
             this.chbAllowSplit.Text = "Allow Split";
             this.chbAllowSplit.CheckedChanged += new System.EventHandler(this.AllowSplitCheckBox_CheckedChanged);
@@ -1772,9 +1881,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbWrapAtMargin
             // 
-            this.chbWrapAtMargin.Location = new System.Drawing.Point(8, 40);
+            this.chbWrapAtMargin.Location = new System.Drawing.Point(11, 49);
+            this.chbWrapAtMargin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbWrapAtMargin.Name = "chbWrapAtMargin";
-            this.chbWrapAtMargin.Size = new System.Drawing.Size(104, 21);
+            this.chbWrapAtMargin.Size = new System.Drawing.Size(139, 26);
             this.chbWrapAtMargin.TabIndex = 1;
             this.chbWrapAtMargin.Text = "Wrap at Margin";
             this.chbWrapAtMargin.CheckedChanged += new System.EventHandler(this.WrapAtMarginCheckBox_CheckedChanged);
@@ -1782,9 +1892,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbWordWrap
             // 
-            this.chbWordWrap.Location = new System.Drawing.Point(8, 16);
+            this.chbWordWrap.Location = new System.Drawing.Point(11, 20);
+            this.chbWordWrap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbWordWrap.Name = "chbWordWrap";
-            this.chbWordWrap.Size = new System.Drawing.Size(104, 21);
+            this.chbWordWrap.Size = new System.Drawing.Size(139, 26);
             this.chbWordWrap.TabIndex = 0;
             this.chbWordWrap.Text = "Word Wrap";
             this.chbWordWrap.CheckedChanged += new System.EventHandler(this.WordWrapCheckBox_CheckedChanged);
@@ -1792,9 +1903,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbShowScrollHint
             // 
-            this.chbShowScrollHint.Location = new System.Drawing.Point(8, 64);
+            this.chbShowScrollHint.Location = new System.Drawing.Point(11, 79);
+            this.chbShowScrollHint.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbShowScrollHint.Name = "chbShowScrollHint";
-            this.chbShowScrollHint.Size = new System.Drawing.Size(112, 21);
+            this.chbShowScrollHint.Size = new System.Drawing.Size(149, 26);
             this.chbShowScrollHint.TabIndex = 3;
             this.chbShowScrollHint.Text = "Display Scroll Hint";
             this.chbShowScrollHint.CheckedChanged += new System.EventHandler(this.ShowScrollHintCheckBox_CheckedChanged);
@@ -1802,9 +1914,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbSmoothScroll
             // 
-            this.chbSmoothScroll.Location = new System.Drawing.Point(144, 16);
+            this.chbSmoothScroll.Location = new System.Drawing.Point(192, 20);
+            this.chbSmoothScroll.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbSmoothScroll.Name = "chbSmoothScroll";
-            this.chbSmoothScroll.Size = new System.Drawing.Size(104, 21);
+            this.chbSmoothScroll.Size = new System.Drawing.Size(139, 26);
             this.chbSmoothScroll.TabIndex = 4;
             this.chbSmoothScroll.Text = "Smooth Scroll";
             this.chbSmoothScroll.CheckedChanged += new System.EventHandler(this.SmoothScrollCheckBox_CheckedChanged);
@@ -1813,9 +1926,10 @@ namespace Alternet.CodeEditor.Demo
             // tpTextSource
             // 
             this.tpTextSource.Controls.Add(this.pnTextSource);
-            this.tpTextSource.Location = new System.Drawing.Point(4, 22);
+            this.tpTextSource.Location = new System.Drawing.Point(4, 25);
+            this.tpTextSource.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tpTextSource.Name = "tpTextSource";
-            this.tpTextSource.Size = new System.Drawing.Size(809, 118);
+            this.tpTextSource.Size = new System.Drawing.Size(1081, 148);
             this.tpTextSource.TabIndex = 6;
             this.tpTextSource.Text = "Text Source";
             this.tpTextSource.Visible = false;
@@ -1827,27 +1941,40 @@ namespace Alternet.CodeEditor.Demo
             this.pnTextSource.Controls.Add(this.laSource);
             this.pnTextSource.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnTextSource.Location = new System.Drawing.Point(0, 0);
+            this.pnTextSource.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnTextSource.Name = "pnTextSource";
-            this.pnTextSource.Size = new System.Drawing.Size(809, 73);
+            this.pnTextSource.Size = new System.Drawing.Size(1081, 89);
             this.pnTextSource.TabIndex = 4;
             // 
             // laSource
             // 
             this.laSource.AutoSize = true;
-            this.laSource.Location = new System.Drawing.Point(160, 24);
+            this.laSource.Location = new System.Drawing.Point(213, 30);
+            this.laSource.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.laSource.Name = "laSource";
-            this.laSource.Size = new System.Drawing.Size(208, 13);
+            this.laSource.Size = new System.Drawing.Size(254, 16);
             this.laSource.TabIndex = 0;
             this.laSource.Text = "Several Editor can work with the same text";
             // 
             // tpPageLayout
             // 
             this.tpPageLayout.Controls.Add(this.pnPageLayout);
-            this.tpPageLayout.Location = new System.Drawing.Point(4, 22);
+            this.tpPageLayout.Location = new System.Drawing.Point(4, 25);
+            this.tpPageLayout.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tpPageLayout.Name = "tpPageLayout";
-            this.tpPageLayout.Size = new System.Drawing.Size(809, 118);
+            this.tpPageLayout.Size = new System.Drawing.Size(1083, 148);
             this.tpPageLayout.TabIndex = 13;
             this.tpPageLayout.Text = "Page Layout";
+            // 
+            // tpTextMate
+            // 
+            this.tpTextMate.Controls.Add(this.pnTextMate);
+            this.tpTextMate.Location = new System.Drawing.Point(4, 25);
+            this.tpTextMate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tpTextMate.Name = "tpTextMate";
+            this.tpTextMate.Size = new System.Drawing.Size(1083, 148);
+            this.tpTextMate.TabIndex = 14;
+            this.tpTextMate.Text = "Text Mate";
             // 
             // pnPageLayout
             // 
@@ -1857,9 +1984,46 @@ namespace Alternet.CodeEditor.Demo
             this.pnPageLayout.Controls.Add(this.gbPages);
             this.pnPageLayout.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnPageLayout.Location = new System.Drawing.Point(0, 0);
+            this.pnPageLayout.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnPageLayout.Name = "pnPageLayout";
-            this.pnPageLayout.Size = new System.Drawing.Size(809, 112);
+            this.pnPageLayout.Size = new System.Drawing.Size(1083, 137);
             this.pnPageLayout.TabIndex = 2;
+            // 
+            // pnDescription
+            // 
+            this.pnDescription.Controls.Add(this.laDescription);
+            this.pnDescription.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnDescription.Location = new System.Drawing.Point(0, 0);
+            this.pnDescription.Margin = new System.Windows.Forms.Padding(4);
+            this.pnDescription.Name = "pnDescription";
+            this.pnDescription.Size = new System.Drawing.Size(914, 48);
+            this.pnDescription.TabIndex = 2;
+            // 
+            // laDescription
+            // 
+            this.laDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.laDescription.Location = new System.Drawing.Point(0, 0);
+            this.laDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.laDescription.Name = "laDescription";
+            this.laDescription.Size = new System.Drawing.Size(914, 48);
+            this.laDescription.TabIndex = 1;
+            this.laDescription.Text = "TextMate parser support lexical analysis for the vast subset of programming languages." +
+    "It includes all language Visual Studio Code grammars, and provides some advanced text editing features like indentation-based outlining and structure guidelines and code snippets and basic code completion.";
+            this.laDescription.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // pnTextMate
+            // 
+            this.pnTextMate.BackColor = System.Drawing.SystemColors.Control;
+            this.pnTextMate.Controls.Add(this.pnDescription);
+            this.pnTextMate.Controls.Add(this.LanguagesCombobox);
+            this.pnTextMate.Controls.Add(this.LanguagesLabel);
+            this.pnTextMate.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnTextMate.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnTextMate.Location = new System.Drawing.Point(0, 0);
+            this.pnTextMate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnTextMate.Name = "pnTextMate";
+            this.pnTextMate.Size = new System.Drawing.Size(1083, 137);
+            this.pnTextMate.TabIndex = 2;
             // 
             // gbRulers
             // 
@@ -1870,18 +2034,21 @@ namespace Alternet.CodeEditor.Demo
             this.gbRulers.Controls.Add(this.chbRulerDisplayDragLines);
             this.gbRulers.Controls.Add(this.chbRulerDiscrete);
             this.gbRulers.Controls.Add(this.chbRulerAllowDrag);
-            this.gbRulers.Location = new System.Drawing.Point(208, 8);
+            this.gbRulers.Location = new System.Drawing.Point(277, 10);
+            this.gbRulers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbRulers.Name = "gbRulers";
-            this.gbRulers.Size = new System.Drawing.Size(296, 96);
+            this.gbRulers.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbRulers.Size = new System.Drawing.Size(395, 118);
             this.gbRulers.TabIndex = 14;
             this.gbRulers.TabStop = false;
             this.gbRulers.Text = "Rulers";
             // 
             // chbVertRuler
             // 
-            this.chbVertRuler.Location = new System.Drawing.Point(16, 40);
+            this.chbVertRuler.Location = new System.Drawing.Point(21, 49);
+            this.chbVertRuler.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbVertRuler.Name = "chbVertRuler";
-            this.chbVertRuler.Size = new System.Drawing.Size(104, 21);
+            this.chbVertRuler.Size = new System.Drawing.Size(139, 26);
             this.chbVertRuler.TabIndex = 2;
             this.chbVertRuler.Text = "Vert Ruler";
             this.chbVertRuler.CheckedChanged += new System.EventHandler(this.VertRulerCheckBox_CheckedChanged);
@@ -1889,9 +2056,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbHorzRuler
             // 
-            this.chbHorzRuler.Location = new System.Drawing.Point(16, 16);
+            this.chbHorzRuler.Location = new System.Drawing.Point(21, 20);
+            this.chbHorzRuler.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbHorzRuler.Name = "chbHorzRuler";
-            this.chbHorzRuler.Size = new System.Drawing.Size(104, 21);
+            this.chbHorzRuler.Size = new System.Drawing.Size(139, 26);
             this.chbHorzRuler.TabIndex = 1;
             this.chbHorzRuler.Text = "Horz Ruler";
             this.chbHorzRuler.CheckedChanged += new System.EventHandler(this.HorzRulerCheckBox_CheckedChanged);
@@ -1899,9 +2067,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // cbRulerUnits
             // 
-            this.cbRulerUnits.Location = new System.Drawing.Point(72, 64);
+            this.cbRulerUnits.Location = new System.Drawing.Point(96, 79);
+            this.cbRulerUnits.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbRulerUnits.Name = "cbRulerUnits";
-            this.cbRulerUnits.Size = new System.Drawing.Size(96, 21);
+            this.cbRulerUnits.Size = new System.Drawing.Size(127, 24);
             this.cbRulerUnits.TabIndex = 4;
             this.cbRulerUnits.SelectedIndexChanged += new System.EventHandler(this.RulerUnitsComboBox_SelectedIndexChanged);
             this.cbRulerUnits.MouseMove += new System.Windows.Forms.MouseEventHandler(this.RulerUnitsComboBox_MouseMove);
@@ -1909,17 +2078,19 @@ namespace Alternet.CodeEditor.Demo
             // laRulerUnits
             // 
             this.laRulerUnits.AutoSize = true;
-            this.laRulerUnits.Location = new System.Drawing.Point(8, 67);
+            this.laRulerUnits.Location = new System.Drawing.Point(11, 82);
+            this.laRulerUnits.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.laRulerUnits.Name = "laRulerUnits";
-            this.laRulerUnits.Size = new System.Drawing.Size(59, 13);
+            this.laRulerUnits.Size = new System.Drawing.Size(72, 16);
             this.laRulerUnits.TabIndex = 3;
             this.laRulerUnits.Text = "Ruler Units";
             // 
             // chbRulerDisplayDragLines
             // 
-            this.chbRulerDisplayDragLines.Location = new System.Drawing.Point(176, 64);
+            this.chbRulerDisplayDragLines.Location = new System.Drawing.Point(235, 79);
+            this.chbRulerDisplayDragLines.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbRulerDisplayDragLines.Name = "chbRulerDisplayDragLines";
-            this.chbRulerDisplayDragLines.Size = new System.Drawing.Size(118, 21);
+            this.chbRulerDisplayDragLines.Size = new System.Drawing.Size(157, 26);
             this.chbRulerDisplayDragLines.TabIndex = 7;
             this.chbRulerDisplayDragLines.Text = "Display Drag Lines";
             this.chbRulerDisplayDragLines.CheckedChanged += new System.EventHandler(this.RulerDisplayDragLinesCheckBox_CheckedChanged);
@@ -1927,9 +2098,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbRulerDiscrete
             // 
-            this.chbRulerDiscrete.Location = new System.Drawing.Point(176, 40);
+            this.chbRulerDiscrete.Location = new System.Drawing.Point(235, 49);
+            this.chbRulerDiscrete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbRulerDiscrete.Name = "chbRulerDiscrete";
-            this.chbRulerDiscrete.Size = new System.Drawing.Size(104, 21);
+            this.chbRulerDiscrete.Size = new System.Drawing.Size(139, 26);
             this.chbRulerDiscrete.TabIndex = 6;
             this.chbRulerDiscrete.Text = "Discrete";
             this.chbRulerDiscrete.CheckedChanged += new System.EventHandler(this.RulerDiscreteCheckBox_CheckedChanged);
@@ -1937,9 +2109,10 @@ namespace Alternet.CodeEditor.Demo
             // 
             // chbRulerAllowDrag
             // 
-            this.chbRulerAllowDrag.Location = new System.Drawing.Point(176, 16);
+            this.chbRulerAllowDrag.Location = new System.Drawing.Point(235, 20);
+            this.chbRulerAllowDrag.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbRulerAllowDrag.Name = "chbRulerAllowDrag";
-            this.chbRulerAllowDrag.Size = new System.Drawing.Size(104, 21);
+            this.chbRulerAllowDrag.Size = new System.Drawing.Size(139, 26);
             this.chbRulerAllowDrag.TabIndex = 5;
             this.chbRulerAllowDrag.Text = "Allow Drag";
             this.chbRulerAllowDrag.CheckedChanged += new System.EventHandler(this.RulerAllowDragCheckBox_CheckedChanged);
@@ -1951,18 +2124,21 @@ namespace Alternet.CodeEditor.Demo
             this.gbPages.Controls.Add(this.laPageSize);
             this.gbPages.Controls.Add(this.cbPageLayout);
             this.gbPages.Controls.Add(this.laPageLayout);
-            this.gbPages.Location = new System.Drawing.Point(8, 8);
+            this.gbPages.Location = new System.Drawing.Point(11, 10);
+            this.gbPages.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbPages.Name = "gbPages";
-            this.gbPages.Size = new System.Drawing.Size(184, 96);
+            this.gbPages.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbPages.Size = new System.Drawing.Size(245, 118);
             this.gbPages.TabIndex = 13;
             this.gbPages.TabStop = false;
             this.gbPages.Text = "Pages";
             // 
             // cbPageSize
             // 
-            this.cbPageSize.Location = new System.Drawing.Point(80, 48);
+            this.cbPageSize.Location = new System.Drawing.Point(107, 59);
+            this.cbPageSize.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbPageSize.Name = "cbPageSize";
-            this.cbPageSize.Size = new System.Drawing.Size(96, 21);
+            this.cbPageSize.Size = new System.Drawing.Size(127, 24);
             this.cbPageSize.TabIndex = 4;
             this.cbPageSize.SelectedIndexChanged += new System.EventHandler(this.PageSizeComboBox_SelectedIndexChanged);
             this.cbPageSize.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PageSizeComboBox_MouseMove);
@@ -1970,17 +2146,19 @@ namespace Alternet.CodeEditor.Demo
             // laPageSize
             // 
             this.laPageSize.AutoSize = true;
-            this.laPageSize.Location = new System.Drawing.Point(8, 51);
+            this.laPageSize.Location = new System.Drawing.Point(11, 63);
+            this.laPageSize.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.laPageSize.Name = "laPageSize";
-            this.laPageSize.Size = new System.Drawing.Size(55, 13);
+            this.laPageSize.Size = new System.Drawing.Size(69, 16);
             this.laPageSize.TabIndex = 3;
             this.laPageSize.Text = "Page Size";
             // 
             // cbPageLayout
             // 
-            this.cbPageLayout.Location = new System.Drawing.Point(80, 24);
+            this.cbPageLayout.Location = new System.Drawing.Point(107, 30);
+            this.cbPageLayout.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbPageLayout.Name = "cbPageLayout";
-            this.cbPageLayout.Size = new System.Drawing.Size(96, 21);
+            this.cbPageLayout.Size = new System.Drawing.Size(127, 24);
             this.cbPageLayout.TabIndex = 2;
             this.cbPageLayout.SelectedIndexChanged += new System.EventHandler(this.PageLayoutComboBox_SelectedIndexChanged);
             this.cbPageLayout.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PageLayoutComboBox_MouseMove);
@@ -1988,18 +2166,20 @@ namespace Alternet.CodeEditor.Demo
             // laPageLayout
             // 
             this.laPageLayout.AutoSize = true;
-            this.laPageLayout.Location = new System.Drawing.Point(8, 27);
+            this.laPageLayout.Location = new System.Drawing.Point(11, 33);
+            this.laPageLayout.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.laPageLayout.Name = "laPageLayout";
-            this.laPageLayout.Size = new System.Drawing.Size(67, 13);
+            this.laPageLayout.Size = new System.Drawing.Size(83, 16);
             this.laPageLayout.TabIndex = 1;
             this.laPageLayout.Text = "Page Layout";
             // 
             // tpSpellAndUrl
             // 
             this.tpSpellAndUrl.Controls.Add(this.pnSpellAndUrl);
-            this.tpSpellAndUrl.Location = new System.Drawing.Point(4, 22);
+            this.tpSpellAndUrl.Location = new System.Drawing.Point(4, 25);
+            this.tpSpellAndUrl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tpSpellAndUrl.Name = "tpSpellAndUrl";
-            this.tpSpellAndUrl.Size = new System.Drawing.Size(809, 118);
+            this.tpSpellAndUrl.Size = new System.Drawing.Size(1081, 148);
             this.tpSpellAndUrl.TabIndex = 5;
             this.tpSpellAndUrl.Text = "Spell&&Url";
             this.tpSpellAndUrl.Visible = false;
@@ -2011,8 +2191,9 @@ namespace Alternet.CodeEditor.Demo
             this.pnSpellAndUrl.Controls.Add(this.gbSpellAndUrl);
             this.pnSpellAndUrl.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnSpellAndUrl.Location = new System.Drawing.Point(0, 0);
+            this.pnSpellAndUrl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnSpellAndUrl.Name = "pnSpellAndUrl";
-            this.pnSpellAndUrl.Size = new System.Drawing.Size(809, 112);
+            this.pnSpellAndUrl.Size = new System.Drawing.Size(1081, 137);
             this.pnSpellAndUrl.TabIndex = 3;
             // 
             // gbSpellAndUrl
@@ -2020,37 +2201,29 @@ namespace Alternet.CodeEditor.Demo
             this.gbSpellAndUrl.Controls.Add(this.chbShowHyperTextHints);
             this.gbSpellAndUrl.Controls.Add(this.chbCheckSpelling);
             this.gbSpellAndUrl.Controls.Add(this.chbHighlightUrls);
-            this.gbSpellAndUrl.Location = new System.Drawing.Point(8, 8);
+            this.gbSpellAndUrl.Location = new System.Drawing.Point(11, 10);
+            this.gbSpellAndUrl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbSpellAndUrl.Name = "gbSpellAndUrl";
-            this.gbSpellAndUrl.Size = new System.Drawing.Size(496, 96);
+            this.gbSpellAndUrl.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbSpellAndUrl.Size = new System.Drawing.Size(661, 118);
             this.gbSpellAndUrl.TabIndex = 0;
             this.gbSpellAndUrl.TabStop = false;
             this.gbSpellAndUrl.Text = "Spelling && HyperText";
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.White;
-            this.imageList1.Images.SetKeyName(0, "");
-            this.imageList1.Images.SetKeyName(1, "");
-            // 
-            // saveFileDialog2
-            // 
-            this.saveFileDialog2.Filter = "Rtf files (*.rtf)|*.rtf|Html files (*.html; *.htm)|*.html;*.htm|Xml files (*.xml)" +
-    "|*.xml|All files (*.*)|*.*";
             // 
             // tpScrollbarAnnotations
             // 
             this.tpScrollbarAnnotations.BackColor = System.Drawing.SystemColors.Control;
             this.tpScrollbarAnnotations.Controls.Add(this.pnScrollbarAnnotations);
-            this.tpScrollbarAnnotations.Location = new System.Drawing.Point(4, 22);
+            this.tpScrollbarAnnotations.Location = new System.Drawing.Point(4, 25);
+            this.tpScrollbarAnnotations.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tpScrollbarAnnotations.Name = "tpScrollbarAnnotations";
-            this.tpScrollbarAnnotations.Size = new System.Drawing.Size(809, 118);
+            this.tpScrollbarAnnotations.Size = new System.Drawing.Size(1081, 148);
             this.tpScrollbarAnnotations.TabIndex = 15;
             this.tpScrollbarAnnotations.Text = "Scroll bar Annotations";
             // 
             // pnScrollbarAnnotations
             // 
+            this.pnScrollbarAnnotations.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pnScrollbarAnnotations.Controls.Add(this.separatorTextBox);
             this.pnScrollbarAnnotations.Controls.Add(this.changeErrorsAppearanceCheckBox);
             this.pnScrollbarAnnotations.Controls.Add(this.customAnnotationsCheckBox);
@@ -2065,20 +2238,144 @@ namespace Alternet.CodeEditor.Demo
             this.pnScrollbarAnnotations.Controls.Add(this.changedLinesTypeCheckBox);
             this.pnScrollbarAnnotations.Controls.Add(this.scrollBarAnnotationsEnabledCheckBox);
             this.pnScrollbarAnnotations.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnScrollbarAnnotations.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pnScrollbarAnnotations.Location = new System.Drawing.Point(0, 0);
+            this.pnScrollbarAnnotations.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnScrollbarAnnotations.Name = "pnScrollbarAnnotations";
-            this.pnScrollbarAnnotations.Size = new System.Drawing.Size(809, 112);
+            this.pnScrollbarAnnotations.Size = new System.Drawing.Size(1081, 137);
             this.pnScrollbarAnnotations.TabIndex = 0;
+            // 
+            // separatorTextBox
+            // 
+            this.separatorTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.separatorTextBox.Enabled = false;
+            this.separatorTextBox.Location = new System.Drawing.Point(329, 14);
+            this.separatorTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.separatorTextBox.Multiline = true;
+            this.separatorTextBox.Name = "separatorTextBox";
+            this.separatorTextBox.Size = new System.Drawing.Size(1, 123);
+            this.separatorTextBox.TabIndex = 17;
+            // 
+            // changeErrorsAppearanceCheckBox
+            // 
+            this.changeErrorsAppearanceCheckBox.AutoSize = true;
+            this.changeErrorsAppearanceCheckBox.Location = new System.Drawing.Point(781, 47);
+            this.changeErrorsAppearanceCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.changeErrorsAppearanceCheckBox.Name = "changeErrorsAppearanceCheckBox";
+            this.changeErrorsAppearanceCheckBox.Size = new System.Drawing.Size(233, 20);
+            this.changeErrorsAppearanceCheckBox.TabIndex = 16;
+            this.changeErrorsAppearanceCheckBox.Text = "Change Errors Appearance Demo";
+            this.changeErrorsAppearanceCheckBox.UseVisualStyleBackColor = true;
+            this.changeErrorsAppearanceCheckBox.CheckedChanged += new System.EventHandler(this.ChangeErrorsAppearanceCheckBox_CheckedChanged);
+            // 
+            // customAnnotationsCheckBox
+            // 
+            this.customAnnotationsCheckBox.AutoSize = true;
+            this.customAnnotationsCheckBox.Location = new System.Drawing.Point(781, 16);
+            this.customAnnotationsCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.customAnnotationsCheckBox.Name = "customAnnotationsCheckBox";
+            this.customAnnotationsCheckBox.Size = new System.Drawing.Size(187, 20);
+            this.customAnnotationsCheckBox.TabIndex = 15;
+            this.customAnnotationsCheckBox.Text = "Custom Annotations Demo";
+            this.customAnnotationsCheckBox.UseVisualStyleBackColor = true;
+            this.customAnnotationsCheckBox.CheckedChanged += new System.EventHandler(this.CustomAnnotationsCheckBox_CheckedChanged);
+            // 
+            // saveButton
+            // 
+            this.saveButton.Location = new System.Drawing.Point(781, 78);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(167, 33);
+            this.saveButton.TabIndex = 14;
+            this.saveButton.Text = "Save Text Changes";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.SaveButton_ButtonClick);
+            // 
+            // scrollBarsVisualStyleComboBox
+            // 
+            this.scrollBarsVisualStyleComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.scrollBarsVisualStyleComboBox.FormattingEnabled = true;
+            this.scrollBarsVisualStyleComboBox.Location = new System.Drawing.Point(364, 42);
+            this.scrollBarsVisualStyleComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scrollBarsVisualStyleComboBox.Name = "scrollBarsVisualStyleComboBox";
+            this.scrollBarsVisualStyleComboBox.Size = new System.Drawing.Size(261, 24);
+            this.scrollBarsVisualStyleComboBox.TabIndex = 13;
+            this.scrollBarsVisualStyleComboBox.SelectedIndexChanged += new System.EventHandler(this.ScrolarsVisualStyleComboBoxLisoxTextBox_SelectedIndexChanged);
+            // 
+            // scrollBarsVisualStyleLabel
+            // 
+            this.scrollBarsVisualStyleLabel.AutoSize = true;
+            this.scrollBarsVisualStyleLabel.Location = new System.Drawing.Point(360, 16);
+            this.scrollBarsVisualStyleLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.scrollBarsVisualStyleLabel.Name = "scrollBarsVisualStyleLabel";
+            this.scrollBarsVisualStyleLabel.Size = new System.Drawing.Size(148, 16);
+            this.scrollBarsVisualStyleLabel.TabIndex = 12;
+            this.scrollBarsVisualStyleLabel.Text = "Scroll Bars Visual Style:";
+            // 
+            // customTypeCheckBox
+            // 
+            this.customTypeCheckBox.AutoSize = true;
+            this.customTypeCheckBox.Checked = true;
+            this.customTypeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.customTypeCheckBox.Location = new System.Drawing.Point(191, 108);
+            this.customTypeCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.customTypeCheckBox.Name = "customTypeCheckBox";
+            this.customTypeCheckBox.Size = new System.Drawing.Size(74, 20);
+            this.customTypeCheckBox.TabIndex = 11;
+            this.customTypeCheckBox.Text = "Custom";
+            this.customTypeCheckBox.UseVisualStyleBackColor = true;
+            this.customTypeCheckBox.CheckedChanged += new System.EventHandler(this.AnnotationTypeCheckBox_CheckedChanged);
+            // 
+            // cursorPositionTypeCheckBox
+            // 
+            this.cursorPositionTypeCheckBox.AutoSize = true;
+            this.cursorPositionTypeCheckBox.Checked = true;
+            this.cursorPositionTypeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cursorPositionTypeCheckBox.Location = new System.Drawing.Point(191, 78);
+            this.cursorPositionTypeCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cursorPositionTypeCheckBox.Name = "cursorPositionTypeCheckBox";
+            this.cursorPositionTypeCheckBox.Size = new System.Drawing.Size(119, 20);
+            this.cursorPositionTypeCheckBox.TabIndex = 10;
+            this.cursorPositionTypeCheckBox.Text = "Cursor Position";
+            this.cursorPositionTypeCheckBox.UseVisualStyleBackColor = true;
+            this.cursorPositionTypeCheckBox.CheckedChanged += new System.EventHandler(this.AnnotationTypeCheckBox_CheckedChanged);
+            // 
+            // syntaxErrorsTypeCheckBox
+            // 
+            this.syntaxErrorsTypeCheckBox.AutoSize = true;
+            this.syntaxErrorsTypeCheckBox.Checked = true;
+            this.syntaxErrorsTypeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.syntaxErrorsTypeCheckBox.Location = new System.Drawing.Point(191, 47);
+            this.syntaxErrorsTypeCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.syntaxErrorsTypeCheckBox.Name = "syntaxErrorsTypeCheckBox";
+            this.syntaxErrorsTypeCheckBox.Size = new System.Drawing.Size(108, 20);
+            this.syntaxErrorsTypeCheckBox.TabIndex = 9;
+            this.syntaxErrorsTypeCheckBox.Text = "Syntax Errors";
+            this.syntaxErrorsTypeCheckBox.UseVisualStyleBackColor = true;
+            this.syntaxErrorsTypeCheckBox.CheckedChanged += new System.EventHandler(this.AnnotationTypeCheckBox_CheckedChanged);
+            // 
+            // searchResultsTypeCheckBox
+            // 
+            this.searchResultsTypeCheckBox.AutoSize = true;
+            this.searchResultsTypeCheckBox.Checked = true;
+            this.searchResultsTypeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.searchResultsTypeCheckBox.Location = new System.Drawing.Point(53, 108);
+            this.searchResultsTypeCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.searchResultsTypeCheckBox.Name = "searchResultsTypeCheckBox";
+            this.searchResultsTypeCheckBox.Size = new System.Drawing.Size(120, 20);
+            this.searchResultsTypeCheckBox.TabIndex = 8;
+            this.searchResultsTypeCheckBox.Text = "Search Results";
+            this.searchResultsTypeCheckBox.UseVisualStyleBackColor = true;
+            this.searchResultsTypeCheckBox.CheckedChanged += new System.EventHandler(this.AnnotationTypeCheckBox_CheckedChanged);
             // 
             // bookmarksTypeCheckBox
             // 
             this.bookmarksTypeCheckBox.AutoSize = true;
             this.bookmarksTypeCheckBox.Checked = true;
             this.bookmarksTypeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.bookmarksTypeCheckBox.Location = new System.Drawing.Point(40, 63);
+            this.bookmarksTypeCheckBox.Location = new System.Drawing.Point(53, 78);
+            this.bookmarksTypeCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.bookmarksTypeCheckBox.Name = "bookmarksTypeCheckBox";
-            this.bookmarksTypeCheckBox.Size = new System.Drawing.Size(79, 17);
+            this.bookmarksTypeCheckBox.Size = new System.Drawing.Size(98, 20);
             this.bookmarksTypeCheckBox.TabIndex = 6;
             this.bookmarksTypeCheckBox.Text = "Bookmarks";
             this.bookmarksTypeCheckBox.UseVisualStyleBackColor = true;
@@ -2089,9 +2386,10 @@ namespace Alternet.CodeEditor.Demo
             this.changedLinesTypeCheckBox.AutoSize = true;
             this.changedLinesTypeCheckBox.Checked = true;
             this.changedLinesTypeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.changedLinesTypeCheckBox.Location = new System.Drawing.Point(40, 38);
+            this.changedLinesTypeCheckBox.Location = new System.Drawing.Point(53, 47);
+            this.changedLinesTypeCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.changedLinesTypeCheckBox.Name = "changedLinesTypeCheckBox";
-            this.changedLinesTypeCheckBox.Size = new System.Drawing.Size(97, 17);
+            this.changedLinesTypeCheckBox.Size = new System.Drawing.Size(119, 20);
             this.changedLinesTypeCheckBox.TabIndex = 5;
             this.changedLinesTypeCheckBox.Text = "Changed Lines";
             this.changedLinesTypeCheckBox.UseVisualStyleBackColor = true;
@@ -2102,13 +2400,26 @@ namespace Alternet.CodeEditor.Demo
             this.scrollBarAnnotationsEnabledCheckBox.AutoSize = true;
             this.scrollBarAnnotationsEnabledCheckBox.Checked = true;
             this.scrollBarAnnotationsEnabledCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.scrollBarAnnotationsEnabledCheckBox.Location = new System.Drawing.Point(13, 13);
+            this.scrollBarAnnotationsEnabledCheckBox.Location = new System.Drawing.Point(17, 16);
+            this.scrollBarAnnotationsEnabledCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.scrollBarAnnotationsEnabledCheckBox.Name = "scrollBarAnnotationsEnabledCheckBox";
-            this.scrollBarAnnotationsEnabledCheckBox.Size = new System.Drawing.Size(172, 17);
+            this.scrollBarAnnotationsEnabledCheckBox.Size = new System.Drawing.Size(214, 20);
             this.scrollBarAnnotationsEnabledCheckBox.TabIndex = 4;
             this.scrollBarAnnotationsEnabledCheckBox.Text = "Scroll Bar Annotations Enabled";
             this.scrollBarAnnotationsEnabledCheckBox.UseVisualStyleBackColor = true;
             this.scrollBarAnnotationsEnabledCheckBox.CheckedChanged += new System.EventHandler(this.ScrolarAnnotationsEnabledCheckBoxLisoxTextBox_CheckedChanged);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.White;
+            this.imageList1.Images.SetKeyName(0, "");
+            this.imageList1.Images.SetKeyName(1, "");
+            // 
+            // saveFileDialog2
+            // 
+            this.saveFileDialog2.Filter = "Rtf files (*.rtf)|*.rtf|Html files (*.html; *.htm)|*.html;*.htm|Xml files (*.xml)" +
+    "|*.xml|All files (*.*)|*.*";
             // 
             // tpVisualThemes
             // 
@@ -2139,7 +2450,7 @@ namespace Alternet.CodeEditor.Demo
             this.visualThemeComboBox.FormattingEnabled = true;
             this.visualThemeComboBox.Location = new System.Drawing.Point(193, 16);
             this.visualThemeComboBox.Name = "visualThemeComboBox";
-            this.visualThemeComboBox.Size = new System.Drawing.Size(179, 21);
+            this.visualThemeComboBox.Size = new System.Drawing.Size(179, 24);
             this.visualThemeComboBox.TabIndex = 1;
             this.visualThemeComboBox.SelectedIndexChanged += new System.EventHandler(this.VisualThemeComboBox_SelectedIndexChanged);
             // 
@@ -2148,130 +2459,37 @@ namespace Alternet.CodeEditor.Demo
             this.visualThemeLabel.AutoSize = true;
             this.visualThemeLabel.Location = new System.Drawing.Point(13, 20);
             this.visualThemeLabel.Name = "visualThemeLabel";
-            this.visualThemeLabel.Size = new System.Drawing.Size(74, 13);
+            this.visualThemeLabel.Size = new System.Drawing.Size(93, 16);
             this.visualThemeLabel.TabIndex = 0;
             this.visualThemeLabel.Text = "Visual Theme:";
             // 
-            // customTypeCheckBox
+            // LanguagesCombobox
             // 
-            this.customTypeCheckBox.AutoSize = true;
-            this.customTypeCheckBox.Checked = true;
-            this.customTypeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.customTypeCheckBox.Location = new System.Drawing.Point(143, 88);
-            this.customTypeCheckBox.Name = "customTypeCheckBox";
-            this.customTypeCheckBox.Size = new System.Drawing.Size(61, 17);
-            this.customTypeCheckBox.TabIndex = 11;
-            this.customTypeCheckBox.Text = "Custom";
-            this.customTypeCheckBox.UseVisualStyleBackColor = true;
-            this.customTypeCheckBox.CheckedChanged += new System.EventHandler(this.AnnotationTypeCheckBox_CheckedChanged);
+            this.LanguagesCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.LanguagesCombobox.FormattingEnabled = true;
+            this.LanguagesCombobox.Location = new System.Drawing.Point(95, 70);
+            this.LanguagesCombobox.Name = "LanguagesCombobox";
+            this.LanguagesCombobox.Size = new System.Drawing.Size(169, 24);
+            this.LanguagesCombobox.TabIndex = 1;
+            this.LanguagesCombobox.SelectedIndexChanged += new System.EventHandler(this.LanguagesCombobox_SelectedIndexChanged);
             // 
-            // cursorPositionTypeCheckBox
+            // LanguagesLabel
             // 
-            this.cursorPositionTypeCheckBox.AutoSize = true;
-            this.cursorPositionTypeCheckBox.Checked = true;
-            this.cursorPositionTypeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cursorPositionTypeCheckBox.Location = new System.Drawing.Point(143, 63);
-            this.cursorPositionTypeCheckBox.Name = "cursorPositionTypeCheckBox";
-            this.cursorPositionTypeCheckBox.Size = new System.Drawing.Size(96, 17);
-            this.cursorPositionTypeCheckBox.TabIndex = 10;
-            this.cursorPositionTypeCheckBox.Text = "Cursor Position";
-            this.cursorPositionTypeCheckBox.UseVisualStyleBackColor = true;
-            this.cursorPositionTypeCheckBox.CheckedChanged += new System.EventHandler(this.AnnotationTypeCheckBox_CheckedChanged);
-            // 
-            // syntaxErrorsTypeCheckBox
-            // 
-            this.syntaxErrorsTypeCheckBox.AutoSize = true;
-            this.syntaxErrorsTypeCheckBox.Checked = true;
-            this.syntaxErrorsTypeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.syntaxErrorsTypeCheckBox.Location = new System.Drawing.Point(143, 38);
-            this.syntaxErrorsTypeCheckBox.Name = "syntaxErrorsTypeCheckBox";
-            this.syntaxErrorsTypeCheckBox.Size = new System.Drawing.Size(88, 17);
-            this.syntaxErrorsTypeCheckBox.TabIndex = 9;
-            this.syntaxErrorsTypeCheckBox.Text = "Syntax Errors";
-            this.syntaxErrorsTypeCheckBox.UseVisualStyleBackColor = true;
-            this.syntaxErrorsTypeCheckBox.CheckedChanged += new System.EventHandler(this.AnnotationTypeCheckBox_CheckedChanged);
-            // 
-            // searchResultsTypeCheckBox
-            // 
-            this.searchResultsTypeCheckBox.AutoSize = true;
-            this.searchResultsTypeCheckBox.Checked = true;
-            this.searchResultsTypeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.searchResultsTypeCheckBox.Location = new System.Drawing.Point(40, 88);
-            this.searchResultsTypeCheckBox.Name = "searchResultsTypeCheckBox";
-            this.searchResultsTypeCheckBox.Size = new System.Drawing.Size(98, 17);
-            this.searchResultsTypeCheckBox.TabIndex = 8;
-            this.searchResultsTypeCheckBox.Text = "Search Results";
-            this.searchResultsTypeCheckBox.UseVisualStyleBackColor = true;
-            this.searchResultsTypeCheckBox.CheckedChanged += new System.EventHandler(this.AnnotationTypeCheckBox_CheckedChanged);
-            // 
-            // scrollBarsVisualStyleComboBox
-            // 
-            this.scrollBarsVisualStyleComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.scrollBarsVisualStyleComboBox.FormattingEnabled = true;
-            this.scrollBarsVisualStyleComboBox.Location = new System.Drawing.Point(273, 34);
-            this.scrollBarsVisualStyleComboBox.Name = "scrollBarsVisualStyleComboBox";
-            this.scrollBarsVisualStyleComboBox.Size = new System.Drawing.Size(197, 21);
-            this.scrollBarsVisualStyleComboBox.TabIndex = 13;
-            this.scrollBarsVisualStyleComboBox.SelectedIndexChanged += new System.EventHandler(this.ScrolarsVisualStyleComboBoxLisoxTextBox_SelectedIndexChanged);
-            // 
-            // scrollBarsVisualStyleLabel
-            // 
-            this.scrollBarsVisualStyleLabel.AutoSize = true;
-            this.scrollBarsVisualStyleLabel.Location = new System.Drawing.Point(270, 13);
-            this.scrollBarsVisualStyleLabel.Name = "scrollBarsVisualStyleLabel";
-            this.scrollBarsVisualStyleLabel.Size = new System.Drawing.Size(117, 13);
-            this.scrollBarsVisualStyleLabel.TabIndex = 12;
-            this.scrollBarsVisualStyleLabel.Text = "Scroll Bars Visual Style:";
-            // 
-            // changeErrorsAppearanceCheckBox
-            // 
-            this.changeErrorsAppearanceCheckBox.AutoSize = true;
-            this.changeErrorsAppearanceCheckBox.Location = new System.Drawing.Point(586, 38);
-            this.changeErrorsAppearanceCheckBox.Name = "changeErrorsAppearanceCheckBox";
-            this.changeErrorsAppearanceCheckBox.Size = new System.Drawing.Size(185, 17);
-            this.changeErrorsAppearanceCheckBox.TabIndex = 16;
-            this.changeErrorsAppearanceCheckBox.Text = "Change Errors Appearance Demo";
-            this.changeErrorsAppearanceCheckBox.UseVisualStyleBackColor = true;
-            this.changeErrorsAppearanceCheckBox.CheckedChanged += new System.EventHandler(this.ChangeErrorsAppearanceCheckBox_CheckedChanged);
-            // 
-            // customAnnotationsCheckBox
-            // 
-            this.customAnnotationsCheckBox.AutoSize = true;
-            this.customAnnotationsCheckBox.Location = new System.Drawing.Point(586, 13);
-            this.customAnnotationsCheckBox.Name = "customAnnotationsCheckBox";
-            this.customAnnotationsCheckBox.Size = new System.Drawing.Size(151, 17);
-            this.customAnnotationsCheckBox.TabIndex = 15;
-            this.customAnnotationsCheckBox.Text = "Custom Annotations Demo";
-            this.customAnnotationsCheckBox.UseVisualStyleBackColor = true;
-            this.customAnnotationsCheckBox.CheckedChanged += new System.EventHandler(this.CustomAnnotationsCheckBox_CheckedChanged);
-            // 
-            // saveButton
-            // 
-            this.saveButton.Location = new System.Drawing.Point(586, 63);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(125, 27);
-            this.saveButton.TabIndex = 14;
-            this.saveButton.Text = "Save Text Changes";
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.SaveButton_ButtonClick);
-            // 
-            // separatorTextBox
-            // 
-            this.separatorTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.separatorTextBox.Enabled = false;
-            this.separatorTextBox.Location = new System.Drawing.Point(247, 11);
-            this.separatorTextBox.Multiline = true;
-            this.separatorTextBox.Name = "separatorTextBox";
-            this.separatorTextBox.Size = new System.Drawing.Size(1, 100);
-            this.separatorTextBox.TabIndex = 17;
+            this.LanguagesLabel.AutoSize = true;
+            this.LanguagesLabel.Location = new System.Drawing.Point(12, 74);
+            this.LanguagesLabel.Name = "LanguagesLabel";
+            this.LanguagesLabel.Size = new System.Drawing.Size(78, 16);
+            this.LanguagesLabel.TabIndex = 0;
+            this.LanguagesLabel.Text = "Languages:";
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(977, 640);
+            this.ClientSize = new System.Drawing.Size(1303, 788);
             this.Controls.Add(this.pnMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Code Editor";
@@ -2294,9 +2512,9 @@ namespace Alternet.CodeEditor.Demo
             this.gbOther.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudLineNumbersStart)).EndInit();
             this.pnLineNumbers.ResumeLayout(false);
-            this.pnLineStyles.ResumeLayout(false);
             this.gbLineNumbers.ResumeLayout(false);
             this.gbLineNumbers.PerformLayout();
+            this.pnLineStyles.ResumeLayout(false);
             this.tpLineNumbers.ResumeLayout(false);
             this.tpLineStyles.ResumeLayout(false);
             this.gbBraces.ResumeLayout(false);
@@ -2328,7 +2546,9 @@ namespace Alternet.CodeEditor.Demo
             this.pnTextSource.ResumeLayout(false);
             this.pnTextSource.PerformLayout();
             this.tpPageLayout.ResumeLayout(false);
+            this.tpTextMate.ResumeLayout(false);
             this.pnPageLayout.ResumeLayout(false);
+            this.pnTextMate.ResumeLayout(false);
             this.gbRulers.ResumeLayout(false);
             this.gbRulers.PerformLayout();
             this.gbPages.ResumeLayout(false);
@@ -2339,6 +2559,10 @@ namespace Alternet.CodeEditor.Demo
             this.tpScrollbarAnnotations.ResumeLayout(false);
             this.pnScrollbarAnnotations.ResumeLayout(false);
             this.pnScrollbarAnnotations.PerformLayout();
+            this.tpVisualThemes.ResumeLayout(false);
+            this.pnVisualThemes.ResumeLayout(false);
+            this.pnVisualThemes.PerformLayout();
+            this.pnDescription.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2478,7 +2702,9 @@ namespace Alternet.CodeEditor.Demo
         private System.Windows.Forms.Panel pnTextSource;
         private System.Windows.Forms.Label laSource;
         private System.Windows.Forms.TabPage tpPageLayout;
+        private System.Windows.Forms.TabPage tpTextMate;
         private System.Windows.Forms.Panel pnPageLayout;
+        private System.Windows.Forms.Panel pnTextMate;
         private System.Windows.Forms.GroupBox gbRulers;
         private System.Windows.Forms.CheckBox chbVertRuler;
         private System.Windows.Forms.CheckBox chbHorzRuler;
@@ -2519,6 +2745,10 @@ namespace Alternet.CodeEditor.Demo
         private System.Windows.Forms.Label visualThemeLabel;
         private System.Windows.Forms.Button btSetBreakpoint;
         private System.Windows.Forms.Button btStepOver;
+        private System.Windows.Forms.ComboBox LanguagesCombobox;
+        private System.Windows.Forms.Label LanguagesLabel;
+        private System.Windows.Forms.Panel pnDescription;
+        private System.Windows.Forms.Label laDescription;
 
         /// <summary>
         /// Clean up any resources being used.

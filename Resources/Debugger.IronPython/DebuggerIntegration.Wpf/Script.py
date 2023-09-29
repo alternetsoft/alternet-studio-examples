@@ -25,7 +25,7 @@ x = 123
 a = [1, 2, 3, 4, 5]
 e = date.today()
 c = MyClass()
-
+print(MyClass);
 hw = c.f()
 
 #while True:

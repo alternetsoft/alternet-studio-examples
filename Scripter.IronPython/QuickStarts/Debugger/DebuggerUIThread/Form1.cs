@@ -25,6 +25,7 @@ namespace DebuggerIntegration.IronPython
 
         private static readonly string[] ProjectSearchDirectories = new[] { ".", @"..\..\..\..\..\..\..\" };
         private static readonly string StartupProjectFileSubPath = @"Resources\Debugger.IronPython\DebuggerUIThread\Project.pyproj";
+        private static readonly string StartupFileSubPath = @"Resources\Debugger.IronPython\DebuggerUIThread\CallMethod.py";
         private DebugCodeEditContainer editorTabContainer;
         private ScriptDebugger debugger;
         private DisplayForm displayForm;
@@ -37,7 +38,7 @@ namespace DebuggerIntegration.IronPython
 
             editorTabContainer.EditorRequested += EditorContainer_EditorRequested;
 
-            OpenProject(FindProjectFile());
+            OpenFile(FindPythonFile());
 
             debugger = new ScriptDebugger
             {
@@ -88,6 +89,9 @@ namespace DebuggerIntegration.IronPython
             base.OnClosing(e);
         }
 
+        private static string FindPythonFile() =>
+            ProjectSearchDirectories.Select(x => Path.GetFullPath(Path.Combine(Application.StartupPath, x, StartupFileSubPath))).FirstOrDefault(File.Exists);
+
         private static string FindProjectFile() =>
             ProjectSearchDirectories.Select(x => Path.GetFullPath(Path.Combine(Application.StartupPath, x, StartupProjectFileSubPath))).FirstOrDefault(File.Exists);
 
@@ -110,6 +114,15 @@ namespace DebuggerIntegration.IronPython
             SetScriptSource();
             if (displayForm == null)
                 StartDisplayFormThread(DisplayForm.Command.Debug);
+        }
+
+        private void OpenFile(string fileName)
+        {
+            if (Project != null && Project.HasProject)
+                CloseProject(Project);
+            scriptRun1.ScriptSource.FromScriptFile(fileName);
+
+            editorTabContainer.TryActivateEditor(fileName);
         }
 
         private void OpenProject(string projectFilePath)

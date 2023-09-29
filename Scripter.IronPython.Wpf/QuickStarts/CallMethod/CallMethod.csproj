@@ -24,14 +24,14 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Common" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="9.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.0.3" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -87,9 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="app.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="IronPython" Version="2.7.11" />
   </ItemGroup>
   <ItemGroup />
 </Project>

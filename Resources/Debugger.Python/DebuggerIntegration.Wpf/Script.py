@@ -31,7 +31,7 @@ def MyFunc():
 MyFunc()
 
 c = MyClass()
-
+print(MyClass);
 hw = c.f()
 
 #while True:

@@ -151,6 +151,7 @@ namespace AlternetStudio.Wpf.Demo
             RegisterDesignerImportsInEditor(fileName, edit);
 
             edit.HighlightReferences = true;
+            edit.OpenSharedEditorFunc = OpenSharedEditorFunc;
 
             editorsTabControl.SelectedItem = page;
             UpdateSearch();
@@ -633,6 +634,28 @@ namespace AlternetStudio.Wpf.Demo
             return null;
         }
 
+        private TextEditor OpenSharedEditorFunc(string fileName)
+        {
+            bool fullPath = PathUtilities.IsPathFullyQualified(fileName);
+            if (fullPath)
+            {
+                var edit = FindFile(fileName);
+                if (edit != null)
+                    return edit as TextEditor;
+            }
+
+            if (Project != null && Project.HasProject)
+            {
+                if (!fullPath)
+                    fileName = Path.Combine(Path.GetDirectoryName(Project.ProjectFileName), fileName);
+
+                if (!FileBelongsToProject(Project, fileName))
+                    Project.AddFile(fileName, BuildAction.Compile);
+            }
+
+            return OpenFile(fileName) as TextEditor;
+        }
+
         private DebugCodeEdit CreateDebugEdit()
         {
             var edit = new DebugCodeEdit();
@@ -650,10 +673,10 @@ namespace AlternetStudio.Wpf.Demo
 
         private void RegisterDesignerImportsInEditor(string fileName, DebugCodeEdit edit)
         {
-            edit.RegisterAssemblies(GetDesignerReferencedAssemblies(fileName).AssemblyNames.ToArray());
             var namespaces = GetImportedNamespaces(fileName);
+            var rootNamespace = GetRootNamespce(fileName);
             if (namespaces != null)
-                edit.RegisterNamespaces(namespaces);
+                edit.RegisterNamespaces(namespaces, rootNamespace);
         }
 
         private void CodeEdit_StatusChanged(object sender, EventArgs e)

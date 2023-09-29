@@ -27,12 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeScriptParser", "Editor.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlternetStudio.TypeScript.Wpf", "Studio.TypeScript.Wpf\AlternetStudio.TypeScript.Wpf.csproj", "{D8FE1217-8EC5-4908-8306-EBF569A02E17}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2A16DEF1-B240-4172-8027-AAC551CF6C6F}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DebuggerIntegration.TypeScript.Wpf", "Scripter.TypeScript.Wpf\QuickStarts\Debugger\DebuggerIntegration\DebuggerIntegration.TypeScript.Wpf.csproj", "{FB7E9749-1A76-48FD-AAB9-9A097CBF8104}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DebuggerUIThread.TypeScript", "Scripter.TypeScript.Wpf\QuickStarts\Debugger\DebuggerUIThread\DebuggerUIThread.TypeScript.csproj", "{2EA3AE47-3280-47FB-864E-AB67A3F99083}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -106,6 +103,14 @@ Global
 		{FB7E9749-1A76-48FD-AAB9-9A097CBF8104}.Runtime|Any CPU.Build.0 = Release|Any CPU
 		{FB7E9749-1A76-48FD-AAB9-9A097CBF8104}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
 		{FB7E9749-1A76-48FD-AAB9-9A097CBF8104}.Trial|Any CPU.Build.0 = Debug|Any CPU
+		{2EA3AE47-3280-47FB-864E-AB67A3F99083}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EA3AE47-3280-47FB-864E-AB67A3F99083}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EA3AE47-3280-47FB-864E-AB67A3F99083}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EA3AE47-3280-47FB-864E-AB67A3F99083}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EA3AE47-3280-47FB-864E-AB67A3F99083}.Runtime|Any CPU.ActiveCfg = Release|Any CPU
+		{2EA3AE47-3280-47FB-864E-AB67A3F99083}.Runtime|Any CPU.Build.0 = Release|Any CPU
+		{2EA3AE47-3280-47FB-864E-AB67A3F99083}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EA3AE47-3280-47FB-864E-AB67A3F99083}.Trial|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,6 +127,7 @@ Global
 		{F852DFE9-08AF-4D34-8C49-747D6001F3FE} = {8606BA93-5420-434A-AAC6-89512C7F33C9}
 		{D8FE1217-8EC5-4908-8306-EBF569A02E17} = {5F9449E8-3BE6-47E6-8126-4CB34E7E52D2}
 		{FB7E9749-1A76-48FD-AAB9-9A097CBF8104} = {1022050F-2D42-44CD-8058-2D31D29B8300}
+		{2EA3AE47-3280-47FB-864E-AB67A3F99083} = {1022050F-2D42-44CD-8058-2D31D29B8300}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A89CA0B6-9DBF-4919-9057-BA534B746E79}

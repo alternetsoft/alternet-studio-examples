@@ -82,7 +82,7 @@ namespace DebuggerIntegration.Python
 
             CodeEnvironment.PythonPath = embeddedPythonInstaller.EmbeddedPythonHome;
 
-            if (embeddedPythonInstaller.IsPythonInstalled() &&
+            if (embeddedPythonInstaller.IsPythonInstalled(true) &&
                 requiredModules.All(embeddedPythonInstaller.IsWheelInstalled))
                 return;
 
@@ -98,7 +98,7 @@ namespace DebuggerIntegration.Python
             {
                 await Task.Run(async () =>
                 {
-                    await embeddedPythonInstaller.SetupPython();
+                    await embeddedPythonInstaller.SetupPython(true);
 
                     var numpyFileName = Environment.Is64BitProcess ? "numpy-1.24.3-cp310-cp310-win_amd64.whl" : "numpy-1.24.3-cp310-cp310-win32.whl";
 
@@ -197,10 +197,9 @@ namespace DebuggerIntegration.Python
             return false;
         }
 
-        private void RunMenuItem_Click(object sender, System.EventArgs e)
+        private void ActivateErrorsTab()
         {
-            SaveAllModifiedFiles();
-            scriptRun1.Run();
+            debuggerPanelsTabControl.FocusPanel(DebuggerPanelKinds.Errors);
         }
 
         private void OpenProjectToolStripMenuItem_Click(object sender, EventArgs e)

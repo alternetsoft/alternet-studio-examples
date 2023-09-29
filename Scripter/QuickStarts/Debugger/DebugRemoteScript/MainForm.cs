@@ -133,7 +133,7 @@ namespace DebugRemoteScript
                     scriptDebugger.Continue();
             }
 
-            if (e.StopReason == ExecutionStopReason.Exception)
+            if (e.StopReason == ExecutionStopReason.Exception || e.StopReason == ExecutionStopReason.UnhandledException)
             {
                 MessageBox.Show(e.Exception.ToString());
             }

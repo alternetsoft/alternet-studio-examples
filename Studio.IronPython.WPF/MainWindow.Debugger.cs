@@ -16,6 +16,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
+using Alternet.Common;
 using Alternet.Editor.Common.Wpf;
 using Alternet.Scripter.Debugger;
 using Alternet.Scripter.Debugger.IronPython;
@@ -26,10 +27,6 @@ namespace AlternetStudio.IronPython.Wpf.Demo
 {
     public partial class MainWindow : IDebuggerUICommands
     {
-#pragma warning disable SA1401 // Fields should be private
-        public static bool DisplayExceptions = false;
-#pragma warning restore SA1401 // Fields should be private
-
         private IScriptDebugger debugger;
         private ExecutionPosition executionPosition;
         private StackFrame stackFrame;
@@ -39,7 +36,7 @@ namespace AlternetStudio.IronPython.Wpf.Demo
         /// Gets or sets <see cref="StartDebuggingOptions"/> to use when
         /// the debugging starts while executing commands such as <see cref="Start"/> or <see cref="StepOver"/>.
         /// </summary>
-        public StartDebuggingOptions StartDebuggingOptions { get; set; } = new StartDebuggingOptions();
+        public StartDebuggingOptions StartDebuggingOptions { get; set; } = new IronPythonStartDebuggingOptions();
 
         private IScriptDebugger Debugger
         {
@@ -165,6 +162,11 @@ namespace AlternetStudio.IronPython.Wpf.Demo
             return true;
         }
 
+        bool IDebuggerUICommands.RunToCursor()
+        {
+            return false;
+        }
+
         protected virtual void StartDebugCore(bool breakOnStart)
         {
             StartDebuggingOptions.BreakOnStart = breakOnStart;
@@ -280,7 +282,6 @@ namespace AlternetStudio.IronPython.Wpf.Demo
             var isEmpty = !(hasProject | ActiveSyntaxEdit != null);
             var isDebuggingStarted = Debugger.IsStarted;
             var isDebugging = isDebuggingStarted || state == DebuggerState.Startup;
-            runToCursorMenuItem.IsEnabled = !isEmpty && state != DebuggerState.Running && ActiveSyntaxEdit != null;
         }
 
         private async void UpdateDebugPanels()
@@ -366,27 +367,33 @@ namespace AlternetStudio.IronPython.Wpf.Demo
                     ((IDebugEdit)edit).ExecutionStopped(e.Position);
             }
 
-            if (e.StopReason == ExecutionStopReason.Exception)
+            if (e.StopReason == ExecutionStopReason.Exception || e.StopReason == ExecutionStopReason.UnhandledException)
             {
-                if (DisplayExceptions)
-                    DisplayDebuggerUnhandledException(e);
-                else
-                    ((IDebuggerUICommands)this).Continue();
+                DisplayDebuggerException(e);
             }
         }
 
-        private void DisplayDebuggerUnhandledException(ExecutionStoppedEventArgs e)
+        private void DisplayDebuggerException(ExecutionStoppedEventArgs e)
         {
-#pragma warning disable SA1012 // Opening braces should be spaced correctly
-            DisplayDebuggerUnhandledException($"{ e.Exception.ExceptionType}\n{ e.Exception.Message}");
-#pragma warning restore SA1012 // Opening braces should be spaced correctly
+            var str = $"{e.Exception.ExceptionType}\n{e.Exception.Message}";
+            using (var dlg = new DebuggerException(Debugger, str))
+            {
+                dlg.Title = e.StopReason == ExecutionStopReason.UnhandledException ? StringConsts.UnhandledException : StringConsts.DebuggerException;
+                dlg.ExceptionEvaluationExpression = e.Exception.ExceptionEvaluationExpression;
+                dlg.OnEvaluate += Dlg_OnEvaluate;
+                dlg.ShowDialog();
+            }
+        }
+
+        private void Dlg_OnEvaluate(object sender, EventArgs e)
+        {
+            EvaluateExpression(true);
         }
 
         private void DisplayDebuggerUnhandledException(string exception)
         {
-            var str = $"{exception}\nDo you want to evaluate the exception object?";
-            if (MessageBox.Show(this, str, "Unhandled exception", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
-                EvaluateExpression(true);
+            bottomTabControl.SelectedIndex = OutputTabIndex;
+            outputControl.CustomLog(string.Format("Unhandled exception: {0}\r\n", exception));
         }
 
         private void Debugger_StackFrameSwitched(object sender, StackFrameSwitchedEventArgs e)
@@ -480,15 +487,6 @@ namespace AlternetStudio.IronPython.Wpf.Demo
             }
         }
 
-        private void RunToCursorMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            var edit = ActiveSyntaxEdit;
-            if (edit == null)
-                return;
-            Debugger.SetRunToPositionBreakpoint(new RunToPositionBreakpoint(edit.FileName, edit.CurrentLine + 1));
-            StartDebugging(false);
-        }
-
         private void StartDebugMenuItem_Click(object sender, RoutedEventArgs e)
         {
             StartDebugging(false);
@@ -499,7 +497,7 @@ namespace AlternetStudio.IronPython.Wpf.Demo
             StopDebug();
         }
 
-        private void BottomTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void BottomTabControl_SelectedIndexChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateDebugPanels();
         }

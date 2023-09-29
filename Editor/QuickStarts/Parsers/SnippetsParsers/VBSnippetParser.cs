@@ -422,6 +422,7 @@ End Function";
             StartOffset = VBSnippet.StartMethodOffset;
             EndOffset = VBSnippet.EndMethodOffset;
             Snippet = VBSnippet.MethodSnippet;
+            Options = Options & ~(SyntaxOptions.CodeFixes | SyntaxOptions.CodeRefactors);
         }
 
         public virtual int StartOffset { get; set; }

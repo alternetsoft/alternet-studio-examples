@@ -37,7 +37,7 @@ namespace DebuggerUIThread.TypeScript
 
         private static readonly string[] ProjectSearchDirectories = new[] { ".", @"..\..\..\..\..\..\..\" };
         private static readonly string StartupProjectFileSubPath = @"Resources\Debugger.TypeScript\TS\DebuggerUIThread\project.json";
-        private static readonly string StartupFileSubPath = @"Resources\Debugger.TypeScript\TS\DebugMyScript\DebugMyScript.ts";
+        private static readonly string StartupFileSubPath = @"Resources\Debugger.TypeScript\TS\DebuggerUIThread\Main.ts";
 
         private IDebugEdit edit;
 
@@ -53,7 +53,7 @@ namespace DebuggerUIThread.TypeScript
             codeEditContainer = new DebugCodeEditContainer(editorsTabControl);
             codeEditContainer.EditorRequested += EditorContainer_EditorRequested;
 
-            OpenProject(FindProjectFile());
+            OpenFile(FindFile());
 
             debugger = new ScriptDebugger
             {
@@ -79,6 +79,7 @@ namespace DebuggerUIThread.TypeScript
             ScaleControls();
             StartDisplayFormThread(DisplayForm.Command.None);
             FormClosing += Form1_FormClosing;
+            AddBreakpoint();
         }
 
         protected async override void OnClosing(CancelEventArgs e)
@@ -151,7 +152,6 @@ namespace DebuggerUIThread.TypeScript
         private void InitDefaultHostAssemblies()
         {
             scriptRun.ScriptHost.HostItemsConfiguration.AddSystemAssemblies(options: HostItemOptions.GlobalMembers | HostItemOptions.GenerateDescriptions);
-            TypeScriptProject.DefaultProject.HostItemsConfiguration = scriptRun.ScriptHost.HostItemsConfiguration;
         }
 
         private void CloseProject(TSProject project)
@@ -248,6 +248,17 @@ namespace DebuggerUIThread.TypeScript
             }
         }
 
+        private void AddBreakpoint()
+        {
+            int firstLine = 4;
+            var edit = codeEditContainer.ActiveEditor as DebugCodeEdit;
+            if (edit != null && edit.Lines.Count > firstLine)
+            {
+                debugger.Breakpoints.AddBreakpoint(edit.Source.FileName, firstLine);
+                edit.UpdateBreakpoints();
+            }
+        }
+
         private void SaveAllModifiedFiles()
         {
             foreach (var edit in codeEditContainer.Editors)
@@ -306,6 +317,7 @@ namespace DebuggerUIThread.TypeScript
 
         private void OpenFile(string fileName)
         {
+            scriptRun.ScriptSource.FromScriptFile(fileName);
             codeEditContainer.TryActivateEditor(fileName);
         }
 

@@ -1,3 +1,5 @@
+using System;
+
 public partial class MyForm : System.Windows.Forms.Form
 {
 
@@ -6,6 +8,7 @@ public partial class MyForm : System.Windows.Forms.Form
         this.InitializeComponent();
     }
 
+    [STAThread]
     public static void Main()
     {
         System.Windows.Forms.Application.EnableVisualStyles();

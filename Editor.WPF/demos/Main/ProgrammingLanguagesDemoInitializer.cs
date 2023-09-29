@@ -15,6 +15,7 @@ using System.IO;
 
 using Alternet.Syntax;
 using Alternet.Syntax.Parsers.Advanced;
+using Alternet.Syntax.Parsers.TextMate;
 
 namespace Alternet.Editor.Wpf.MainDemo_Wpf
 {
@@ -59,6 +60,9 @@ namespace Alternet.Editor.Wpf.MainDemo_Wpf
 
             var pythonItem = new DemoItem { Name = "Python", OnInitializeEditor = PythonItemInit };
             group.Items.Add(pythonItem);
+
+            var powerShellItem = new DemoItem { Name = "PowerShell", OnInitializeEditor = PowerShellItemInit };
+            group.Items.Add(powerShellItem);
 
             var rubyItem = new DemoItem { Name = "Ruby", OnInitializeEditor = RubyItemInit };
             group.Items.Add(rubyItem);
@@ -238,6 +242,15 @@ namespace Alternet.Editor.Wpf.MainDemo_Wpf
                 editor.Source.LoadFile(fileInfo.FullName);
 
             editor.Lexer = LoadParser("python.xml");
+        }
+
+        private static void PowerShellItemInit(TextEditor editor)
+        {
+            FileInfo fileInfo = new FileInfo(Path.Combine(SampleDir, "text", "powershell.txt"));
+            if (fileInfo.Exists)
+                editor.Source.LoadFile(fileInfo.FullName);
+
+            editor.Lexer = LoadParser("powershell.xml");
         }
 
         private static void RubyItemInit(TextEditor editor)

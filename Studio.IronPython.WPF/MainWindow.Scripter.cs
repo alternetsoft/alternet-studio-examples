@@ -12,6 +12,7 @@
 
 #endregion Copyright (c) 2016-2023 Alternet Software
 
+using System;
 using System.IO;
 using System.Windows;
 using Alternet.Editor.Common.Wpf;
@@ -28,12 +29,17 @@ namespace AlternetStudio.IronPython.Wpf.Demo
 
         protected virtual void RunScriptCore()
         {
-            if (!scriptRun.Compiled)
-                scriptRun.Compile();
-            if (scriptRun.ScriptHost.CompileFailed)
-                ActivateErrorsTab();
+            if (!scriptRun.ScriptHost.Compiled)
+            {
+                scriptRun.ScriptHost.Compile();
+                if (scriptRun.ScriptHost.CompileFailed)
+                {
+                    ActivateErrorsTab();
+                    return;
+                }
+            }
 
-            scriptRun.RunAsync();
+            debugger.RunScriptAsync();
         }
 
         private void InitializeScripter()

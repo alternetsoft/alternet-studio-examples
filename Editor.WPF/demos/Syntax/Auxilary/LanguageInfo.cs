@@ -66,6 +66,7 @@ namespace SyntaxEditor_Wpf
 
             new LanguageInfo("-", string.Empty, string.Empty),
 
+            new LanguageInfo("PowerShell", "*.ps1", "PowerShell"),
             new LanguageInfo("batch", "*.bat", "Command Prompt"),
             new LanguageInfo("ini", "*.ini", "Ini files"),
             new LanguageInfo("lua", "*.lua", "Lua files"),

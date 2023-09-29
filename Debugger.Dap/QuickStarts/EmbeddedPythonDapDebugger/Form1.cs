@@ -51,6 +51,7 @@ namespace EmbeddedPythonDapDebugger
 
             debugMenu1.Debugger = debugger;
             debugMenu1.DebuggerPreStartup += OnDebuggerPreStartup;
+            debugMenu1.AllowedDebuggerCommands &= ~Alternet.Scripter.Debugger.AllowedDebuggerCommands.StartWithoutDebug;
 
             debuggerPanelsTabControl.VisiblePanels &= ~DebuggerPanelKinds.Threads;
             debuggerPanelsTabControl.Debugger = debugger;

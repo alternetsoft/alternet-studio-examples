@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -158,11 +159,6 @@ namespace DebuggerIntegration
             }
 
             return null;
-        }
-
-        private ISyntaxEdit TryActivateEditor(string fileName)
-        {
-            return codeEditContainer.TryActivateEditor(fileName) as ISyntaxEdit;
         }
 
         private void EditorContainer_EditorRequested(object sender, DebugEditRequestedEventArgs e)

@@ -16,6 +16,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
+using Alternet.Common;
 using Alternet.Editor.Common.Wpf;
 using Alternet.Scripter.Debugger;
 using Alternet.Scripter.Debugger.TypeScript;
@@ -158,6 +159,18 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
             return true;
         }
 
+        bool IDebuggerUICommands.RunToCursor()
+        {
+            var edit = ActiveSyntaxEdit;
+            if (edit == null)
+                return false;
+
+            Debugger.SetRunToPositionBreakpoint(new RunToPositionBreakpoint(edit.FileName, edit.CurrentLine + 1));
+            StartDebugging(false);
+
+            return true;
+        }
+
         protected virtual void StartDebugCore(bool breakOnStart)
         {
             StartDebuggingOptions.BreakOnStart = breakOnStart;
@@ -206,6 +219,7 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
             debuggerControlToolbar.Debugger = Debugger;
             debugMenu.Debugger = Debugger;
             debugMenu.CommandsListener = debuggerControlToolbar.CommandsListener = this;
+            debugMenu.AllowedDebuggerCommands |= AllowedDebuggerCommands.RunToCursor;
         }
 
         private void ActivateWatchesTab()
@@ -273,7 +287,6 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
             var isEmpty = !(hasProject | ActiveSyntaxEdit != null);
             var isDebuggingStarted = Debugger.IsStarted;
             var isDebugging = isDebuggingStarted || state == DebuggerState.Startup;
-            runToCursorMenuItem.IsEnabled = !isEmpty && state != DebuggerState.Running && ActiveSyntaxEdit != null;
         }
 
         private async void UpdateDebugPanels()
@@ -323,9 +336,15 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
             SetAllEditorsReadOnlyValue(true);
         }
 
+        private void DisplayDebuggerUnhandledException(string exception)
+        {
+            bottomTabControl.SelectedIndex = OutputTabIndex;
+            outputControl.CustomLog(string.Format("Unhandled exception: {0}\r\n", exception));
+        }
+
         private void Debugger_DebuggerErrorOccured(object sender, DebuggerErrorOccuredEventArgs e)
         {
-            MessageBox.Show(this, e.Exception.ToString(), "Debugger Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            DisplayDebuggerUnhandledException(e.Exception.Message);
         }
 
         private void Debugger_DebuggingStopped(object sender, DebuggingStoppedEventArgs e)
@@ -354,15 +373,25 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
                     ((IDebugEdit)edit).ExecutionStopped(e.Position);
             }
 
-            if (e.StopReason == ExecutionStopReason.Exception)
-                DisplayDebuggerUnhandledException(e);
+            if (e.StopReason == ExecutionStopReason.Exception || e.StopReason == ExecutionStopReason.UnhandledException)
+                DisplayDebuggerException(e);
         }
 
-        private void DisplayDebuggerUnhandledException(ExecutionStoppedEventArgs e)
+        private void DisplayDebuggerException(ExecutionStoppedEventArgs e)
         {
-            var str = $"{e.Exception.ExceptionType}\n{e.Exception.Message}\nDo you want to evaluate the exception object?";
-            if (MessageBox.Show(this, str, "Unhandled exception", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
-                EvaluateExpression(true);
+            var str = $"{e.Exception.ExceptionType}\n{e.Exception.Message}";
+            using (var dlg = new DebuggerException(Debugger, str))
+            {
+                dlg.Title = e.StopReason == ExecutionStopReason.UnhandledException ? StringConsts.UnhandledException : StringConsts.DebuggerException;
+                dlg.ExceptionEvaluationExpression = e.Exception.ExceptionEvaluationExpression;
+                dlg.OnEvaluate += Dlg_OnEvaluate;
+                dlg.ShowDialog();
+            }
+        }
+
+        private void Dlg_OnEvaluate(object sender, EventArgs e)
+        {
+            EvaluateExpression(true);
         }
 
         private void Debugger_StackFrameSwitched(object sender, StackFrameSwitchedEventArgs e)

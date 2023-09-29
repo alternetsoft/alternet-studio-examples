@@ -15,6 +15,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Alternet.Common;
 using Alternet.Scripter.Debugger;
 using Alternet.Scripter.Debugger.TypeScript;
 using Alternet.Scripter.Debugger.UI;
@@ -155,6 +156,18 @@ namespace AlternetStudio.Demo
             return true;
         }
 
+        bool IDebuggerUICommands.RunToCursor()
+        {
+            var edit = ActiveSyntaxEdit;
+            if (edit == null)
+                return false;
+
+            Debugger.SetRunToPositionBreakpoint(new RunToPositionBreakpoint(edit.FileName, edit.CurrentLine + 1));
+            StartDebugging(false);
+
+            return true;
+        }
+
         protected virtual void StartDebugCore(bool breakOnStart)
         {
             StartDebuggingOptions.BreakOnStart = breakOnStart;
@@ -202,6 +215,7 @@ namespace AlternetStudio.Demo
             debuggerControlToolbar.Debugger = Debugger;
             debugMenu.Debugger = Debugger;
             debugMenu.CommandsListener = debuggerControlToolbar.CommandsListener = this;
+            debugMenu.AllowedDebuggerCommands |= AllowedDebuggerCommands.RunToCursor;
         }
 
         private void ActivateWatchesTab()
@@ -271,7 +285,6 @@ namespace AlternetStudio.Demo
             var isDebuggingStarted = Debugger.IsStarted;
             var isDebugging = isDebuggingStarted || state == DebuggerState.Startup;
 
-            runToCursorMenuItem.Enabled = !isEmpty && state != DebuggerState.Running && ActiveSyntaxEdit != null;
             startWithoutDebugMenuItem.Enabled = !isEmpty && !isDebugging;
         }
 
@@ -324,7 +337,7 @@ namespace AlternetStudio.Demo
 
         private void Debugger_DebuggerErrorOccured(object sender, DebuggerErrorOccuredEventArgs e)
         {
-            MessageBox.Show(this, e.Exception.ToString(), "Debugger Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            DisplayDebuggerUnhandledException(e.Exception.Message);
         }
 
         private void Debugger_DebuggingStopped(object sender, DebuggingStoppedEventArgs e)
@@ -353,15 +366,31 @@ namespace AlternetStudio.Demo
                     ((IDebugEdit)edit).ExecutionStopped(e.Position);
             }
 
-            if (e.StopReason == ExecutionStopReason.Exception)
-                DisplayDebuggerUnhandledException(e);
+            if (e.StopReason == ExecutionStopReason.Exception || e.StopReason == ExecutionStopReason.UnhandledException)
+                DisplayDebuggerException(e);
         }
 
-        private void DisplayDebuggerUnhandledException(ExecutionStoppedEventArgs e)
+        private void DisplayDebuggerException(ExecutionStoppedEventArgs e)
         {
-            var str = $"{e.Exception.ExceptionType}\n{e.Exception.Message}\nDo you want to evaluate the exception object?";
-            if (MessageBox.Show(str, "Unhandled Exception", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
-                EvaluateExpression(true);
+            var str = $"{e.Exception.ExceptionType}\n{e.Exception.Message}";
+            using (var dlg = new DebuggerException(Debugger, str))
+            {
+                dlg.Text = e.StopReason == ExecutionStopReason.UnhandledException ? StringConsts.UnhandledException : StringConsts.DebuggerException;
+                dlg.ExceptionEvaluationExpression = e.Exception.ExceptionEvaluationExpression;
+                dlg.OnEvaluate += Dlg_OnEvaluate;
+                DialogResult result = dlg.ShowDialog();
+            }
+        }
+
+        private void Dlg_OnEvaluate(object sender, EventArgs e)
+        {
+            EvaluateExpression(true);
+        }
+
+        private void DisplayDebuggerUnhandledException(string exception)
+        {
+            bottomTabControl.SelectedTab = outputTabPage;
+            outputControl.CustomLog(string.Format("Unhandled exception: {0}\r\n", exception));
         }
 
         private void Debugger_StackFrameSwitched(object sender, StackFrameSwitchedEventArgs e)
@@ -448,16 +477,6 @@ namespace AlternetStudio.Demo
             {
                 await watchesControl.CancelEvaluationAsync();
             }
-        }
-
-        private void RunToCursorMenuItem_Click(object sender, EventArgs e)
-        {
-            var edit = ActiveSyntaxEdit;
-            if (edit == null)
-                return;
-
-            Debugger.SetRunToPositionBreakpoint(new RunToPositionBreakpoint(edit.FileName, edit.CurrentLine + 1));
-            StartDebugging(false);
         }
 
         private void BottomTabControl_SelectedIndexChanged(object sender, EventArgs e)

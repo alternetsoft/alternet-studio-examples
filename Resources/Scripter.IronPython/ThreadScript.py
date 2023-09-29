@@ -73,7 +73,7 @@ def DoQuickSort(graph, iLo, iHi, ct):
   YPos2 = 0
   len1 = 0
   len2 = 0
-  mid = quickArray[((lo + hi) / 2)]
+  mid = quickArray[int(((lo + hi) / 2))]
   while lo <= hi:
     if ct.IsCancellationRequested:
         ct.ThrowIfCancellationRequested()

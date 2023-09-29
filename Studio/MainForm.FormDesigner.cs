@@ -70,6 +70,8 @@ namespace AlternetStudio.Demo
 
         private static void EnsureDotNetCoreReferencesAdded(IList<string> references, TargetFramework targetFramework)
         {
+            if (targetFramework != null && !targetFramework.IsDotNetCore)
+                return;
             string GetAssemblyName(string x) => File.Exists(x) ? Path.GetFileNameWithoutExtension(x) : x;
 
             var defaultReferences = MinimalDotNetCoreDependenciesService.GetReferences(
@@ -644,10 +646,10 @@ namespace AlternetStudio.Demo
                 if (Path.GetExtension(fileName).ToLower().Equals(".vb"))
                     references.Add("Microsoft.VisualBasic");
 
-#if NET6_0_OR_GREATER
+#if !NETFRAMEWORK
                 EnsureDotNetCoreReferencesAdded(references, project.TargetFramework);
 #endif
-                defaultReferences = new DesignerReferencedAssemblies(references.ToArray());
+                defaultReferences = new DesignerReferencedAssemblies(references.ToArray(), project.TargetFramework);
             }
             else
                 defaultReferences = Path.GetExtension(fileName).ToLower().Equals(".vb") ? DesignerReferencedAssemblies.DefaultForVisualBasic : DesignerReferencedAssemblies.DefaultForCSharp;
@@ -656,6 +658,18 @@ namespace AlternetStudio.Demo
                 defaultReferences = defaultReferences.WithSearchPaths(globalReferencePaths);
 
             return defaultReferences;
+        }
+
+        private string GetRootNamespce(string fileName)
+        {
+            if (!Path.GetExtension(fileName).ToLower().Equals(".vb"))
+                return null;
+            var project = GetProject(fileName);
+
+            if (project != null && project.HasProject)
+                return project.RootNamespace;
+
+            return null;
         }
 
         private DesignerImportedNamespaces GetDesignerImportedNamespaces(string fileName)
@@ -748,7 +762,7 @@ namespace AlternetStudio.Demo
             }
         }
 
-        private void AddDesignerReferencesToEditor(IScriptEdit edit, string formId)
+        private void AddDesignerReferencesToEditor(IScriptEdit edit, string formId, TargetFramework targetFramework)
         {
             var references = GetDesignerReferencedAssemblies(formId);
             var referenceResolver = new FormDesignerAssemblyReferenceResolver(
@@ -758,7 +772,7 @@ namespace AlternetStudio.Demo
 
             foreach (var reference in references.AssemblyNames)
             {
-                var resolvedReference = referenceResolver.ResolveReference(reference, null, true);
+                var resolvedReference = referenceResolver.ResolveReference(reference, null, true, targetFramework);
                 if (resolvedReference != null)
                     CodeEditExtensions.RegisterAssembly(edit, resolvedReference);
             }

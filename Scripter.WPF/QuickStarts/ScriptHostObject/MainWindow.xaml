@@ -1,0 +1,29 @@
+﻿<Window x:Class="ScriptHostObject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Icon="/ScriptHostObject.Wpf;component/Images/Icon.Ico" 
+        Title="Script Host Object" Height="480" Width="734" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="540"/>
+                    <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="This demo shows how to access fields of the objects hosted in the application in the class-less script." Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0"/>
+                <Button Name="ScriptButton" Content="Run Script" HorizontalAlignment="Left" Grid.Column="1" Height="21" Width="70" Margin="8,3,0,6" Command="{Binding RunScript}"/>
+                <Label Content="Language:" HorizontalAlignment="Right" Grid.Column="2" Margin="0,0,8,0" Visibility="Collapsed"/>
+                <ComboBox Height="23" Name="cbLanguages" Margin="0,0,10,0" Width="98" Grid.Column="3" HorizontalAlignment="Right" ItemsSource="{Binding Path=Languages}" SelectedItem="{Binding Language}" Visibility="Collapsed" ToolTip="Choose programming language"/>
+            </Grid>
+        </DockPanel>
+        <Label Name="ExpressionLabel" Content="Expression (X+Y)" Grid.Row="1" HorizontalAlignment="Left" Margin="0,0,0,0"/>
+        <Border Name="EditBorder" BorderBrush="Gray" Grid.Row="2" BorderThickness="2" Margin="0,5,0,0"/>
+    </Grid>
+</Window>

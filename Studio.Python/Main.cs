@@ -14,13 +14,15 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Alternet.Common;
-using Alternet.Common.Projects;
+using Alternet.Common.Python;
 using Alternet.Editor.Common;
 using Alternet.Editor.Python;
 using Alternet.Editor.TextSource;
 using Alternet.Scripter.Debugger.UI;
+using Alternet.Scripter.Python.Embedded;
 using Alternet.Syntax;
 
 namespace AlternetStudio.Demo
@@ -49,6 +51,17 @@ namespace AlternetStudio.Demo
 
         public MainForm(string[] args)
         {
+            var parameters = CommandLineParser.ParseCommandLine(args);
+            switch (parameters.Mode)
+            {
+                case PythonMode.Embedded:
+                    SetupPython();
+                    break;
+                case PythonMode.Application:
+                    CodeEnvironment.PythonPath = parameters.PythonPath;
+                    break;
+            }
+
             InitializeScripter();
             InitializeEditors();
             InitializeComponent();
@@ -123,6 +136,35 @@ namespace AlternetStudio.Demo
             prevBookmarkToolButton.Image = LoadImage("PreviousBookmark");
             nextBookmarkToolButton.Image = LoadImage("NextBookmark");
             clearAllBookmarksToolButton.Image = LoadImage("ClearBookmark");
+        }
+
+        private void SetupPython()
+        {
+            var embeddedPythonInstaller = new EmbeddedPythonInstaller();
+            embeddedPythonInstaller.InstallPath = Path.Combine(Path.GetTempPath(), @"Alternet.Studio.Demo\Scripter.Python\Demos");
+
+            CodeEnvironment.PythonPath = embeddedPythonInstaller.EmbeddedPythonHome;
+
+            if (embeddedPythonInstaller.IsPythonInstalled(true))
+                return;
+
+            var progressDialog = new ProgressDialog()
+            {
+                ShowInTaskbar = true,
+                Text = "Call Method Python Demo",
+                Message = "Deploying Python and packages...",
+                ProgressBarStyle = ProgressBarStyle.Marquee,
+            };
+
+            progressDialog.Load += async (_, __) =>
+            {
+                await Task.Run(async () =>
+                {
+                    await embeddedPythonInstaller.SetupPython(true);
+                }).ContinueWith(t => progressDialog.Close(), TaskScheduler.FromCurrentSynchronizationContext());
+            };
+
+            progressDialog.ShowDialog();
         }
 
         private void ScaleControls()
