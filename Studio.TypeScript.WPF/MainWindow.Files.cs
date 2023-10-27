@@ -147,6 +147,23 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
                 UpdateCodeNavigation();
             };
 
+            edit.BeforeNavigateToDeclaration += (o, e) =>
+            {
+                var edt = o as IScriptEdit;
+                if (edt != null)
+                    navigationHistory.SaveCurrentLocationToHistory(edt.Position, edt.FileName, edt.GetLine(edt.Position.Y));
+                navigationHistory.UpdateHistory(backwardMenu.ContextMenu.Items, 0, historyBackwardToolButton, backwardMenu, historyForwardToolButton, Backward_ItemClick);
+            };
+
+            edit.AfterNavigateToDeclaration += (o, e) =>
+            {
+                var edt = o as IScriptEdit;
+                if (edt != null)
+                    navigationHistory.SaveCurrentLocationToHistory(edt.Position, edt.FileName, edt.GetLine(edt.Position.Y));
+                navigationHistory.UpdateHistory(backwardMenu.ContextMenu.Items, 0, historyBackwardToolButton, backwardMenu, historyForwardToolButton, Backward_ItemClick);
+            };
+
+
             edit.StatusChanged += new EventHandler(CodeEdit_StatusChanged);
             page.Content = edit;
 

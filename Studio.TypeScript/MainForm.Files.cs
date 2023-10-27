@@ -145,6 +145,22 @@ namespace AlternetStudio.Demo
                 UpdateCodeNavigation();
             };
 
+            edit.BeforeNavigateToDeclaration += (o, e) =>
+            {
+                var edt = o as IScriptEdit;
+                if (edt != null)
+                    navigationHistory.SaveCurrentLocationToHistory(edt.Position, edt.FileName, edt.GetLine(edt.Position.Y));
+                navigationHistory.UpdateHistory(historyBackwardContextMenu.Items, 0, historyBackwardToolSplitButton, historyForwardToolButton);
+            };
+
+            edit.AfterNavigateToDeclaration += (o, e) =>
+            {
+                var edt = o as IScriptEdit;
+                if (edt != null)
+                    navigationHistory.SaveCurrentLocationToHistory(edt.Position, edt.FileName, edt.GetLine(edt.Position.Y));
+                navigationHistory.UpdateHistory(historyBackwardContextMenu.Items, 0, historyBackwardToolSplitButton, historyForwardToolButton);
+            };
+
             edit.StatusChanged += new EventHandler(CodeEdit_StatusChanged);
 
             edit.Dock = DockStyle.Fill;

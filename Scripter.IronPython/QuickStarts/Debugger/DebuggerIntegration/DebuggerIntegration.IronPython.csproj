@@ -37,19 +37,19 @@
     <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.1.0.0" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.1.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.1.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.1.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.IronPython" Version="9.1.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.1.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.1.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.1.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="9.1.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.IronPython" Version="9.1.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.1.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.1.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.1.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.1.1.0" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.1.1.0" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.1.1.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.1.1.0" />
+    <PackageReference Include="Alternet.Studio.Editor.IronPython" Version="9.1.1.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.1.1.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.1.1.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.1.1.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="9.1.1.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.IronPython" Version="9.1.1.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.1.1.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.1.1.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.1.1.0" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Script.py">
