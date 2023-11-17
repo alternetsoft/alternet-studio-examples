@@ -307,7 +307,15 @@ namespace DesignAndRun
 
         private DesignerReferencedAssemblies GetReferencedAssemblies(string fileName)
         {
-            return DesignerReferencedAssemblies.DefaultForTypeScript;
+#if NETCOREAPP
+            var defaultReferences =
+                new DesignerReferencedAssemblies(
+                    MinimalDotNetCoreDependenciesService.GetReferences(Alternet.Common.TechnologyEnvironment.WindowsForms, useRuntimeAssemblies: false, needFullPaths: true, useDesignReferences: true));
+#else
+            var defaultReferences = DesignerReferencedAssemblies.DefaultForTypeScript;
+
+#endif
+            return defaultReferences;
         }
 
         private string GetTestFilesDirectoryPath()

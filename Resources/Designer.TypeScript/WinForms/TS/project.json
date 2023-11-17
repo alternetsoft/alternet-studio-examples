@@ -10,7 +10,9 @@
         "System",
         "System.Core",
         "System.Windows.Forms",
-        "System.Drawing"
+        "System.Drawing",
+        "System.Data",
+        "System.Xml"
       ],
       "options": "GlobalMembers"
     }

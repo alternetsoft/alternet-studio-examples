@@ -306,7 +306,7 @@ namespace DesignAndRun
 #if NETCOREAPP
             var defaultReferences =
                 new DesignerReferencedAssemblies(
-                    MinimalDotNetCoreDependenciesService.GetReferences(Alternet.Common.TechnologyEnvironment.WindowsForms, useRuntimeAssemblies: false, needFullPaths: true));
+                    MinimalDotNetCoreDependenciesService.GetReferences(Alternet.Common.TechnologyEnvironment.WindowsForms, useRuntimeAssemblies: false, needFullPaths: true, useDesignReferences: true));
 #else
             var defaultReferences = Path.GetExtension(fileName).ToLower().Equals(".vb") ?
                 DesignerReferencedAssemblies.DefaultForVisualBasic :

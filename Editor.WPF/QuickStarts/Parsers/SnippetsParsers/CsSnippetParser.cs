@@ -253,9 +253,9 @@ return string.Empty;";
             return new Point(point.X, point.Y - StartOffset);
         }
 
-        protected override bool IsBlockNode(Microsoft.CodeAnalysis.SyntaxNode node)
+        protected override bool IsBlockNode(Microsoft.CodeAnalysis.SyntaxNode node, int pos)
         {
-            return base.IsBlockNode(node) && !node.IsKind(SyntaxKind.MethodDeclaration) && !node.IsKind(SyntaxKind.ClassDeclaration) && !node.IsKind(SyntaxKind.NamespaceDeclaration);
+            return base.IsBlockNode(node, pos) && !node.IsKind(SyntaxKind.MethodDeclaration) && !node.IsKind(SyntaxKind.ClassDeclaration) && !node.IsKind(SyntaxKind.NamespaceDeclaration);
         }
 
         protected override bool IsValidSmartFormatNode(Microsoft.CodeAnalysis.SyntaxNode node)
@@ -355,7 +355,7 @@ return string.Empty;";
         {
         }
 
-        protected override bool IsBlockNode(Microsoft.CodeAnalysis.SyntaxNode node)
+        protected override bool IsBlockNode(Microsoft.CodeAnalysis.SyntaxNode node, int pos)
         {
             if (node.IsKind(SyntaxKind.Block))
             {
@@ -363,7 +363,7 @@ return string.Empty;";
                     return false;
             }
 
-            return base.IsBlockNode(node);
+            return base.IsBlockNode(node, pos);
         }
 
         protected override ExtraCsSpaceRemover CreateRewriter(TextSpan span, bool useSpaces, int spacesInTab)

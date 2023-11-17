@@ -366,9 +366,9 @@ End Function";
             return line >= start.Y && line <= end.Y;
         }
 
-        protected override bool IsBlockNode(Microsoft.CodeAnalysis.SyntaxNode node)
+        protected override bool IsBlockNode(Microsoft.CodeAnalysis.SyntaxNode node, int pos)
         {
-            return base.IsBlockNode(node) && !node.IsKind(SyntaxKind.ClassBlock) && !node.IsKind(SyntaxKind.NamespaceBlock);
+            return base.IsBlockNode(node, pos) && !node.IsKind(SyntaxKind.ClassBlock) && !node.IsKind(SyntaxKind.NamespaceBlock);
         }
 
         protected override Point GetPointFromLinePos(LinePosition linePos)
@@ -386,9 +386,9 @@ End Function";
         {
         }
 
-        protected override bool IsBlockNode(Microsoft.CodeAnalysis.SyntaxNode node)
+        protected override bool IsBlockNode(Microsoft.CodeAnalysis.SyntaxNode node, int pos)
         {
-            return base.IsBlockNode(node) && !node.IsKind(SyntaxKind.FunctionBlock) && !node.IsKind(SyntaxKind.SubBlock) && !node.IsKind(SyntaxKind.ClassBlock) && !node.IsKind(SyntaxKind.NamespaceBlock);
+            return base.IsBlockNode(node, pos) && !node.IsKind(SyntaxKind.FunctionBlock) && !node.IsKind(SyntaxKind.SubBlock) && !node.IsKind(SyntaxKind.ClassBlock) && !node.IsKind(SyntaxKind.NamespaceBlock);
         }
 
         protected override ExtraVbSpaceRemover CreateRewriter(TextSpan span, bool useSpaces, int spacesInTab)

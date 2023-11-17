@@ -46,6 +46,7 @@ namespace DesignAndRun
         public Form1()
         {
             SetupPython();
+            InitializeScripter();
             InitializeComponent();
         }
 
@@ -260,6 +261,9 @@ namespace DesignAndRun
                 return;
             }
 
+            foreach (var assemblyName in designer.ReferencedAssemblies.AssemblyNames)
+                scriptRun.ScriptSource.References.Add(assemblyName);
+
             var page = new TabPage("Design: " + Path.GetFileNameWithoutExtension(fileName));
             contentTabControl.TabPages.Add(page);
 
@@ -446,7 +450,7 @@ namespace DesignAndRun
             scriptRun.ScriptSource.Imports.Add("System.Drawing");
         }
 
-        private bool SetScriptSource(EditorFormDesignerDataSource source, DesignerReferencedAssemblies referencedAssemblies)
+        private bool SetScriptSource(EditorFormDesignerDataSource source)
         {
             string fileName = source.UserCodeFileName;
             if (new FileInfo(fileName).Exists)
@@ -477,12 +481,10 @@ namespace DesignAndRun
                 return;
 
             var designer = ActiveFormDesigner;
-            var referencedAssemblies = designer != null ? designer.ReferencedAssemblies : GetReferencedAssemblies(source.UserCodeFileName);
 
             if (SaveAllModifiedFiles())
             {
-                InitializeScripter();
-                if (SetScriptSource(source, referencedAssemblies))
+                if (SetScriptSource(source))
                     scriptRun.RunAsync();
             }
         }

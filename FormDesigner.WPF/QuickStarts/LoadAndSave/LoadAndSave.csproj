@@ -22,16 +22,16 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>9.1.1.0</Version>
+      <Version>9.1.2.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.1.1.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.Wpf" Version="9.1.1.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Wpf" Version="9.1.1.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.1.2.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.Wpf" Version="9.1.2.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Wpf" Version="9.1.2.0" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

@@ -22,7 +22,6 @@ using System.Linq;
 using System.Windows.Forms;
 
 using Alternet.Common.DotNet;
-using Alternet.Common.DotNet.DefaultAssemblies;
 using Alternet.Editor.Common;
 using Alternet.Editor.IronPython;
 using Alternet.Editor.TextSource;
@@ -43,6 +42,7 @@ namespace DesignAndRun
         public Form1()
         {
             InitializeComponent();
+            InitializeScripter();
         }
 
         private IScriptEdit ActiveEditor
@@ -226,6 +226,9 @@ namespace DesignAndRun
                 MessageBox.Show(this, e.Message, "Designer Loading Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            foreach (var assemblyName in designer.ReferencedAssemblies.AssemblyNames)
+                scriptRun.ScriptSource.References.Add(assemblyName);
 
             var page = new TabPage("Design: " + Path.GetFileNameWithoutExtension(fileName));
             contentTabControl.TabPages.Add(page);
@@ -413,7 +416,7 @@ namespace DesignAndRun
             scriptRun.ScriptSource.Imports.Add("System.Drawing");
         }
 
-        private bool SetScriptSource(EditorFormDesignerDataSource source, DesignerReferencedAssemblies referencedAssemblies)
+        private bool SetScriptSource(EditorFormDesignerDataSource source)
         {
             string fileName = source.UserCodeFileName;
             if (new FileInfo(fileName).Exists)
@@ -444,12 +447,10 @@ namespace DesignAndRun
                 return;
 
             var designer = ActiveFormDesigner;
-            var referencedAssemblies = designer != null ? designer.ReferencedAssemblies : GetReferencedAssemblies(source.UserCodeFileName);
 
             if (SaveAllModifiedFiles())
             {
-                InitializeScripter();
-                if (SetScriptSource(source, referencedAssemblies))
+                if (SetScriptSource(source))
                     scriptRun.RunAsync();
             }
         }

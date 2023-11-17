@@ -358,7 +358,7 @@ namespace Alternet.FormDesigner.Demo
 #if NETCOREAPP
             var defaultReferences =
                 new DesignerReferencedAssemblies(
-                    MinimalDotNetCoreDependenciesService.GetReferences(Common.TechnologyEnvironment.WindowsForms, useRuntimeAssemblies: false, needFullPaths: true));
+                    MinimalDotNetCoreDependenciesService.GetReferences(Common.TechnologyEnvironment.WindowsForms, useRuntimeAssemblies: false, needFullPaths: true, useDesignReferences: true));
 #else
             var defaultReferences = Path.GetExtension(source.UserCodeFileName).ToLower().Equals(".vb") ?
                 DesignerReferencedAssemblies.DefaultForVisualBasic :

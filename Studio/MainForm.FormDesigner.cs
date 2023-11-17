@@ -78,7 +78,8 @@ namespace AlternetStudio.Demo
                 Alternet.Common.TechnologyEnvironment.WindowsForms,
                 useRuntimeAssemblies: false,
                 needFullPaths: true,
-                targetFramework: targetFramework);
+                targetFramework: targetFramework,
+                useDesignReferences: true);
             foreach (string reference in defaultReferences)
             {
                 if (references.Contains(reference))

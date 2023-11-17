@@ -23,7 +23,6 @@ using System.Reflection;
 using System.Windows.Forms;
 
 using Alternet.Common.DotNet;
-using Alternet.Common.DotNet.DefaultAssemblies;
 using Alternet.Editor.Common;
 using Alternet.Editor.IronPython;
 using Alternet.Editor.TextSource;

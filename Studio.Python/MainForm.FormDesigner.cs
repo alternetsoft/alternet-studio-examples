@@ -71,7 +71,7 @@ namespace AlternetStudio.Demo
         {
             string GetAssemblyName(string x) => File.Exists(x) ? Path.GetFileNameWithoutExtension(x) : x;
 
-            var defaultReferences = MinimalDotNetCoreDependenciesService.GetReferences(Alternet.Common.TechnologyEnvironment.WindowsForms, useRuntimeAssemblies: false, needFullPaths: true);
+            var defaultReferences = MinimalDotNetCoreDependenciesService.GetReferences(Alternet.Common.TechnologyEnvironment.WindowsForms, useRuntimeAssemblies: false, needFullPaths: true, useDesignReferences: true);
             foreach (string reference in defaultReferences)
             {
                 if (references.Contains(reference))
