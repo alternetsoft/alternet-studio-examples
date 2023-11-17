@@ -43,25 +43,25 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>9.1.2.0</Version>
+      <Version>9.1.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.1.2.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.1.2.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.1.2.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="9.1.2.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.1.2.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.1.2.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.1.2.0" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="9.1.2.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.1.2.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="9.1.2.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.1.2.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.1.2.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.1.2" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.1.2" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.1.2" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="9.1.2" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.1.2" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.1.2" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.1.2" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="9.1.2" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.1.2" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="9.1.2" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.1.2" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.1.2" />
   </ItemGroup>
   <ItemGroup />
 </Project>

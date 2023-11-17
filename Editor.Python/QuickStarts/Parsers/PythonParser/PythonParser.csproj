@@ -57,11 +57,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.1.2.0" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.1.2.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.1.2.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.1.2.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.1.2.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.1.2" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.1.2" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.1.2" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.1.2" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.1.2" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
