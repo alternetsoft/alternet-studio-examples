@@ -388,7 +388,7 @@ End Function";
 
         protected override bool IsBlockNode(Microsoft.CodeAnalysis.SyntaxNode node, int pos)
         {
-            return base.IsBlockNode(node, pos) && !node.IsKind(SyntaxKind.FunctionBlock) && !node.IsKind(SyntaxKind.SubBlock) && !node.IsKind(SyntaxKind.ClassBlock) && !node.IsKind(SyntaxKind.NamespaceBlock);
+            return base.IsBlockNode(node, pos) && !node.IsKind(SyntaxKind.FunctionBlock) && !node.IsKind(SyntaxKind.SubBlock) && !node.IsKind(SyntaxKind.PropertyBlock) && !node.IsKind(SyntaxKind.GetAccessorBlock) && !node.IsKind(SyntaxKind.SetAccessorBlock);
         }
 
         protected override ExtraVbSpaceRemover CreateRewriter(TextSpan span, bool useSpaces, int spacesInTab)

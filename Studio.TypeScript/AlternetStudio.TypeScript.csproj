@@ -78,22 +78,22 @@
     <PackageReference Include="Microsoft.ClearScript" Version="7.2.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.1.2" />
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.1.2" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.1.2" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.TypeScript.WindowsForms" Version="9.1.2" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.1.2" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.1.2" />
-    <PackageReference Include="Alternet.Studio.Editor.TypeScript" Version="9.1.2" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="9.1.2" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.1.2" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.1.2" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="9.1.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="9.1.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="9.1.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.1.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.1.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.1.2" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.1.3" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.1.3" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.1.3" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.TypeScript.WindowsForms" Version="9.1.3" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.1.3" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.1.3" />
+    <PackageReference Include="Alternet.Studio.Editor.TypeScript" Version="9.1.3" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="9.1.3" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.1.3" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.1.3" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="9.1.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="9.1.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="9.1.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.1.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.1.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.1.3" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutBox.cs">

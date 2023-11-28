@@ -359,11 +359,11 @@ return string.Empty;";
         {
             if (node.IsKind(SyntaxKind.Block))
             {
-                if (node.Parent != null && node.Parent.IsKind(SyntaxKind.MethodDeclaration))
+                if (node.Parent != null && (node.Parent.IsKind(SyntaxKind.MethodDeclaration) || node.IsKind(SyntaxKind.PropertyDeclaration) || node.Parent.IsKind(SyntaxKind.GetAccessorDeclaration) || node.Parent.IsKind(SyntaxKind.SetAccessorDeclaration)))
                     return false;
             }
 
-            return base.IsBlockNode(node, pos);
+            return base.IsBlockNode(node, pos) && !node.IsKind(SyntaxKind.PropertyDeclaration);
         }
 
         protected override ExtraCsSpaceRemover CreateRewriter(TextSpan span, bool useSpaces, int spacesInTab)

@@ -26,8 +26,8 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.1.2" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.1.2" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.1.3" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.1.3" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0'))" />
   </ItemGroup>
   <ItemGroup Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))">
     <Reference Include="System" />
