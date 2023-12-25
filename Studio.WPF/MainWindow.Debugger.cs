@@ -315,7 +315,7 @@ namespace AlternetStudio.Wpf.Demo
             if (!Project.HasProject)
                 return;
 
-            using (var dialog = new RunParameters() { CommandLineArgs = Project.UserSettings.CommandLineArgs, StartProgram = Project.UserSettings.StartProgram, StartExternalProgram = Project.UserSettings.StartExternalProgram })
+            using (var dialog = new RunParameters() { CommandLineArgs = Project.UserSettings.CommandLineArgs, StartProgram = Project.UserSettings.StartProgram, StartExternalProgram = Project.UserSettings.StartExternalProgram, IsDotnetCore = Project.TargetFramework != null })
             {
                 if (dialog.ShowDialog().Value == true)
                 {

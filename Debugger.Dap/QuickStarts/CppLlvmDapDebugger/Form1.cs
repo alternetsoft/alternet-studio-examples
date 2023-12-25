@@ -11,12 +11,9 @@ using Alternet.Common;
 using Alternet.Common.Projects.DotNet;
 using Alternet.Editor;
 using Alternet.Editor.Common;
-using Alternet.Scripter.Debugger;
-using Alternet.Scripter.Debugger.Dap;
 using Alternet.Scripter.Debugger.Dap.Cpp.Lldb;
 using Alternet.Scripter.Debugger.Dap.Cpp.Lldb.Embedded;
 using Alternet.Scripter.Integration;
-using Alternet.Syntax;
 using Alternet.Syntax.Parsers.Lsp.Clangd.Embedded;
 
 namespace CppLlvmDapDebugger

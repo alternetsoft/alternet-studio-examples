@@ -23,7 +23,6 @@ namespace ScriptHostObject
 {
     public partial class MainForm : Form
     {
-        private const string LanguageDescription = "Choose programming language";
         private ISyntaxEdit edit;
 
         public MainForm()
@@ -69,13 +68,13 @@ namespace ScriptHostObject
             GetSourceParametersForCSharp(out sourceFileSubPath, out language);
             var sourceFileFullPath = GetSourceFileFullPath(sourceFileSubPath);
             edit = CreateEditor(sourceFileFullPath, parent);
+            scriptRun.ScriptLanguage = language;
+            InitScripter();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             CreateEditor(pnEdit);
-
-            cbLanguages.SelectedIndex = 0;
         }
 
         private void InitScripter()
@@ -115,12 +114,6 @@ namespace ScriptHostObject
             language = ScriptLanguage.CSharpScript;
         }
 
-        private void GetSourceParametersForVisualBasic(out string sourceFileSubPath, out ScriptLanguage language)
-        {
-            sourceFileSubPath = "ScriptHostObject.vbx";
-            language = ScriptLanguage.VisualBasicScript;
-        }
-
         private string GetSourceFileFullPath(string sourceFileSubPath)
         {
             const string ResourcesFolderName = @"Resources\Scripter";
@@ -133,39 +126,6 @@ namespace ScriptHostObject
             }
 
             return path;
-        }
-
-        private void UpdateSource(int index)
-        {
-            string sourceFileSubPath;
-            ScriptLanguage language;
-            switch (index)
-            {
-                case 0:
-                    GetSourceParametersForCSharp(out sourceFileSubPath, out language);
-                    break;
-                default:
-                    GetSourceParametersForVisualBasic(out sourceFileSubPath, out language);
-                    break;
-            }
-
-            var sourceFileFullPath = GetSourceFileFullPath(sourceFileSubPath);
-            LoadFile(edit, sourceFileFullPath, language);
-
-            scriptRun.ScriptLanguage = language;
-            InitScripter();
-        }
-
-        private void LanguagesComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateSource(cbLanguages.SelectedIndex);
-        }
-
-        private void LanguagesComboBox_MouseMove(object sender, MouseEventArgs e)
-        {
-            string str = toolTip1.GetToolTip(cbLanguages);
-            if (str != LanguageDescription)
-                toolTip1.SetToolTip(cbLanguages, LanguageDescription);
         }
     }
 }

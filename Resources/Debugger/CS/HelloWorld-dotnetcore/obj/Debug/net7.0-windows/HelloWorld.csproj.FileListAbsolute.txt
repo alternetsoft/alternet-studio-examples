@@ -1,0 +1,17 @@
+C:\develop\git\AlternetStudio\Demo\Resources\Debugger\CS\HelloWorld-dotnetcore\bin\Debug\net7.0-windows\HelloWorld.exe
+C:\develop\git\AlternetStudio\Demo\Resources\Debugger\CS\HelloWorld-dotnetcore\bin\Debug\net7.0-windows\HelloWorld.deps.json
+C:\develop\git\AlternetStudio\Demo\Resources\Debugger\CS\HelloWorld-dotnetcore\bin\Debug\net7.0-windows\HelloWorld.runtimeconfig.json
+C:\develop\git\AlternetStudio\Demo\Resources\Debugger\CS\HelloWorld-dotnetcore\bin\Debug\net7.0-windows\HelloWorld.dll
+C:\develop\git\AlternetStudio\Demo\Resources\Debugger\CS\HelloWorld-dotnetcore\bin\Debug\net7.0-windows\HelloWorld.pdb
+C:\develop\git\AlternetStudio\Demo\Resources\Debugger\CS\HelloWorld-dotnetcore\obj\Debug\net7.0-windows\HelloWorld.Form1.resources
+C:\develop\git\AlternetStudio\Demo\Resources\Debugger\CS\HelloWorld-dotnetcore\obj\Debug\net7.0-windows\HelloWorld.csproj.GenerateResource.cache
+C:\develop\git\AlternetStudio\Demo\Resources\Debugger\CS\HelloWorld-dotnetcore\obj\Debug\net7.0-windows\HelloWorld.GeneratedMSBuildEditorConfig.editorconfig
+C:\develop\git\AlternetStudio\Demo\Resources\Debugger\CS\HelloWorld-dotnetcore\obj\Debug\net7.0-windows\HelloWorld.AssemblyInfoInputs.cache
+C:\develop\git\AlternetStudio\Demo\Resources\Debugger\CS\HelloWorld-dotnetcore\obj\Debug\net7.0-windows\HelloWorld.AssemblyInfo.cs
+C:\develop\git\AlternetStudio\Demo\Resources\Debugger\CS\HelloWorld-dotnetcore\obj\Debug\net7.0-windows\HelloWorld.csproj.CoreCompileInputs.cache
+C:\develop\git\AlternetStudio\Demo\Resources\Debugger\CS\HelloWorld-dotnetcore\obj\Debug\net7.0-windows\HelloWorld.sourcelink.json
+C:\develop\git\AlternetStudio\Demo\Resources\Debugger\CS\HelloWorld-dotnetcore\obj\Debug\net7.0-windows\HelloWorld.dll
+C:\develop\git\AlternetStudio\Demo\Resources\Debugger\CS\HelloWorld-dotnetcore\obj\Debug\net7.0-windows\refint\HelloWorld.dll
+C:\develop\git\AlternetStudio\Demo\Resources\Debugger\CS\HelloWorld-dotnetcore\obj\Debug\net7.0-windows\HelloWorld.pdb
+C:\develop\git\AlternetStudio\Demo\Resources\Debugger\CS\HelloWorld-dotnetcore\obj\Debug\net7.0-windows\HelloWorld.genruntimeconfig.cache
+C:\develop\git\AlternetStudio\Demo\Resources\Debugger\CS\HelloWorld-dotnetcore\obj\Debug\net7.0-windows\ref\HelloWorld.dll

@@ -55,8 +55,11 @@ namespace AlternetStudio.Demo
             {
                 openFileDialog.InitialDirectory = Path.GetFullPath(startupDirectory);
                 saveFileDialog.InitialDirectory = Path.GetFullPath(startupDirectory);
-
-                var projectDirectory = Path.Combine(startupDirectory, @"Debugger\cs\HelloWorld");
+                string suffix = string.Empty;
+#if NETCOREAPP
+                suffix += "-dotnetcore";
+#endif
+                var projectDirectory = Path.Combine(startupDirectory, @"Debugger\cs\HelloWorld" + suffix);
                 var projectFile = Path.GetFullPath(Path.Combine(projectDirectory, "HelloWorld.csproj"));
                 if (File.Exists(projectFile))
                     OpenProject(projectFile);

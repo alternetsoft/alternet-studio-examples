@@ -574,9 +574,9 @@ namespace AlternetStudio.Demo
                 {
                     if (project.RemoveProjectReference(projectReference))
                     {
-                        var references = project.ProjectReferences.Select(x => x.ProjectName).ToArray();
+                        var references = project.ProjectReferences.Select(x => string.IsNullOrEmpty(x.ProjectName) && !string.IsNullOrEmpty(x.ProjectPath) ? Path.GetFileNameWithoutExtension(x.ProjectPath) : x.ProjectName).ToArray();
                         var extension = string.Format(".{0}", project.DefaultExtension);
-                        CodeEditExtensions.RegisterProjectReferences(extension, project.ProjectReferences.Select(x => x.ProjectName).ToArray(), project.ProjectName);
+                        CodeEditExtensions.RegisterProjectReferences(extension, references, project.ProjectName);
                         UpdateProjectExplorer();
                         UpdateCodeNavigation();
                     }

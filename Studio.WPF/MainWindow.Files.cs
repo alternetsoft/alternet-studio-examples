@@ -159,7 +159,6 @@ namespace AlternetStudio.Wpf.Demo
                 navigationHistory.UpdateHistory(backwardMenu.ContextMenu.Items, 0, historyBackwardToolButton, backwardMenu, historyForwardToolButton, Backward_ItemClick);
             };
 
-
             edit.StatusChanged += new EventHandler(CodeEdit_StatusChanged);
             page.Content = edit;
 

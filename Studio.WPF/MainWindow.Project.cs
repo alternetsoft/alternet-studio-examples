@@ -108,7 +108,7 @@ namespace AlternetStudio.Wpf.Demo
                 foreach (var prj in solution.Projects)
                 {
                     var extension = string.Format(".{0}", prj.DefaultExtension);
-                    CodeEditExtensions.RegisterProjectReferences(extension, prj.ProjectReferences.Select(x => x.ProjectName).ToArray(), prj.ProjectName);
+                    CodeEditExtensions.RegisterProjectReferences(extension, prj.ProjectReferences.Select(x => string.IsNullOrEmpty(x.ProjectName) && !string.IsNullOrEmpty(x.ProjectPath) ? Path.GetFileNameWithoutExtension(x.ProjectPath) : x.ProjectName).ToArray(), prj.ProjectName);
                 }
             }
             else

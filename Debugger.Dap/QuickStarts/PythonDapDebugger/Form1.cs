@@ -178,11 +178,11 @@ namespace PythonDapDebugger
             if (syntaxEdit == null)
                 return;
 
-            var cppParser = syntaxEdit.Lexer as Alternet.Syntax.Parsers.Lsp.Python.PythonParser;
-            if (cppParser == null)
+            var pythonParser = syntaxEdit.Lexer as Alternet.Syntax.Parsers.Lsp.Python.PythonParser;
+            if (pythonParser == null)
                 return;
 
-            var declaration = await cppParser.FindDeclarationAsync(syntaxEdit.Position);
+            var declaration = await pythonParser.FindDeclarationAsync(syntaxEdit.Position);
             if (declaration == null)
                 return;
 

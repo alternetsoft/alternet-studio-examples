@@ -35,8 +35,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.ExpressionLabel = new System.Windows.Forms.Label();
             this.pnDescription = new System.Windows.Forms.Panel();
-            this.cbLanguages = new System.Windows.Forms.ComboBox();
-            this.laLanguages = new System.Windows.Forms.Label();
             this.btRun = new System.Windows.Forms.Button();
             this.laDescription = new System.Windows.Forms.Label();
             this.scriptRun = new Alternet.Scripter.ScriptRun(this.components);
@@ -69,8 +67,6 @@
             // 
             // pnDescription
             // 
-            this.pnDescription.Controls.Add(this.cbLanguages);
-            this.pnDescription.Controls.Add(this.laLanguages);
             this.pnDescription.Controls.Add(this.btRun);
             this.pnDescription.Controls.Add(this.laDescription);
             this.pnDescription.Dock = System.Windows.Forms.DockStyle.Top;
@@ -80,36 +76,9 @@
             this.pnDescription.Size = new System.Drawing.Size(955, 48);
             this.pnDescription.TabIndex = 2;
             // 
-            // cbLanguages
-            // 
-            this.cbLanguages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbLanguages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbLanguages.Items.AddRange(new object[] {
-            "C#",
-            "Visual Basic"});
-            this.cbLanguages.Location = new System.Drawing.Point(822, 13);
-            this.cbLanguages.Margin = new System.Windows.Forms.Padding(4);
-            this.cbLanguages.Name = "cbLanguages";
-            this.cbLanguages.Size = new System.Drawing.Size(129, 24);
-            this.cbLanguages.TabIndex = 20;
-            this.cbLanguages.Visible = false;
-            this.cbLanguages.SelectedIndexChanged += new System.EventHandler(this.LanguagesComboBox_SelectedIndexChanged);
-            // 
-            // laLanguages
-            // 
-            this.laLanguages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.laLanguages.AutoSize = true;
-            this.laLanguages.Location = new System.Drawing.Point(737, 17);
-            this.laLanguages.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.laLanguages.Name = "laLanguages";
-            this.laLanguages.Size = new System.Drawing.Size(71, 16);
-            this.laLanguages.TabIndex = 19;
-            this.laLanguages.Text = "Language:";
-            this.laLanguages.Visible = false;
-            // 
             // btRun
             // 
-            this.btRun.Location = new System.Drawing.Point(631, 10);
+            this.btRun.Location = new System.Drawing.Point(682, 6);
             this.btRun.Margin = new System.Windows.Forms.Padding(4);
             this.btRun.Name = "btRun";
             this.btRun.Size = new System.Drawing.Size(100, 28);
@@ -121,13 +90,14 @@
             // laDescription
             // 
             this.laDescription.Dock = System.Windows.Forms.DockStyle.Left;
+            this.laDescription.AutoSize = true;
             this.laDescription.Location = new System.Drawing.Point(0, 0);
+            this.laDescription.Padding = new System.Windows.Forms.Padding(4, 8, 4, 0);
             this.laDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.laDescription.Name = "laDescription";
             this.laDescription.Size = new System.Drawing.Size(612, 48);
             this.laDescription.TabIndex = 3;
-            this.laDescription.Text = "This demo shows how to access fields of the objects hosted in the application in " +
-    "the class-less script.";
+            this.laDescription.Text = "This demo shows how to access fields of the objects hosted in the application in the class-less script.";
             this.laDescription.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pnEdit
@@ -168,8 +138,6 @@
         private System.Windows.Forms.Panel pnDescription;
         private System.Windows.Forms.Button btRun;
         private System.Windows.Forms.Label laDescription;
-        private System.Windows.Forms.ComboBox cbLanguages;
-        private System.Windows.Forms.Label laLanguages;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label ExpressionLabel;
     }

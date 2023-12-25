@@ -9,13 +9,18 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="44"/>
+            <RowDefinition Height="44"/>
             <RowDefinition Height="66"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label x:Name="laDescription" Grid.Row="0">
             <AccessText TextWrapping="Wrap" Text="The demo project shows ability to display intellisense listboxes and hints. Type Ctrl + Space somewhere in the code, or type '.' or '(' after identifier."/>
         </Label>
-        <GroupBox Grid.Row="1" Header="Code Completion" x:Name="gbCodeCompletion" Margin="0,0,0,0" BorderThickness="1.5" Padding="0" Width="Auto">
+        <Label Grid.Row="1" Content="Language:" VerticalContentAlignment="Center" />
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="1" Margin="70,0,0,0">
+            <ComboBox Width="121" Height="21" ItemsSource="{Binding Path=Languages}" SelectedItem="{Binding Language}" ToolTip="Choose programming language"/>
+        </StackPanel>
+        <GroupBox Grid.Row="2" Header="Code Completion" x:Name="gbCodeCompletion" Margin="0,0,0,0" BorderThickness="1.5" Padding="0" Width="Auto">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="24"/>
@@ -25,7 +30,7 @@
                 <RadioButton Grid.Row="1" Content="Custom" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" IsChecked="{Binding Manual, Mode=TwoWay}" ToolTip="Code completion by NeedCodeCompletion event handler"/>
             </Grid>
         </GroupBox>
-        <Wpf:TextEditor Grid.Column="0" Grid.Row="2" x:Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" AllowOutlining="True">
+        <Wpf:TextEditor Grid.Column="0" Grid.Row="3" x:Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" AllowOutlining="True">
         </Wpf:TextEditor>
     </Grid>
 </Window>

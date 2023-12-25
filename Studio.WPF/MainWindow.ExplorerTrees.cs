@@ -365,12 +365,30 @@ namespace AlternetStudio.Wpf.Demo
             if (IsReferenceNode(item))
             {
                 var reference = item.Tag as DotNetProject.AssemblyReference;
-                if (project.RemoveReference(reference.FullName))
+                if (reference != null)
                 {
-                    var references = project.References.Select(x => x.FullName).ToArray();
-                    CodeEditExtensions.RegisterAssemblies(project.ProjectExtension, project.TryResolveAbsolutePaths(references).ToArray(), projectName: project.ProjectName);
-                    UpdateProjectExplorer();
-                    UpdateCodeNavigation();
+                    if (project.RemoveReference(reference.FullName))
+                    {
+                        var references = project.References.Select(x => x.FullName).ToArray();
+                        CodeEditExtensions.RegisterAssemblies(project.ProjectExtension, project.TryResolveAbsolutePaths(references).ToArray(), projectName: project.ProjectName);
+                        UpdateProjectExplorer();
+                        UpdateCodeNavigation();
+                    }
+                }
+                else
+                {
+                    var projectReference = item.Tag as DotNetProject.ProjectReference;
+                    if (projectReference != null)
+                    {
+                        if (project.RemoveProjectReference(projectReference))
+                        {
+                            var references = project.ProjectReferences.Select(x => string.IsNullOrEmpty(x.ProjectName) && !string.IsNullOrEmpty(x.ProjectPath) ? Path.GetFileNameWithoutExtension(x.ProjectPath) : x.ProjectName).ToArray();
+                            var extension = string.Format(".{0}", project.DefaultExtension);
+                            CodeEditExtensions.RegisterProjectReferences(extension, references, project.ProjectName);
+                            UpdateProjectExplorer();
+                            UpdateCodeNavigation();
+                        }
+                    }
                 }
             }
         }

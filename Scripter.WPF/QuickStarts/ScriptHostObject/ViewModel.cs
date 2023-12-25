@@ -33,8 +33,6 @@ namespace ScriptHostObject
         private MainWindow window;
         private TextEditor edit;
         private string dir = AppDomain.CurrentDomain.BaseDirectory + @"\";
-        private string lang = string.Empty;
-        private ObservableCollection<string> languages = new ObservableCollection<string>();
         private IDefaultAssembliesProvider defaultAssembliesProvider = DefaultAssembliesProviderFactory.CreateDefaultAssembliesProvider();
 
         public ViewModel()
@@ -50,37 +48,9 @@ namespace ScriptHostObject
             CreateEditor(window.EditBorder);
 
             scriptRun.ScriptHost.GenerateModulesOnDisk = false;
-
-            languages.Add("C#");
-            languages.Add("VB");
-            Language = "C#";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public ObservableCollection<string> Languages
-        {
-            get { return languages; }
-            set { languages = value; }
-        }
-
-        public string Language
-        {
-            get
-            {
-                return lang;
-            }
-
-            set
-            {
-                if (lang != value)
-                {
-                    lang = value;
-                    OnPropertyChanged("Language");
-                    UpdateSource();
-                }
-            }
-        }
 
         public ICommand RunScript { get; set; }
 
@@ -126,12 +96,6 @@ namespace ScriptHostObject
             language = ScriptLanguage.CSharpScript;
         }
 
-        private void GetSourceParametersForVisualBasic(out string sourceFileSubPath, out ScriptLanguage language)
-        {
-            sourceFileSubPath = "ScriptHostObjectWpf.vbx";
-            language = ScriptLanguage.VisualBasicScript;
-        }
-
         private string GetSourceFileFullPath(string sourceFileSubPath)
         {
             const string ResourcesFolderName = @"Resources\Scripter";
@@ -144,27 +108,6 @@ namespace ScriptHostObject
             }
 
             return path;
-        }
-
-        private void UpdateSource()
-        {
-            string sourceFileSubPath;
-            ScriptLanguage language;
-            switch (lang)
-            {
-                case "C#":
-                    GetSourceParametersForCSharp(out sourceFileSubPath, out language);
-                    break;
-                default:
-                    GetSourceParametersForVisualBasic(out sourceFileSubPath, out language);
-                    break;
-            }
-
-            var sourceFileFullPath = GetSourceFileFullPath(sourceFileSubPath);
-            LoadFile(edit, sourceFileFullPath, language);
-
-            scriptRun.ScriptLanguage = language;
-            InitScripter();
         }
 
         private void LoadFile(TextEditor edit, string fileName, ScriptLanguage language)
@@ -182,10 +125,6 @@ namespace ScriptHostObject
                     parser = new CsParser(solution);
                     parser.Repository.RegisterAssemblies(defaultAssembliesProvider.GetDefaultAssemblies(Alternet.Common.TechnologyEnvironment.Wpf));
                     break;
-                case ScriptLanguage.VisualBasicScript:
-                    //solution = new VbSolution(Microsoft.CodeAnalysis.SourceCodeKind.Script, typeof(Globals));
-                    //parser = new VbParser(solution);
-                    break;
             }
 
             edit.Lexer = parser;
@@ -198,6 +137,8 @@ namespace ScriptHostObject
             GetSourceParametersForCSharp(out sourceFileSubPath, out language);
             var sourceFileFullPath = GetSourceFileFullPath(sourceFileSubPath);
             edit = CreateEditor(sourceFileFullPath, border);
+            scriptRun.ScriptLanguage = language;
+            InitScripter();
         }
 
         private TextEditor CreateEditor(string fileName, Border border)

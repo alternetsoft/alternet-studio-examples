@@ -4,7 +4,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net462;net6.0-windows;net7.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -35,19 +35,19 @@
     <EmbeddedResource Include="Properties\licenses.licx" Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.1.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Cpp.Lldb.Embedded" Version="9.1.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Cpp.Lldb" Version="9.1.3" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.1.3" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.1.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.1.3" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.1.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="9.1.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd.Embedded" Version="9.1.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd" Version="9.1.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.1.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.1.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.1.3" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Cpp.Lldb.Embedded" Version="9.5.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Cpp.Lldb" Version="9.5.0" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.5.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="9.5.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd.Embedded" Version="9.5.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd" Version="9.5.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.5.0" />
   </ItemGroup>
   <ItemGroup />
 </Project>

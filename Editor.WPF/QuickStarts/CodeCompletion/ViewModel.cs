@@ -11,6 +11,7 @@
 #endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 
@@ -27,12 +28,16 @@ namespace CodeCompletion
     {
         #region Private Members
 
+        private string language = string.Empty;
+        private ObservableCollection<string> languages = new ObservableCollection<string>();
         private string dir = AppDomain.CurrentDomain.BaseDirectory + @"\";
         private TextEditor edit;
         private bool auto = false;
         private bool manual = false;
         private TextSource csharpSource = new TextSource();
+        private TextSource vbSource = new TextSource();
         private CsParser csParser1 = new CsParser();
+        private VbParser vbParser1 = new VbParser();
 
         #endregion
 
@@ -48,8 +53,18 @@ namespace CodeCompletion
             if (fileInfo.Exists)
                 csharpSource.LoadFile(fileInfo.FullName);
 
+            fileInfo = new FileInfo(dir + @"Resources\Editor\Text\vb_net.txt");
+            if (fileInfo.Exists)
+                vbSource.LoadFile(fileInfo.FullName);
+
             csParser1.Options |= SyntaxOptions.QuickInfoTips;
             csharpSource.Lexer = csParser1;
+            vbSource.Lexer = vbParser1;
+            csharpSource.HighlightReferences = true;
+            vbSource.HighlightReferences = true;
+
+            languages.Add("C#");
+            languages.Add("VB");
         }
 
         public ViewModel(TextEditor edit)
@@ -60,9 +75,51 @@ namespace CodeCompletion
             this.edit = edit;
             Auto = true;
             Manual = false;
+            Language = "C#";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public TextSource Source
+        {
+            get
+            {
+                switch (language)
+                {
+                    case "C#":
+                        return csharpSource;
+                    case "VB":
+                        return vbSource;
+                    default:
+                        return csharpSource;
+                }
+            }
+        }
+
+        public ObservableCollection<string> Languages
+        {
+            get { return languages; }
+            set { languages = value; }
+        }
+
+        public string Language
+        {
+            get
+            {
+                return language;
+            }
+
+            set
+            {
+                if (language != value)
+                {
+                    language = value;
+                    OnPropertyChanged("Language");
+                    if (edit != null)
+                        edit.Source = Source;
+                }
+            }
+        }
 
         public bool Auto
         {
@@ -76,6 +133,7 @@ namespace CodeCompletion
                 if (auto != value)
                 {
                     auto = value;
+                    edit.CodeCompletionBox.Sorted = auto;
                     OnPropertyChanged("Auto");
                 }
             }
@@ -108,9 +166,6 @@ namespace CodeCompletion
 
         private void SyntaxEdit1_NeedCodeCompletion(object sender, Alternet.Syntax.CodeCompletionArgs e)
         {
-            if (e.Provider != null)
-                e.Provider.Sort();
-
             if (auto)
                 return;
             if ((e.CompletionType == CodeCompletionType.ListMembers) || (e.CompletionType == CodeCompletionType.CompleteWord) ||
@@ -118,6 +173,10 @@ namespace CodeCompletion
             {
                 if ((e.Provider != null) && (e.Provider is IListMembers))
                 {
+                    var selItem = e.SelIndex >= 0 ? e.Provider[e.SelIndex] : null;
+
+                    e.Provider.Sort();
+
                     IListMembers p = (IListMembers)e.Provider;
                     p.ShowDescriptions = true;
                     p.ShowResults = false;
@@ -141,6 +200,8 @@ namespace CodeCompletion
                     e.NeedShow = true;
                     e.Provider = p;
                     e.ToolTip = false;
+                    if (selItem != null)
+                        e.SelIndex = e.Provider.IndexOf(selItem);
                 }
             }
             else

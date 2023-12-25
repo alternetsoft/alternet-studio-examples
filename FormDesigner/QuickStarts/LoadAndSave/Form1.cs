@@ -16,6 +16,7 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 
+using Alternet.Common.DotNet.DefaultAssemblies;
 using Alternet.FormDesigner.WinForms;
 
 namespace LoadAndSave
@@ -74,9 +75,20 @@ namespace LoadAndSave
             return ds;
         }
 
+
         private DesignerReferencedAssemblies GetReferencedAssemblies(string fileName)
         {
-            return Path.GetExtension(fileName).ToLower().Equals(".vb") ? DesignerReferencedAssemblies.DefaultForVisualBasic : DesignerReferencedAssemblies.DefaultForCSharp;
+#if NETCOREAPP
+            var defaultReferences =
+                new DesignerReferencedAssemblies(
+                    MinimalDotNetCoreDependenciesService.GetReferences(Alternet.Common.TechnologyEnvironment.WindowsForms, useRuntimeAssemblies: false, needFullPaths: true, useDesignReferences: true));
+#else
+            var defaultReferences = Path.GetExtension(fileName).ToLower().Equals(".vb") ?
+                DesignerReferencedAssemblies.DefaultForVisualBasic :
+                DesignerReferencedAssemblies.DefaultForCSharp;
+#endif
+
+            return defaultReferences;
         }
 
         private DesignerImportedNamespaces GetImportedNamespaces(string fileName)

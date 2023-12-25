@@ -34,14 +34,18 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pnSettings = new System.Windows.Forms.Panel();
+            this.pnLanguages = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbManual = new System.Windows.Forms.RadioButton();
             this.rbAutomatic = new System.Windows.Forms.RadioButton();
+            this.cbLanguages = new System.Windows.Forms.ComboBox();
+            this.laLanguages = new System.Windows.Forms.Label();
             this.pnDescription = new System.Windows.Forms.Panel();
             this.laDescription = new System.Windows.Forms.Label();
             this.syntaxEdit1 = new Alternet.Editor.SyntaxEdit(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pnSettings.SuspendLayout();
+            this.pnLanguages.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.pnDescription.SuspendLayout();
             this.SuspendLayout();
@@ -49,20 +53,34 @@
             // pnSettings
             // 
             this.pnSettings.Controls.Add(this.groupBox1);
+            //this.pnSettings.Controls.Add(this.cbLanguages);
+            //this.pnSettings.Controls.Add(this.laLanguages);
+            this.pnSettings.Controls.Add(this.pnLanguages);
             this.pnSettings.Controls.Add(this.pnDescription);
             this.pnSettings.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnSettings.Location = new System.Drawing.Point(0, 0);
             this.pnSettings.Name = "pnSettings";
             this.pnSettings.Padding = new System.Windows.Forms.Padding(5);
-            this.pnSettings.Size = new System.Drawing.Size(667, 112);
+            this.pnSettings.Size = new System.Drawing.Size(667, 142);
             this.pnSettings.TabIndex = 4;
+            // 
+            // pnLanguages
+            // 
+            this.pnLanguages.Controls.Add(this.cbLanguages);
+            this.pnLanguages.Controls.Add(this.laLanguages);
+            this.pnLanguages.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnLanguages.Location = new System.Drawing.Point(0, 0);
+            this.pnLanguages.Name = "pnLanguages";
+            this.pnLanguages.Padding = new System.Windows.Forms.Padding(5);
+            this.pnLanguages.Size = new System.Drawing.Size(667, 30);
+            this.pnLanguages.TabIndex = 3;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.rbManual);
             this.groupBox1.Controls.Add(this.rbAutomatic);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(5, 44);
+            this.groupBox1.Location = new System.Drawing.Point(5, 84);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(657, 63);
             this.groupBox1.TabIndex = 9;
@@ -90,6 +108,29 @@
             this.rbAutomatic.TabStop = true;
             this.rbAutomatic.Text = "Automatic";
             this.rbAutomatic.MouseMove += new System.Windows.Forms.MouseEventHandler(this.AutomaticRadioButton_MouseMove);
+            this.rbAutomatic.CheckedChanged += AutomaticRadioButton_CheckedChanged;
+            // 
+            // cbLanguages
+            // 
+            this.cbLanguages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbLanguages.Items.AddRange(new object[] {
+            "C#",
+            "Visual Basic"});
+            this.cbLanguages.Location = new System.Drawing.Point(76, 8);
+            this.cbLanguages.Name = "cbLanguages";
+            this.cbLanguages.Size = new System.Drawing.Size(121, 21);
+            this.cbLanguages.TabIndex = 10;
+            this.cbLanguages.SelectedIndexChanged += new System.EventHandler(this.LanguagesComboBox_SelectedIndexChanged);
+            this.cbLanguages.MouseMove += new System.Windows.Forms.MouseEventHandler(this.LanguagesComboBox_MouseMove);
+            // 
+            // laLanguages
+            // 
+            this.laLanguages.AutoSize = true;
+            this.laLanguages.Location = new System.Drawing.Point(12, 8);
+            this.laLanguages.Name = "laLanguages";
+            this.laLanguages.Size = new System.Drawing.Size(58, 13);
+            this.laLanguages.TabIndex = 9;
+            this.laLanguages.Text = "Language:";
             // 
             // pnDescription
             // 
@@ -137,6 +178,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Code Completion";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.pnLanguages.ResumeLayout(false);
             this.pnSettings.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -148,9 +190,12 @@
         #endregion
 
         private System.Windows.Forms.Panel pnSettings;
+        private System.Windows.Forms.Panel pnLanguages;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbManual;
         private System.Windows.Forms.RadioButton rbAutomatic;
+        private System.Windows.Forms.ComboBox cbLanguages;
+        private System.Windows.Forms.Label laLanguages;
         private System.Windows.Forms.Panel pnDescription;
         private System.Windows.Forms.Label laDescription;
         private Alternet.Editor.SyntaxEdit syntaxEdit1;

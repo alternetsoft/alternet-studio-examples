@@ -242,6 +242,14 @@ return string.Empty;";
             }
         }
 
+        protected override bool ShowItemsFromUnimportedNamespaces
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         public override int GetPosFromPosition(SourceText text, Point position)
         {
             return base.GetPosFromPosition(text, new Point(position.X, position.Y + StartOffset));

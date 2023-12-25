@@ -161,11 +161,19 @@ namespace AlternetStudio.Demo
         {
             scriptRun.ScriptSource.FromScriptProject(project.ProjectFileName);
             scriptRun.ScriptSource.SearchPaths.Clear();
+
             if (project.ProjectReferences.Count > 0)
             {
                 foreach (var reference in project.ProjectReferences)
                 {
-                    scriptRun.ScriptSource.References.Add(reference.ProjectName);
+                    if (!string.IsNullOrEmpty(reference.ProjectName))
+                        scriptRun.ScriptSource.References.Add(reference.ProjectName);
+                    else
+                    if (!string.IsNullOrEmpty(reference.ProjectPath))
+                    {
+                        // ideally we need to load assemblyname from the project
+                        scriptRun.ScriptSource.References.Add(Path.GetFileNameWithoutExtension(reference.ProjectPath));
+                    }
                 }
 
                 scriptRun.ScriptSource.SearchPaths.Add(Path.GetDirectoryName(scriptRun.ScriptHost.ExecutableModulePath));
