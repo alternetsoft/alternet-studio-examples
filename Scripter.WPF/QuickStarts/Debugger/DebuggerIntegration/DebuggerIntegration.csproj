@@ -44,26 +44,26 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>9.5.0</Version>
+      <Version>9.5.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.Wpf" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Wpf" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration.Wpf" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="9.5.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.Wpf" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Wpf" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration.Wpf" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="9.5.1" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Icon.ico" />

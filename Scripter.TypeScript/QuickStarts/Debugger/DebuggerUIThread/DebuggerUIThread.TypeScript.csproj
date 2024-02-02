@@ -30,18 +30,18 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Editor.TypeScript" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.5.0" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Editor.TypeScript" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.5.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DisplayForm.cs" />

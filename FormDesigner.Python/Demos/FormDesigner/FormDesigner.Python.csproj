@@ -24,17 +24,17 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Python.WindowsForms" Version="9.5.0" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0')) or $(DefineConstants.Contains(';NET8_0'))" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Python" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python.Embedded" Version="9.5.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Python.WindowsForms" Version="9.5.1" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0')) or $(DefineConstants.Contains(';NET8_0'))" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Python" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python.Embedded" Version="9.5.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\TabControl\GdiMemoryContext.cs">

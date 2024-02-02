@@ -165,7 +165,6 @@ namespace AlternetStudio.Demo
             edit.Dock = DockStyle.Fill;
             edit.Bounds = new Rectangle(0, 0, page.ClientRectangle.Width, page.ClientRectangle.Height);
             edit.HighlightReferences = true;
-            edit.Gutter.Options |= GutterOptions.PaintLinesOnGutter;
             page.Controls.Add(edit as Control);
 
             editorsTabControl.SelectedTab = page;
