@@ -29,6 +29,9 @@ namespace TextMateParsing
         private string dir = Application.StartupPath + @"\";
         private TextMateParser parser = new TextMateParser();
         private IList<string> themeList = new List<string>();
+        private static string increasePattern = "^((?!//).)*(\\{([^}\"'`/]*|(\\t|[ ])*//.*)|\\([^)\"'`/]*|\\[[^\\]\"'`/]*)$";
+        private static string decreasePattern = "^((?!.*?\\/\\*).*\\*/)?\\s*[\\)\\}\\]].*$";
+        private static string unindentPattern = "^(\\t|[ ])*[ ]\\*[^/]*\\*/\\s*$|^(\\t|[ ])*[ ]\\*/\\s*$|^(\\t|[ ])*[ ]\\*([ ]([^\\*]|\\*(?!/))*)?$";
 
         private LanguageInfo[] langItems =
         {
@@ -36,10 +39,10 @@ namespace TextMateParsing
             new LanguageInfo(".bat", "*.bat", "Bat"),
             new LanguageInfo(".clj", "*clj.", "Clojure"),
             new LanguageInfo(".coffee", "*.coffee", "Coffeescript"),
-            new LanguageInfo(".c", "*.c", "C"),
-            new LanguageInfo(".cpp", "*.cpp", "C++"),
+            new LanguageInfo(".c", "*.c", "C", true),
+            new LanguageInfo(".cpp", "*.cpp", "C++", true),
             new LanguageInfo(".cu", "*.cu", "Cuda cpp"),
-            new LanguageInfo(".cs", "*.cs", "C#"),
+            new LanguageInfo(".cs", "*.cs", "C#", true),
             new LanguageInfo(".cshtml", "*.cshtml", "Razor"),
             new LanguageInfo(".css", "*.css", "Css"),
             new LanguageInfo(".dart", "*.dart", "Dart"),
@@ -52,7 +55,7 @@ namespace TextMateParsing
             new LanguageInfo(".hlsl", "*.hlsl", "Hlsl"),
             new LanguageInfo(".html", "*.html", "Html"),
             new LanguageInfo(".ini", "*.ini", "Ini"),
-            new LanguageInfo(".java", "*.java", "Java"),
+            new LanguageInfo(".java", "*.java", "Java", true),
             new LanguageInfo(".jsx", "*.jsx", "Java Script React"),
             new LanguageInfo(".js", "*.js", "Java Script"),
             new LanguageInfo(".json", "*.json", "Json"),
@@ -62,8 +65,8 @@ namespace TextMateParsing
             new LanguageInfo(".lua", "*.lua", "Lua"),
             new LanguageInfo(".mak", "*.mak", "Makefile"),
             new LanguageInfo(".md", "*.md", "Markdown"),
-            new LanguageInfo(".m", "*.m", "Objective-c"),
-            new LanguageInfo(".mm", "*.mm", "Objective-cpp"),
+            new LanguageInfo(".m", "*.m", "Objective-c", true),
+            new LanguageInfo(".mm", "*.mm", "Objective-cpp", true),
             new LanguageInfo(".pas", "*.pas", "Pascal"),
             new LanguageInfo(".pl", "*.pl", "Perl"),
             new LanguageInfo(".p6", "*.p6", "Perl6"),
@@ -81,7 +84,7 @@ namespace TextMateParsing
             new LanguageInfo(".sql", "*.sql", "Sql"),
             new LanguageInfo(".swift", "*.swift", "Swift"),
             new LanguageInfo(".tex", "*.tex", "LaTex"),
-            new LanguageInfo(".ts", "*.ts", "Type Script"),
+            new LanguageInfo(".ts", "*.ts", "Type Script", true),
             new LanguageInfo(".vb", "*.vb", "Vb"),
             new LanguageInfo(".xml", "*.xml", "Xml"),
             new LanguageInfo(".xsl", "*.xsl", "Xsl"),
@@ -154,6 +157,16 @@ namespace TextMateParsing
                     syntaxEdit1.Source.ClosingBraces = new char[] { };
                 }
             }
+
+            if (langItems[LanguagesCombobox.SelectedIndex].IndentBraces)
+            {
+                parser.InitIndentationRules(increasePattern, decreasePattern, unindentPattern);
+                parser.SmartFormatChars = new char[] { '}' };
+            }
+            else
+            {
+                parser.SmartFormatChars = new char[] { };
+            }
         }
 
         private void ReparseText()
@@ -223,12 +236,14 @@ namespace TextMateParsing
             public string Description;
             public string SchemeName;
             public string FileName;
+            public bool IndentBraces;
 
-            public LanguageInfo(string fileType, string fileExt, string description)
+            public LanguageInfo(string fileType, string fileExt, string description, bool indentBraces = false)
             {
                 this.FileType = fileType;
                 this.FileExt = fileExt;
                 this.Description = description;
+                this.IndentBraces = indentBraces;
                 FileName = string.Empty;
                 SchemeName = string.Empty;
             }

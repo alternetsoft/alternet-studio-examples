@@ -140,7 +140,7 @@ namespace AlternetStudio.Python.Wpf.Demo
             if (File.Exists(fileName))
                 edit.LoadFile(fileName);
 
-            var parser = new PythonParser();
+            var parser = new PythonNETParser();
             parser.CodeEnvironment = scriptRun.CodeEnvironment;
             edit.Lexer = parser;
 

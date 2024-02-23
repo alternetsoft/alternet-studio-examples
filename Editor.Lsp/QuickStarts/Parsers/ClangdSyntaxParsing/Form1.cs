@@ -13,18 +13,16 @@
 #pragma warning disable VSTHRD101 // Avoid unsupported async delegates
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using Alternet.Common;
-using Alternet.Editor.TextSource;
 using Alternet.Syntax;
 using Alternet.Syntax.Parsers.Lsp;
 using Alternet.Syntax.Parsers.Lsp.Clangd.Embedded;
-using OmniSharp.Extensions.LanguageServer.Protocol.Models;
 
 namespace ClangdSyntaxParsing
 {
@@ -126,13 +124,54 @@ namespace ClangdSyntaxParsing
 
                 cppParser.Workspace.Project = new CProject();
                 cppParser.Workspace.Project.SourceFiles.Add(fileInfo.FullName);
+
                 cppParser.Workspace.Project.IncludeDirectories.Add(
                     Path.GetFullPath(Path.Combine(Path.GetDirectoryName(fileInfo.FullName), "../include")));
+
+                var dirs = new List<string>();
+                GetHeaderPaths(dirs);
+                foreach (var dir in dirs)
+                    cppParser.Workspace.Project.IncludeDirectories.Add(dir);
             }
 
             openFileDialog1.InitialDirectory = Path.GetFullPath(dir) + @"Resources\Editor\QuickStarts\Parsers\Clangd\";
             cppSource.Lexer = cppParser;
             cppSource.HighlightReferences = true;
+        }
+
+        private void GetHeaderPaths(IList<string> directories)
+        {
+            string programFilesX86 = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFilesX86);
+            DirectoryInfo kitsDirectory = new DirectoryInfo(Path.Combine(programFilesX86, "Windows Kits"));
+            if (kitsDirectory.Exists)
+            {
+                var includePath = kitsDirectory
+                    .GetDirectories("Include", SearchOption.AllDirectories)
+                    .SelectMany(ucrtDir => ucrtDir.GetDirectories("ucrt", SearchOption.AllDirectories))
+                    .OrderByDescending(msBuild => msBuild.LastWriteTimeUtc)
+                    .FirstOrDefault()?.FullName;
+
+                if (!string.IsNullOrEmpty(includePath))
+                    directories.Add(includePath);
+            }
+
+            string programFiles = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles);
+            DirectoryInfo vsDirectory = new DirectoryInfo(Path.Combine(programFiles, "Microsoft Visual Studio"));
+            if (vsDirectory.Exists)
+            {
+                var includePath = vsDirectory
+                    .GetDirectories("VC", SearchOption.AllDirectories)
+                    .SelectMany(toolsDir => toolsDir.GetDirectories("Tools", SearchOption.AllDirectories))
+                    .SelectMany(msvcDir => msvcDir.GetDirectories("MSVC", SearchOption.TopDirectoryOnly))
+                    .SelectMany(includeDir => includeDir.GetDirectories("include", SearchOption.AllDirectories))
+                    .OrderByDescending(msBuild => msBuild.LastWriteTimeUtc)
+                    .FirstOrDefault()?.FullName;
+
+                if (!string.IsNullOrEmpty(includePath))
+                {
+                    directories.Add(includePath);
+                }
+            }
         }
 
         private void LoadButton_Click(object sender, EventArgs e)
