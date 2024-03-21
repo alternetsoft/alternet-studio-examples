@@ -11,6 +11,9 @@
 #endregion Copyright (c) 2016-2020 Alternet Software
 // person.cs
 using System;
+using System.Collections.Generic;
+using System.Linq;
+
 /// <summary>
 /// This tutorial shows how properties are an integral part of the C# programming language. It demonstrates how properties are declared and used.
 /// </summary>
@@ -51,6 +54,11 @@ public class Person
 		return "Name = " + Name + ", Age = " + Age;
 	}
 
+	public IEnumerable<System.String> RunScript(IEnumerable<System.String> list)
+	{
+		return list.Where(item => item > 0);
+	}
+	
 	public static void Main()
 	{
 		Console.WriteLine("Simple Properties");

@@ -52,7 +52,7 @@ namespace LineStyles
             if (fileInfo.Exists)
                 syntaxEdit1.LoadFile(fileInfo.FullName);
             syntaxEdit1.Lexer = csParser1;
-            if (syntaxEdit1.Find("Main", SearchOptions.EntireScope))
+            if (syntaxEdit1.Find("Main"))
             {
                 syntaxEdit1.Selection.Clear();
                 startLine = syntaxEdit1.Position.Y + 2;

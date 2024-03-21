@@ -24,16 +24,16 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.5.2" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.5.2" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.2" />
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.2" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="9.5.2" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="9.5.2" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.2" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.5.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="9.5.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.2" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.5.3" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.5.3" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.3" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.3" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="9.5.3" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="9.5.3" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.3" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.5.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="9.5.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.3" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

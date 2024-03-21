@@ -310,7 +310,7 @@ namespace Alternet.CodeEditor.Demo
             syntaxEdit.Scrolling.Options |= ScrollingOptions.ShowScrollHint;
             syntaxSplitEdit.Scrolling.Options |= ScrollingOptions.ShowScrollHint;
 
-            if (syntaxEdit.Find("Main", SearchOptions.EntireScope))
+            if (syntaxEdit.Find("Main"))
             {
                 syntaxEdit.Selection.Clear();
                 startLine = syntaxEdit.Position.Y + 1;

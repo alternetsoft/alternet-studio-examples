@@ -101,7 +101,7 @@ namespace Alternet.Editor.Wpf.MainDemo_Wpf
                 ImageIndex = 11,
             });
 
-            if (editor.Find("Main", SearchOptions.EntireScope))
+            if (editor.Find("Main"))
             {
                 editor.Selection.Clear();
                 startLine = editor.Position.Y + 1;

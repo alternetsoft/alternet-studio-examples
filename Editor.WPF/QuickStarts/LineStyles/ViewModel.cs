@@ -83,7 +83,7 @@ namespace LineStyles
 
                 this.edit = edit;
                 edit.Source = csharpSource;
-                if (edit.Find("Main", SearchOptions.EntireScope))
+                if (edit.Find("Main"))
                 {
                     edit.Selection.Clear();
                     startLine = edit.Position.Y + 2;
