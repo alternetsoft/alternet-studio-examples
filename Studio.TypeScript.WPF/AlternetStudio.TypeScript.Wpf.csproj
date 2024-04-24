@@ -89,20 +89,20 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.5.3" />
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.5.3" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.3" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="9.5.3" />
-    <PackageReference Include="Alternet.Studio.Editor.TypeScript.Wpf" Version="9.5.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="9.5.3" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="9.5.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="9.5.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="9.5.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="9.5.3" />
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.3" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.5.4" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.5.4" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.4" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="9.5.4" />
+    <PackageReference Include="Alternet.Studio.Editor.TypeScript.Wpf" Version="9.5.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="9.5.4" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.4" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="9.5.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="9.5.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="9.5.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="9.5.4" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.4" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
