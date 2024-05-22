@@ -20,10 +20,10 @@
     <OutputPath>..\..\..\..\..\bin\Release\Demos.Editor\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.4" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.4" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.4" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.XAML" Version="9.5.4" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.5" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.5" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.5" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.XAML" Version="9.5.5" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">

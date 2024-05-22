@@ -33,14 +33,14 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.4" />
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.5.4" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.4" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.4" />
-    <PackageReference Include="Alternet.Studio.Editor.TypeScript" Version="9.5.4" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.4" />
-    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="9.5.4" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.4" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.5" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.5.5" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.5" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.5" />
+    <PackageReference Include="Alternet.Studio.Editor.TypeScript" Version="9.5.5" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.5" />
+    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="9.5.5" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.5" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs">

@@ -27,10 +27,10 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.4" />
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.5.4" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.5.4" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.TypeScript.WindowsForms" Version="9.5.4" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0')) or $(DefineConstants.Contains(';NET8_0'))" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.5" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.5.5" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.5.5" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.TypeScript.WindowsForms" Version="9.5.5" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0')) or $(DefineConstants.Contains(';NET8_0'))" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ClearScript" Version="7.2.0" />
