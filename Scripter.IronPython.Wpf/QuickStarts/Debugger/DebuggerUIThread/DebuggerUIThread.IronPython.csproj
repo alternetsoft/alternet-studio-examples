@@ -45,20 +45,20 @@
     <Page Include="DisplayForm.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.5" />
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.5.5" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.5" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="9.5.5" />
-    <PackageReference Include="Alternet.Studio.Editor.IronPython.Wpf" Version="9.5.5" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="9.5.5" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.5" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.5" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.5" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="9.5.5" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.5.5" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.5.5" />
-    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="9.5.5" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.IronPython" Version="9.5.5" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.6" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.5.6" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.6" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="9.5.6" />
+    <PackageReference Include="Alternet.Studio.Editor.IronPython.Wpf" Version="9.5.6" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="9.5.6" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.6" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.6" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.6" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="9.5.6" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.5.6" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.5.6" />
+    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="9.5.6" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.IronPython" Version="9.5.6" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Icon.ico" />

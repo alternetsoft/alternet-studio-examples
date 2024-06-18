@@ -23,15 +23,14 @@ namespace TextMateParsing
 {
     public partial class Form1 : Form
     {
-        private const string LanguageDescription = "Choose programming language";
-        private const string LoadDesc = "Load code file";
-
-        private string dir = Application.StartupPath + @"\";
-        private TextMateParser parser = new TextMateParser();
-        private IList<string> themeList = new List<string>();
         private static string increasePattern = "^((?!//).)*(\\{([^}\"'`/]*|(\\t|[ ])*//.*)|\\([^)\"'`/]*|\\[[^\\]\"'`/]*)$";
         private static string decreasePattern = "^((?!.*?\\/\\*).*\\*/)?\\s*[\\)\\}\\]].*$";
         private static string unindentPattern = "^(\\t|[ ])*[ ]\\*[^/]*\\*/\\s*$|^(\\t|[ ])*[ ]\\*/\\s*$|^(\\t|[ ])*[ ]\\*([ ]([^\\*]|\\*(?!/))*)?$";
+
+        private string dir = Application.StartupPath + @"\";
+        private string resourcePath;
+        private TextMateParser parser = new TextMateParser();
+        private IList<string> themeList = new List<string>();
 
         private LanguageInfo[] langItems =
         {
@@ -114,7 +113,8 @@ namespace TextMateParsing
             if (!dirInfo.Exists)
                 dir = Application.StartupPath + @"\..\..\..\..\..\..\..\";
 
-            dirInfo = new DirectoryInfo(Path.GetFullPath(dir) + @"Resources\Editor\TextMate");
+            resourcePath = Path.GetFullPath(dir) + @"Resources\Editor\TextMate";
+            dirInfo = new DirectoryInfo(resourcePath);
             if (dirInfo.Exists)
             {
                 FileInfo[] files = dirInfo.GetFiles();
@@ -125,7 +125,6 @@ namespace TextMateParsing
                         langItems[idx].FileName = files[j].FullName;
                 }
             }
-
             int index = FindLangByExt(".cs");
             LanguagesCombobox.SelectedIndex = index >= 0 ? index : 0;
             syntaxEdit1.VisualTheme = new TextMateTheme(parser.LanguageDefinition.ThemeColors);
@@ -203,6 +202,9 @@ namespace TextMateParsing
         private void ThemesCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             parser.ThemeName = (ThemeName)ThemeNamesCombobox.SelectedIndex;
+            if (parser.ThemeName == ThemeName.Custom)
+                parser.LanguageDefinition.LoadThemeFromPath(Path.Combine(resourcePath, "custom_theme.json"));
+
             var theme = syntaxEdit1.VisualTheme as TextMateTheme;
             if (theme != null)
             {

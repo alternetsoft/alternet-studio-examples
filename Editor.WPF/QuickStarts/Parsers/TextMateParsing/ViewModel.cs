@@ -27,7 +27,12 @@ namespace TextMateParsing
     {
         #region Private Fields
 
+        private static string increasePattern = "^((?!//).)*(\\{([^}\"'`/]*|(\\t|[ ])*//.*)|\\([^)\"'`/]*|\\[[^\\]\"'`/]*)$";
+        private static string decreasePattern = "^((?!.*?\\/\\*).*\\*/)?\\s*[\\)\\}\\]].*$";
+        private static string unindentPattern = "^(\\t|[ ])*[ ]\\*[^/]*\\*/\\s*$|^(\\t|[ ])*[ ]\\*/\\s*$|^(\\t|[ ])*[ ]\\*([ ]([^\\*]|\\*(?!/))*)?$";
+
         private string dir = AppDomain.CurrentDomain.BaseDirectory + @"\";
+        private string resourcePath;
         private TextEditor edit;
         private string language = string.Empty;
         private string theme = string.Empty;
@@ -37,9 +42,6 @@ namespace TextMateParsing
         private ObservableCollection<string> visualThemes = new ObservableCollection<string>();
 
         private TextMateParser parser = new TextMateParser();
-        private static string increasePattern = "^((?!//).)*(\\{([^}\"'`/]*|(\\t|[ ])*//.*)|\\([^)\"'`/]*|\\[[^\\]\"'`/]*)$";
-        private static string decreasePattern = "^((?!.*?\\/\\*).*\\*/)?\\s*[\\)\\}\\]].*$";
-        private static string unindentPattern = "^(\\t|[ ])*[ ]\\*[^/]*\\*/\\s*$|^(\\t|[ ])*[ ]\\*/\\s*$|^(\\t|[ ])*[ ]\\*([ ]([^\\*]|\\*(?!/))*)?$";
 
         private LanguageInfo[] langItems =
         {
@@ -112,7 +114,8 @@ namespace TextMateParsing
             if (!dirInfo.Exists)
                 dir = AppDomain.CurrentDomain.BaseDirectory + @"\..\..\..\..\..\..\..\";
 
-            dirInfo = new DirectoryInfo(Path.GetFullPath(dir) + @"Resources\Editor\TextMate");
+            resourcePath = Path.GetFullPath(dir) + @"Resources\Editor\TextMate";
+            dirInfo = new DirectoryInfo(resourcePath);
             if (dirInfo.Exists)
             {
                 FileInfo[] files = dirInfo.GetFiles();
@@ -198,6 +201,9 @@ namespace TextMateParsing
                     {
                         ThemeName name = (ThemeName)Enum.Parse(typeof(ThemeName), theme);
                         parser.ThemeName = name;
+                        if (parser.ThemeName == ThemeName.Custom)
+                            parser.LanguageDefinition.LoadThemeFromPath(Path.Combine(resourcePath, "custom_theme.json"));
+
                         var visualTheme = edit.VisualTheme as TextMateTheme;
                         if (visualTheme != null)
                         {
