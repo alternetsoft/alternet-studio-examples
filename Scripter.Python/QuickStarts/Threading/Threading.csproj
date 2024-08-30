@@ -28,13 +28,13 @@
     <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python.Embedded" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.7" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python.Embedded" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.8" />
   </ItemGroup>
   <ItemGroup />
 </Project>

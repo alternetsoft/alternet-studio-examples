@@ -31,21 +31,21 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>9.5.7</Version>
+      <Version>9.5.8</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="9.5.7" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="9.5.8" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs">

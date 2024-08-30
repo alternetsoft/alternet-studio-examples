@@ -42,20 +42,20 @@
     <Page Include="MainWindow.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Cpp.Lldb.Embedded" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Cpp.Lldb" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd.Embedded" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.7" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="9.5.7" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Cpp.Lldb.Embedded" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Cpp.Lldb" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd.Embedded" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.8" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="9.5.8" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Icon.ico" />

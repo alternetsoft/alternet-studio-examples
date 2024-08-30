@@ -283,6 +283,8 @@ End Function";
 
         public override int GetPosFromPosition(SourceText text, Point position)
         {
+            if (position.Y < 0 || (position.X < 0))
+                return -1;
             return base.GetPosFromPosition(text, new Point(position.X, position.Y + StartOffset));
         }
 
