@@ -10,22 +10,55 @@ namespace AlternetStudio.Demo
 {
     public partial class AttachToProcessDialog : Form
     {
+        private string watermark = "Filter processes...";
+        private IOrderedEnumerable<Process> processes = null;
+        private string filter = string.Empty;
+
         public AttachToProcessDialog()
         {
             InitializeComponent();
             DisplayScalingHelper.SetFont(this, new Font("Segoe UI", 9));
 
             ReloadProcesses();
+            FilterProcessTextBox.ForeColor = SystemColors.GrayText;
+            FilterProcessTextBox.Text = watermark;
+            FilterProcessTextBox.Leave += FilterProcessTextBox_Leave;
+            FilterProcessTextBox.Enter += FilterProcessTextBox_Enter;
+            FilterProcessTextBox.TextChanged += FilterProcessTextBox_TextChanged;
+        }
+
+        public string Filter
+        {
+            get
+            {
+                return filter;
+            }
+
+            set
+            {
+                if (filter != value)
+                {
+                    filter = value;
+                    OnFilterChanged();
+                }
+            }
         }
 
         public Process SelectedProcess { get; private set; }
 
-        private void ReloadProcesses()
+        protected virtual void OnFilterChanged()
         {
-            IOrderedEnumerable<Process> processes;
+            ReloadProcesses(false);
+        }
+
+        private void ReloadProcesses(bool forceReload = true)
+        {
             try
             {
-                processes = ProcessService.GetProcesses().OrderBy(x => x.ProcessName);
+                if (forceReload || processes == null)
+                {
+                    processes = ProcessService.GetProcesses().OrderBy(x => x.ProcessName);
+                }
             }
             catch (Exception e)
             {
@@ -33,27 +66,43 @@ namespace AlternetStudio.Demo
                 return;
             }
 
-            FillProcessesListView(processes);
+            IOrderedEnumerable<Process> filteredProcesses = string.IsNullOrEmpty(filter) ? processes : processes.Where(x => x.ProcessName.Contains(filter, StringComparison.OrdinalIgnoreCase)).OrderBy(x => x.ProcessName);
+            FillProcessesListView(filteredProcesses, forceReload);
 
             UpdateControls();
         }
 
-        private void FillProcessesListView(IOrderedEnumerable<Process> processes)
+        private void FillProcessesListView(IOrderedEnumerable<Process> processes, bool forceReload)
         {
-            processesListView.Items.Clear();
-            SelectedProcess = null;
-
-            foreach (var process in processes)
+            processesListView.BeginUpdate();
+            try
             {
-                processesListView.Items.Add(
-                    new ListViewItem(
-                        new[]
-                        {
+                processesListView.Items.Clear();
+                SelectedProcess = null;
+
+                foreach (var process in processes)
+                {
+                    processesListView.Items.Add(
+                        new ListViewItem(
+                            new[]
+                            {
                             process.ProcessName,
                             process.Id.ToString(),
                             process.MainWindowTitle,
-                        })
-                    { Tag = process });
+                            })
+                        { Tag = process });
+                }
+
+                if (forceReload)
+                {
+                    processColumnHeader.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+                    idColumnHeader.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+                    titleColumnHeader.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+                }
+            }
+            finally
+            {
+                processesListView.EndUpdate();
             }
         }
 
@@ -103,6 +152,29 @@ namespace AlternetStudio.Demo
         private void UpdateControls()
         {
             attachButton.Enabled = SelectedProcess != null;
+        }
+
+        private void FilterProcessTextBox_Enter(object sender, EventArgs e)
+        {
+            if (string.Compare(FilterProcessTextBox.Text, watermark) == 0)
+            {
+                FilterProcessTextBox.Text = string.Empty;
+                FilterProcessTextBox.ForeColor = SystemColors.WindowText;
+            }
+        }
+
+        private void FilterProcessTextBox_Leave(object sender, EventArgs e)
+        {
+            if (FilterProcessTextBox.Text.Length == 0)
+            {
+                FilterProcessTextBox.Text = watermark;
+                FilterProcessTextBox.ForeColor = SystemColors.GrayText;
+            }
+        }
+
+        private void FilterProcessTextBox_TextChanged(object sender, EventArgs e)
+        {
+            Filter = string.Compare(FilterProcessTextBox.Text, watermark) == 0 ? string.Empty : FilterProcessTextBox.Text;
         }
 
         private static class ProcessService

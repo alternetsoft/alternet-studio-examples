@@ -25,7 +25,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>9.5.9</Version>
+      <Version>9.5.10</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -82,22 +82,22 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.WindowsForms" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.XAML" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.5.9" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.WindowsForms" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.XAML" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.5.10" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dialogs\AttachToProcessDialog.cs" />

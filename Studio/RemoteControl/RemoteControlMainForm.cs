@@ -46,6 +46,23 @@ namespace AlternetStudio.Demo.RemoteControl
             Debugger.ClearTemporaryGeneratedModules();
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            ReadyToDebug();
+        }
+
+        protected void ReadyToDebug()
+        {
+            if (remoteControlService != null)
+            {
+                remoteControlService.ReadyToDebug(() =>
+                {
+                    Invoke((Action)(() => StartDebugging(false)));
+                });
+            }
+        }
+
         protected override void RunScriptCore()
         {
             remoteControlService.CompileScript(result =>

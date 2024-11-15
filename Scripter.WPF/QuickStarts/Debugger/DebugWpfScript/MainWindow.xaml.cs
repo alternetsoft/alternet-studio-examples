@@ -37,6 +37,7 @@ namespace DebugWpfScript
         private Process debuggerProcess;
         private string dir = AppDomain.CurrentDomain.BaseDirectory + @"\";
         private ScriptFinishedDelegate onScriptFinished;
+        private StartDebugDelegate onStartDebug;
         private int iterations;
         private string ipcPortName = null;
         private string ipcObjectUri = null;
@@ -60,15 +61,30 @@ namespace DebugWpfScript
             this.Dispatcher.BeginInvoke((Action)(() =>
             {
                 var success = CompileScriptIfNeeded();
+                try
+                {
+                    InvokeOnScriptCompiled(
+                        onScriptCompiled,
+                        new ScriptCompilationResult
+                        {
+                            IsSuccessful = success,
+                            TargetAssemblyName = scriptRun.ScriptHost.ExecutableModulePath,
+                            Errors = scriptRun.ScriptHost.CompilerErrors,
+                        });
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }));
+        }
 
-                InvokeOnScriptCompiled(
-                    onScriptCompiled,
-                    new ScriptCompilationResult
-                    {
-                        IsSuccessful = success,
-                        TargetAssemblyName = scriptRun.ScriptHost.ExecutableModulePath,
-                        Errors = scriptRun.ScriptHost.CompilerErrors,
-                    });
+        public void ReadyToDebug(StartDebugDelegate onStartDebug)
+        {
+            this.onStartDebug = onStartDebug;
+            this.Dispatcher.BeginInvoke((Action)(() =>
+            {
+                UpdateButtons();
             }));
         }
 
@@ -194,6 +210,28 @@ namespace DebugWpfScript
             }
         }
 
+        private void InvokeOnStartDebug(StartDebugDelegate onStartDebug)
+        {
+            if (onStartDebug != null)
+            {
+                try
+                {
+                    onStartDebug();
+                }
+#if NETFRAMEWORK
+                catch (SystemException)
+                {
+                    // Workaround for strange remoting behavior: trying one more time in case of error after client restart.
+                    onStartDebug();
+                }
+#endif
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.ToString());
+                }
+            }
+        }
+
         private string ExtractCommandLineArg(string arg)
         {
             int idx = arg.IndexOf("=");
@@ -240,15 +278,19 @@ namespace DebugWpfScript
 
         private void UpdateButtons()
         {
-            runScriptButton.IsEnabled = debuggerProcess == null;
-            runScriptButton.Content = scriptRunning ? "Stop Script" : "Start Script";
+            runScriptButton.Content = scriptRunning ? "Stop Script" : (onStartDebug != null ? "Start Debug" : "Start Script");
             startDebuggerButton.IsEnabled = !scriptRunning && debuggerProcess == null;
         }
 
         private void RunScriptButton_Click(object sender, RoutedEventArgs e)
         {
             if (!scriptRunning)
-                StartScript(null);
+            {
+                if (onStartDebug != null)
+                    InvokeOnStartDebug(onStartDebug);
+                else
+                    StartScript(null);
+            }
             else
                 StopScript();
         }
@@ -301,6 +343,7 @@ namespace DebugWpfScript
                 debuggerProcess.Exited -= Process_Exited;
                 debuggerProcess = null;
                 onScriptFinished = null;
+                onStartDebug = null;
                 UpdateButtons();
             }));
         }

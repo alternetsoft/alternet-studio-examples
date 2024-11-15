@@ -206,6 +206,34 @@ namespace AlternetStudio.Wpf.Demo
             Debugger.StopDebuggingAsync();
         }
 
+        protected void StartDebugging(bool breakOnStart)
+        {
+            if (Debugger.IsStarted)
+            {
+                CancelLocalsAndWatchesEvaluation();
+                Debugger.Continue();
+            }
+            else
+            {
+                if (Debugger.State == DebuggerState.Startup)
+                    return;
+
+                if (SaveAllModifiedFiles() && SetScriptSource())
+                {
+                    StartDebugCore(breakOnStart);
+
+                    errorsControl.Clear();
+
+                    var errors = scriptRun.ScriptHost.CompilerErrors;
+                    if (errors != null && errors.Length > 0)
+                        errorsControl.AddCompilerErrors(errors);
+
+                    if (scriptRun.ScriptHost.CompileFailed)
+                        ActivateErrorsTab();
+                }
+            }
+        }
+
         private bool TryResetDebuggerOnProjectChange()
         {
             if (debugger != null && debugger.IsStarted)
@@ -263,34 +291,6 @@ namespace AlternetStudio.Wpf.Demo
                 result.Add(Path.Combine(Debugger.GeneratedModulesPath, project.ProjectName));
 
             return result.ToArray();
-        }
-
-        private void StartDebugging(bool breakOnStart)
-        {
-            if (Debugger.IsStarted)
-            {
-                CancelLocalsAndWatchesEvaluation();
-                Debugger.Continue();
-            }
-            else
-            {
-                if (Debugger.State == DebuggerState.Startup)
-                    return;
-
-                if (SaveAllModifiedFiles() && SetScriptSource())
-                {
-                    StartDebugCore(breakOnStart);
-
-                    errorsControl.Clear();
-
-                    var errors = scriptRun.ScriptHost.CompilerErrors;
-                    if (errors != null && errors.Length > 0)
-                        errorsControl.AddCompilerErrors(errors);
-
-                    if (scriptRun.ScriptHost.CompileFailed)
-                        ActivateErrorsTab();
-                }
-            }
         }
 
         private void EvaluateExpression(bool evaluateCurrentException = false)

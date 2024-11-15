@@ -35,6 +35,7 @@ namespace AlternetStudio.Wpf.Demo.RemoteControl
         {
             this.remoteControlParameters = remoteControlParameters;
             remoteControlService = new RemoteControlService(remoteControlParameters);
+            Loaded += RemoteControlMainWindow_Loaded;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -45,6 +46,17 @@ namespace AlternetStudio.Wpf.Demo.RemoteControl
             base.OnClosed(e);
 
             Debugger.ClearTemporaryGeneratedModules();
+        }
+
+        protected void ReadyToDebug()
+        {
+            if (remoteControlService != null)
+            {
+                remoteControlService.ReadyToDebug(() =>
+                {
+                    Dispatcher.Invoke((Action)(() => StartDebugging(false)));
+                });
+            }
         }
 
         protected override void RunScriptCore()
@@ -110,6 +122,11 @@ namespace AlternetStudio.Wpf.Demo.RemoteControl
                 ScriptRun.ScriptSource.Files.Add(GlobalCodeFileName);
 
             return true;
+        }
+
+        private void RemoteControlMainWindow_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ReadyToDebug();
         }
 
         private void StopControlledScript()

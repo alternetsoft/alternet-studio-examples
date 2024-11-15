@@ -64,6 +64,15 @@ namespace AlternetStudio.Wpf.Demo.RemoteControl
                 RemoteControl.StopScript();
         }
 
+        public void ReadyToDebug(StartDebugDelegate onStartDebug)
+        {
+            if (RemoteControl != null)
+            {
+                var sink = new DebuggerCommunication.ScriptDebuggerRemoteControlStartDebugCallbackSink(onStartDebug);
+                RemoteControl.ReadyToDebug(sink.OnStartDebug);
+            }
+        }
+
         private void KillRemoteDebuggerTimer_Tick(object sender, EventArgs e)
         {
             if (!Process.GetProcesses().Any(x => x.Id == parameters.ProcessId))

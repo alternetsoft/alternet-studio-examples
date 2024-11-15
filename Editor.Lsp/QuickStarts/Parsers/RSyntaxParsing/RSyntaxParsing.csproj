@@ -19,12 +19,12 @@
     <OutputPath>..\..\..\..\..\bin\Release\Demos.Editor.Lsp\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.R.Embedded" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.R" Version="9.5.9" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.R.Embedded" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.R" Version="9.5.10" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs" />

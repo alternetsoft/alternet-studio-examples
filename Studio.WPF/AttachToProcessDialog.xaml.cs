@@ -15,21 +15,59 @@ namespace AlternetStudio.Wpf
     /// </summary>
     public partial class AttachToProcessDialog : Window
     {
+        private string watermark = "Filter processes...";
+        private IOrderedEnumerable<Process> processes = null;
+        private string filter = string.Empty;
+
         public AttachToProcessDialog()
         {
             InitializeComponent();
 
             ReloadProcesses();
+            FilterProcessTextBox.TextChanged += FilterProcessTextBox_TextChanged; ;
+        }
+
+        public string Filter
+        {
+            get
+            {
+                return filter;
+            }
+
+            set
+            {
+                if (filter != value)
+                {
+                    filter = value;
+                    OnFilterChanged();
+                }
+            }
+        }
+
+        protected virtual void OnFilterChanged()
+        {
+            ReloadProcesses(false);
+        }
+
+        private void FilterProcessTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(FilterProcessTextBox.Text))
+                FilterPlaceholder.Visibility = Visibility.Visible;
+            else
+                FilterPlaceholder.Visibility = Visibility.Hidden;
+            Filter = string.Compare(FilterProcessTextBox.Text, watermark) == 0 ? string.Empty : FilterProcessTextBox.Text;
         }
 
         public Process SelectedProcess { get; private set; }
 
-        private void ReloadProcesses()
+        private void ReloadProcesses(bool forceReload = true)
         {
-            IOrderedEnumerable<Process> processes;
             try
             {
-                processes = ProcessService.GetProcesses().OrderBy(x => x.ProcessName);
+                if (forceReload || processes == null)
+                {
+                    processes = ProcessService.GetProcesses().OrderBy(x => x.ProcessName);
+                }
             }
             catch (Exception e)
             {
@@ -37,7 +75,8 @@ namespace AlternetStudio.Wpf
                 return;
             }
 
-            processesListView.ItemsSource = processes.ToArray();
+            IOrderedEnumerable<Process> filteredProcesses = string.IsNullOrEmpty(filter) ? processes : processes.Where(x => x.ProcessName.Contains(filter, StringComparison.OrdinalIgnoreCase)).OrderBy(x => x.ProcessName);
+            processesListView.ItemsSource = filteredProcesses.ToArray();
 
             UpdateControls();
         }

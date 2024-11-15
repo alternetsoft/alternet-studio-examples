@@ -318,7 +318,7 @@ namespace AlternetStudio.Demo
 
         private void UpdateEditorContextMenu(ContextMenuStrip menu)
         {
-            var gotoDefinitionItem = menu.Items.Cast<ToolStripItem>().FirstOrDefault(item => item.Name == "gotoDefinitionMenuItem");
+            var gotoDefinitionItem = menu.Items.Cast<ToolStripItem>().FirstOrDefault(item => item.Name == "cmiGotoDefinition");
             if (gotoDefinitionItem != null)
                 gotoDefinitionItem.Enabled = CanGotoDefinition();
         }

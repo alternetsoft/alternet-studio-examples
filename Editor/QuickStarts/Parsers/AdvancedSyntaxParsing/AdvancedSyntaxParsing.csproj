@@ -62,10 +62,10 @@
     <PackageReference Include="NJsonSchema" Version="10.3.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.9" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="9.5.9" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="9.5.10" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
