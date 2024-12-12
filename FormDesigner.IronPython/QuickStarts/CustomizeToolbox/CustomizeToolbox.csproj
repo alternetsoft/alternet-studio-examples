@@ -26,8 +26,8 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.10" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.5.10" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.11" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.5.11" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
