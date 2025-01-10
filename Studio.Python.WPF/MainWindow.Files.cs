@@ -353,7 +353,7 @@ namespace AlternetStudio.Python.Wpf.Demo
         private void NewMenuItem_Click(object sender, RoutedEventArgs e)
         {
             saveFileDialog.FilterIndex = 1;
-            saveFileDialog.FileName = FindUniqueName("Class", ".ts");
+            saveFileDialog.FileName = FindUniqueName("Class", ".py");
 
             if (saveFileDialog.ShowDialog(Window.GetWindow(this)).Value != true)
                 return;

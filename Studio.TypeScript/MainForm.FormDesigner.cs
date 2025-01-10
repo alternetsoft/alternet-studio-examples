@@ -45,7 +45,7 @@ namespace AlternetStudio.Demo
         {
             get
             {
-                if (editorsTabControl.TabCount == 0)
+                if (editorsTabControl.TabCount == 0 || editorsTabControl.SelectedTab == null)
                     return null;
 
                 IFormDesignerControl designer;

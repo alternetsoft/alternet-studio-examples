@@ -156,7 +156,7 @@ namespace AlternetStudio.IronPython.Wpf.Demo
         {
             if (string.IsNullOrEmpty(projectCreationData.ProjectLocation))
                 projectCreationData.ProjectLocation = DefaultProjectSubPath;
-            DlgNewProject dlg = new DlgNewProject(projectCreationData, new string[] { "IronPython", "JavaScript" }, new string[] { "BlankProject", "ConsoleApp", "WindowsApp" });
+            DlgNewProject dlg = new DlgNewProject(projectCreationData, new string[] { "IronPython" }, new string[] { "BlankProject", "ConsoleApp" });
             if (dlg.ShowDialog().Value)
             {
                 projectCreationData = dlg.ProjectData;

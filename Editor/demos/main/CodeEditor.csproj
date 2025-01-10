@@ -24,13 +24,13 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.11" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.11" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.11" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Generic" Version="9.5.11" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="9.5.11" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.5.11" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TextMate" Version="9.5.11" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.12" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.12" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.12" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Generic" Version="9.5.12" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="9.5.12" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.5.12" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TextMate" Version="9.5.12" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DemoItem.cs" />
@@ -80,7 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>9.5.11</Version>
+      <Version>9.5.12</Version>
     </PackageReference>
     <PackageReference Include="WeCantSpell.Hunspell" Version="3.0.1" />
   </ItemGroup>

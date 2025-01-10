@@ -19,6 +19,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Alternet.Common.Projects;
 using Alternet.Common.Projects.DotNet;
+using Alternet.Editor.Common;
 using Alternet.Editor.IronPython;
 using Alternet.Editor.TextSource;
 using Alternet.FormDesigner.WinForms;
@@ -29,7 +30,7 @@ namespace AlternetStudio.Demo
     {
         private bool projectIsClosing;
 
-        private ProjectCreationData projectCreationData = new ProjectCreationData { ProjectType = "WindowsFormsApp" };
+        private ProjectCreationData projectCreationData = new ProjectCreationData { ProjectType = "WindowsApp" };
 
         protected IronPythonProject Project { get; private set; } = new IronPythonProject();
 
@@ -256,7 +257,23 @@ namespace AlternetStudio.Demo
 
         private void NewProjectMenuItem_Click(object sender, EventArgs e)
         {
-            // todo
+            if (string.IsNullOrEmpty(projectCreationData.ProjectLocation))
+                projectCreationData.ProjectLocation = DefaultProjectSubPath;
+
+            using (var dlg = new DlgNewProject(projectCreationData, new string[] { "IronPython" }, new string[] { "BlankProject", "ConsoleApp", "WindowsApp" }))
+            {
+                DialogResult result = dlg.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    projectCreationData = dlg.ProjectData;
+                    if (CloseProject())
+                    {
+                        string projectFileName = Project.Create(dlg.ProjectData, TemplateSubPath);
+                        if (File.Exists(projectFileName))
+                            OpenProject(projectFileName);
+                    }
+                }
+            }
         }
 
         private void OpenProjectMenuItem_Click(object sender, EventArgs e)

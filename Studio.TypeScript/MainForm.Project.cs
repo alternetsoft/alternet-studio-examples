@@ -38,7 +38,7 @@ namespace AlternetStudio.Demo
         {
             get
             {
-                return Path.GetFullPath(Path.Combine(dir, @"Studio\Projects"));
+                return Path.GetFullPath(Path.Combine(startupDirectory, @"Studio\Projects"));
             }
         }
 
@@ -46,7 +46,7 @@ namespace AlternetStudio.Demo
         {
             get
             {
-                return Path.GetFullPath(Path.Combine(dir, @"..\Projects"));
+                return Path.GetFullPath(Path.Combine(startupDirectory, @"..\Projects"));
             }
         }
 

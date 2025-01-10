@@ -156,7 +156,7 @@ namespace AlternetStudio.Python.Wpf.Demo
         {
             if (string.IsNullOrEmpty(projectCreationData.ProjectLocation))
                 projectCreationData.ProjectLocation = DefaultProjectSubPath;
-            DlgNewProject dlg = new DlgNewProject(projectCreationData, new string[] { "Python", "JavaScript" }, new string[] { "BlankProject", "ConsoleApp", "WindowsApp" });
+            DlgNewProject dlg = new DlgNewProject(projectCreationData, new string[] { "Python" }, new string[] { "BlankProject", "ConsoleApp" });
             if (dlg.ShowDialog().Value)
             {
                 projectCreationData = dlg.ProjectData;
