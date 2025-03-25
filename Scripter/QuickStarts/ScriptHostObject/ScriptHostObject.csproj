@@ -26,13 +26,13 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.13" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.14" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Globals.cs" />
@@ -74,7 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>9.5.13</Version>
+      <Version>9.5.14</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

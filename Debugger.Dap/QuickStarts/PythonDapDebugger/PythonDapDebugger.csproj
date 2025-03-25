@@ -38,19 +38,19 @@
     <EmbeddedResource Include="Properties\licenses.licx" Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Python" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python.Embedded.Pyright" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.5.13" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Python" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python.Embedded.Pyright" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.5.14" />
   </ItemGroup>
   <ItemGroup />
 </Project>

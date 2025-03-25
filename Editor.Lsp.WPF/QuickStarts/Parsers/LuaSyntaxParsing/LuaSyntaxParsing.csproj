@@ -24,13 +24,13 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lua" Version="9.5.13" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lua.Embedded" Version="9.5.13" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lua" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lua.Embedded" Version="9.5.14" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

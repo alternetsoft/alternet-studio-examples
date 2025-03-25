@@ -263,6 +263,13 @@ return string.Empty;";
             return new Point(point.X, point.Y - StartOffset);
         }
 
+        protected override void OnClosePopup(object sender, ClosingEventArgs e)
+        {
+            base.OnClosePopup(sender, e);
+            if (!string.IsNullOrEmpty(e.InsertText))
+                e.NeedSmartFormat = e.InsertText.Trim() != e.InsertText;
+        }
+
         protected override bool IsBlockNode(Microsoft.CodeAnalysis.SyntaxNode node, int pos)
         {
             return base.IsBlockNode(node, pos) && !node.IsKind(SyntaxKind.MethodDeclaration) && !node.IsKind(SyntaxKind.ClassDeclaration) && !node.IsKind(SyntaxKind.NamespaceDeclaration);

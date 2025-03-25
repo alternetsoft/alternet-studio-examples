@@ -376,6 +376,13 @@ End Function";
             return line >= start.Y && line <= end.Y;
         }
 
+        protected override void OnClosePopup(object sender, ClosingEventArgs e)
+        {
+            base.OnClosePopup(sender, e);
+            if (!string.IsNullOrEmpty(e.InsertText))
+                e.NeedSmartFormat = e.InsertText.Trim() != e.InsertText;
+        }
+
         protected override bool IsBlockNode(Microsoft.CodeAnalysis.SyntaxNode node, int pos)
         {
             return base.IsBlockNode(node, pos) && !node.IsKind(SyntaxKind.ClassBlock) && !node.IsKind(SyntaxKind.NamespaceBlock);
