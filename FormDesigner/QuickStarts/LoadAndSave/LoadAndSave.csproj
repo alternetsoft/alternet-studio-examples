@@ -21,16 +21,16 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>9.5.14</Version>
+      <Version>9.5.15</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.14" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.5.14" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.WindowsForms" Version="9.5.14" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.15" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.5.15" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.WindowsForms" Version="9.5.15" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">
