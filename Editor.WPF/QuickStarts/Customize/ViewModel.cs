@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections;
@@ -93,7 +93,7 @@ namespace Customize
         private string GetApplicationGlobalSettingsFilePath()
         {
             const string FolderName = "Alternet.Editor.Wpf.Demo.GlobalSettings";
-            const string FileName = "GlobalSettings.v9.xml";
+            const string FileName = "GlobalSettings.v10.xml";
 
             string applicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 

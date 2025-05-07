@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Controls:DemoPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:alternet="http://schemas.alternetsoft.com/alternetui/2024"
+             xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+             xmlns:Controls="clr-namespace:AllQuickStarts"  
+             x:Class="AllQuickStarts.VisualThemePage"
+             Title="Visual Theme">
+    <AbsoluteLayout>
+        <Grid x:Name="MainGrid" RowDefinitions="*" ColumnDefinitions="*, auto">
+
+            <editor:SyntaxEditView x:Name="syntaxEdit1" Grid.Column="0"
+                               Margin="10,10,10,10" IsVisible="false"/>
+            <ScrollView Grid.Column="1" x:Name="settingsPanel">
+                <StackLayout Orientation="Vertical" Margin="10,10,10,10"    MinimumWidthRequest="200">
+                    <Label Margin="10,10,10,10" HorizontalTextAlignment="Start" 
+                       Text="Visual Theme:"  VerticalTextAlignment="Center"/>
+                    <Picker x:Name="VisualThemePicker"
+                        MinimumWidthRequest="150"
+                        Margin="10,10,10,10"
+                        SelectedIndexChanged = "VisualThemePicker_SelectedIndexChanged"
+                        >
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Light</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </AbsoluteLayout>
+</Controls:DemoPage>

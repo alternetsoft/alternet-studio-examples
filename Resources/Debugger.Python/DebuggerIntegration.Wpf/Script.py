@@ -14,11 +14,10 @@ class MyClass:
 
 
 def ChangeMenuItem():
-    TestMenuItem.Header += "1"
-    TestMenuItem.IsEnabled = not TestMenuItem.IsEnabled
+    TestMenuItem.Text += "123"
+    TestMenuItem.Enabled = not TestMenuItem.Enabled
 
-dispatcher = TestMenuItem.Dispatcher
-dispatcher.Invoke(Action(ChangeMenuItem))
+ChangeMenuItem()
 
 x = 123
 a = [1, 2, 3, 4, 5]

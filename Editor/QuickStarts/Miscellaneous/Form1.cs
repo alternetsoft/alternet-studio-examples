@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Drawing;
@@ -20,6 +20,7 @@ using Alternet.Editor;
 using Alternet.Editor.TextSource;
 using Alternet.Syntax.Lexer;
 using Alternet.Syntax.Parsers.Roslyn;
+using Microsoft.CodeAnalysis.Editing;
 using WeCantSpell.Hunspell;
 
 namespace Miscellaneous
@@ -49,6 +50,10 @@ namespace Miscellaneous
         public Form1()
         {
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "Miscellaneous.Resources";
+            //syntaxEdit1.BackgroundImage = ControlUtilities.LoadImageFromAssembly(asm, $"{prefix}.syntaxEdit1.BackgroundImage.png");
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
         }
 
         private void Form1_Load(object sender, EventArgs e)

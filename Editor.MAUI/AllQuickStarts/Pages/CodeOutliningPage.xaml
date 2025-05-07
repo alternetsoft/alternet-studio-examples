@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Controls:DemoPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:alternet="http://schemas.alternetsoft.com/alternetui/2024"
+             xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+             xmlns:ui="http://schemas.alternetsoft.com/alternetui/2024"
+             xmlns:Controls="clr-namespace:AllQuickStarts"  
+             x:Class="AllQuickStarts.Pages.CodeOutliningPage"
+             Title="Code Outlining">
+    <AbsoluteLayout>
+        <Grid x:Name="MainGrid" RowDefinitions="*" ColumnDefinitions="*, auto">
+            <editor:SyntaxEditView x:Name="syntaxEdit1" Grid.Column="0" IsVisible="false"
+                               Margin="10,10,10,10"/>
+            <ScrollView Grid.Column="1" x:Name="settingsPanel">
+                <StackLayout Orientation="Vertical" Margin="10,10,10,10">
+                    <Picker x:Name="OutliningModePicker"
+                        MinimumWidthRequest="150"
+                        ToolTipProperties.Text="Choose outlining mode: automatic or custom"
+                        Margin="10,10,10,10"
+                        SelectedIndexChanged = "OutliningModePicker_SelectedIndexChanged"
+                        >
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Automatic</x:String>
+                                <x:String>Custom</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                    <ui:CheckBoxWithLabelView x:Name="chbDrawOnGutter"
+                    ToolTip = "Draw outline images and lines on gutter"
+                    Text="Draw on Gutter" IsEnabled="true"/>
+                    <ui:CheckBoxWithLabelView x:Name="chbDrawButtons"
+                    ToolTip = "Draw the outline buttons substituting content of the collapsed section"
+                    Text="Draw Buttons" IsEnabled="true"/>
+                    <ui:CheckBoxWithLabelView x:Name="chbAllowOutlining"
+                    ToolTip = "Enable outlining"
+                    Text="Allow Outlining" IsEnabled="true"/>
+                    <ui:CheckBoxWithLabelView x:Name="chbDrawLines"
+                    ToolTip = "Draw lines for expanded outline section"
+                    Text="Draw Lines" IsEnabled="true"/>
+                    <ui:CheckBoxWithLabelView x:Name="chbShowHints"
+                    ToolTip = "Display text of the collapsed outline section in the popup when mouse pointer is over the outline button"
+                    Text="Show Hints" IsEnabled="true"/>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </AbsoluteLayout>
+</Controls:DemoPage>

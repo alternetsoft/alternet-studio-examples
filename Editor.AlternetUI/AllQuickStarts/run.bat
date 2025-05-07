@@ -1,0 +1,1 @@
+dotnet run --framework net8.0 /p:WarningsAsErrors=false /p:NoWarn=all

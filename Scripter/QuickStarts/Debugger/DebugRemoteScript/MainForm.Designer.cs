@@ -172,11 +172,11 @@ namespace DebugRemoteScript
             this.Controls.Add(this.pnEdit);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.mainMenu);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Debug remote script";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.FormClosing += MainForm_FormClosing;
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.mainMenu.ResumeLayout(false);

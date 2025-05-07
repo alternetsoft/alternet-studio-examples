@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:XAMLParsing"
-        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v9"
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v10"
         mc:Ignorable="d"
         Icon="/XAMLParsing.Wpf;component/Images/Icon.Ico"
         Title="XAML Syntax Parsing" Height="450" Width="800">

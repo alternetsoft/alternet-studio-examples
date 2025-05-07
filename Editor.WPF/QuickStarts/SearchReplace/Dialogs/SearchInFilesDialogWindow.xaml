@@ -1,0 +1,239 @@
+<Window x:Class="SearchReplace.SearchInFilesDialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{Binding Source={x:Static c:StringConsts.DlgSearchReplaceCaption}, Converter={x:Static edit:LabelHotkeyConverter.Instance}}"
+    mc:Ignorable="d"
+        TextOptions.TextFormattingMode="Display"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SearchReplace"
+        xmlns:c="clr-namespace:Alternet.Common;assembly=Alternet.Common.v10"
+        xmlns:edit="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v10"
+        WindowStyle="ToolWindow"
+        Width="350" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False"
+        Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+        SizeToContent="Height">
+    <Window.InputBindings>
+        <KeyBinding Key="Escape"
+                    Command="{x:Static edit:CloseThisWindowCommand.Instance}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+    </Window.InputBindings>
+
+    <Window.Resources>
+
+        <Image x:Key="OptionsCollapsedPlusGlyph" RenderOptions.EdgeMode="Aliased" Stretch="None" SnapsToDevicePixels="True">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <GeometryDrawing>
+                            <GeometryDrawing.Geometry>
+                                <PathGeometry Figures="M0,4 H7 M4,0 V7" />
+                            </GeometryDrawing.Geometry>
+                            <GeometryDrawing.Pen>
+                                <Pen Thickness="1" Brush="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                            </GeometryDrawing.Pen>
+                        </GeometryDrawing>
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+
+        <Image x:Key="OptionsExpandedMinusGlyph"  RenderOptions.EdgeMode="Aliased" Stretch="None" SnapsToDevicePixels="True">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <GeometryDrawing>
+                            <GeometryDrawing.Geometry>
+                                <GeometryGroup>
+                                    <LineGeometry StartPoint="0, 3" EndPoint="7, 3" />
+                                </GeometryGroup>
+                            </GeometryDrawing.Geometry>
+                            <GeometryDrawing.Pen>
+                                <Pen Thickness="1" Brush="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                            </GeometryDrawing.Pen>
+                        </GeometryDrawing>
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+
+        <BorderGapMaskConverter x:Key="BorderGapMaskConverter"/>
+
+        <Style TargetType="{x:Type GroupBox}">
+            <Setter Property="BorderBrush" Value="#D5DFE5" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GroupBox}">
+                        <Grid SnapsToDevicePixels="true">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="6" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="6" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="6" />
+                            </Grid.RowDefinitions>
+                            <Border CornerRadius="4" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="4" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="Transparent" Background="{TemplateBinding Background}" />
+                            <Border Name="Header" Padding="3,1,3,0" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
+                                <ContentPresenter ContentSource="Header" RecognizesAccessKey="true" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Border>
+                            <ContentPresenter Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <Border Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="4"  BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="3">
+                                <Border.OpacityMask>
+                                    <MultiBinding Converter="{StaticResource BorderGapMaskConverter}" ConverterParameter="7">
+                                        <Binding ElementName="Header" Path="ActualWidth" />
+                                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}" />
+                                        <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}" />
+                                    </MultiBinding>
+                                </Border.OpacityMask>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <StackPanel Orientation="Vertical">
+        <ToolBar Name="SearchReplaceButtonsToolbar"  Margin="0,0,6,0" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+            <!-- <ToggleButton Name="FindModeButton" Content="{Binding Source={x:Static c:StringConsts.DlgSearchCaption}, Converter={x:Static local:LabelHotkeyConverter.Instance}}"
+                          Checked="FindModeButton_CheckedChanged"
+                          Unchecked="FindModeButton_CheckedChanged"
+                          IsTabStop="False"
+                          />
+            -->
+            <ToggleButton Name="FindModeButton"
+                          Checked="FindModeButton_CheckedChanged"
+                          Unchecked="FindModeButton_CheckedChanged"
+                          IsTabStop="False"
+                          >
+                <Grid Name="FindGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="18"/>
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Image Name="FindImage" Grid.Column="0" Width="16" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="1" Name="FindText" Content="Find in Files" HorizontalAlignment="Center" />
+                </Grid>
+            </ToggleButton>
+            <Separator />
+
+            <!--            <ToggleButton Name="ReplaceModeButton" Content="{Binding Source={x:Static c:StringConsts.DlgReplaceCaption}, Converter={x:Static local:LabelHotkeyConverter.Instance}}"-->
+            <ToggleButton Name="ReplaceModeButton"
+                          Checked="ReplaceModeButton_CheckedChanged"
+                          Unchecked="ReplaceModeButton_CheckedChanged"
+                          IsTabStop="False"
+                          >
+                <Grid Name="ReplaceGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="18"/>
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Image Name="ReplaceImage" Grid.Column="0" Width="16" HorizontalAlignment="Left"/>
+                    <Label Grid.Column="1" Name="ReplaceText" Content="Replace in Files" HorizontalAlignment="Center" />
+                </Grid>
+            </ToggleButton>
+        </ToolBar>
+
+        <StackPanel Orientation="Vertical" Margin="6">
+
+            <Label Name="FindPromptLabel" Content="{Binding Source={x:Static c:StringConsts.FindWhatCaption}, Converter={x:Static edit:LabelHotkeyConverter.Instance}}"
+                   Target="{Binding ElementName=FindWhatComboBox}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="74*" />
+                    <ColumnDefinition Width="95*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <ComboBox Name="FindWhatComboBox" IsEditable="True" IsTextSearchEnabled="False" Grid.Column="0" TabIndex="0" TextBoxBase.TextChanged="FindWhatComboBox_TextChanged" Grid.ColumnSpan="2"/>
+                <ToggleButton Name="SearchHintPopupButton" IsEnabled="True" Content=">" Grid.Column="2" Margin="5,0,0,0" Visibility="Collapsed"/>
+            </Grid>
+
+            <Label Name="ReplacePromptLabel" Content="{Binding Source={x:Static c:StringConsts.ReplaceWithCaption}, Converter={x:Static edit:LabelHotkeyConverter.Instance}}"
+                   Target="{Binding ElementName=ReplaceWithComboBox}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <ComboBox Name="ReplaceWithComboBox" IsEditable="True" IsTextSearchEnabled="False" Grid.Column="0" TabIndex="1" />
+                <ToggleButton Name="ReplaceHintPopupButton" IsEnabled="True" Content=">" Grid.Column="1" Margin="5,0,0,0" Visibility="Collapsed" />
+            </Grid>
+
+            <Label Name="LookInPromptLabel" Content="{Binding Source={x:Static c:StringConsts.LookInCaption}, Converter={x:Static edit:LabelHotkeyConverter.Instance}}"
+                   Target="{Binding ElementName=LookInComboBox}"/>
+            <ComboBox Name="LookInComboBox" TabIndex="2" />
+
+            <Label Name="FileTypesPromptLabel" Content="File types:"
+                   Target="{Binding ElementName=LookInComboBox}"/>
+            <ComboBox Name="FileTypesComboBox" TabIndex="2" IsEditable="True" />
+
+            <Grid Name="OptionsGrid" HorizontalAlignment="Stretch" Panel.ZIndex="100" Margin="0,10,0,-15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Name="OptionsVisibleButton"
+                        Width="16" Height="16" Click="OptionsVisibleButton_Click" Grid.Column="0" Padding="0,1,1,0" TabIndex="3" />
+                <Label Content="{Binding Source={x:Static c:StringConsts.FindOptionsCaption}, Converter={x:Static edit:LabelHotkeyConverter.Instance}}"
+                       Margin="5,0,0,0"  Grid.Column="1" />
+                <Border Height="1" BorderThickness="1" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
+                        Name="OptionsCollapsedDecoration"
+                        Grid.Column="2"
+                        RenderOptions.EdgeMode="Aliased"
+                        VerticalAlignment="Center"
+                        Margin="5,0,0,0"/>
+            </Grid>
+
+            <GroupBox Name="OptionsGroupBox" Padding="10, 15, 10, 10" Panel.ZIndex="99" BorderBrush="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+                <StackPanel  Orientation="Vertical">
+                    <CheckBox Name="MatchCaseCheckBox" Content="{Binding Source={x:Static c:StringConsts.MatchCaseCaption}, Converter={x:Static edit:LabelHotkeyConverter.Instance}}"
+                              Margin="0,5,0,0" TabIndex="4" Checked="MatchCaseCheckBox_CheckedChanged" Unchecked="MatchCaseCheckBox_CheckedChanged"/>
+                    <CheckBox Name="MatchWholeWordCheckBox" Content="{Binding Source={x:Static c:StringConsts.MatchWholeWordCaption}, Converter={x:Static edit:LabelHotkeyConverter.Instance}}"
+                              Margin="0,5,0,0" TabIndex="5" Checked="MatchWholeWordCheckBox_CheckedChanged" Unchecked="MatchWholeWordCheckBox_CheckedChanged"/>
+                    <CheckBox Name="UseRegularExpressionsCheckBox" Content="{Binding Source={x:Static c:StringConsts.UseRegularExpressionsCaption}, Converter={x:Static edit:LabelHotkeyConverter.Instance}}"
+                              Margin="0,5,0,0" 
+                              Checked="UseRegularExpressionsCheckBox_CheckedChanged"
+                              Unchecked="UseRegularExpressionsCheckBox_CheckedChanged" TabIndex="8" />
+                </StackPanel>
+            </GroupBox>
+
+            <Grid Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button Content="{Binding Source={x:Static c:StringConsts.FindPreviousCaption}, Converter={x:Static edit:LabelHotkeyConverter.Instance}}"
+                        Grid.Column="0" Grid.Row="0" Name="FindPrevButton" Margin="0,10,5,0" IsDefault="True" Width="100" Click="FindPrevButton_Click" TabIndex="10" HorizontalAlignment="Right" />
+                <Button Content="{Binding Source={x:Static c:StringConsts.FindNextCaption}, Converter={x:Static edit:LabelHotkeyConverter.Instance}}"
+                        Grid.Column="1" Grid.Row="0" Name="FindButton" Margin="0,10,5,0" IsDefault="True" Width="100" Click="FindButton_Click" TabIndex="10" />
+
+                <Button Content="{Binding Source={x:Static c:StringConsts.FindAllCaption}, Converter={x:Static edit:LabelHotkeyConverter.Instance}}"
+                        Grid.Column="2" Grid.Row="0" Name="FindAllButton" Margin="0,10,0,0" Width="100" Click="FindAllButton_Click" TabIndex="11"/>
+
+                <Button Content="{Binding Source={x:Static c:StringConsts.ReplaceCaption}, Converter={x:Static edit:LabelHotkeyConverter.Instance}}"
+                        Grid.Column="1" Grid.Row="1" Name="ReplaceButton" Margin="0,10,5,0" Width="100" Click="ReplaceButton_Click" TabIndex="12" />
+
+                <Button Content="{Binding Source={x:Static c:StringConsts.ReplaceAllCaption}, Converter={x:Static edit:LabelHotkeyConverter.Instance}}"
+                        Grid.Column="2" Grid.Row="1" Name="ReplaceAllButton" Margin="0,10,0,0" Width="100" Click="ReplaceAllButton_Click" TabIndex="13" />
+            </Grid>
+
+        </StackPanel>
+    </StackPanel>
+</Window>

@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "HyperText": {
+      "commandName": "Project",
+      "hotReloadEnabled": false,
+      "nativeDebugging": true
+    }
+  }
+}

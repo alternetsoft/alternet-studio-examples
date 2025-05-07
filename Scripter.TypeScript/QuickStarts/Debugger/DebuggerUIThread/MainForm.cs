@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.ComponentModel;
@@ -49,6 +49,9 @@ namespace DebuggerUIThread.TypeScript
         public MainForm(string[] args)
         {
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = ".Resources";
+            //Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
 
             codeEditContainer = new DebugCodeEditContainer(editorsTabControl);
             codeEditContainer.EditorRequested += EditorContainer_EditorRequested;
@@ -62,9 +65,11 @@ namespace DebuggerUIThread.TypeScript
 
             debuggerControlToolbar.Debugger = debugger;
             debuggerControlToolbar.DebuggerPreStartup += DebuggerPreStartup;
+            debuggerControlToolbar.DefaultCommands.StartDebuggingOptions = new TypeScriptStartDebuggingOptions();
 
             debugMenu1.Debugger = debugger;
             debugMenu1.DebuggerPreStartup += DebuggerPreStartup;
+            debugMenu1.DefaultCommands.StartDebuggingOptions = new TypeScriptStartDebuggingOptions();
 
             debuggerPanelsTabControl.VisiblePanels &= ~DebuggerPanelKinds.Threads;
             debuggerPanelsTabControl.Debugger = debugger;
@@ -76,7 +81,6 @@ namespace DebuggerUIThread.TypeScript
 
             codeEditContainer.Debugger = debugger;
 
-            ScaleControls();
             StartDisplayFormThread(DisplayForm.Command.None);
             FormClosing += Form1_FormClosing;
             AddBreakpoint();
@@ -122,14 +126,6 @@ namespace DebuggerUIThread.TypeScript
         private void DisplayForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             displayForm = null;
-        }
-
-        private void ScaleControls()
-        {
-            if (!DisplayScaling.NeedsScaling)
-                return;
-
-            splitContainer.SplitterDistance = DisplayScaling.AutoScale(splitContainer.SplitterDistance);
         }
 
         private void OpenProject(string projectFilePath)

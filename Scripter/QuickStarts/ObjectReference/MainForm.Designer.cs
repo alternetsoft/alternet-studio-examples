@@ -137,7 +137,6 @@
             this.ClientSize = new System.Drawing.Size(718, 442);
             this.Controls.Add(this.pnEdit);
             this.Controls.Add(this.panel1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Object reference";

@@ -1,20 +1,20 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.IO;
 using System.Windows.Forms;
-using System.Xml.Schema;
 
+using Alternet.Common;
 using Alternet.Syntax;
 using Alternet.Syntax.CodeCompletion;
 using Alternet.Syntax.Lexer;
@@ -29,6 +29,7 @@ namespace AdvancedSyntaxParsing
         private const string LoadDesc = "Load code file";
 
         private string dir = Application.StartupPath + @"\";
+        private int updateCount = 0;
 
         private LanguageInfo[] langItems =
         {
@@ -54,6 +55,9 @@ namespace AdvancedSyntaxParsing
         public Form1()
         {
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "AdvancedSyntaxParsing.Resources";
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
         }
 
         private ILexer GetLexer(int index)
@@ -61,7 +65,7 @@ namespace AdvancedSyntaxParsing
             LanguageInfo info = (index >= 0) && (index < langItems.Length) ? langItems[index] : new LanguageInfo(string.Empty, string.Empty, string.Empty);
             ILexer result = null;
             string schemaFileName;
-
+            IReflectionRepository repository;
             switch (info.FileType)
             {
                 case "c#":
@@ -69,6 +73,10 @@ namespace AdvancedSyntaxParsing
                     break;
                 case "vb_net":
                     result = new VbParser();
+                    repository = (result as ISyntaxParser)?.CompletionRepository as IReflectionRepository;
+                    repository?.RegisterType("Interaction", typeof(Microsoft.VisualBasic.Interaction), true);
+                    repository?.RegisterType("Information", typeof(Microsoft.VisualBasic.Information), true);
+                    repository?.RegisterType("Err", typeof(Microsoft.VisualBasic.ErrObject), true);
                     break;
                 case "java":
                     result = new JsParser();
@@ -78,6 +86,8 @@ namespace AdvancedSyntaxParsing
                     break;
                 case "vbs_script":
                     result = new VbScriptParser();
+                    repository = (result as ISyntaxParser)?.CompletionRepository as IReflectionRepository;
+                    repository?.RegisterType("Interaction", typeof(Microsoft.VisualBasic.Interaction), true);
                     break;
                 case "java_script":
                     result = new JavaScriptParser();
@@ -136,6 +146,17 @@ namespace AdvancedSyntaxParsing
             return -1;
         }
 
+        private int FindLangByExt(string ext)
+        {
+            for (int i = 0; i < langItems.Length; i++)
+            {
+                if (string.Compare(langItems[i].FileExt, ext, true) == 0)
+                    return i;
+            }
+
+            return -1;
+        }
+
         private string RemoveFileExt(string fileName)
         {
             int p = fileName.LastIndexOf(".");
@@ -171,6 +192,9 @@ namespace AdvancedSyntaxParsing
 
         private void LanguagesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (updateCount > 0)
+                return;
+
             if (cbLanguages.SelectedIndex >= 0)
             {
                 syntaxEdit1.Source.Lexer = GetLexer(cbLanguages.SelectedIndex);
@@ -188,6 +212,21 @@ namespace AdvancedSyntaxParsing
             openFileDialog1.FilterIndex = Math.Max(1, cbLanguages.SelectedIndex + 1);
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                int idx = FindLangByExt("*" + Path.GetExtension(openFileDialog1.FileName));
+                if (idx >= 0)
+                {
+                    syntaxEdit1.Lexer = GetLexer(idx);
+                    updateCount++;
+                    try
+                    {
+                        cbLanguages.SelectedIndex = idx;
+                    }
+                    finally
+                    {
+                        updateCount--;
+                    }
+                }
+
                 syntaxEdit1.Source.LoadFile(openFileDialog1.FileName);
                 syntaxEdit1.Source.FileName = openFileDialog1.FileName;
             }

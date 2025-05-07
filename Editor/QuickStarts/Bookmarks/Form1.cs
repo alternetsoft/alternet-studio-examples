@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections;
@@ -37,14 +37,19 @@ namespace Bookmarks
         private string dir = Application.StartupPath + @"\";
 
         private IDictionary<TabPage, ISyntaxEdit> editors = new Dictionary<TabPage, ISyntaxEdit>();
+        private ImageList customGutterImages = new ImageList();
 
         public Form1()
         {
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "Bookmarks.Resources";
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            customGutterImages = LoadImageList("CustomImages");
             DirectoryInfo dirInfo = new DirectoryInfo(Path.GetFullPath(dir) + @"Resources\Editor\text");
             if (!dirInfo.Exists)
             {
@@ -52,6 +57,23 @@ namespace Bookmarks
             }
 
             OpenProject();
+
+            foreach (var editor in editors.Values)
+            {
+                (editor.Lexer as CsParser)?.ReparseText();
+            }
+
+            tcEditors.SelectedIndexChanged += (s, x) =>
+            {
+                var editor = GetEditor(tcEditors.SelectedTab);
+                var parser = editor?.Lexer as CsParser;
+                parser?.ReparseText();
+            };
+        }
+
+        private ImageList LoadImageList(string resource)
+        {
+            return ImageListHelper.LoadImageListFromStrip(typeof(Form1).Assembly, string.Format("Bookmarks.Resources.{0}.png", resource));
         }
 
         private ISyntaxEdit GetEditor(TabPage key)
@@ -119,6 +141,9 @@ namespace Bookmarks
                 parser.FileName = fileName;
                 edit.LoadFile(fileName);
                 edit.Source.FileName = fileName;
+
+                parser.Prepare(fileName, edit.Lines);
+                parser.ReparseText();
             }
 
             Random rnd = new Random();
@@ -136,7 +161,7 @@ namespace Bookmarks
             foreach (Image image in alphaImages.Images)
                 images.Add(image);
 
-            foreach (Image image in imageList1.Images)
+            foreach (Image image in customGutterImages.Images)
                 images.Add(image);
             return new AlphaImageList(images, alphaImages.ImageSize);
         }

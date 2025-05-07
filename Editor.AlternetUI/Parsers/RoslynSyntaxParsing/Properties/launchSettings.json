@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "RoslynSyntaxParsing": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    },
+    "IsDark": {
+      "commandName": "Project",
+      "commandLineArgs": "-IsDark=true",
+      "nativeDebugging": true
+    }
+  }
+}

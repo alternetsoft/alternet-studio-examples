@@ -139,7 +139,6 @@ namespace CallMethod
             this.Controls.Add(this.pnEdit);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.pnDescription);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Call method";

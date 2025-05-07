@@ -1,8 +1,8 @@
 <Window x:Class="DebuggerIntegration.TypeScript.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:UI="clr-namespace:Alternet.Scripter.Debugger.UI.Wpf;assembly=Alternet.Scripter.Debugger.UI.Wpf.v9"
-        xmlns:si="clr-namespace:Alternet.Scripter.Integration.Wpf;assembly=Alternet.Scripter.Integration.Wpf.v9"
+        xmlns:UI="clr-namespace:Alternet.Scripter.Debugger.UI.Wpf;assembly=Alternet.Scripter.Debugger.UI.Wpf.v10"
+        xmlns:si="clr-namespace:Alternet.Scripter.Integration.Wpf;assembly=Alternet.Scripter.Integration.Wpf.v10"
         Icon="/DebuggerIntegration.TypeScript.Wpf;component/Images/Icon.Ico" 
         Title="Debugger Integration - TypeScript/JavaScript" Height="480" Width="730" WindowStartupLocation="CenterScreen">
     <Grid>
@@ -27,6 +27,7 @@
                 <MenuItem Header="E_xit" Name="ExitMenuItem" Command="{Binding ExitCommand}" />
             </MenuItem>
             <UI:DebugMenu x:Name="DebugMenu" />
+            <MenuItem Header="Test Menu Item" Name="TestMenuItem" />
         </Menu>
         <UI:DebuggerControlToolbar Grid.Row="1" Height="28" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Top" Name="DebuggerControlToolbar"></UI:DebuggerControlToolbar>
         <Label Grid.Row="2" Name="laDescription" Content="This demo shows how to embed debugger into your application."/>

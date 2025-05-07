@@ -1,0 +1,21 @@
+{
+  "profiles": {
+    "AllQuickStarts": {
+      "commandName": "Project",
+      "nativeDebugging": true,
+      "hotReloadEnabled": false
+    },
+    "IsDark": {
+      "commandName": "Project",
+      "commandLineArgs": "-IsDark=true",
+      "nativeDebugging": true,
+      "hotReloadEnabled": false
+    },
+    "LogExceptions": {
+      "commandName": "Project",
+      "commandLineArgs": "-IsDark=true -LogExceptions",
+      "nativeDebugging": true,
+      "hotReloadEnabled": false
+    }
+  }
+}

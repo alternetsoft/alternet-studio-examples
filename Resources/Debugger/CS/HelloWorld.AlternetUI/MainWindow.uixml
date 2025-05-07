@@ -1,0 +1,9 @@
+<Window xmlns="http://schemas.alternetsoft.com/ui/2021"
+        xmlns:x="http://schemas.alternetsoft.com/ui/2021/uixml"
+        x:Class="HelloWorld.AlternetUI.MainWindow"
+        Title="MainWindow" StartLocation="CenterScreen"
+		MinimumSize="600, 400" Size="900,700" Padding="5">
+	<Label Text="Hello World" HorizontalAlignment="Left" Margin="29,61,0,0" VerticalAlignment="Top" />
+	<PictureBox Name="PictureBox" Height="100" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="65.5,109,0,0"/>
+	<Button Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="250,209,0,0" Name="button1" Click="button1_Click" Text="Close" Width="40" />
+</Window>

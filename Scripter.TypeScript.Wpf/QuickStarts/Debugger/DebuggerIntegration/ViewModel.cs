@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections;
@@ -80,10 +80,12 @@ namespace DebuggerIntegration.TypeScript
             };
 
             this.window.DebuggerControlToolbar.Debugger = debugger;
+            this.window.DebuggerControlToolbar.DefaultCommands.StartDebuggingOptions = new TypeScriptStartDebuggingOptions();
             this.window.DebuggerPanelsTabControl.VisiblePanels &= ~DebuggerPanelKinds.Threads;
             this.window.DebuggerPanelsTabControl.Debugger = debugger;
             this.window.DebugMenu.Debugger = debugger;
             this.window.DebugMenu.InstallKeyboardShortcuts(this.window.CommandBindings);
+            this.window.DebugMenu.DefaultCommands.StartDebuggingOptions = new TypeScriptStartDebuggingOptions();
 
             this.window.DebuggerControlToolbar.DebuggerPreStartup += OnDebuggerPreStartup;
             this.window.DebugMenu.DebuggerPreStartup += OnDebuggerPreStartup;
@@ -99,6 +101,7 @@ namespace DebuggerIntegration.TypeScript
             Language = "TypeScript";
 
             InitDefaultHostAssemblies();
+            UpdateDebugControls();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -220,6 +223,15 @@ namespace DebuggerIntegration.TypeScript
             }
 
             this.window.DebuggerPanelsTabControl.Errors.Clear();
+            UpdateDebugControls();
+        }
+
+        private void UpdateDebugControls()
+        {
+            bool enabled = (Project != null && Project.HasProject) || codeEditContainer.ActiveEditor != null;
+
+            window.DebuggerControlToolbar.Debugger = enabled ? debugger : null;
+            window.DebugMenu.Debugger = enabled ? debugger : null;
         }
 
         private void CloseProject(TSProject project)
@@ -239,6 +251,7 @@ namespace DebuggerIntegration.TypeScript
 
             Project?.Reset();
             scriptRun.ScriptSource?.Reset();
+            UpdateDebugControls();
         }
 
         private void CloseFile(string fileName)
@@ -249,11 +262,14 @@ namespace DebuggerIntegration.TypeScript
         private void OpenFile(string fileName)
         {
             codeEditContainer.TryActivateEditor(fileName);
+
+            UpdateDebugControls();
         }
 
         private void InitDefaultHostAssemblies()
         {
-            scriptRun.ScriptHost.HostItemsConfiguration.AddSystemAssemblies(options: HostItemOptions.GlobalMembers | HostItemOptions.GenerateDescriptions);
+            scriptRun.ScriptHost.HostItemsConfiguration.AddSystemAssemblies(options: HostItemOptions.GlobalMembers | HostItemOptions.GenerateDescriptions)
+                .AddObject("TestMenuItem", new MenuItemWrapper(window, window.TestMenuItem));
             TypeScriptProject.DefaultProject.HostItemsConfiguration = scriptRun.ScriptHost.HostItemsConfiguration;
         }
 
@@ -363,6 +379,8 @@ namespace DebuggerIntegration.TypeScript
             if (dialog.ShowDialog().Value)
             {
                 codeEditContainer.TryActivateEditor(dialog.FileName);
+
+                UpdateDebugControls();
             }
         }
 
@@ -382,6 +400,8 @@ namespace DebuggerIntegration.TypeScript
                 Project?.Reset();
                 scriptRun.ScriptSource?.Reset();
             }
+
+            UpdateDebugControls();
         }
 
         private void ExitClick()

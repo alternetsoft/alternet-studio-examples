@@ -4,7 +4,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net462;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <UseWindowsForms>true</UseWindowsForms>
@@ -17,31 +17,25 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <RootNamespace>DebuggerUIThread.TypeScript</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <OutputPath>..\..\..\..\..\bin\Release\Demos.Scripter.TypeScript\</OutputPath>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.ClearScript" Version="7.2.0" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Editor.TypeScript" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.5.15" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.TypeScript" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="10.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DisplayForm.cs" />

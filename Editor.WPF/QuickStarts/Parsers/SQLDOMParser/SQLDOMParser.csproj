@@ -4,7 +4,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net462;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <UseWPF>true</UseWPF>
@@ -18,17 +18,14 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <OutputPath>..\..\..\..\..\bin\Release\Demos.Editor.Wpf\</OutputPath>
-  </PropertyGroup>
   <ItemGroup>
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.15" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -91,7 +88,7 @@
     <Resource Include="app.ico" />
   </ItemGroup>
   <ItemGroup Condition="$(DefineConstants.Contains(';NETCOREAPP'))">
-    <PackageReference Include="Microsoft.SqlServer.TransactSql.ScriptDom" Version="150.4573.2" />
+    <PackageReference Include="Microsoft.SqlServer.TransactSql.ScriptDom" Version="161.9123.0" />
   </ItemGroup>
   <ItemGroup Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))">
     <PackageReference Include="Microsoft.SqlServer.TransactSql.ScriptDom" Version="14.0.3660.1" />

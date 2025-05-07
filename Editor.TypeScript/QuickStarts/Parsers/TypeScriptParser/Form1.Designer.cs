@@ -111,7 +111,7 @@
             this.laDescription.Name = "laDescription";
             this.laDescription.Size = new System.Drawing.Size(657, 39);
             this.laDescription.TabIndex = 1;
-            this.laDescription.Text = resources.GetString("laDescription.Text");
+            this.laDescription.Text = "This demo shows how to use the dedicated parsers for Javascript/Typescript languages based on Microsoft ClearScript. This parser supports automatic code completion, code outlining, smart formatting, and syntax error underlining.";
             this.laDescription.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // syntaxEdit1
@@ -148,7 +148,6 @@
             this.ClientSize = new System.Drawing.Size(667, 358);
             this.Controls.Add(this.syntaxEdit1);
             this.Controls.Add(this.pnSettings);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TypeScript Parsing";

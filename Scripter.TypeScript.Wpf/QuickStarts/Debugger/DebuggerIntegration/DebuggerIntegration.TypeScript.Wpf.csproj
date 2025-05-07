@@ -4,7 +4,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net462;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <UseWPF>true</UseWPF>
@@ -18,15 +18,9 @@
     <ApplicationIcon>app.ico</ApplicationIcon>
     <RootNamespace>DebuggerIntegration.Wpf</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <OutputPath>..\..\..\..\..\bin\Release\Demos.Scripter.TypeScript.Wpf\</OutputPath>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.ClearScript" Version="7.2.0" />
-  </ItemGroup>
   <ItemGroup>
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
@@ -34,25 +28,26 @@
     <Reference Include="System.Runtime.Remoting" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Editor.TypeScript.Wpf" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="9.5.15" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.TypeScript.Wpf" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="10.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MenuItemWrapper.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="RemoteAPI.cs" />
     <Compile Include="ViewModel.cs" />
@@ -102,10 +97,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="app.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Licenses\clearscript-license.txt" />
-    <Resource Include="Licenses\v8-license.txt" />
   </ItemGroup>
   <ItemGroup />
 </Project>

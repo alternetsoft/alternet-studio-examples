@@ -131,12 +131,47 @@
             // csharpSource
             // 
             this.csharpSource.OptimizedForMemory = false;
-            this.csharpSource.Text = resources.GetString("csharpSource.Text");
+            this.csharpSource.Text = @"using System;
+/// <summary>
+/// Just a sample code to allow user have a look to our product and test it functionality both Editor and Syntax Parsing.
+/// </summary>
+public class Person
+{
+	public int age;
+	public string name;
+}
+
+public class MainClass
+{
+	static void Main()
+	{
+		Person p = new Person();
+
+		Console.Write(""Name: {0}, Age: {1}"", p.name, p.age);
+	}
+}";
             // 
             // vbSource
             // 
             this.vbSource.OptimizedForMemory = false;
-            this.vbSource.Text = resources.GetString("vbSource.Text");
+            this.vbSource.Text = @"Imports System
+
+''' <summary>
+''' Just a sample code to allow user have a look to our product and test it functionality both Editor and Syntax Parsing.
+''' </summary>
+Public Class Person
+	Public age As Integer
+	Public name As String
+End Class
+
+Public Class MainClass
+
+	Public Sub New()
+		Dim p As Person = New Person
+		Console.Write(""Name: {0}, Age: {1}"", p.name, p.age)
+	End Sub
+
+End Class";
             // 
             // Form1
             // 
@@ -145,7 +180,6 @@
             this.ClientSize = new System.Drawing.Size(667, 375);
             this.Controls.Add(this.syntaxEdit1);
             this.Controls.Add(this.pnSettings);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Code Snippets";

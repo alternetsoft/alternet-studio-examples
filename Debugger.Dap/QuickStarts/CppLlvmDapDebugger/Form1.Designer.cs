@@ -193,7 +193,6 @@
             this.Controls.Add(this.debuggerControlToolbar1);
             this.Controls.Add(this.mainMenu);
             this.Name = "Form1";
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Text = "C++ Debugger [Debug Adapter Protocol]";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

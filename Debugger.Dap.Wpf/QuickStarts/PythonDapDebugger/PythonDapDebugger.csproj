@@ -15,10 +15,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net462;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <OutputPath>..\..\..\..\bin\Release\Demos.Scripter.Dap.Wpf\</OutputPath>
+    <TargetFrameworks>net471;net8.0-windows;net9.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -42,20 +39,20 @@
     <Page Include="MainWindow.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Python" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python.Embedded.Pyright" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="9.5.15" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Python" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python.Embedded.Pyright" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="10.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Icon.ico" />

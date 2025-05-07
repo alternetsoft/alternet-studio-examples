@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -18,14 +18,15 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using Alternet.Common.Projects;
 using Alternet.Common.Projects.DotNet;
 using Alternet.Editor.Common.Wpf;
 using Alternet.Editor.Roslyn.Wpf;
 using Alternet.Editor.Wpf;
 using Alternet.FormDesigner.Wpf;
+using Alternet.Scripter;
 using Alternet.Scripter.Debugger;
+using Alternet.Syntax.Parsers.Roslyn;
 
 namespace AlternetStudio.Wpf.Demo
 {
@@ -38,6 +39,26 @@ namespace AlternetStudio.Wpf.Demo
         private ProjectCreationData projectCreationData = new ProjectCreationData { ProjectType = "WPFApp" };
 
         protected DotNetProject Project { get; private set; } = new DotNetProject();
+
+        protected TargetFramework CurrentFramework
+        {
+            get
+            {
+                return Project != null && Project.HasProject ? Project.TargetFramework : null;
+            }
+
+            set
+            {
+                if (CurrentFramework != value)
+                {
+                    if (Project != null && Project.HasProject)
+                    {
+                        Project.TargetFramework = value;
+                        RefreshProject(Project);
+                    }
+                }
+            }
+        }
 
         private string TemplateSubPath
         {
@@ -127,6 +148,12 @@ namespace AlternetStudio.Wpf.Demo
 
             UpdateProjectExplorer();
             UpdateCodeNavigation();
+            bool hasFrameworks = HasProject() && Project.TargetFrameworks?.Count > 0;
+            if (hasFrameworks)
+            {
+                FillProjectFrameworks();
+            }
+
             errorsControl.Clear();
         }
 
@@ -166,22 +193,9 @@ namespace AlternetStudio.Wpf.Demo
             return null;
         }
 
-        private DotNetProject GetSolutionFolder(TreeViewItem node)
+        private void FillProjectFrameworks()
         {
-            DotNetProject result = null;
-            while (node != null)
-            {
-                if ((node.Tag != null) && (node.Tag is Project))
-                {
-                    result = node.Tag as DotNetProject;
-                    if ((result != null) && result.IsFolder)
-                        return result;
-                }
-
-                node = GetParentItem(node);
-            }
-
-            return null;
+            CodeUtils.FillFrameworks(ProjectFrameworks, Project?.TargetFrameworks);
         }
 
         private bool HasProject()
@@ -322,10 +336,39 @@ namespace AlternetStudio.Wpf.Demo
             return !string.IsNullOrEmpty(GetProjectName(fileName));
         }
 
+        private void RefreshProject(DotNetProject project)
+        {
+            CodeEditExtensions.RefreshProject(project, GetSourceFiles(project, project.Files, project.ProjectExtension, true));
+            scriptRun.ScriptSource.FromScriptProject(Project.ProjectFileName, project.TargetFramework);
+            UpdateOpenFiles();
+            UpdateErrors(project);
+        }
+
         private void OpenProject(DotNetProject project)
         {
-            var extension = string.Format(".{0}", project.DefaultExtension);
-            CodeEditExtensions.OpenProject(extension, project, GetSourceFiles(project.Files));
+            CodeEditExtensions.OpenProject(project, GetSourceFiles(project, project.Files, project.ProjectExtension, true));
+        }
+
+        private void UpdateOpenFiles()
+        {
+            foreach (TabItem item in editorsTabControl.Items)
+            {
+                var editor = GetEditor(item) as TextEditor;
+                var parser = editor?.Lexer as RoslynParser;
+                if (parser != null)
+                    parser.ReparseText();
+            }
+        }
+
+        private async void UpdateErrors(DotNetProject project)
+        {
+            var proj = CodeEditExtensions.GetProject(project);
+            if (proj != null)
+            {
+                var compilation = await proj.GetCompilationAsync();
+                errorsControl.Clear(FilterError);
+                errorsControl.AddCompilerErrors(GetErrors(compilation.GetDiagnostics()));
+            }
         }
 
         private void ProjectModified(object sender, EventArgs e)
@@ -413,7 +456,7 @@ namespace AlternetStudio.Wpf.Demo
 
             DlgNewProject dlg = new DlgNewProject(projectCreationData, new string[] { "C#", "Visual Basic" }, ProjectTypes.SupportedProjectTypes);
             {
-               if (dlg.ShowDialog().Value)
+                if (dlg.ShowDialog().Value)
                 {
                     projectCreationData = dlg.ProjectData;
                     if (CloseProject())

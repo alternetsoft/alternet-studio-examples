@@ -105,7 +105,6 @@
             this.ClientSize = new System.Drawing.Size(667, 307);
             this.Controls.Add(this.syntaxEdit1);
             this.Controls.Add(this.pnSettings);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Customize";

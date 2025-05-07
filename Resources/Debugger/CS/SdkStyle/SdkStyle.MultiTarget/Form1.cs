@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,6 +19,7 @@ namespace HelloWorld
 
         private void button1_Click(object sender, System.EventArgs e)
         {
+            MessageBox.Show(System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription.ToString());
             Close();
         }
     }

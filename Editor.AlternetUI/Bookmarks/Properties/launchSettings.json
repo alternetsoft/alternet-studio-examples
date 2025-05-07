@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Bookmarks": {
+      "commandName": "Project"
+    },
+    "DevTools": {
+      "commandName": "Project",
+      "commandLineArgs": "-DevTools=true"
+    }
+  }
+}

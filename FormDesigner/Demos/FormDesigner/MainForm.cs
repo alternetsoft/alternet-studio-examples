@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Form Designer Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using Alternet.Common;
+#if NETCOREAPP
 using Alternet.Common.DotNet.DefaultAssemblies;
+#endif
+
 using Alternet.Editor.Common;
 using Alternet.Editor.Roslyn;
 using Alternet.Editor.TextSource;
@@ -44,6 +48,9 @@ namespace Alternet.FormDesigner.Demo
         public MainForm()
         {
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "FormDesigner.Resources";
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
 
             leftTabControl.SelectedIndex = 1;
             filesUserControl.Initialize(GetTestFilesDirectoryPath(), OpenFormFile);

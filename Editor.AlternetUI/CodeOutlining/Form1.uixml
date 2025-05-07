@@ -1,0 +1,42 @@
+<Window xmlns="http://schemas.alternetsoft.com/ui/2021"
+        xmlns:x="http://schemas.alternetsoft.com/ui/2021/uixml"
+        xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+        x:Class="CodeOutlining.Form1"
+        Title="Code Outlining on Alternet.UI" StartLocation="CenterScreen"
+        MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
+        Icon="embres:CodeOutlining.Sample.ico">
+
+  <Window.StatusBar>
+    <StatusBar Name="statusBar">
+      <StatusBarPanel/>
+    </StatusBar>    
+  </Window.StatusBar>
+  
+  <Label Name="lbDescription" Margin="5"
+   Text="Code outlining is a text navigation feature that can make navigation of large structured texts more comfortable and effective."/>
+  <Panel Name="gbCodeOutlining" Margin="5">
+	  <Grid RowCount="2" ColumnCount="3">
+      <ComboBox Name="cbAutomatics" RowColumn="0,0"
+                ToolTip = "Choose outlining mode: automatic or custom"
+                DropDownStyle = "DropDownList" Margin="5"/>
+      <CheckBox Name="chbDrawOnGutter" RowColumn="0,1"
+                Text="Draw on Gutter" ToolTip = "Draw outline images and lines on gutter"
+                Margin="5"/>
+      <CheckBox Name="chbDrawButtons" RowColumn="0,2"
+                Text="Draw Buttons"
+                ToolTip = "Draw the outline buttons substituting content of the collapsed section"
+                Margin="5"/>
+      <CheckBox Name="chbAllowOutlining" RowColumn="1,0"
+                Text="Allow Outlining" ToolTip = "Enable outlining" Margin="5"/>
+      <CheckBox Name="chbDrawLines" RowColumn="1,1" Text="Draw Lines"
+                ToolTip = "Draw lines for expanded outline section" Margin="5"/>
+      <CheckBox Name="chbShowHints" RowColumn="1,2"
+                Text="Show Hints"
+                ToolTip = "Display text of the collapsed outline section in the popup when mouse pointer is over the outline button" Margin="5"/>
+    </Grid>
+  </Panel>
+  <Border VerticalAlignment="Fill" Margin="5">
+    <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>
+  </Border>
+</Window>
+

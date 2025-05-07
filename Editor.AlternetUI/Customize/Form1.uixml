@@ -1,0 +1,25 @@
+<Window xmlns="http://schemas.alternetsoft.com/ui/2021"
+        xmlns:x="http://schemas.alternetsoft.com/ui/2021/uixml"
+        xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+        x:Class="Customize.Form1"
+        Title="Customize on Alternet.UI" StartLocation="CenterScreen"
+        MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
+        Icon="embres:Customize.Sample.ico">
+
+  <Window.StatusBar>
+    <StatusBar Name="statusBar">
+      <StatusBarPanel/>
+    </StatusBar>    
+  </Window.StatusBar>
+
+	<Label Name="lbDescription" Margin="5"
+	 Text="Code Editor can Customize its appearance and behaviour."/>
+
+	<Button Name="btOptions" Text = "Customize with Dialog..." HorizontalAlignment = "Left"
+		ToolTip = "Display Editor options dialog" Margin="5"  VerticalAlignment="Center"/>
+
+  <Border VerticalAlignment="Fill" Margin="5">
+    <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>
+  </Border>
+</Window>
+

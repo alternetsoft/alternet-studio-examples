@@ -29,6 +29,9 @@ namespace DebuggerIntegration.Python
             SetupPython();
 
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "DebuggerIntegration.Python.Resources";
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
 
             editorTabContainer = new DebugCodeEditContainer(editorsTabControl);
 
@@ -36,7 +39,7 @@ namespace DebuggerIntegration.Python
 
             OpenProject(FindProjectFile());
 
-            scriptRun1.GlobalItems.Add(new ScriptGlobalItem("TestMenuItem", testMenuItemToolStripMenuItem));
+            scriptRun1.GlobalItems.Add(new ScriptGlobalItem("TestMenuItem", new MenuItemWrapper(this, testMenuItemToolStripMenuItem)));
 
             debugger = new ScriptDebugger
             {
@@ -57,6 +60,26 @@ namespace DebuggerIntegration.Python
             controller.DebuggerPanels = debuggerPanelsTabControl;
 
             editorTabContainer.Debugger = debugger;
+            UpdateDebugControls();
+
+            debugger.BeforeStop += (s, e) =>
+            {
+            };
+
+            debugger.ExecutionStopped += (s, e) =>
+            {
+            };
+
+            KeyPreview = true;
+
+            KeyDown += (s, e) =>
+            {
+                if (e.Control && e.Alt && e.KeyCode == Keys.Back)
+                {
+                    Console.WriteLine("Ctrl + Alt + Backspace detected!");
+                    e.Handled = true;
+                }
+            };
         }
 
         protected async override void OnClosing(CancelEventArgs e)
@@ -132,6 +155,15 @@ namespace DebuggerIntegration.Python
             }
 
             debuggerPanelsTabControl.Errors.Clear();
+            UpdateDebugControls();
+        }
+
+        private void UpdateDebugControls()
+        {
+            bool enabled = (Project != null && Project.HasProject) || editorTabContainer.ActiveEditor != null;
+
+            debuggerControlToolbar1.Debugger = enabled ? debugger : null;
+            debugMenu1.Debugger = enabled ? debugger : null;
         }
 
         private void CloseProject(PythonProject project)
@@ -148,6 +180,7 @@ namespace DebuggerIntegration.Python
 
             Project?.Reset();
             scriptRun1.ScriptSource?.Reset();
+            UpdateDebugControls();
         }
 
         private void CloseFile(string fileName)
@@ -234,6 +267,8 @@ namespace DebuggerIntegration.Python
                 if (dialog.ShowDialog(this) != DialogResult.OK)
                     return;
                 editorTabContainer.TryActivateEditor(dialog.FileName);
+
+                UpdateDebugControls();
             }
         }
 
@@ -252,6 +287,8 @@ namespace DebuggerIntegration.Python
                 Project?.Reset();
                 scriptRun1.ScriptSource?.Reset();
             }
+
+            UpdateDebugControls();
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)

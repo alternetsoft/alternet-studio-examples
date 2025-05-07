@@ -1,17 +1,18 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 
@@ -37,6 +38,7 @@ namespace AlternetStudio.Demo
             this.langIndex = langIndex;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string FileLocation
         {
             get
@@ -50,29 +52,13 @@ namespace AlternetStudio.Demo
             }
         }
 
-        public virtual string NamespaceName
-        {
-            get
-            {
-                return string.Empty;
-            }
-        }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public virtual string NamespaceName { get; set; } = string.Empty;
 
-        public virtual string DesignedClassName
-        {
-            get
-            {
-                return string.Empty;
-            }
-        }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public virtual string DesignedClassName { get; set; } = string.Empty;
 
-        public virtual IList<string> Imports
-        {
-            get
-            {
-                return new List<string>();
-            }
-        }
+        public virtual IList<string> Imports { get; } = new List<string>();
 
         private void FillProjectLanguages()
         {

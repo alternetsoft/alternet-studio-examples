@@ -12,11 +12,11 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net462;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows</TargetFrameworks>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <OutputPath>..\..\..\..\bin\Release\Demos.Scripter.IronPython\</OutputPath>
-  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\Icon.ico" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs" />
@@ -25,14 +25,15 @@
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx" />
     <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Resources\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.15" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.0" />
   </ItemGroup>
   <ItemGroup />
 </Project>

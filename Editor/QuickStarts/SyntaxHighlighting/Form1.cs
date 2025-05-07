@@ -1,20 +1,21 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
+using Alternet.Common;
 using Alternet.Syntax;
 using Alternet.Syntax.Lexer;
 using Alternet.Syntax.Parsers.Generic;
@@ -94,6 +95,9 @@ namespace SyntaxHighlighting
         public Form1()
         {
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "SyntaxHighlighting.Resources";
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
         }
 
         private void Form1_Load(object sender, EventArgs e)

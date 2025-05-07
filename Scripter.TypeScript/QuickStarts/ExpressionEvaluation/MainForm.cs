@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -20,6 +20,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Alternet.Common;
 using Alternet.Common.TypeScript.HostObjects;
 
 namespace ExpressionEvaluation.TypeScript
@@ -33,6 +34,9 @@ namespace ExpressionEvaluation.TypeScript
         public MainForm()
         {
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "ExpressionEvaluation.TypeScript.Resources";
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
         }
 
         private void MainForm_Load(object sender, EventArgs e)

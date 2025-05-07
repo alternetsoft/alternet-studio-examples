@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -19,11 +19,13 @@ using System.Linq;
 using System.Windows.Forms;
 using Alternet.Common.Projects;
 using Alternet.Common.Projects.DotNet;
+using Alternet.Editor;
 using Alternet.Editor.Common;
 using Alternet.Editor.Roslyn;
 using Alternet.Editor.TextSource;
 using Alternet.FormDesigner.WinForms;
 using Alternet.Scripter.Debugger;
+using Alternet.Syntax.Parsers.Roslyn;
 
 namespace AlternetStudio.Demo
 {
@@ -37,6 +39,25 @@ namespace AlternetStudio.Demo
 
         protected DotNetProject Project { get; private set; } = new DotNetProject();
 
+        protected TargetFramework CurrentFramework
+        {
+            get
+            {
+                return Project != null && Project.HasProject ? Project.TargetFramework : null;
+            }
+
+            set
+            {
+                if (CurrentFramework != value)
+                {
+                    if (Project != null && Project.HasProject)
+                    {
+                        Project.TargetFramework = value;
+                        RefreshProject(Project);
+                    }
+                }
+            }
+        }
         private string TemplateSubPath
         {
             get
@@ -128,6 +149,12 @@ namespace AlternetStudio.Demo
 
             UpdateProjectExplorer();
             UpdateCodeNavigation();
+            bool hasFrameworks = HasProject() && Project.TargetFrameworks?.Count > 0;
+            if (hasFrameworks)
+            {
+                FillProjectFrameworks();
+            }
+
             errorsControl.Clear();
         }
 
@@ -187,6 +214,11 @@ namespace AlternetStudio.Demo
             }
 
             return null;
+        }
+
+        private void FillProjectFrameworks()
+        {
+            CodeUtils.FillFrameworks(ProjectFrameworksComboBox, Project?.TargetFrameworks);
         }
 
         private bool HasProject()
@@ -342,10 +374,39 @@ namespace AlternetStudio.Demo
             return !string.IsNullOrEmpty(GetProjectName(fileName));
         }
 
+        private void RefreshProject(DotNetProject project)
+        {
+            CodeEditExtensions.RefreshProject(project, GetSourceFiles(project, project.Files, project.ProjectExtension, true));
+            scriptRun.ScriptSource.FromScriptProject(Project.ProjectFileName, project.TargetFramework);
+            UpdateOpenFiles();
+            UpdateErrors(project);
+        }
+
         private void OpenProject(DotNetProject project)
         {
-            var extension = string.Format(".{0}", project.DefaultExtension);
-            CodeEditExtensions.OpenProject(extension, project);
+            CodeEditExtensions.OpenProject(project, GetSourceFiles(project, project.Files, project.ProjectExtension, true));
+        }
+
+        private void UpdateOpenFiles()
+        {
+            foreach (TabPage tabPage in editorsTabControl.TabPages)
+            {
+                var edit = GetEditor(tabPage) as SyntaxEdit;
+                var parser = edit?.Lexer as RoslynParser;
+                if (parser != null)
+                    parser.ReparseText();
+            }
+        }
+
+        private async void UpdateErrors(DotNetProject project)
+        {
+            var proj = CodeEditExtensions.GetProject(project);
+            if (proj != null)
+            {
+                var compilation = await proj.GetCompilationAsync();
+                errorsControl.Clear(FilterError);
+                errorsControl.AddCompilerErrors(GetErrors(compilation.GetDiagnostics()));
+            }
         }
 
         private void ProjectModified(object sender, EventArgs e)

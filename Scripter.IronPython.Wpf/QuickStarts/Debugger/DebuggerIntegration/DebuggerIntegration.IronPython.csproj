@@ -14,16 +14,13 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net462;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="App.xaml" />
     <None Remove="Images\Icon.ico" />
     <None Remove="MainWindow.xaml" />
   </ItemGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <OutputPath>..\..\..\..\..\bin\Release\Demos.Scripter.IronPython.Wpf\</OutputPath>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
@@ -33,6 +30,7 @@
   <ItemGroup>
     <Compile Include="App.xaml.cs" />
     <Compile Include="MainWindow.xaml.cs" />
+    <Compile Include="MenuItemWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
@@ -41,20 +39,20 @@
     <Page Include="MainWindow.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Editor.IronPython.Wpf" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="9.5.15" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.IronPython" Version="9.5.15" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.IronPython.Wpf" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.IronPython" Version="10.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Icon.ico" />
@@ -65,7 +63,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="IronPython.StdLib" Version="3.4.1" />
+    <PackageReference Include="IronPython.StdLib" Version="3.4.2" />
   </ItemGroup>
   <ItemGroup />
 </Project>

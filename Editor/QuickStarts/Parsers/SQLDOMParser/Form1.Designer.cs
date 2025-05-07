@@ -90,7 +90,6 @@
             this.ClientSize = new System.Drawing.Size(707, 453);
             this.Controls.Add(this.syntaxEdit1);
             this.Controls.Add(this.pnSettings);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "SQL DOM Parser";
             this.Load += new System.EventHandler(this.Form1_Load);

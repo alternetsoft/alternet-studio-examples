@@ -4,11 +4,11 @@
         xmlns:local="clr-namespace:AlternetStudio.Wpf.Demo"
         TextOptions.TextFormattingMode="Display"
         UseLayoutRounding="True"
-        xmlns:outline="clr-namespace:Alternet.FormDesigner.Wpf.Outline;assembly=Alternet.FormDesigner.Wpf.v9"
-        xmlns:CUI="clr-namespace:Alternet.Editor.Common.Wpf;assembly=Alternet.Editor.Common.Wpf.v9"
-        xmlns:UI="clr-namespace:Alternet.Scripter.Debugger.UI.Wpf;assembly=Alternet.Scripter.Debugger.UI.Wpf.v9"
-        xmlns:Design="clr-namespace:Alternet.FormDesigner.Wpf.PropertyGrid;assembly=Alternet.FormDesigner.Wpf.v9"
-        xmlns:toolbox="clr-namespace:Alternet.FormDesigner.Wpf.Toolbox;assembly=Alternet.FormDesigner.Wpf.v9"
+        xmlns:outline="clr-namespace:Alternet.FormDesigner.Wpf.Outline;assembly=Alternet.FormDesigner.Wpf.v10"
+        xmlns:CUI="clr-namespace:Alternet.Editor.Common.Wpf;assembly=Alternet.Editor.Common.Wpf.v10"
+        xmlns:UI="clr-namespace:Alternet.Scripter.Debugger.UI.Wpf;assembly=Alternet.Scripter.Debugger.UI.Wpf.v10"
+        xmlns:Design="clr-namespace:Alternet.FormDesigner.Wpf.PropertyGrid;assembly=Alternet.FormDesigner.Wpf.v10"
+        xmlns:toolbox="clr-namespace:Alternet.FormDesigner.Wpf.Toolbox;assembly=Alternet.FormDesigner.Wpf.v10"
         Title="AlterNET Studio" Height="564" Width="808" WindowState="Maximized" Loaded="Window_Loaded"
         Icon="/AlternetStudio.Wpf;component/Images/Icon.ico" Closing="Window_Closing" Closed="Window_Closed" KeyDown="Window_KeyDown">
     <Window.Resources>
@@ -301,6 +301,18 @@
                 <Button ToolTip="Navigate Forward" Name="historyForwardToolButton" Padding="1" Click="Forward_Click">
                     <Image Source="/AlternetStudio.Wpf;component/Resources/Forwards.png" Style="{StaticResource ToolbarImageStyle}"/>
                 </Button>
+                <ComboBox ToolTip="Choose Frameworks" Name="ProjectFrameworks" MinWidth="70" Padding="1" Width="Auto" HorizontalAlignment="Stretch">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,0,0,0" Width="Auto">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock FontWeight="Regular" Grid.Column="0" Text="{Binding Text}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </ToolBar>
             <UI:DebuggerControlToolbar Background="Transparent" Margin="0,0,0,0" VerticalAlignment="Top" Name="debuggerControlToolbar">
             </UI:DebuggerControlToolbar>
@@ -330,7 +342,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Image Height="16" Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,2" Name="image1" Stretch="None" VerticalAlignment="Top" Width="18" Source="{Binding ImageIndex, Converter={StaticResource imageConverter}}" />
-                                <TextBlock FontWeight="Bold" Grid.Column="1" Text="{Binding Text}" />
+                                <TextBlock FontWeight="Regular" Grid.Column="1" Text="{Binding Text}" />
                             </Grid>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
@@ -344,7 +356,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Image Height="16" Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,2" Name="image1" Stretch="None" VerticalAlignment="Top" Width="18" Source="{Binding ImageIndex, Converter={StaticResource imageConverter}}" />
-                                <TextBlock FontWeight="Bold" Grid.Column="1" Text="{Binding Text}" />
+                                <TextBlock FontWeight="Regular" Grid.Column="1" Text="{Binding Text}" />
                             </Grid>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>

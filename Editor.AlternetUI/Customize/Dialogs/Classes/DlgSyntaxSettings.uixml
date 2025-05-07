@@ -1,0 +1,239 @@
+<Window xmlns="http://schemas.alternetsoft.com/ui/2021"
+        xmlns:x="http://schemas.alternetsoft.com/ui/2021/uixml"
+        x:Class="Customize.Dialogs.Classes.DlgSyntaxSettings"
+		MinimumSize="800, 700"
+        Title="Options"  Layout="Vertical" Padding="10"
+		Icon="embres:Customize.Sample.ico">
+
+  <Panel Name="GeneralPanel" Layout="Vertical" HorizontalAlignment="Fill"
+         VerticalAlignment="Fill" Visible="false" Padding="5,0,0,0">
+    <GroupBox Name="gbDocument" Text="Document" Padding="5" Margin="0,0,0,5">
+      <Grid RowCount="3" ColumnCount="3" MinChildMargin="5">
+        <CheckBox Name="chbWordWrap" RowColumn="0,0"
+                  Text="Word Wrap"
+                  ToolTip = "" Margin="0,0,5,0"/>
+        <CheckBox Name="chbHighlightUrls" RowColumn="1,0"
+                  Text="Highlight Urls"
+                  ToolTip = "" Margin="0,0,5,0"/>
+        <CheckBox Name="chbDragAndDrop" RowColumn="2,0"
+                  Text="Drag and drop text"
+                  ToolTip = "" Margin="0,0,5,0"/>
+        <CheckBox Name="chbVertScrollBar" RowColumn="0,1"
+                  Text="Vertical scroll bar"
+                  ToolTip = "" Margin="0,0,5,0"/>
+        <CheckBox Name="chbHorzScrollBar" RowColumn="1,1"
+                  Text="Horizontal scroll bar"
+                  ToolTip = "" Margin="0,0,5,0"/>
+        <CheckBox Name="chbWhiteSpace" RowColumn="0,2"
+                  Text="White space"
+                  ToolTip = "" Margin="0,0,5,0"/>
+        <CheckBox Name="chbLineSeparator" RowColumn="1,2"
+                  Text="Line separator"
+                  ToolTip = "" Margin="0,0,5,0"/>
+        <CheckBox Name="chbLineModificator" RowColumn="2,2"
+                  Text="Line modificator"
+                  ToolTip = "" Margin="0,0,5,0"/>
+      </Grid>
+    </GroupBox>
+    <GroupBox Name="gbGutterMargin" Text="Gutter and Margin" Padding="5" Margin="0,0,0,5">
+      <Grid RowCount="2" ColumnCount="3" MinChildMargin="5">
+        <CheckBox Name="chbShowGutter" RowColumn="0,0"
+                  Text="Show Gutter"
+                  ToolTip = "" Margin="0,0,5,0"/>
+        <CheckBox Name="chbShowMargin" RowColumn="1,0"
+                  Text="Show Margin"
+                  ToolTip = "" Margin="0,0,5,0"/>
+        <Label Name="lbGutterWidth" RowColumn="0,1" VerticalAlignment="Center"
+               Margin="5" Text="Gutter Width:"/>
+        <NumericUpDown Name="nudGutterWidth"  RowColumn="0,2" Margin="5"
+                       ToolTip="Set gutter width"/>
+        <Label Name="lbMarginPos" RowColumn="1,1" VerticalAlignment="Center"
+               Margin="5" Text="Margin Position:"/>
+        <NumericUpDown Name="nudMarginPosition"  RowColumn="1,2" Margin="5"
+                       ToolTip="Set margin position"/>
+      </Grid>
+    </GroupBox>
+    <GroupBox Name="gbLineNumbers" Text="LineNumbers" Padding="5" Margin="0,0,0,5">
+      <Grid RowColumnCount="2,0" MinChildMargin="5">
+        <CheckBox Name="chbLineNumbers"
+          RowColumn="0,0"
+          Text="Show Line Numbers"
+          ToolTip = "" Margin="0,0,5,0"/>
+        <CheckBox Name="chbLineNumbersOnGutter"
+          RowColumn="1,0"
+          Text="Display on Gutter"
+          ToolTip = "" Margin="0,0,5,0"/>
+      </Grid>
+    </GroupBox>
+  </Panel>
+
+  <!-- ==================== -->
+
+  <Panel Name="AdditionalPanel" Layout="Vertical" HorizontalAlignment="Fill"
+         VerticalAlignment="Fill" Visible="False" Padding="5,0,0,0">
+    <GroupBox Name="gbNavigateOptions" Layout="Vertical" Text="Navigate Options" Padding="5,5,5,20" Margin="0,0,0,5">
+      <Grid RowCount="3" ColumnCount="0" MinChildMargin="5">
+        <CheckBox Name="chbBeyondEol" RowColumn="0,0"
+          Text="Beyond Eol"
+          ToolTip = "" Margin="0,0,5,0"/>
+        <CheckBox Name="chbBeyondEof" RowColumn="1,0"
+          Text="Beyond Eof"
+          ToolTip = "" Margin="0,0,5,0"/>
+        <CheckBox Name="chbMoveOnRightButton" RowColumn="2,0"
+          Text="Move on Right Button"
+          ToolTip = "" Margin="0,0,5,0"/>
+      </Grid>
+    </GroupBox>
+    <GroupBox Name="gbOutlineOptions" Text="Outline Options" Padding="5" Margin="0,0,0,5">
+      <Grid RowCount="2" ColumnCount="0" MinChildMargin="5">
+        <CheckBox Name="chbAllowOutlining" RowColumn="0,0"
+          Text="Allow outlining"
+          ToolTip = "" Margin="0,0,5,0"/>
+        <CheckBox Name="chbShowHints" RowColumn="1,0"
+          Text="Show Hints"
+          ToolTip = "" Margin="0,0,5,0"/>
+      </Grid>
+    </GroupBox>
+    <GroupBox Name="gbTabOptions" Text="Tab Options" Padding="5" Margin="0,0,0,5">
+      <Grid RowCount="2" ColumnCount="2" MinChildMargin="5">
+        <Label Name="lbTabSizes" RowColumn="0,0" VerticalAlignment="Center"
+               Margin="5" Text="Tab Sizes:"/>
+        <TextBox Name="tbTabStops" Text="" RowColumn="1,0"
+                 VerticalAlignment="Center" Margin="5" ToolTip=""></TextBox>
+        <RadioButton Name="rbInsertSpaces" RowColumn="0,1"
+                  Text="Insert spaces" ToolTip = ""
+                  IsChecked="True"
+                  Margin="5"/>
+        <RadioButton Name="rbKeepTabs" RowColumn="1,1"
+                  Text="Keep tabs" ToolTip = ""
+                  IsChecked="True"
+                  Margin="5"/>
+      </Grid>
+    </GroupBox>
+  </Panel>
+
+  <!-- ==================== -->
+
+  <Panel Name="FontsAndColorPanel" Layout="Vertical" Padding="5,0,0,0"
+         HorizontalAlignment="Fill" VerticalAlignment="Fill" Visible="False">
+    <GroupBox Name="gbColorThemes" Text="Color Themes" Padding="5" Margin="0,0,0,5">
+      <Grid RowCount="2" ColumnCount="2" MinChildMargin="5">
+        <ComboBox Name="cbColorThemes" Margin="5" VerticalAlignment="Center" RowColumn="0,0"
+            ToolTip = "" DropDownStyle = "DropDownList"/>
+        <Button Name="AddColorThemeButton" RowColumn="0,1" Text="Add Color Theme"
+                ToolTip = "" Margin="5"/>
+        <Button Name="DeleteColorThemeButton" RowColumn="1,1" Text="Delete Color Theme"
+                ToolTip = "" Margin="5"/>
+      </Grid>
+    </GroupBox>
+
+    <Panel Layout="Vertical">
+      <Grid RowCount="2" ColumnCount="2" MinChildMargin="5">
+        <Label Name="lbFont" VerticalAlignment="Center" RowColumn="0,0"
+               Margin="5" Text="Font:"/>
+        <FontComboBox Name="cbFontName" Margin="5" Width="120" RowColumn="1,0"></FontComboBox>
+        <Label Name="lbSise" VerticalAlignment="Center"  RowColumn="0,1"
+               Margin="5" Text="Size:"/>
+        <TextBox Name="FontSizeTextBox" RowColumn="1,1">
+        </TextBox>
+      </Grid>
+
+      <Grid RowColumnCount="1,2">
+        <Panel RowColumn="0,0">
+          <Grid RowColumnCount="2,1"  MinChildMargin="5">
+            <Label Name="lbItems" VerticalAlignment="Center" RowColumn="0,0"
+                   Margin="5" Text="Display items:"/>
+            <ListBox Name="StylesListBox" RowColumn="1,0" Dock="Fill" MinWidth="120" Margin="5"/>
+          </Grid>
+        </Panel>
+        <Panel RowColumn="0,1">
+          <Grid RowColumnCount="3,1"  MinChildMargin="5">
+            <Label Name="lbDescription" VerticalAlignment="Center" RowColumn="0,0"
+                   Margin="5" Text="Description:"/>
+            <TextBox Name="DescriptionTextBox" RowColumn="1,0" MinimumSize="120, 20">
+            </TextBox>
+            <Panel RowColumn="2,0">
+              <Grid RowColumnCount="1,2"  MinChildMargin="5">
+                <Panel RowColumn="0,0">
+                  <Grid RowColumnCount="4,1"  MinChildMargin="5">
+                    <Label Name="lbForeColor" VerticalAlignment="Center" RowColumn="0,0"
+                           Margin="5" Text="Fore Color:"/>
+                    <ColorComboBox Name="cbForeColor" RowColumn="1,0"
+                                   Margin="5" VerticalAlignment="Center"
+                                   ToolTip="Foreground color of the style"/>
+                    <Label Name="lbBackColor" VerticalAlignment="Center" RowColumn="2,0"
+                           Margin="5" Text="Back Color:"/>
+                    <ColorComboBox Name="cbBackColor" RowColumn="3,0"
+                                   Margin="5" VerticalAlignment="Center"
+                                   ToolTip="Background color of the style"/>
+                  </Grid>
+                </Panel>
+                <GroupBox RowColumn="0,1" Name="gbFontAttributes" Text="Attributes"
+                          Padding="5" Margin="0,0,0,5">
+                  <Grid RowColumnCount="3,1" MinChildMargin="5">
+                    <CheckBox Name="chbBold" RowColumn="0,0"
+                              Text="Bold"
+                              ToolTip = "" Margin="0,0,5,0"/>
+                    <CheckBox Name="chbItalic" RowColumn="1,0"
+                              Text="Italic"
+                              ToolTip = "" Margin="0,0,5,0"/>
+                    <CheckBox Name="chbUnderline" RowColumn="2,0"
+                              Text="Underline"
+                              ToolTip = "" Margin="0,0,5,0"/>
+                  </Grid>
+                </GroupBox>
+              </Grid>
+            </Panel>
+          </Grid>
+        </Panel>
+      </Grid>
+    </Panel>
+
+    <Panel Layout="Vertical" MaxWidth="200" Margin="5" Name="samplePanelParent">
+      <Label Name="lbSample" VerticalAlignment="Center"  RowColumn="0,1"
+             Margin="5" Text="Sample:"/>
+      <Panel VerticalAlignment="Fill" Margin="5" Name="SamplePanel" >
+        <TextBox Name="lbSampleText" BorderStyle="None"
+                 VerticalAlignment="Center" HorizontalAlignment="Fill"
+               Margin="5" TextAlign="Center" ReadOnly="True" Text="AaBbYyZz"/>
+      </Panel>
+
+    </Panel>
+  </Panel>
+
+  <!-- ==================== -->
+
+  <Panel Name="KeyboardPanel" Layout="Vertical" HorizontalAlignment="Fill"
+         VerticalAlignment="Fill" Visible="False" Padding="5,0,0,0">
+    <Grid RowColumnCount="8,0" MinChildMargin="5">
+      <Label Name="lbMapping" VerticalAlignment="Center"  RowColumn="0,0"
+             Margin="5" Text="Keyboard mapping scheme:"/>
+      <ComboBox Name="cbKeyboardSchemes" Margin="5" VerticalAlignment="Center" RowColumn="1,0"
+          ToolTip = "" DropDownStyle = "DropDownList"/>
+      <Label Name="lbShowCommands" VerticalAlignment="Center"  RowColumn="2,0"
+             Margin="5" Text="Show commands containing:"/>
+      <TextBox Name="tbShowCommands" Text="" RowColumn="3,0"
+               VerticalAlignment="Center" Margin="5" ToolTip=""></TextBox>
+      <ListBox Name="lbEventHandlers" RowColumn="4,0" Dock="Fill" MinWidth="120" Margin="5"></ListBox>
+      <Label Name="lbShortcuts" VerticalAlignment="Center"  RowColumn="5,0"
+             Margin="5" Text="Shortcut(s) for selected command:"/>
+      <ComboBox Name="cbShortcuts" Margin="5" VerticalAlignment="Center" RowColumn="6,0"
+          ToolTip = "" DropDownStyle = "DropDown"/>
+      <Button Name="UpdateShortcutButton" HorizontalAlignment="Left"
+              Text="Update shortcut" RowColumn="7,0"
+              ToolTip = "" Margin="5"/>
+    </Grid>
+  </Panel>
+
+  <!-- ==================== -->
+
+  <Panel Name="ButtonsPanel" HorizontalAlignment="Stretch"
+         VerticalAlignment="Bottom" Layout="Horizontal">
+    <Button Name="OkButton" Text="OK" HorizontalAlignment="Right"
+            ToolTip = "" Margin="5"/>
+    <Button Name="CancelButton" Text="Cancel" HorizontalAlignment="Right"
+            ToolTip = "" Margin="5"/>
+    <Button Name="ApplyButton" Text="Apply" HorizontalAlignment="Right"
+            ToolTip = "" Margin="5"/>
+  </Panel>
+</Window>

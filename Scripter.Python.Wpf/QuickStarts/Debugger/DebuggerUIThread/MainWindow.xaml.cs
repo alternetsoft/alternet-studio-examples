@@ -1,26 +1,23 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Security.Permissions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 
-using Alternet.Editor.Python.Wpf;
+using Alternet.Common.Python;
 using Alternet.Scripter.Debugger;
 using Alternet.Scripter.Debugger.Python;
 using Alternet.Scripter.Debugger.UI.Wpf;

@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections;
@@ -149,7 +149,7 @@ namespace HyperText
                     if (edit != null)
                     {
                         edit.HyperText.HighlightHyperText = highlightUrls;
-                        edit.Invalidate();
+                        UpdateUrlTable();
                     }
                 }
             }
@@ -168,25 +168,7 @@ namespace HyperText
                 {
                     customHypertext = value;
                     OnPropertyChanged("CustomHypertext");
-                    if (edit != null)
-                    {
-                        Hashtable hs = ((TextSource)edit.Source).UrlTable;
-                        if (hs == null)
-                            hs = new Hashtable();
-                        if (customHypertext)
-                        {
-                            hs.Add('<', true);
-                            hs.Add('>', false);
-                        }
-                        else
-                        {
-                            hs.Remove('<');
-                            hs.Remove('>');
-                        }
-
-                        edit.Source.Notification(edit.Lexer, EventArgs.Empty);
-                        edit.Invalidate();
-                    }
+                    UpdateUrlTable();
                 }
             }
         }
@@ -225,6 +207,30 @@ namespace HyperText
         {
             if (customHypertext)
                 e.IsHyperText = e.Text.IndexOf("<") >= 0;
+        }
+
+        private void UpdateUrlTable()
+        {
+            if (edit != null)
+            {
+                Hashtable hs = ((TextSource)edit.Source).UrlTable;
+                if (hs != null)
+                {
+                    if (customHypertext)
+                    {
+                        hs.Add('<', true);
+                        hs.Add('>', false);
+                    }
+                    else
+                    {
+                        hs.Remove('<');
+                        hs.Remove('>');
+                    }
+                }
+
+                edit.Source.Notification(edit.Lexer, EventArgs.Empty);
+                edit.Invalidate();
+            }
         }
     }
 }

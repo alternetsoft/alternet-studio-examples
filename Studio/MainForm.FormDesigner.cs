@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Alternet.Common;
 using Alternet.Common.DotNet.DefaultAssemblies;
-using Alternet.Common.DotNet.Projects;
+using Alternet.Common.Projects.DotNet;
 using Alternet.Editor.Common;
 using Alternet.Editor.Roslyn;
 using Alternet.Editor.TextSource;
@@ -174,7 +174,7 @@ namespace AlternetStudio.Demo
             }
         }
 
-        private void NewFormMenuItem_Click(object sender, EventArgs e)
+        private void NewForm()
         {
             string location = projectCreationData.ProjectLocation;
 
@@ -248,6 +248,11 @@ namespace AlternetStudio.Demo
             }
         }
 
+        private void NewFormMenuItem_Click(object sender, EventArgs e)
+        {
+            NewForm();
+        }
+
         private void Designer_PropertyWindowOpening(object sender, EventArgs e)
         {
             var designer = ActiveFormDesigner;
@@ -259,6 +264,9 @@ namespace AlternetStudio.Demo
 
         private Tuple<IFormDesignerControl, TabPage> FindDesigner(string fileName)
         {
+            if (!Path.IsPathRooted(fileName))
+                return null;
+
             var canonicalPath = new Uri(fileName).LocalPath;
             foreach (TabPage tabPage in editorsTabControl.TabPages)
             {
@@ -280,7 +288,14 @@ namespace AlternetStudio.Demo
 
         private bool IsFormFile(string fileName, out string formId)
         {
+            string designFile;
+            return IsFormFile(fileName, out designFile, out formId);
+        }
+
+        private bool IsFormFile(string fileName, out string designFile, out string formId)
+        {
             formId = null;
+            designFile = string.Empty;
 
             var pathWithoutExtension = Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName));
 
@@ -290,11 +305,12 @@ namespace AlternetStudio.Demo
                  ((!Path.GetFileName(fileName).StartsWith("Resources", StringComparison.OrdinalIgnoreCase)) &&
                   (!Path.GetFileName(fileName).StartsWith("Application", StringComparison.OrdinalIgnoreCase))))
             {
+                designFile = fileName;
                 pathWithoutExtension = pathWithoutExtension.Substring(0, pathWithoutExtension.Length - DesignerSuffix.Length);
             }
             else
             {
-                var designFile = pathWithoutExtension + DesignerSuffix + Path.GetExtension(fileName);
+                designFile = pathWithoutExtension + DesignerSuffix + Path.GetExtension(fileName);
 
                 if (!File.Exists(designFile))
                     return false;

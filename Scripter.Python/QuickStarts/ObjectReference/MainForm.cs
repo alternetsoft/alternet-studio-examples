@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -39,6 +39,9 @@ namespace ObjectReference
             SetupPython();
 
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "ObjectReference.Resources";
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
 
             scriptRun.ScriptSource.ReferencedFrameworks = Framework.System | Framework.WindowsForms;
             scriptRun.ScriptSource.Imports.Add("System");
