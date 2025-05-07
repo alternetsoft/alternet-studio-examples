@@ -116,6 +116,7 @@
             this.ClientSize = new System.Drawing.Size(957, 544);
             this.Controls.Add(this.pnEdit);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

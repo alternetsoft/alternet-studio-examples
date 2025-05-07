@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections;
@@ -43,7 +43,6 @@ namespace DebugRemoteScript.Wpf
         private ExecutionPosition executionPosition;
         private string ipcPortName = null;
         private string ipcObjectUri = null;
-        private object remoteServer;
         private string lang = string.Empty;
         private bool useDirectAPI = true;
         private ObservableCollection<string> languages = new ObservableCollection<string>();
@@ -61,7 +60,6 @@ namespace DebugRemoteScript.Wpf
             : this()
         {
             this.window = window;
-            this.window.Closing += Window_Closing;
             ParseCommandLineArgs(args);
             scriptAPI = new ScriptAPI(this.window);
 
@@ -134,12 +132,6 @@ namespace DebugRemoteScript.Wpf
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
-        }
-
-        private void Window_Closing(object sender, CancelEventArgs e)
-        {
-            if (remoteServer != null)
-                RemoteAPI.StopServer(remoteServer);
         }
 
         private void InitializeDebugger()
@@ -228,7 +220,7 @@ namespace DebugRemoteScript.Wpf
 
             RemoteAPI.ScriptAPI = this.scriptAPI;
 
-            remoteServer = RemoteAPI.StartServer(ipcPortName, ipcObjectUri);
+            RemoteAPI.StartServer(ipcPortName, ipcObjectUri);
 
             var scriptSource = scriptRun.ScriptSource;
 
@@ -248,7 +240,7 @@ namespace DebugRemoteScript.Wpf
             };
 
             scriptDebugger.ExecutionStopped += ScriptDebugger_ExecutionStopped;
-            scriptDebugger.DebuggerErrorOccurred += ScriptDebugger_DebuggerErrorOccurred;
+            scriptDebugger.DebuggerErrorOccured += ScriptDebugger_DebuggerErrorOccured;
             scriptDebugger.StateChanged += ScriptDebugger_StateChanged;
 
             scriptRun.ScriptHost.ModulesDirectoryPath = generatedModulesPath;
@@ -335,7 +327,7 @@ namespace DebugRemoteScript.Wpf
             };
 
             scriptDebugger.ExecutionStopped += ScriptDebugger_ExecutionStopped;
-            scriptDebugger.DebuggerErrorOccurred += ScriptDebugger_DebuggerErrorOccurred;
+            scriptDebugger.DebuggerErrorOccured += ScriptDebugger_DebuggerErrorOccured;
             scriptDebugger.StateChanged += ScriptDebugger_StateChanged;
 
             scriptRun.ScriptHost.ModulesDirectoryPath = generatedModulesPath;
@@ -363,7 +355,7 @@ namespace DebugRemoteScript.Wpf
             return edit;
         }
 
-        private void ScriptDebugger_DebuggerErrorOccurred(object sender, DebuggerErrorOccurredEventArgs e)
+        private void ScriptDebugger_DebuggerErrorOccured(object sender, DebuggerErrorOccuredEventArgs e)
         {
             MessageBox.Show(e.Exception.ToString());
         }

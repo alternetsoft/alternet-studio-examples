@@ -1,7 +1,7 @@
 <Window x:Class="SyntaxHighlighting.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v10"
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v9"
         xmlns:local="clr-namespace:SyntaxHighlighting"
         Icon="/SyntaxHighlighting.Wpf;component/Images/Icon.ico"
         Title="Syntax Highlighting" Height="351" Width="679">

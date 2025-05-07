@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections;
@@ -33,7 +33,6 @@ using Alternet.Syntax.Parsers.Roslyn;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Alternet.CodeEditorSyntax.Demo
 {
@@ -71,18 +70,12 @@ namespace Alternet.CodeEditorSyntax.Demo
         private ProjectCreationData currentProjectData = new ProjectCreationData { ProjectType = "WindowsFormsApp" };
         private System.Windows.Forms.Timer updateTimer = new System.Windows.Forms.Timer();
         private bool updateControlsInProgress;
-        private ImageList codeCompletionImageList = new ImageList();
-        private ImageList codeExplorerImageList = new ImageList();
 
-        #endregion
+#endregion
 
         public MainForm()
         {
             InitializeComponent();
-            var asm = this.GetType().Assembly;
-            var prefix = "CodeEditorSyntax.Resources";
-            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
-
             updateTimer.Interval = 200;
             updateTimer.Tick += UpdateTimer_Tick;
             InitImages();
@@ -124,17 +117,8 @@ namespace Alternet.CodeEditorSyntax.Demo
                     () => getImage(imageName + "_HighDpi")).Image;
         }
 
-        private ImageList LoadImageList(string resource)
-        {
-            return ImageListHelper.LoadImageListFromStrip(typeof(MainForm).Assembly, string.Format("CodeEditorSyntax.Resources.{0}.png", resource));
-        }
-
         private void InitImages()
         {
-            codeCompletionImageList = LoadImageList("CodeCompletionImages");
-            codeExplorerImageList = LoadImageList("CodeExplorerImages");
-            lvErrors.SmallImageList = codeCompletionImageList;
-            tvSyntax.ImageList = codeExplorerImageList;
             newMenuItem.Image = LoadImage("NewFile");
             newStripSplitButton.Image = LoadImage("NewFile");
             openMenuItem.Image = LoadImage("OpenFile");
@@ -187,10 +171,9 @@ namespace Alternet.CodeEditorSyntax.Demo
             if (!DisplayScaling.NeedsScaling)
                 return;
 
-            lvErrors.SmallImageList = DisplayImageScaling.CloneAndAutoScaleImageList(lvErrors.SmallImageList);
-            tvSyntax.ImageList = DisplayImageScaling.CloneAndAutoScaleImageList(tvSyntax.ImageList);
-            codeCompletionImageList = DisplayImageScaling.CloneAndAutoScaleImageList(codeCompletionImageList);
-            codeExplorerImageList = DisplayImageScaling.CloneAndAutoScaleImageList(codeExplorerImageList);
+            lvErrors.SmallImageList = DisplayScaling.CloneAndAutoScaleImageList(lvErrors.SmallImageList);
+            tvSyntax.ImageList = DisplayScaling.CloneAndAutoScaleImageList(tvSyntax.ImageList);
+            imageList1 = DisplayScaling.CloneAndAutoScaleImageList(imageList1);
         }
 
 #region Files and Projects
@@ -732,7 +715,7 @@ namespace Alternet.CodeEditorSyntax.Demo
 
         private bool IsFolderNode(TreeNode node)
         {
-            return (node.Tag != null) && (node.Tag is string) && ((string)node.Tag).Equals(StringConsts.FolderNode);
+            return (node.Tag != null) && (node.Tag is string) && ((string)node.Tag).Equals("FoderNode");
         }
 
         private bool IsReferenceNode(TreeNode node)
@@ -1616,7 +1599,7 @@ namespace Alternet.CodeEditorSyntax.Demo
 
         private void OnDrawItem(ComboBox combo, DrawItemEventArgs e)
         {
-            CodeUtils.DrawItem(combo, e, codeCompletionImageList);
+            CodeUtils.DrawItem(combo, e, imageList1);
         }
 
         private void MethodsComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -2082,7 +2065,7 @@ namespace Alternet.CodeEditorSyntax.Demo
         {
             edit.ContextMenuStrip = cmMain;
             edit.Source.Lexer = lexer;
-            edit.CodeCompletionBox.Images = codeCompletionImageList;
+            edit.CodeCompletionBox.Images = imageList1;
             edit.SourceStateChanged += new NotifyEvent(SourceStateChanged);
             edit.Selection.SelectionChanged += new EventHandler(SelectionChanged);
         }

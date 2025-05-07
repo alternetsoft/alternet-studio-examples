@@ -1,20 +1,19 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -40,7 +39,6 @@ namespace AlternetStudio.Demo
         /// Gets or sets <see cref="StartDebuggingOptions"/> to use when
         /// the debugging starts while executing commands such as <see cref="Start"/> or <see cref="StepOver"/>.
         /// </summary>
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public StartDebuggingOptions StartDebuggingOptions { get; set; } = new DotNetStartDebuggingOptions();
 
         protected IScriptDebugger Debugger
@@ -52,7 +50,7 @@ namespace AlternetStudio.Demo
                     debugger = new ScriptDebugger { ScriptRun = scriptRun };
                     debugger.DebuggingStarted += Debugger_DebuggingStarted;
                     debugger.DebuggingStopped += Debugger_DebuggingStopped;
-                    debugger.DebuggerErrorOccurred += Debugger_DebuggerErrorOccurred;
+                    debugger.DebuggerErrorOccured += Debugger_DebuggerErrorOccured;
                     debugger.ExecutionResumed += Debugger_ExecutionResumed;
                     debugger.ExecutionStopped += Debugger_ExecutionStopped;
                     debugger.StackFrameSwitched += Debugger_StackFrameSwitched;
@@ -204,14 +202,22 @@ namespace AlternetStudio.Demo
                 if (Debugger.State == DebuggerState.Startup)
                     return;
 
-                bool modified = Project.HasProject && Project.IsModified;
-                if (SaveAllModifiedFiles() && SetScriptSource(modified))
+                if (SaveAllModifiedFiles() && SetScriptSource())
                 {
-                    if (CompileIfNeeded())
-                        StartDebugCore(breakOnStart);
+                    StartDebugCore(breakOnStart);
+
+                    errorsControl.Clear();
+
+                    var errors = scriptRun.ScriptHost.CompilerErrors;
+                    if (errors != null && errors.Length > 0)
+                        errorsControl.AddCompilerErrors(errors);
+
+                    if (scriptRun.ScriptHost.CompileFailed)
+                        ActivateErrorsTab();
                 }
             }
         }
+
 
         protected void StopDebug()
         {
@@ -329,10 +335,6 @@ namespace AlternetStudio.Demo
             startWithoutDebugMenuItem.Enabled = !isEmpty && !isDebugging;
             tsbStartWithoutDebug.Enabled = !isEmpty && !isDebugging;
             runParametersMenuItem.Enabled = !isEmpty & !isDebugging && hasProject;
-
-            bool debuggerEnabled = (Project != null && Project.HasProject) || ActiveSyntaxEdit != null;
-            debuggerControlToolbar.Debugger = debuggerEnabled ? debugger : null;
-            debugMenu.Debugger = debuggerEnabled ? debugger : null;
         }
 
         private async void UpdateDebugPanels()
@@ -392,7 +394,7 @@ namespace AlternetStudio.Demo
             SetAllEditorsReadOnlyValue(true);
         }
 
-        private void Debugger_DebuggerErrorOccurred(object sender, DebuggerErrorOccurredEventArgs e)
+        private void Debugger_DebuggerErrorOccured(object sender, DebuggerErrorOccuredEventArgs e)
         {
             MessageBox.Show(this, e.Exception.ToString(), "Debugger Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }

@@ -33,9 +33,6 @@ namespace PythonDapDebugger
             SetupPython();
 
             InitializeComponent();
-            var asm = this.GetType().Assembly;
-            var prefix = "PythonDapDebugger.Resources";
-            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
 
             codeEditContainer = new DebugCodeEditContainer(editorsTabControl);
             codeEditContainer.EditorRequested += EditorContainer_EditorRequested;
@@ -62,6 +59,8 @@ namespace PythonDapDebugger
             controller.Debugger = debugger;
             controller.DebuggerPanels = debuggerPanelsTabControl;
             codeEditContainer.Debugger = debugger;
+
+            ScaleControls();
         }
 
         public void SaveAllModifiedFiles()
@@ -98,6 +97,14 @@ namespace PythonDapDebugger
             }
 
             return false;
+        }
+
+        private void ScaleControls()
+        {
+            if (!DisplayScaling.NeedsScaling)
+                return;
+
+            splitContainer.SplitterDistance = DisplayScaling.AutoScale(splitContainer.SplitterDistance);
         }
 
         private void SetupPython()

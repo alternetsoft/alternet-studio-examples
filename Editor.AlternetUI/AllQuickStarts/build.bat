@@ -1,1 +1,0 @@
-dotnet build  /p:WarningsAsErrors=false /p:NoWarn=all

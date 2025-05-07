@@ -4,7 +4,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Alternet.Common;
 using Alternet.Editor.IronPython;
 using Alternet.Scripter.Debugger.IronPython;
 using Alternet.Scripter.Integration;
@@ -25,16 +24,13 @@ namespace DebuggerIntegration.IronPython
         public Form1()
         {
             InitializeComponent();
-            var asm = this.GetType().Assembly;
-            var prefix = "DebuggerIntegration.IronPython.Resources";
-            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
 
             editorTabContainer = new DebugCodeEditContainer(editorsTabControl);
 
             editorTabContainer.EditorRequested += EditorContainer_EditorRequested;
 
             OpenProject(FindProjectFile());
-            scriptRun1.GlobalItems.Add(new ScriptGlobalItem("TestMenuItem", new MenuItemWrapper(this, testMenuItemToolStripMenuItem)));
+            scriptRun1.GlobalItems.Add(new ScriptGlobalItem("TestMenuItem", testMenuItemToolStripMenuItem));
 
             debugger = new ScriptDebugger();
             debugger.ScriptRun = scriptRun1;
@@ -52,7 +48,6 @@ namespace DebuggerIntegration.IronPython
             controller.DebuggerPanels = debuggerPanelsTabControl;
 
             editorTabContainer.Debugger = debugger;
-            UpdateDebugControls();
         }
 
         private static string FindProjectFile() =>
@@ -82,15 +77,6 @@ namespace DebuggerIntegration.IronPython
             }
 
             debuggerPanelsTabControl.Errors.Clear();
-            UpdateDebugControls();
-        }
-
-        private void UpdateDebugControls()
-        {
-            bool enabled = (Project != null && Project.HasProject) || editorTabContainer.ActiveEditor != null;
-
-            debuggerControlToolbar1.Debugger = enabled ? debugger : null;
-            debugMenu1.Debugger = enabled ? debugger : null;
         }
 
         private void CloseProject(IronPythonProject project)
@@ -107,7 +93,6 @@ namespace DebuggerIntegration.IronPython
 
             Project?.Reset();
             scriptRun1.ScriptSource?.Reset();
-            UpdateDebugControls();
         }
 
         private void CloseFile(string fileName)
@@ -207,8 +192,6 @@ namespace DebuggerIntegration.IronPython
                 if (dialog.ShowDialog(this) != DialogResult.OK)
                     return;
                 editorTabContainer.TryActivateEditor(dialog.FileName);
-
-                UpdateDebugControls();
             }
         }
 
@@ -227,8 +210,6 @@ namespace DebuggerIntegration.IronPython
                 Project?.Reset();
                 scriptRun1.ScriptSource?.Reset();
             }
-
-            UpdateDebugControls();
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)

@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -50,7 +50,7 @@ namespace DebuggerIntegration.IronPython.Wpf
 
             OpenProject(FindProjectFile());
 
-            scriptRun.GlobalItems.Add(new ScriptGlobalItem("TestMenuItem", new MenuItemWrapper(this, TestMenuItem)));
+            scriptRun.GlobalItems.Add(new ScriptGlobalItem("TestMenuItem", TestMenuItem));
 
             debugger = new ScriptDebugger
             {
@@ -73,7 +73,6 @@ namespace DebuggerIntegration.IronPython.Wpf
 
             DebugMenu.InstallKeyboardShortcuts(CommandBindings);
             FileMenu.SubmenuOpened += FileMenu_SubmenuOpened;
-            UpdateDebugControls();
         }
 
         protected IronPythonProject Project { get; private set; } = new IronPythonProject();
@@ -115,15 +114,6 @@ namespace DebuggerIntegration.IronPython.Wpf
             }
 
             DebuggerPanelsTabControl.Errors.Clear();
-            UpdateDebugControls();
-        }
-
-        private void UpdateDebugControls()
-        {
-            bool enabled = (Project != null && Project.HasProject) || codeEditContainer.ActiveEditor != null;
-
-            DebuggerControlToolbar.Debugger = enabled ? debugger : null;
-            DebugMenu.Debugger = enabled ? debugger : null;
         }
 
         private void CloseProject(IronPythonProject project)
@@ -140,7 +130,6 @@ namespace DebuggerIntegration.IronPython.Wpf
 
             Project?.Reset();
             scriptRun.ScriptSource?.Reset();
-            UpdateDebugControls();
         }
 
         private void CloseFile(string fileName)
@@ -204,8 +193,6 @@ namespace DebuggerIntegration.IronPython.Wpf
             if (dialog.ShowDialog().Value)
             {
                 codeEditContainer.TryActivateEditor(dialog.FileName);
-
-                UpdateDebugControls();
             }
         }
 
@@ -224,8 +211,6 @@ namespace DebuggerIntegration.IronPython.Wpf
                 Project?.Reset();
                 scriptRun.ScriptSource?.Reset();
             }
-
-            UpdateDebugControls();
         }
 
         private void ExitMenuItem_Click(object sender, RoutedEventArgs e)

@@ -1,19 +1,18 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System.IO;
 using System.Windows.Forms;
 
-using Alternet.Common;
 using Alternet.Syntax;
 
 namespace SQLDOMParser
@@ -26,9 +25,6 @@ namespace SQLDOMParser
         public Form1()
         {
             InitializeComponent();
-            var asm = this.GetType().Assembly;
-            var prefix = "SQLDOMParser.Resources";
-            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
             syntaxEdit1.Lexer = parser;
         }
 

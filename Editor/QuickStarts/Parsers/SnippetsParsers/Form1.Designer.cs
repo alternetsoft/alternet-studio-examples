@@ -366,6 +366,7 @@ namespace SnippetsParsers
             this.Controls.Add(this.pnEditors);
             this.Controls.Add(this.pnDescriptions);
             this.Controls.Add(this.pnSettings);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Snippets Parsing";

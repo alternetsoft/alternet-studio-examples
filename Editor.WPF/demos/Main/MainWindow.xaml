@@ -4,7 +4,7 @@
         Title="Code Editor" Height="800" Width="1000"
         WindowStartupLocation="CenterScreen"
         TextOptions.TextFormattingMode="Display"
-        xmlns:editor="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v10"
+        xmlns:editor="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v9"
         xmlns:local="clr-namespace:Alternet.Editor.Wpf.MainDemo_Wpf"
         Icon="/CodeEditor.Wpf;component/Images/Icon.ico" Closed="Window_Closed">
     

@@ -1,19 +1,17 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
-using System.ComponentModel;
 using System.Windows.Forms;
-using Alternet.Common;
 using Alternet.Editor.TextSource;
 using Alternet.Syntax;
 using Alternet.Syntax.Parsers.Roslyn;
@@ -49,9 +47,6 @@ namespace SnippetsParsers
         public Form1()
         {
             InitializeComponent();
-            var asm = this.GetType().Assembly;
-            var prefix = "SnippetsParsers.Resources";
-            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
         }
 
         [Flags]
@@ -63,7 +58,6 @@ namespace SnippetsParsers
             ClassLess,
         }
 
-        [DefaultValue(true)]
         public bool CSharp
         {
             get
@@ -81,7 +75,6 @@ namespace SnippetsParsers
             }
         }
 
-        [DefaultValue(false)]
         public bool IsClass
         {
             get
@@ -99,7 +92,6 @@ namespace SnippetsParsers
             }
         }
 
-        [DefaultValue(ReadType.Partial)]
         internal ReadType CurrentType
         {
             get

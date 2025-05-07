@@ -33,9 +33,6 @@ namespace DebuggerIntegration.IronPython
         public Form1()
         {
             InitializeComponent();
-            var asm = this.GetType().Assembly;
-            var prefix = "DebuggerIntegration.IronPython.Resources";
-            //Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
 
             editorTabContainer = new DebugCodeEditContainer(editorsTabControl);
 

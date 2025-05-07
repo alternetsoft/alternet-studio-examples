@@ -4,7 +4,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <UseWindowsForms>true</UseWindowsForms>
@@ -16,16 +16,18 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>..\..\..\..\bin\Release\Demos.Editor\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
-    <None Remove="Resources\Icon.ico" />
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.16" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">
@@ -45,7 +47,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Icon.ico" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -67,7 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.0</Version>
+      <Version>9.5.16</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

@@ -1,20 +1,19 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.IO;
 using System.Windows.Forms;
 
-using Alternet.Common;
 using Alternet.Syntax.Parsers.Roslyn;
 using Customize.Dialogs;
 
@@ -32,9 +31,6 @@ namespace Customize
         public Form1()
         {
             InitializeComponent();
-            var asm = this.GetType().Assembly;
-            var prefix = "Customize.Resources";
-            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
         }
 
         private void OptionsButton_Click(object sender, EventArgs e)
@@ -80,7 +76,7 @@ namespace Customize
         private string GetApplicationGlobalSettingsFilePath()
         {
             const string FolderName = "Alternet.Editor.Demo.GlobalSettings";
-            const string FileName = "GlobalSettings.v10.xml";
+            const string FileName = "GlobalSettings.v9.xml";
 
             string applicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 

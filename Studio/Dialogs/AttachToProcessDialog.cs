@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -28,7 +27,6 @@ namespace AlternetStudio.Demo
             FilterProcessTextBox.TextChanged += FilterProcessTextBox_TextChanged;
         }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Filter
         {
             get
@@ -46,7 +44,6 @@ namespace AlternetStudio.Demo
             }
         }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Process SelectedProcess { get; private set; }
 
         protected virtual void OnFilterChanged()

@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Windows.Forms;
@@ -23,7 +23,6 @@ namespace AlternetStudio.Demo
     {
         private readonly ComboBox classesComboBox;
         private readonly ComboBox methodsComboBox;
-        private readonly ComboBox projectFrameworksComboBox;
         private readonly CodeExplorer codeExplorer;
         private readonly Func<IScriptEdit> getActiveEditorFunc;
         private readonly ImageList imageList;
@@ -35,14 +34,12 @@ namespace AlternetStudio.Demo
         public CodeNavigationBar(
             ComboBox classesComboBox,
             ComboBox methodsComboBox,
-            ComboBox projectFrameworksComboBox,
             CodeExplorer codeExplorer,
             Func<IScriptEdit> getActiveEditorFunc,
             ImageList imageList)
         {
             this.classesComboBox = classesComboBox;
             this.methodsComboBox = methodsComboBox;
-            this.projectFrameworksComboBox = projectFrameworksComboBox;
             this.codeExplorer = codeExplorer;
             this.getActiveEditorFunc = getActiveEditorFunc;
             this.imageList = imageList;
@@ -54,7 +51,6 @@ namespace AlternetStudio.Demo
 
             classesComboBox.DrawItem += ComboBox_DrawItem;
             methodsComboBox.DrawItem += ComboBox_DrawItem;
-            projectFrameworksComboBox.DrawItem += FrameworksComboBox_DrawItem;
 
             classesComboBox.Format += ComboBox_Format;
             methodsComboBox.Format += ComboBox_Format;
@@ -74,7 +70,6 @@ namespace AlternetStudio.Demo
 
             classesComboBox.DrawItem -= ComboBox_DrawItem;
             methodsComboBox.DrawItem -= ComboBox_DrawItem;
-            projectFrameworksComboBox.DrawItem -= FrameworksComboBox_DrawItem;
 
             classesComboBox.Format -= ComboBox_Format;
             methodsComboBox.Format -= ComboBox_Format;
@@ -159,11 +154,6 @@ namespace AlternetStudio.Demo
         private void ComboBox_DrawItem(object sender, DrawItemEventArgs e)
         {
             CodeUtils.DrawItem((ComboBox)sender, e, imageList);
-        }
-
-        private void FrameworksComboBox_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            CodeUtils.DrawFrameworkItem((ComboBox)sender, e);
         }
     }
 }

@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Form Designer Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -28,6 +28,7 @@ using Alternet.Editor.Roslyn.Wpf;
 using Alternet.Editor.Wpf;
 using Alternet.FormDesigner.Integration.Wpf;
 using Alternet.FormDesigner.Wpf;
+using Alternet.FormDesigner.Wpf.Toolbox;
 using Alternet.Scripter;
 using Microsoft.Win32;
 

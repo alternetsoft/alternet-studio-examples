@@ -4,7 +4,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <UseWPF>true</UseWPF>
@@ -18,6 +18,9 @@
     <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>..\..\bin\Release\Demos.Studio.Wpf\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -132,34 +135,33 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.0</Version>
+      <Version>9.5.16</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Wpf" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.Wpf" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration.Wpf" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.XAML" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Wpf" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.Wpf" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration.Wpf" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.XAML" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="9.5.16" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AssemblyHelper.cs" />
     <Compile Include="AttachToProcessDialog.xaml.cs" />
     <Compile Include="CodeNavigationBar.cs" />
     <Compile Include="CustomToolboxControl.cs" />
@@ -182,10 +184,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AddReferenceDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="AttachToProcessDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -199,10 +197,6 @@
     </Compile>
     <Compile Include="AboutBox.xaml.cs">
       <DependentUpon>AboutBox.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="AddReferenceDialog.xaml.cs">
-      <DependentUpon>AddReferenceDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ImageConverter\ImageConverter.cs" />

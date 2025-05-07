@@ -1,1 +1,0 @@
-dotnet build -c Release /p:WarningsAsErrors=false /p:NoWarn=all

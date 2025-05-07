@@ -141,6 +141,7 @@
             this.ClientSize = new System.Drawing.Size(615, 383);
             this.Controls.Add(this.tcEditors);
             this.Controls.Add(this.pnDescription);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Custom assembly - TypeScript";

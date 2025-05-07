@@ -4,7 +4,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <UseWindowsForms>true</UseWindowsForms>
@@ -20,16 +20,21 @@
   <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>..\..\..\..\..\bin\Release\Demos.Editor.TypeScript\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
-    <None Remove="Resources\Icon.ico" />
+    <PackageReference Include="Microsoft.ClearScript" Version="7.2.0" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="9.5.16" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">
@@ -64,9 +69,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

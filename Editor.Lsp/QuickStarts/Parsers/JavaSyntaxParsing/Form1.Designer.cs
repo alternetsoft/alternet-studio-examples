@@ -110,70 +110,7 @@
             // 
             this.javaParser.CodeCompletionChars = new char[] {
         '.'};
-            this.javaParser.XmlScheme = @"<?xml version=""1.0"" encoding=""utf-16""?>
-<LexScheme xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <Author>AlterNET Software</Author>
-  <Copyright>Copyright (c) 2016-2025 Alternet Software</Copyright>
-  <FileType>java</FileType>
-  <Version>1.5</Version>
-  <Styles>
-    <Style>
-      <Name>idents</Name>
-      <ForeColor>ControlText</ForeColor>
-    </Style>
-    <Style>
-      <Name>numbers</Name>
-      <ForeColor>ControlText</ForeColor>
-    </Style>
-    <Style>
-      <Name>reswords</Name>
-      <ForeColor>Blue</ForeColor>
-    </Style>
-    <Style>
-      <Name>comments</Name>
-      <ForeColor>Green</ForeColor>
-      <PlainText>true</PlainText>
-    </Style>
-    <Style>
-      <Name>xmlcomments</Name>
-      <ForeColor>Gray</ForeColor>
-    </Style>
-    <Style>
-      <Name>symbols</Name>
-      <ForeColor>WindowText</ForeColor>
-    </Style>
-    <Style>
-      <Name>whitespace</Name>
-      <ForeColor>WindowText</ForeColor>
-    </Style>
-    <Style>
-      <Name>strings</Name>
-      <ForeColor>Maroon</ForeColor>
-      <PlainText>true</PlainText>
-    </Style>
-    <Style>
-      <Name>directives</Name>
-      <ForeColor>Blue</ForeColor>
-    </Style>
-    <Style>
-      <Name>htmlparams</Name>
-      <ForeColor>Red</ForeColor>
-    </Style>
-    <Style>
-      <Name>syntax errors</Name>
-      <ForeColor>Red</ForeColor>
-    </Style>
-    <Style>
-      <Name>codes snippets</Name>
-      <ForeColor>Black</ForeColor>
-      <BackColor>255:180:228:180</BackColor>
-    </Style>
-    <Style>
-      <Name>bytes</Name>
-      <ForeColor>Red</ForeColor>
-    </Style>
-  </Styles>
-</LexScheme>";
+            this.javaParser.XmlScheme = resources.GetString("javaParser.XmlScheme");
             // 
             // Form1
             // 
@@ -182,6 +119,7 @@
             this.ClientSize = new System.Drawing.Size(667, 358);
             this.Controls.Add(this.syntaxEdit1);
             this.Controls.Add(this.pnSettings);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Java Parsing";

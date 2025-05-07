@@ -1,19 +1,18 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -46,9 +45,6 @@ namespace TypeScriptParserDemo
         public Form1()
         {
             InitializeComponent();
-            var asm = this.GetType().Assembly;
-            var prefix = "TypeScriptParserDemo.Resources";
-            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
             syntaxEdit1.Spelling.SpellColor = Color.Navy;
             syntaxEdit1.HighlightReferences = true;
         }
@@ -171,7 +167,6 @@ namespace TypeScriptParserDemo
     {
         private bool semanticHighlighting;
 
-        [DefaultValue(false)]
         public bool SemanticHighlighting
         {
             get
@@ -213,7 +208,6 @@ namespace TypeScriptParserDemo
     {
         private bool semanticHighlighting;
 
-        [DefaultValue(false)]
         public bool SemanticHighlighting
         {
             get

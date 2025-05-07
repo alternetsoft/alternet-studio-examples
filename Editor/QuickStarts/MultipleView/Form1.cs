@@ -1,20 +1,19 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.IO;
 using System.Windows.Forms;
 
-using Alternet.Common;
 using Alternet.Editor;
 using Alternet.Syntax.Parsers.Roslyn;
 
@@ -31,15 +30,10 @@ namespace MultipleView
         private CsParser csParser1 = new CsParser();
         private string dir = Application.StartupPath + @"\";
         private int scrollBoxUpdate;
-        private ImageList buttonsImageList = new ImageList();
 
         public Form1()
         {
-            buttonsImageList = LoadImageList("ButtonImages");
             InitializeComponent();
-            var asm = this.GetType().Assembly;
-            var prefix = "MultipleView.Resources";
-            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -62,11 +56,6 @@ namespace MultipleView
             chbShowScrollHint.Checked = (syntaxEdit1.Scrolling.Options & ScrollingOptions.ShowScrollHint) != 0;
             chbSmoothScroll.Checked = (syntaxEdit1.Scrolling.Options & ScrollingOptions.SmoothScroll) != 0;
             chbSystemScrollBars.Checked = (syntaxEdit1.Scrolling.Options & ScrollingOptions.SystemScrollbars) != 0;
-        }
-
-        private ImageList LoadImageList(string resource)
-        {
-            return ImageListHelper.LoadImageListFromStrip(typeof(Form1).Assembly, string.Format("MultipleView.Resources.{0}.png", resource));
         }
 
         private void UpdateScrollBoxes(object sender)

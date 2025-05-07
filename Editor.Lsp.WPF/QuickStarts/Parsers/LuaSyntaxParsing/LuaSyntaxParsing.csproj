@@ -4,7 +4,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net471;net8.0-windows;net9.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <UseWPF>true</UseWPF>
@@ -17,17 +17,20 @@
     <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>..\..\..\..\..\bin\Release\Demos.Editor.Lsp.Wpf\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lua" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lua.Embedded" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lua" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lua.Embedded" Version="9.5.16" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

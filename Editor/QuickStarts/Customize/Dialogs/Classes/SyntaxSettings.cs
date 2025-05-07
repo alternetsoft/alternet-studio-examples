@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -46,7 +46,6 @@ namespace Customize.Dialogs
         private StandardVisualTheme lightTheme = new LightVisualTheme();
         private StandardVisualTheme darkTheme = new DarkVisualTheme();
         private StandardVisualTheme customTheme = new CustomVisualTheme();
-        private StandardVisualTheme visualStudioTheme = new VisualStudioCodeTheme();
         private bool showMargin;
         private bool showGutter = true;
         private bool highlightHyperText = true;
@@ -79,7 +78,6 @@ namespace Customize.Dialogs
             visualThemes.Add(lightTheme);
             visualThemes.Add(darkTheme);
             visualThemes.Add(customTheme);
-            visualThemes.Add(visualStudioTheme);
             ccolorStyles = lightTheme.LexStyles.Count;
             visualThemes.ActiveThemeIndex = 0;
         }

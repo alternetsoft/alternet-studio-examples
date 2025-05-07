@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("HelloWorld.Wpf")]
-[assembly: AssemblyCopyright("Copyright ©  2016-2025")]
+[assembly: AssemblyCopyright("Copyright ©  2016-2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -57,7 +57,6 @@ namespace DebuggerIntegration.Wpf
 
             DebugMenu.InstallKeyboardShortcuts(CommandBindings);
             FileMenu.SubmenuOpened += FileMenu_SubmenuOpened;
-            UpdateDebugControls();
         }
 
         protected DotNetProject Project { get; private set; } = new DotNetProject();
@@ -136,7 +135,7 @@ namespace DebuggerIntegration.Wpf
                     if (FormFilesUtility.IsXamlCodeBehindFile(file, out formId))
                     {
                         codeFiles.Add(
-                            XamlGeneratedCodeFileService.GetGeneratedCodeFile(Project, new FormDesignerDataSource(formId, FormFilesUtility.DetectLanguageFromFileName(file))));
+                            XamlGeneratedCodeFileService.GetGeneratedCodeFile(new FormDesignerDataSource(formId, FormFilesUtility.DetectLanguageFromFileName(file))));
                     }
                 }
 
@@ -154,15 +153,6 @@ namespace DebuggerIntegration.Wpf
                targetFramework: Project.TargetFramework);
 
             DebuggerPanelsTabControl.Errors.Clear();
-            UpdateDebugControls();
-        }
-
-        private void UpdateDebugControls()
-        {
-            bool enabled = (Project != null && Project.HasProject) || codeEditContainer.ActiveEditor != null;
-
-            DebuggerControlToolbar.Debugger = enabled ? debugger : null;
-            DebugMenu.Debugger = enabled ? debugger : null;
         }
 
         private void CloseProject(DotNetProject project)
@@ -182,7 +172,6 @@ namespace DebuggerIntegration.Wpf
             CodeEditExtensions.CloseProject(extension, project.ProjectName);
             Project?.Reset();
             scriptRun.ScriptSource?.Reset();
-            UpdateDebugControls();
         }
 
         private void CloseFile(string fileName)
@@ -239,8 +228,6 @@ namespace DebuggerIntegration.Wpf
             if (dialog.ShowDialog().Value)
             {
                 codeEditContainer.TryActivateEditor(dialog.FileName);
-
-                UpdateDebugControls();
             }
         }
 
@@ -264,8 +251,6 @@ namespace DebuggerIntegration.Wpf
                 Project?.Reset();
                 scriptRun.ScriptSource?.Reset();
             }
-
-            UpdateDebugControls();
         }
 
         private void ExitMenuItem_Click(object sender, RoutedEventArgs e)

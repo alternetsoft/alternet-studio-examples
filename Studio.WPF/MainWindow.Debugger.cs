@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -52,7 +52,7 @@ namespace AlternetStudio.Wpf.Demo
                     debugger = new ScriptDebugger { ScriptRun = scriptRun };
                     debugger.DebuggingStarted += Debugger_DebuggingStarted;
                     debugger.DebuggingStopped += Debugger_DebuggingStopped;
-                    debugger.DebuggerErrorOccurred += Debugger_DebuggerErrorOccurred;
+                    debugger.DebuggerErrorOccured += Debugger_DebuggerErrorOccured;
                     debugger.ExecutionResumed += Debugger_ExecutionResumed;
                     debugger.ExecutionStopped += Debugger_ExecutionStopped;
                     debugger.StackFrameSwitched += Debugger_StackFrameSwitched;
@@ -218,11 +218,18 @@ namespace AlternetStudio.Wpf.Demo
                 if (Debugger.State == DebuggerState.Startup)
                     return;
 
-                bool modified = Project.HasProject && Project.IsModified;
-                if (SaveAllModifiedFiles() && SetScriptSource(modified))
+                if (SaveAllModifiedFiles() && SetScriptSource())
                 {
-                    if (CompileIfNeeded())
-                        StartDebugCore(breakOnStart);
+                    StartDebugCore(breakOnStart);
+
+                    errorsControl.Clear();
+
+                    var errors = scriptRun.ScriptHost.CompilerErrors;
+                    if (errors != null && errors.Length > 0)
+                        errorsControl.AddCompilerErrors(errors);
+
+                    if (scriptRun.ScriptHost.CompileFailed)
+                        ActivateErrorsTab();
                 }
             }
         }
@@ -329,10 +336,6 @@ namespace AlternetStudio.Wpf.Demo
             var isDebugging = isDebuggingStarted || state == DebuggerState.Startup;
             attachToProcessMenuItem.IsEnabled = !isDebugging;
             runParametersMenuItem.IsEnabled = !isEmpty & !isDebugging && hasProject;
-
-            bool debuggerEnabled = (Project != null && Project.HasProject) || ActiveSyntaxEdit != null;
-            debuggerControlToolbar.Debugger = debuggerEnabled ? debugger : null;
-            debugMenu.Debugger = debuggerEnabled ? debugger : null;
         }
 
         private async void UpdateDebugPanels()
@@ -396,7 +399,7 @@ namespace AlternetStudio.Wpf.Demo
             outputControl.CustomLog(string.Format("Unhandled exception: {0}\r\n", exception));
         }
 
-        private void Debugger_DebuggerErrorOccurred(object sender, DebuggerErrorOccurredEventArgs e)
+        private void Debugger_DebuggerErrorOccured(object sender, DebuggerErrorOccuredEventArgs e)
         {
             DisplayDebuggerUnhandledException(e.Exception.Message);
         }

@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.IO;
@@ -58,11 +58,9 @@ namespace DebuggerUIThread.TypeScript.Wpf
 
             DebuggerControlToolbar.Debugger = debugger;
             DebuggerControlToolbar.DebuggerPreStartup += OnDebuggerPreStartup;
-            DebuggerControlToolbar.DefaultCommands.StartDebuggingOptions = new TypeScriptStartDebuggingOptions();
 
             DebugMenu.Debugger = debugger;
             DebugMenu.DebuggerPreStartup += OnDebuggerPreStartup;
-            DebugMenu.DefaultCommands.StartDebuggingOptions = new TypeScriptStartDebuggingOptions();
 
             DebugMenu.CommandsListener = new DebuggerUICommands(this, debugger);
             DebuggerControlToolbar.CommandsListener = new DebuggerUICommands(this, debugger);

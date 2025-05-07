@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="http://schemas.alternetsoft.com/Scripter.Debugger.UI.Wpf"
-        xmlns:si="clr-namespace:Alternet.Scripter.Integration.Wpf;assembly=Alternet.Scripter.Integration.Wpf.v10"
+        xmlns:si="clr-namespace:Alternet.Scripter.Integration.Wpf;assembly=Alternet.Scripter.Integration.Wpf.v9"
         mc:Ignorable="d"
         TextOptions.TextFormattingMode="Display"
         Icon="/DebuggerIntegration.IronPython.Wpf;component/Images/Icon.Ico" 

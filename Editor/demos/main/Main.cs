@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections;
@@ -74,13 +74,14 @@ namespace Alternet.CodeEditor.Demo
         private const string PageSetupDesc = "Display Page Setup Dialog";
         private const string PrintOptionsDesc = "Display Print Options Dialog";
         private const string DisableSelectionDesc = "Disable selecting any text";
-        private const string DisableMouseSelectionDesc = "Disable selecting any text by mouse movement";
         private const string DisableDraggingDesc = "Disable dragging the selected text";
         private const string SelectBeyondEolDesc = "Draw selection beyond end of line.";
         private const string UseColorsDesc = "Preserve colors of the text when drawing selection";
         private const string HideSelectionDesc = "Hide selection when control losts focus";
         private const string SelectLineOnDblClickDesc = "Select whole line instead of single word when user double clicks on the text";
         private const string HighlightSelectedWordsDesc = "Specifies that the Edit control should select all instances of the chosen words.";
+        private const string PersistentBlocksDesc = "Retain selection when the cursor is moved, until a new block is selecte.";
+        private const string OverwriteBlocksDesc = "Replace selected text with whatever is typed next";
         private const string BeyondEolDesc = "Allows user navigate beyond end of line";
         private const string BeyondEofDesc = "Allows user navigate beyond end of file";
         private const string UpAtLineBeginDesc = "Curet position should move to the previous line when user click Left key and caret locates at the line begin";
@@ -106,7 +107,6 @@ namespace Alternet.CodeEditor.Demo
         private const string FindDesc = "Display Search Dialog";
         private const string ReplaceDesc = "Display Replace Dialog";
         private const string GotoDesc = "Display Goto Line Dialog";
-        private const string companyInfo = "AlterNET Code Editor is a .NET component library that brings efficient code editing functionality into your WinForms and WPF .NET applications. \r\nIt provides code editing capabilities such as syntax highlighting, code completion and code outlining, visual indicators for bookmarks, line styles, syntax errors and much more, matching the speed and convenience of the Microsoft Visual Studio/Visual Studio Code text editor.";
 
         private int scrollBoxUpdate;
         private string dir = Application.StartupPath + @"\";
@@ -194,14 +194,6 @@ namespace Alternet.CodeEditor.Demo
         public MainForm()
         {
             InitializeComponent();
-            var asm = this.GetType().Assembly;
-            var prefix = "CodeEditor.Resources";
-
-            pictureBox1.Image = ControlUtilities.LoadImageFromAssembly(asm, $"{prefix}.pictureBox1.Image.png");
-            syntaxEdit.BackgroundImage = ControlUtilities.LoadImageFromAssembly(asm, $"{prefix}.syntaxEdit.BackgroundImage.png");
-            syntaxSplitEdit.BackgroundImage = ControlUtilities.LoadImageFromAssembly(asm, $"{prefix}.syntaxSplitEdit.BackgroundImage.png");
-            tbCompanyInfo.Text = companyInfo;
-            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
 
             InitializeCustomAnnotationsDemo();
             InitializeErrorAppearanceDemo();
@@ -334,7 +326,7 @@ namespace Alternet.CodeEditor.Demo
             // updating controls
             FillControls();
 
-            pictureBox1.Image = DisplayImageScaling.CloneAndAutoScaleImage(pictureBox1.Image);
+            pictureBox1.Image = DisplayScaling.CloneAndAutoScaleImage(pictureBox1.Image);
             if (pictureBox1.Image is Bitmap)
                 ((Bitmap)pictureBox1.Image).MakeTransparent(Color.White);
 
@@ -684,14 +676,15 @@ namespace Alternet.CodeEditor.Demo
                 chbDownAtLineEnd.Checked = (NavigateOptions.DownAtLineEnd & syntaxEdit.NavigateOptions) != 0;
                 chbMoveOnRightButton.Checked = (NavigateOptions.MoveOnRightButton & syntaxEdit.NavigateOptions) != 0;
 
-                chbDisableSelection.Checked = (SelectionOptions.DisableSelectionByMouse & syntaxEdit.Selection.Options) != 0;
-                chbDisableMouseSelection.Checked = (SelectionOptions.DisableSelection & syntaxEdit.Selection.Options) != 0;
+                chbDisableSelection.Checked = (SelectionOptions.DisableSelection & syntaxEdit.Selection.Options) != 0;
                 chbDisableDragging.Checked = (SelectionOptions.DisableDragging & syntaxEdit.Selection.Options) != 0;
                 chbSelectBeyondEol.Checked = (SelectionOptions.SelectBeyondEol & syntaxEdit.Selection.Options) != 0;
                 chbUseColors.Checked = (SelectionOptions.UseColors & syntaxEdit.Selection.Options) != 0;
                 chbHideSelection.Checked = (SelectionOptions.HideSelection & syntaxEdit.Selection.Options) != 0;
                 chbSelectLineOnDblClick.Checked = (SelectionOptions.SelectLineOnDblClick & syntaxEdit.Selection.Options) != 0;
                 HighlightSelectedWordsCheckBox.Checked = (SelectionOptions.HighlightSelectedWords & syntaxEdit.Selection.Options) != 0;
+                chbPersistentBlocks.Checked = (SelectionOptions.PersistentBlocks & syntaxEdit.Selection.Options) != 0;
+                chbOverwriteBlocks.Checked = (SelectionOptions.OverwriteBlocks & syntaxEdit.Selection.Options) != 0;
             }
             finally
             {
@@ -1132,14 +1125,6 @@ namespace Alternet.CodeEditor.Demo
             syntaxSplitEdit.Selection.Options = syntaxEdit.Selection.Options;
         }
 
-        private void DisableMouseSelectionCheckBox_CheckedChanged(object sender, System.EventArgs e)
-        {
-            // updating selection options
-            syntaxEdit.Selection.Options = chbDisableMouseSelection.Checked ? syntaxEdit.Selection.Options
-                | SelectionOptions.DisableSelectionByMouse : syntaxEdit.Selection.Options & ~SelectionOptions.DisableSelectionByMouse;
-            syntaxSplitEdit.Selection.Options = syntaxEdit.Selection.Options;
-        }
-
         private void DisableDraggingCheckBox_CheckedChanged(object sender, System.EventArgs e)
         {
             // updating selection options
@@ -1185,6 +1170,22 @@ namespace Alternet.CodeEditor.Demo
             // updating selection options
             syntaxEdit.Selection.Options = HighlightSelectedWordsCheckBox.Checked ? syntaxEdit.Selection.Options
                 | SelectionOptions.HighlightSelectedWords : syntaxEdit.Selection.Options & ~SelectionOptions.HighlightSelectedWords;
+            syntaxSplitEdit.Selection.Options = syntaxEdit.Selection.Options;
+        }
+
+        private void PersistenlocksCheckBoxTextBox_CheckedChanged(object sender, System.EventArgs e)
+        {
+            // updating selection options
+            syntaxEdit.Selection.Options = chbPersistentBlocks.Checked ? syntaxEdit.Selection.Options
+                | SelectionOptions.PersistentBlocks : syntaxEdit.Selection.Options & ~SelectionOptions.PersistentBlocks;
+            syntaxSplitEdit.Selection.Options = syntaxEdit.Selection.Options;
+        }
+
+        private void OverwriteBlocksCheckBox_CheckedChanged(object sender, System.EventArgs e)
+        {
+            // updating selection options
+            syntaxEdit.Selection.Options = chbOverwriteBlocks.Checked ? syntaxEdit.Selection.Options
+                | SelectionOptions.OverwriteBlocks : syntaxEdit.Selection.Options & ~SelectionOptions.OverwriteBlocks;
             syntaxSplitEdit.Selection.Options = syntaxEdit.Selection.Options;
         }
 
@@ -1710,13 +1711,6 @@ namespace Alternet.CodeEditor.Demo
                 toolTip1.SetToolTip(chbDisableSelection, DisableSelectionDesc);
         }
 
-        private void DisableMouseSelectionCheckBox_MouseMove(object sender, MouseEventArgs e)
-        {
-            string str = toolTip1.GetToolTip(chbDisableMouseSelection);
-            if (str != DisableMouseSelectionDesc)
-                toolTip1.SetToolTip(chbDisableMouseSelection, DisableMouseSelectionDesc);
-        }
-
         private void DisableDraggingCheckBox_MouseMove(object sender, MouseEventArgs e)
         {
             string str = toolTip1.GetToolTip(chbDisableDragging);
@@ -1758,6 +1752,21 @@ namespace Alternet.CodeEditor.Demo
             if (str != HighlightSelectedWordsDesc)
                 toolTip1.SetToolTip(HighlightSelectedWordsCheckBox, HighlightSelectedWordsDesc);
         }
+
+        private void PersistenlocksCheckBoxTextBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            string str = toolTip1.GetToolTip(chbPersistentBlocks);
+            if (str != PersistentBlocksDesc)
+                toolTip1.SetToolTip(chbPersistentBlocks, PersistentBlocksDesc);
+        }
+
+        private void OverwriteBlocksCheckBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            string str = toolTip1.GetToolTip(chbOverwriteBlocks);
+            if (str != OverwriteBlocksDesc)
+                toolTip1.SetToolTip(chbOverwriteBlocks, OverwriteBlocksDesc);
+        }
+
         private void BeyondEolCheckBox_MouseMove(object sender, MouseEventArgs e)
         {
             string str = toolTip1.GetToolTip(chbBeyondEol);

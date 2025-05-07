@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -178,7 +178,7 @@ namespace AlternetStudio.Demo
                         OpenFile(file);
                     }
 
-                    CodeEditExtensions.RegisterCode(project.ProjectExtension, GetSourceFiles(project, addedFiles, project.ProjectExtension, true));
+                    CodeEditExtensions.RegisterCode(project.ProjectExtension, GetSourceFiles(addedFiles), project.ProjectName);
                     UpdateProjectExplorer();
                     UpdateCodeNavigation();
                 }
@@ -538,43 +538,17 @@ namespace AlternetStudio.Demo
             if (project == null || !project.HasProject)
                 return;
 
-            var dlg = new AddReferenceDialog(project, solution);
-            if (dlg.ShowDialog() == DialogResult.OK)
+            var dialog = new OpenFileDialog();
+            dialog.Filter = ".NET assembly files (*.dll)|*.dll|All files (*.*)|*.*";
+            dialog.InitialDirectory = Path.GetDirectoryName(project.ProjectFileName);
+
+            if (dialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            var reference = dialog.FileName;
+            if (project.AddReference(Path.GetFileName(reference), reference))
             {
-                project.References.Clear();
-                project.ProjectReferences.Clear();
-                var refs = dlg.References;
-                var frameworkRefs = dlg.FrameworkReferences;
-                var projRefs = dlg.ProjectReferences;
-
-                foreach (var item in refs)
-                {
-                    string name = string.Empty;
-                    string version = string.Empty;
-                    if (AssemblyHelper.IsNugetReference(item, ref name, ref version))
-                    {
-                        project.AddNuGetReference(name, item);
-                    }
-                    else
-                    {
-                        name = Path.IsPathRooted(item) ? Path.GetFileNameWithoutExtension(item) : Path.GetFileName(item);
-                        project.AddReference(name, item);
-                    }
-                }
-
-                foreach (var item in frameworkRefs)
-                {
-                    string name = Path.IsPathRooted(item) ? Path.GetFileNameWithoutExtension(item) : Path.GetFileName(item);
-                    project.AddReference(name, name);
-                }
-
-                foreach (var item in projRefs)
-                {
-                    project.ProjectReferences.Add(item);
-                }
-
-                CodeEditExtensions.RegisterAssemblies(project.ProjectExtension, project.TryResolveAbsolutePaths(refs).ToArray(), keepExisting: true, projectName: project.ProjectName);
-                CodeEditExtensions.RegisterAssemblies(project.ProjectExtension, project.TryResolveAbsolutePaths(frameworkRefs).ToArray(), keepExisting: true, projectName: project.ProjectName);
+                CodeEditExtensions.RegisterAssemblies(project.ProjectExtension, project.TryResolveAbsolutePaths(new string[] { reference }).ToArray(), keepExisting: true, projectName: project.ProjectName);
                 UpdateProjectExplorer();
                 UpdateCodeNavigation();
             }
@@ -614,7 +588,7 @@ namespace AlternetStudio.Demo
         {
             var node = GetNodeToRemove(projectExplorerTreeView.SelectedNode);
 
-            if (MessageBox.Show(string.Format(StringConsts.RemoveFolderConfirmation, node.Name), "AlterNET Studio", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (MessageBox.Show(string.Format(StringConsts.RemoveFolderConfirmation, node.Name), "Studio", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 project.RemoveProjectFolder(node.Name);
             }
@@ -663,7 +637,7 @@ namespace AlternetStudio.Demo
                     CloseFile(file);
                 }
 
-                CodeEditExtensions.UnregisterCode(project.ProjectExtension, GetSourceFiles(project, removedFiles, project.ProjectExtension, false));
+                CodeEditExtensions.UnregisterCode(project.ProjectExtension, GetSourceFiles(removedFiles), project.ProjectName);
 
                 UpdateProjectExplorer();
                 UpdateCodeNavigation();

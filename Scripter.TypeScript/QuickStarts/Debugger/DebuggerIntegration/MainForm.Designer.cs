@@ -46,7 +46,6 @@ namespace DebuggerIntegration.TypeScript
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.debugMenu1 = new Alternet.Scripter.Debugger.UI.DebugMenu();
-            this.testMenuItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editorsTabControl = new System.Windows.Forms.TabControl();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.splitContainer = new System.Windows.Forms.SplitContainer();
@@ -83,8 +82,7 @@ namespace DebuggerIntegration.TypeScript
             // 
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.debugMenu1,
-            this.testMenuItemToolStripMenuItem});
+            this.debugMenu1});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Size = new System.Drawing.Size(775, 24);
@@ -164,12 +162,6 @@ namespace DebuggerIntegration.TypeScript
             this.debugMenu1.Size = new System.Drawing.Size(54, 20);
             this.debugMenu1.Text = "Debug";
             // 
-            // testMenuItemToolStripMenuItem
-            // 
-            this.testMenuItemToolStripMenuItem.Name = "testMenuItemToolStripMenuItem";
-            this.testMenuItemToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
-            this.testMenuItemToolStripMenuItem.Text = "Test Menu Item";
-            // 
             // editorsTabControl
             // 
             this.editorsTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -232,6 +224,7 @@ namespace DebuggerIntegration.TypeScript
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.debuggerControlToolbar);
             this.Controls.Add(this.mainMenu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenu;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -260,7 +253,6 @@ namespace DebuggerIntegration.TypeScript
         private Alternet.Scripter.Integration.DebuggerPanelsTabControl debuggerPanelsTabControl;
         private Alternet.Scripter.Debugger.UI.DebugMenu debugMenu1;
         private System.Windows.Forms.TabControl editorsTabControl;
-        private System.Windows.Forms.ToolStripMenuItem testMenuItemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openProjectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeProjectToolStripMenuItem;

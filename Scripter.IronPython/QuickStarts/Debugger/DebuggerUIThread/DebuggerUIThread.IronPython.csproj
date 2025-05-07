@@ -13,7 +13,10 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>..\..\..\..\..\bin\Release\Demos.Scripter.Python\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,19 +40,19 @@
     <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.IronPython" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.IronPython" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Editor.IronPython" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.IronPython" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.5.16" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Script.py">

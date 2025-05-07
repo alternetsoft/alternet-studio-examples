@@ -152,6 +152,7 @@
             this.ClientSize = new System.Drawing.Size(914, 480);
             this.Controls.Add(this.MainPanel);
             this.Controls.Add(this.SettingsPanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "TextMate Parsing";
             this.Load += new System.EventHandler(this.Form1_Load);

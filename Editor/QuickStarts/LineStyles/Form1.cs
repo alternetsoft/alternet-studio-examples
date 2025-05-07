@@ -1,21 +1,20 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-using Alternet.Common;
 using Alternet.Editor;
 using Alternet.Editor.TextSource;
 using Alternet.Syntax.Parsers.Roslyn;
@@ -36,19 +35,9 @@ namespace LineStyles
         private int endLine = 0;
         private int index;
 
-        private enum KnownImageIndex
-        {
-            Breakpoint = 11,
-
-            TraceLine,
-        }
-
         public Form1()
         {
             InitializeComponent();
-            var asm = this.GetType().Assembly;
-            var prefix = "LineStyles.Resources";
-            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -74,7 +63,7 @@ namespace LineStyles
             lineStyle.ForeColor = Color.FromArgb(255, 241, 129);
             lineStyle.Options = LineStyleOptions.BeyondEol | LineStyleOptions.InvertColors;
 
-            lineStyle.ImageIndex = (int)KnownImageIndex.TraceLine;
+            lineStyle.ImageIndex = 12;
             chbLineStyleBeyondEol.Checked = (LineStyleOptions.BeyondEol & lineStyle.Options) != 0;
             cbLineStyleColor.SelectedColor = lineStyle.ForeColor;
             syntaxEdit1.LineStyles.Add(lineStyle);
@@ -84,17 +73,10 @@ namespace LineStyles
                 BackColor = Color.White,
                 ForeColor = Color.FromArgb(171, 97, 107),
                 Options = LineStyleOptions.BeyondEol | LineStyleOptions.InvertColors,
-                ImageIndex = (int)KnownImageIndex.Breakpoint,
+                ImageIndex = 11,
             });
 
             endLine = syntaxEdit1.Lines.Count - 2;
-
-            syntaxEdit1.GutterClick += SyntaxEdit1_GutterClick;
-        }
-
-        private void SyntaxEdit1_GutterClick(object sender, EventArgs e)
-        {
-            SetBreakpoint();
         }
 
         private void Debug()
@@ -135,6 +117,7 @@ namespace LineStyles
 
         private void SetBreakpoint()
         {
+            syntaxEdit1.Source.BookMarks.ToggleBookMark(syntaxEdit1.Position, 11);
             syntaxEdit1.Source.LineStyles.ToggleLineStyle(syntaxEdit1.Position.Y, 0, 1);
         }
 
@@ -148,7 +131,7 @@ namespace LineStyles
             StepOver();
         }
 
-        private void SetBreakpointTextBoxButton_Click(object sender, EventArgs e)
+        private void SereakpointTextBoxButton_Click(object sender, EventArgs e)
         {
             SetBreakpoint();
         }
@@ -163,7 +146,7 @@ namespace LineStyles
             StepOver();
         }
 
-        private void SetBreakpointTextBoxMenuItem_Click(object sender, EventArgs e)
+        private void SereakpointTextBoxMenuItem_Click(object sender, EventArgs e)
         {
             SetBreakpoint();
         }

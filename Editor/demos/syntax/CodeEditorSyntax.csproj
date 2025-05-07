@@ -4,7 +4,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <UseWindowsForms>true</UseWindowsForms>
@@ -16,12 +16,12 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>..\..\..\..\bin\Release\Demos.Editor\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
-    <None Remove="Resources\AboutBox.pictureBox1.Image.png" />
     <None Remove="Resources\Backwards.png" />
     <None Remove="Resources\Backwards_HighDpi.png" />
-    <None Remove="Resources\CodeCompletionImages.png" />
-    <None Remove="Resources\CodeExplorerImages.png" />
     <None Remove="Resources\Copy.png" />
     <None Remove="Resources\Copy_HighDpi.png" />
     <None Remove="Resources\Cut.png" />
@@ -34,7 +34,6 @@
     <None Remove="Resources\Forwards_HighDpi.png" />
     <None Remove="Resources\GoToDefinition.png" />
     <None Remove="Resources\GoToDefinition_HighDpi.png" />
-    <None Remove="Resources\Icon.ico" />
     <None Remove="Resources\NewFile.png" />
     <None Remove="Resources\NewFile_HighDpi.png" />
     <None Remove="Resources\OpenFile.png" />
@@ -65,13 +64,13 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="9.5.16" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutBox.cs">
@@ -102,11 +101,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\AboutBox.pictureBox1.Image.png" />
     <EmbeddedResource Include="Resources\Backwards.png" />
     <EmbeddedResource Include="Resources\Backwards_HighDpi.png" />
-    <EmbeddedResource Include="Resources\CodeCompletionImages.png" />
-    <EmbeddedResource Include="Resources\CodeExplorerImages.png" />
     <EmbeddedResource Include="Resources\Copy.png" />
     <EmbeddedResource Include="Resources\Copy_HighDpi.png" />
     <EmbeddedResource Include="Resources\Cut.png" />
@@ -119,7 +115,6 @@
     <EmbeddedResource Include="Resources\Forwards_HighDpi.png" />
     <EmbeddedResource Include="Resources\GoToDefinition.png" />
     <EmbeddedResource Include="Resources\GoToDefinition_HighDpi.png" />
-    <EmbeddedResource Include="Resources\Icon.ico" />
     <EmbeddedResource Include="Resources\NewFile.png" />
     <EmbeddedResource Include="Resources\NewFile_HighDpi.png" />
     <EmbeddedResource Include="Resources\OpenFile.png" />
@@ -168,7 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.0</Version>
+      <Version>9.5.16</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

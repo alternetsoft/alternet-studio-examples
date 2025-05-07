@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Drawing;
@@ -50,7 +50,7 @@ namespace AlternetStudio.Demo
 
         private void CompanyInfo_Load(object sender, EventArgs e)
         {
-            pictureBox1.Image = DisplayImageScaling.CloneAndAutoScaleImage(pictureBox1.Image);
+            pictureBox1.Image = DisplayScaling.CloneAndAutoScaleImage(pictureBox1.Image);
 
             if (pictureBox1.Image is Bitmap)
             {

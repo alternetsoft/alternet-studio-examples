@@ -1,21 +1,20 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Alternet.Editor.Roslyn;
 using Alternet.Editor.TextSource;
 using Alternet.FormDesigner.WinForms;
 
@@ -55,13 +54,6 @@ namespace AlternetStudio.Demo
             gotoToolButton.Tag = gotoMenuItem;
             printPreviewToolButton.Tag = printPreviewMenuItem;
             printToolButton.Tag = printMenuItem;
-
-            ProjectFrameworksComboBox.SelectedIndexChanged += ProjectComboBox_SelectedIndexChanged;
-        }
-
-        private void ProjectComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            CurrentFramework = CodeUtils.GetSelectedFramework(ProjectFrameworksComboBox);
         }
 
         private void UpdateEditorStatus()
@@ -110,9 +102,6 @@ namespace AlternetStudio.Demo
 
             closeProjectMenuItem.Enabled = HasProject();
             saveProjectMenuItem.Enabled = HasProject();
-            bool hasFrameworks = HasProject() && Project.TargetFrameworks?.Count > 0;
-            ProjectFrameworksComboBox.Visible = hasFrameworks;
-
             saveMenuItem.Enabled = enabled;
 
             saveAsMenuItem.Enabled = enabled && !edit.FileName.Contains("Designer");

@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Form Designer Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -49,9 +49,6 @@ namespace Alternet.FormDesigner.Demo
         {
             SetupPython();
             InitializeComponent();
-            var asm = this.GetType().Assembly;
-            var prefix = "Alternet.FormDesigner.Demo.Resources";
-            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
 
             scriptRun = new ScriptRun();
             InitDefaultAssemblies();

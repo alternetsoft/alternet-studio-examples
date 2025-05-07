@@ -1,7 +1,7 @@
 <Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v10" x:Class="VisualTheme.MainWindow"
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v9" x:Class="VisualTheme.MainWindow"
         xmlns:local="clr-namespace:VisualTheme"
         Icon="/VisualTheme.Wpf;component/Images/Icon.ico"
         Title="Visual Theme" Height="400" Width="679" Loaded="Window_Loaded">

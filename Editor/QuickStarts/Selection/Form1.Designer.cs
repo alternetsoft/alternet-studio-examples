@@ -100,7 +100,7 @@
             this.cbSelectionBorderColor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cbSelectionBorderColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSelectionBorderColor.FormattingEnabled = true;
-            this.cbSelectionBorderColor.Location = new System.Drawing.Point(529, 66);
+            this.cbSelectionBorderColor.Location = new System.Drawing.Point(521, 66);
             this.cbSelectionBorderColor.Name = "cbSelectionBorderColor";
             this.cbSelectionBorderColor.SelectedColor = System.Drawing.Color.Empty;
             this.cbSelectionBorderColor.Size = new System.Drawing.Size(121, 21);
@@ -113,7 +113,7 @@
             this.cbSelectionBackColor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cbSelectionBackColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSelectionBackColor.FormattingEnabled = true;
-            this.cbSelectionBackColor.Location = new System.Drawing.Point(529, 42);
+            this.cbSelectionBackColor.Location = new System.Drawing.Point(521, 42);
             this.cbSelectionBackColor.Name = "cbSelectionBackColor";
             this.cbSelectionBackColor.SelectedColor = System.Drawing.Color.Empty;
             this.cbSelectionBackColor.Size = new System.Drawing.Size(121, 21);
@@ -126,7 +126,7 @@
             this.cbSelectionForeColor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cbSelectionForeColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSelectionForeColor.FormattingEnabled = true;
-            this.cbSelectionForeColor.Location = new System.Drawing.Point(529, 18);
+            this.cbSelectionForeColor.Location = new System.Drawing.Point(521, 18);
             this.cbSelectionForeColor.Name = "cbSelectionForeColor";
             this.cbSelectionForeColor.SelectedColor = System.Drawing.Color.Empty;
             this.cbSelectionForeColor.Size = new System.Drawing.Size(121, 21);
@@ -137,7 +137,7 @@
             // laSelectionBorderColor
             // 
             this.laSelectionBorderColor.AutoSize = true;
-            this.laSelectionBorderColor.Location = new System.Drawing.Point(454, 69);
+            this.laSelectionBorderColor.Location = new System.Drawing.Point(444, 69);
             this.laSelectionBorderColor.Name = "laSelectionBorderColor";
             this.laSelectionBorderColor.Size = new System.Drawing.Size(68, 13);
             this.laSelectionBorderColor.TabIndex = 21;
@@ -146,7 +146,7 @@
             // laSelectionBackColor
             // 
             this.laSelectionBackColor.AutoSize = true;
-            this.laSelectionBackColor.Location = new System.Drawing.Point(454, 45);
+            this.laSelectionBackColor.Location = new System.Drawing.Point(444, 45);
             this.laSelectionBackColor.Name = "laSelectionBackColor";
             this.laSelectionBackColor.Size = new System.Drawing.Size(62, 13);
             this.laSelectionBackColor.TabIndex = 20;
@@ -155,7 +155,7 @@
             // laSelectionForeColor
             // 
             this.laSelectionForeColor.AutoSize = true;
-            this.laSelectionForeColor.Location = new System.Drawing.Point(454, 21);
+            this.laSelectionForeColor.Location = new System.Drawing.Point(444, 21);
             this.laSelectionForeColor.Name = "laSelectionForeColor";
             this.laSelectionForeColor.Size = new System.Drawing.Size(58, 13);
             this.laSelectionForeColor.TabIndex = 19;
@@ -300,6 +300,7 @@
             this.ClientSize = new System.Drawing.Size(667, 405);
             this.Controls.Add(this.syntaxEdit1);
             this.Controls.Add(this.pnSettings);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Selection";

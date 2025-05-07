@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace PackageReference
     {
         private static readonly string[] ProjectSearchDirectories = new[] { ".", @"..\..\..\..\..\..\" };
         private static readonly string StartupProjectFileSubPath = @"Resources\Debugger\CS\PackageReferenceTest\PackageReferenceTest.csproj";
-        private ScriptRun scriptRun = new ScriptRun();
+        private ScriptRun scriptRun = new NuGetScriptRun();
         private MainWindow window;
         private TextEditor edit;
 
@@ -112,7 +112,7 @@ namespace PackageReference
             foreach (var reference in Project.References)
                 references.Add(reference.FullName);
 
-            var parser = new CsParser();
+            var parser = new CsParser(new NuGetSolution());
             parser.Repository.RegisterAssemblies(references.ToArray());
             edit.Lexer = parser;
 

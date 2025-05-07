@@ -42,7 +42,7 @@
             Alternet.Editor.ScrollingButton scrollingButton8 = new Alternet.Editor.ScrollingButton();
             Alternet.Editor.ScrollingButton scrollingButton9 = new Alternet.Editor.ScrollingButton();
             Alternet.Editor.ScrollingButton scrollingButton10 = new Alternet.Editor.ScrollingButton();
-
+            this.imageList2 = new System.Windows.Forms.ImageList();
             this.pnSettings = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.chbVerticalAnnotations = new System.Windows.Forms.CheckBox();
@@ -70,6 +70,16 @@
             this.pnDescription.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // imageList2
+            // 
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "");
+            this.imageList2.Images.SetKeyName(1, "");
+            this.imageList2.Images.SetKeyName(2, "");
+            this.imageList2.Images.SetKeyName(3, "");
+            this.imageList2.Images.SetKeyName(4, "");
             // 
             // pnSettings
             // 
@@ -252,15 +262,15 @@
             this.syntaxEdit1.Outlining.ImageSize = 8;
             scrollingButton1.Description = "Page Normal Mode";
             scrollingButton1.ImageIndex = 0;
-            scrollingButton1.Images = this.buttonsImageList;
+            scrollingButton1.Images = this.imageList2;
             scrollingButton1.Name = "Normal";
             scrollingButton2.Description = "Page Layout Mode";
             scrollingButton2.ImageIndex = 1;
-            scrollingButton2.Images = this.buttonsImageList;
+            scrollingButton2.Images = this.imageList2;
             scrollingButton2.Name = "PageLayout";
             scrollingButton3.Description = "Page Breaks Mode";
             scrollingButton3.ImageIndex = 2;
-            scrollingButton3.Images = this.buttonsImageList;
+            scrollingButton3.Images = this.imageList2;
             scrollingButton3.Name = "PageBreaks";
             this.syntaxEdit1.Scrolling.HorzButtons.Add(scrollingButton1);
             this.syntaxEdit1.Scrolling.HorzButtons.Add(scrollingButton2);
@@ -269,11 +279,11 @@
             this.syntaxEdit1.Scrolling.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             scrollingButton4.Description = "Page Down";
             scrollingButton4.ImageIndex = 3;
-            scrollingButton4.Images = this.buttonsImageList;
+            scrollingButton4.Images = this.imageList2;
             scrollingButton4.Name = "PageDown";
             scrollingButton5.Description = "Page Up";
             scrollingButton5.ImageIndex = 4;
-            scrollingButton5.Images = this.buttonsImageList;
+            scrollingButton5.Images = this.imageList2;
             scrollingButton5.Name = "PageUp";
             this.syntaxEdit1.Scrolling.VertButtons.Add(scrollingButton4);
             this.syntaxEdit1.Scrolling.VertButtons.Add(scrollingButton5);
@@ -302,15 +312,15 @@
             this.syntaxEdit2.Outlining.ImageSize = 8;
             scrollingButton6.Description = "Page Normal Mode";
             scrollingButton6.ImageIndex = 0;
-            scrollingButton6.Images = this.buttonsImageList;
+            scrollingButton6.Images = this.imageList2;
             scrollingButton6.Name = "Normal";
             scrollingButton7.Description = "Page Layout Mode";
             scrollingButton7.ImageIndex = 1;
-            scrollingButton7.Images = this.buttonsImageList;
+            scrollingButton7.Images = this.imageList2;
             scrollingButton7.Name = "PageLayout";
             scrollingButton8.Description = "Page Breaks Mode";
             scrollingButton8.ImageIndex = 2;
-            scrollingButton8.Images = this.buttonsImageList;
+            scrollingButton8.Images = this.imageList2;
             scrollingButton8.Name = "PageBreaks";
             this.syntaxEdit2.Scrolling.HorzButtons.Add(scrollingButton6);
             this.syntaxEdit2.Scrolling.HorzButtons.Add(scrollingButton7);
@@ -319,11 +329,11 @@
             this.syntaxEdit2.Scrolling.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             scrollingButton9.Description = "Page Down";
             scrollingButton9.ImageIndex = 3;
-            scrollingButton9.Images = this.buttonsImageList;
+            scrollingButton9.Images = this.imageList2;
             scrollingButton9.Name = "PageDown";
             scrollingButton10.Description = "Page Up";
             scrollingButton10.ImageIndex = 4;
-            scrollingButton10.Images = this.buttonsImageList;
+            scrollingButton10.Images = this.imageList2;
             scrollingButton10.Name = "PageUp";
             this.syntaxEdit2.Scrolling.VertButtons.Add(scrollingButton9);
             this.syntaxEdit2.Scrolling.VertButtons.Add(scrollingButton10);
@@ -342,6 +352,7 @@
             this.Controls.Add(this.splitter2);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.pnSettings);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Multiple Views & Split View";
@@ -374,6 +385,7 @@
         private System.Windows.Forms.Panel pnDescription;
         private System.Windows.Forms.Label laDescription;
         private Alternet.Editor.TextSource.TextSource csharpSource;
+        private System.Windows.Forms.ImageList imageList2;
         private System.Windows.Forms.Panel panel2;
         private Alternet.Editor.SyntaxEdit syntaxEdit1;
         private System.Windows.Forms.Splitter splitter2;

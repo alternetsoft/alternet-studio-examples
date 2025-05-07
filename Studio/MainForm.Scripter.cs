@@ -1,30 +1,25 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using Alternet.Common.Projects.DotNet;
 using Alternet.Editor.Common;
-using Alternet.Editor.Roslyn;
 using Alternet.Scripter;
 using Alternet.Scripter.Debugger.UI;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Text;
 
 namespace AlternetStudio.Demo
 {
@@ -36,21 +31,32 @@ namespace AlternetStudio.Demo
 
         protected virtual void RunScriptCore()
         {
-            if (CompileIfNeeded())
-                debugger.RunScriptAsync(Project.HasProject ? Project.UserSettings.CommandLineArgs : null);
-        }
+            if (!scriptRun.ScriptHost.Compiled)
+            {
+                scriptRun.ScriptHost.Compile();
+                if (scriptRun.ScriptHost.CompileFailed)
+                {
+                    ActivateErrorsTab();
+                    return;
+                }
+            }
 
-        protected virtual bool CompileIfNeeded()
-        {
-            if (scriptRun.ScriptHost.Compiled)
-                return true;
-            return CompileCore();
+            debugger.RunScriptAsync(Project.HasProject ? Project.UserSettings.CommandLineArgs : null);
         }
 
         protected virtual bool CompileCore()
         {
             bool result = true;
-            result = scriptRun.ScriptHost.Compile(logger: new OutputWriter(outputControl));
+            bool generateModulesOnDisk = scriptRun.ScriptHost.GenerateModulesOnDisk;
+            scriptRun.ScriptHost.GenerateModulesOnDisk = true;
+            try
+            {
+                result = scriptRun.Compile();
+            }
+            finally
+            {
+                scriptRun.ScriptHost.GenerateModulesOnDisk = generateModulesOnDisk;
+            }
 
             if (scriptRun.ScriptHost.CompileFailed)
             {
@@ -76,15 +82,10 @@ namespace AlternetStudio.Demo
             }));
         }
 
-        protected virtual bool SetScriptSource(bool modified)
+        protected virtual bool SetScriptSource()
         {
             if (Project.HasProject)
-            {
-                if (modified)
-                    scriptRun.ScriptSource.FromScriptProject(Project.ProjectFileName, CurrentFramework);
-
                 return true;
-            }
 
             string fileName = (ActiveSyntaxEdit != null) ? ActiveSyntaxEdit.FileName : string.Empty;
             var designer = ActiveFormDesigner;
@@ -126,84 +127,11 @@ namespace AlternetStudio.Demo
         private void InitializeScripter()
         {
             scriptRun = new ScriptRun() { ScriptLanguage = ScriptLanguage.CSharp, Platform = ScriptPlatform.Auto, ScriptMode = ScriptMode.Debug };
-            scriptRun.ScriptHost.GenerateModulesOnDisk = true;
         }
 
         private void ActivateErrorsTab()
         {
             bottomTabControl.SelectedTab = errorsTabPage;
-        }
-
-        private ScriptCompilationDiagnosticKind GetErrorSeverity(DiagnosticSeverity severity)
-        {
-            switch (severity)
-            {
-                case DiagnosticSeverity.Hidden:
-                case DiagnosticSeverity.Info:
-                    return ScriptCompilationDiagnosticKind.Info;
-
-                case DiagnosticSeverity.Warning:
-                    return ScriptCompilationDiagnosticKind.Warning;
-
-                case DiagnosticSeverity.Error:
-                    return ScriptCompilationDiagnosticKind.Error;
-
-                default:
-                    throw new Exception();
-            }
-        }
-
-        private bool IsSuppressedDiagnostic(Diagnostic diagnostic)
-        {
-            return diagnostic.IsSuppressed || diagnostic.Id.Contains("1701");
-        }
-
-        private bool IsCompatiblePlatform(Diagnostic diagnostic)
-        {
-            return !diagnostic.Location.IsInSource || FileBelongsToProjectFramework(Project, diagnostic.Location.SourceTree.FilePath);
-        }
-
-        private bool IsAutoGenerateCode(Diagnostic diagnostic)
-        {
-            return diagnostic.Location.IsInSource && !FileBelongsToProject(Project, diagnostic.Location.SourceTree.FilePath);
-        }
-
-        private ScriptCompilationDiagnostic[] GetErrors(ImmutableArray<Diagnostic> errors)
-        {
-            if (errors == null)
-                return null;
-            return errors.Where(t => t.Severity != DiagnosticSeverity.Hidden && !IsSuppressedDiagnostic(t) && !IsAutoGenerateCode(t) && IsCompatiblePlatform(t)).Select(
-                error =>
-                {
-                    bool inSource = error.Location.IsInSource;
-                    LinePosition position = inSource ? error.Location.GetLineSpan().StartLinePosition : LinePosition.Zero;
-
-                    return new ScriptCompilationDiagnostic
-                    {
-                        Kind = GetErrorSeverity(error.Severity),
-                        FileName = inSource ? error.Location.SourceTree.FilePath : string.Empty,
-                        Line = inSource ? position.Line : -1,
-                        Column = inSource ? position.Character : -1,
-                        Message = error.GetMessage(),
-                        Code = error.Id,
-                        InSource = inSource,
-                    };
-                }).ToArray();
-        }
-
-        private bool FilterError(ScriptCompilationDiagnostic error)
-        {
-            return error.InSource != null ? error.InSource.Value : false;
-        }
-
-        private async void UpdateErrors(IScriptEdit edit)
-        {
-            var document = edit.Document() as Document;
-            if (document == null)
-                return;
-            var compilation = await document.Project.GetCompilationAsync();
-            errorsControl.Clear(FilterError);
-            errorsControl.AddCompilerErrors(GetErrors(compilation.GetDiagnostics()));
         }
 
         private void ErrorsControl_ErrorClick(object sender, ErrorClickEventArgs e)
@@ -254,8 +182,7 @@ namespace AlternetStudio.Demo
 
         private void RunScript()
         {
-            bool modified = Project.HasProject && Project.IsModified;
-            if (SaveAllModifiedFiles() && SetScriptSource(modified))
+            if (SaveAllModifiedFiles() && SetScriptSource())
             {
                 errorsControl.Clear();
                 RunScriptCore();
@@ -269,8 +196,7 @@ namespace AlternetStudio.Demo
 
         private bool Compile()
         {
-            bool modified = Project.HasProject && Project.IsModified;
-            if (SaveAllModifiedFiles() && SetScriptSource(modified))
+            if (SaveAllModifiedFiles() && SetScriptSource())
             {
                 if (errorsControl.UpdateCount == 0)
                     errorsControl.Clear();
@@ -325,22 +251,6 @@ namespace AlternetStudio.Demo
             }
 
             return result;
-        }
-    }
-
-    internal class OutputWriter : StringWriter
-    {
-        private Output output;
-
-        public OutputWriter(Output output)
-        {
-            this.output = output;
-        }
-
-        public override void WriteLine(string line)
-        {
-            base.WriteLine(line);
-            output.CustomLog(line);
         }
     }
 }

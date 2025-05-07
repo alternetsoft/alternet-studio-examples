@@ -418,12 +418,13 @@
             this.laDescription.Name = "laDescription";
             this.laDescription.Size = new System.Drawing.Size(657, 67);
             this.laDescription.TabIndex = 1;
-            this.laDescription.Text = @"Code Editor can display watermarks or background image. Can display white-space symbolx such as spalces, tabs, end-of-line and the end-of-file markers. Supports highlighting of the matching braces. Spell-as-you-type spellchecker intergation with thirt-party spelling engines is supported.";
+            this.laDescription.Text = resources.GetString("laDescription.Text");
             this.laDescription.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // syntaxEdit1
             // 
             this.syntaxEdit1.BackColor = System.Drawing.SystemColors.Window;
+            this.syntaxEdit1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("syntaxEdit1.BackgroundImage")));
             this.syntaxEdit1.Braces.FontStyle = System.Drawing.FontStyle.Bold;
             this.syntaxEdit1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.syntaxEdit1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -446,6 +447,7 @@
             this.ClientSize = new System.Drawing.Size(667, 503);
             this.Controls.Add(this.syntaxEdit1);
             this.Controls.Add(this.pnSettings);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Miscellaneous";

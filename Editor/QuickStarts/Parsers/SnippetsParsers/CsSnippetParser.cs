@@ -1,18 +1,17 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
@@ -418,13 +417,10 @@ return string.Empty;";
             Options = Options & ~(SyntaxOptions.CodeFixes | SyntaxOptions.CodeRefactors);
         }
 
-        [DefaultValue(0)]
         public virtual int StartOffset { get; set; }
 
-        [DefaultValue(0)]
         public virtual int EndOffset { get; set; }
 
-        [DefaultValue("")]
         public virtual string Snippet { get; set; }
 
         public override bool SupportsTextChanges()

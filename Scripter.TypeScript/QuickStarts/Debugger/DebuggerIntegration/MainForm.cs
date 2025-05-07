@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.IO;
@@ -40,9 +40,7 @@ namespace DebuggerIntegration.TypeScript
         public MainForm(string[] args)
         {
             InitializeComponent();
-            var asm = this.GetType().Assembly;
-            var prefix = "DebuggerIntegration.TypeScript.Resources";
-            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
+
             codeEditContainer = new DebugCodeEditContainer(editorsTabControl);
             codeEditContainer.EditorRequested += EditorContainer_EditorRequested;
 
@@ -55,11 +53,9 @@ namespace DebuggerIntegration.TypeScript
 
             debuggerControlToolbar.Debugger = debugger;
             debuggerControlToolbar.DebuggerPreStartup += DebuggerPreStartup;
-            debuggerControlToolbar.DefaultCommands.StartDebuggingOptions = new TypeScriptStartDebuggingOptions();
 
             debugMenu1.Debugger = debugger;
             debugMenu1.DebuggerPreStartup += DebuggerPreStartup;
-            debugMenu1.DefaultCommands.StartDebuggingOptions = new TypeScriptStartDebuggingOptions();
 
             debuggerPanelsTabControl.VisiblePanels &= ~DebuggerPanelKinds.Threads;
             debuggerPanelsTabControl.Debugger = debugger;
@@ -68,7 +64,7 @@ namespace DebuggerIntegration.TypeScript
             controller.DebuggerPanels = debuggerPanelsTabControl;
             codeEditContainer.Debugger = debugger;
 
-            UpdateDebugControls();
+            ScaleControls();
         }
 
         private static string FindProjectFile() =>
@@ -79,6 +75,14 @@ namespace DebuggerIntegration.TypeScript
 
         private static string FindDefaultProjectDirectory() =>
             ProjectSearchDirectories.Select(x => Path.GetFullPath(Path.Combine(Application.StartupPath, x, Path.GetDirectoryName(StartupProjectFileSubPath)))).FirstOrDefault(Directory.Exists);
+
+        private void ScaleControls()
+        {
+            if (!DisplayScaling.NeedsScaling)
+                return;
+
+            splitContainer.SplitterDistance = DisplayScaling.AutoScale(splitContainer.SplitterDistance);
+        }
 
         private void OpenProject(string projectFilePath)
         {
@@ -95,22 +99,12 @@ namespace DebuggerIntegration.TypeScript
             }
 
             debuggerPanelsTabControl.Errors.Clear();
-            UpdateDebugControls();
         }
 
         private void InitDefaultHostAssemblies()
         {
-            scriptRun.ScriptHost.HostItemsConfiguration.AddSystemAssemblies(options: HostItemOptions.GlobalMembers | HostItemOptions.GenerateDescriptions)
-                .AddObject("TestMenuItem", new MenuItemWrapper(this, testMenuItemToolStripMenuItem));
+            scriptRun.ScriptHost.HostItemsConfiguration.AddSystemAssemblies(options: HostItemOptions.GlobalMembers | HostItemOptions.GenerateDescriptions);
             TypeScriptProject.DefaultProject.HostItemsConfiguration = scriptRun.ScriptHost.HostItemsConfiguration;
-        }
-
-        private void UpdateDebugControls()
-        {
-            bool enabled = (Project != null && Project.HasProject) || codeEditContainer.ActiveEditor != null;
-
-            debuggerControlToolbar.Debugger = enabled ? debugger : null;
-            debugMenu1.Debugger = enabled ? debugger : null;
         }
 
         private void CloseProject(TSProject project)
@@ -130,7 +124,6 @@ namespace DebuggerIntegration.TypeScript
 
             Project?.Reset();
             scriptRun.ScriptSource?.Reset();
-            UpdateDebugControls();
         }
 
         private void CloseFile(string fileName)
@@ -256,8 +249,6 @@ namespace DebuggerIntegration.TypeScript
         private void OpenFile(string fileName)
         {
             codeEditContainer.TryActivateEditor(fileName);
-
-            UpdateDebugControls();
         }
 
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -272,8 +263,6 @@ namespace DebuggerIntegration.TypeScript
                 if (dialog.ShowDialog(this) != DialogResult.OK)
                     return;
                 codeEditContainer.TryActivateEditor(dialog.FileName);
-
-                UpdateDebugControls();
             }
         }
 
@@ -295,8 +284,6 @@ namespace DebuggerIntegration.TypeScript
                 Project?.Reset();
                 scriptRun.ScriptSource?.Reset();
             }
-
-            UpdateDebugControls();
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)

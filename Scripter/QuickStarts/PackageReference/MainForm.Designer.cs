@@ -36,7 +36,7 @@
             this.btRun = new System.Windows.Forms.Button();
             this.laDescription = new System.Windows.Forms.Label();
             this.btNETFromScript = new System.Windows.Forms.Button();
-            this.scriptRun = new Alternet.Scripter.ScriptRun();
+            this.scriptRun = new Alternet.Scripter.NuGetScriptRun();
             this.pnEdit = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip();
             this.panel1.SuspendLayout();
@@ -99,6 +99,7 @@
             this.ClientSize = new System.Drawing.Size(718, 442);
             this.Controls.Add(this.pnEdit);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Package reference";

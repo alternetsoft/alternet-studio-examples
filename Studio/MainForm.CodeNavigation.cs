@@ -1,22 +1,24 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 using Alternet.Common;
 using Alternet.Editor.Common;
+using Alternet.Editor.Roslyn;
 
 namespace AlternetStudio.Demo
 {
@@ -26,7 +28,7 @@ namespace AlternetStudio.Demo
 
         private void InitializeCodeNavigationBar()
         {
-            codeNavigationBar = new CodeNavigationBar(classesComboBox, methodsComboBox, ProjectFrameworksComboBox, codeExplorer, () => ActiveSyntaxEdit, codeExplorerTreeView?.ImageList);
+            codeNavigationBar = new CodeNavigationBar(classesComboBox, methodsComboBox, codeExplorer, () => ActiveSyntaxEdit, imageList1);
         }
 
         private void CodeNavigationBarPanel_Resize(object sender, EventArgs e)

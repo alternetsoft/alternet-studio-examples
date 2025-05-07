@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections;
@@ -17,7 +17,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -32,15 +31,11 @@ namespace SearchReplace
     public class ViewModel : INotifyPropertyChanged
     {
         private string dir = AppDomain.CurrentDomain.BaseDirectory + @"\";
-        private MainWindow window;
         private TabControl tcEditors;
-        private ListView findResultsListView;
         private string language = string.Empty;
-        private bool searchMulti = true;
+        private bool searchMulti = false;
         private IDictionary<TabItem, TextEditor> editors = new Dictionary<TabItem, TextEditor>();
         private ObservableCollection<string> languages = new ObservableCollection<string>();
-        private SearchInFilesDialog searchInFilesDialog = new SearchInFilesDialog();
-        private ObservableCollection<ListViewItemData> source = new ObservableCollection<ListViewItemData>();
 
         public ViewModel()
         {
@@ -61,35 +56,16 @@ namespace SearchReplace
             FindCommand = new RelayCommand(FindClick);
             ReplaceCommand = new RelayCommand(ReplaceClick);
             GotoCommand = new RelayCommand(GotoClick);
-            FindInFilesCommand = new RelayCommand(FindInFilesClick);
         }
 
-        public ViewModel(MainWindow window)
+        public ViewModel(TabControl tcEditors)
             : this()
         {
-            this.window = window;
-            this.tcEditors = window.tcEditors;
-            this.findResultsListView = window.FindResultsListView;
-            findResultsListView.MouseDoubleClick += FindResultsListView_MouseDoubleClick;
+            this.tcEditors = tcEditors;
             SearchManager.SharedSearch.InitSearch += new InitSearchEvent(DoInitSearch);
             SearchManager.SharedSearch.GetSearch += new GetSearchEvent(DoGetSearch);
-            SearchManager.SharedSearch.TextFound += new TextFoundEvent(DoTextFound);
-            SearchManager.SharedSearch.SearchResultsAvailable += SearchManager_SearchResultsAvailable;
-            SearchManager.SharedSearch.Shared = searchMulti;
             OpenProject();
             Language = "Default";
-
-            foreach (var editor in editors.Values)
-            {
-                (editor.Lexer as CsParser)?.ReparseText();
-            }
-
-            tcEditors.SelectionChanged += (s, x) =>
-            {
-                var editor = GetEditor(tcEditors.SelectedItem as TabItem);
-                var parser = editor?.Lexer as CsParser;
-                parser?.ReparseText();
-            };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -142,22 +118,6 @@ namespace SearchReplace
 
         public ICommand GotoCommand { get; set; }
 
-        public ICommand FindInFilesCommand { get; set; }
-
-        private IFileRange SelectedRange
-        {
-            get
-            {
-                object obj = findResultsListView.SelectedItem;
-                if ((obj != null) && (obj is ListViewItemData))
-                {
-                    return ((ListViewItemData)obj).Tag as IFileRange;
-                }
-
-                return null;
-            }
-        }
-
         protected virtual void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -197,6 +157,12 @@ namespace SearchReplace
                 {
                     tcEditors.SelectedItem = page;
                     UpdateSearch();
+                    edit.Dispatcher.BeginInvoke(
+                        DispatcherPriority.ContextIdle,
+                        new Action(delegate()
+                        {
+                            edit.Focus();
+                        }));
                     e.Search = edit;
                     break;
                 }
@@ -211,95 +177,6 @@ namespace SearchReplace
                 edit.SearchGlobal = searchMulti;
                 if (edit.Source != null)
                     e.SearchList.Add(edit.Source.FileName);
-            }
-        }
-
-        private void DoTextFound(object sender, TextFoundEventArgs e)
-        {
-            if (e.Search != null)
-                return;
-
-            var search = OpenFile(e.FileName) as ISearch;
-            if (search != null)
-            {
-                e.Search = search;
-                search.OnTextFound(e.Text, e.Options, e.Expression, e.Match, e.Position, e.Len, false, e.MultiLine);
-                UpdateSearch();
-            }
-        }
-
-        private void NavigateToRange()
-        {
-            IFileRange range = SelectedRange;
-            TextEditor edit = OpenFile(range.FileName);
-            if (edit != null)
-            {
-                var position = new System.Drawing.Point(range.StartPoint.X, range.StartPoint.Y);
-                edit.MakeVisible(position, true);
-                edit.Position = position;
-                edit.Focus();
-            }
-        }
-
-        private TextEditor OpenFile(string fileName)
-        {
-            TextEditor edit = FindFile(fileName);
-            if ((edit != null) && (edit.Parent is TabItem))
-            {
-                tcEditors.SelectedItem = (TabItem)edit.Parent;
-                return edit;
-            }
-
-            return null;
-        }
-
-        private TextEditor FindFile(string fileName)
-        {
-            var canonicalPath = new Uri(fileName).LocalPath;
-            foreach (TabItem tabPage in tcEditors.Items)
-            {
-                var edit = GetEditor(tabPage);
-                if (edit != null)
-                {
-                    var path = edit.Source.FileName;
-                    path = new Uri(path).LocalPath;
-                    if (path.Equals(canonicalPath, StringComparison.OrdinalIgnoreCase))
-                        return edit;
-                }
-            }
-
-            return null;
-        }
-
-        private void SearchManager_SearchResultsAvailable(object sender, SearchResultsEventArgs e)
-        {
-            AddSearchResults(e.Ranges);
-        }
-
-        private void AddSearchResults(IList<IFileRange> references)
-        {
-            source.Clear();
-
-            foreach (var range in references)
-            {
-                var fileRange = range as IFileRange;
-                if (fileRange != null)
-                    AddFindResultCore(fileRange);
-            }
-
-            findResultsListView.ItemsSource = source;
-        }
-
-        private void AddFindResultCore(IFileRange range)
-        {
-            if (source != null)
-            {
-                ListViewItemData data = new ListViewItemData();
-                data.File = Path.GetFileName(range.FileName);
-                data.Line = (range.StartPoint.Y + 1).ToString();
-                data.SourceText = range.SourceText.Trim();
-                data.Tag = range;
-                source.Add(data);
             }
         }
 
@@ -338,7 +215,6 @@ namespace SearchReplace
             TextEditor edit = new TextEditor();
             edit.LineNumbersVisible = true;
             TextSource source = new TextSource();
-            edit.SearchGlobal = searchMulti;
             editors.Add(page, edit);
             page.Content = edit;
             edit.Source = source;
@@ -399,25 +275,6 @@ namespace SearchReplace
             if (edit != null)
             {
                 edit.DisplayGotoLineDialog();
-            }
-        }
-
-        private void FindResultsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            NavigateToRange();
-        }
-
-        private void FindInFilesClick()
-        {
-            DisplaySearchInFilesDialog();
-        }
-
-        private void DisplaySearchInFilesDialog()
-        {
-            TextEditor edit = GetActiveSyntaxEdit();
-            if (edit != null)
-            {
-                searchInFilesDialog.Execute(edit, true, false, null);
             }
         }
 
@@ -502,17 +359,6 @@ namespace SearchReplace
 
                     break;
             }
-        }
-
-        protected class ListViewItemData
-        {
-            public string File { get; set; }
-
-            public string Line { get; set; }
-
-            public string SourceText { get; set; }
-
-            public object Tag { get; set; }
         }
     }
 }

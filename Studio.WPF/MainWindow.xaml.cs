@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections;
@@ -26,9 +26,13 @@ using System.Windows.Media;
 using System.Windows.Threading;
 
 using Alternet.Common;
+using Alternet.Common.Projects;
 using Alternet.Common.Wpf;
+using Alternet.Editor.Common.Wpf;
+using Alternet.Editor.Roslyn.Wpf;
 using Alternet.Editor.Wpf;
 using Alternet.FormDesigner.Wpf;
+using Alternet.Scripter.Debugger;
 using Microsoft.Win32;
 
 namespace AlternetStudio.Wpf.Demo
@@ -46,20 +50,17 @@ namespace AlternetStudio.Wpf.Demo
         private const int WatchesTabIndex = 4;
         private const int ErrorsTabIndex = 5;
         private const int ThreadsTabIndex = 6;
+        private const int PropertiesImage = 2;
+        private const int FolderCloseImage = 7;
+        private const int FolderOpenImage = 8;
         private const int FindResultTabIndex = 7;
+
+        private const int SizeGap = 6;
 
         private SaveFileDialog saveFileDialog = new SaveFileDialog();
         private OpenFileDialog openFileDialog = new OpenFileDialog { Multiselect = false };
 
 #endregion
-
-        static MainWindow()
-        {
-            Utilities.DoApplicationEvents += (s, e) =>
-            {
-                DoEvents();
-            };
-        }
 
         public MainWindow()
         {
@@ -73,14 +74,6 @@ namespace AlternetStudio.Wpf.Demo
             BookMarkManager.SharedBookMarks.Activate += new EventHandler<ActivateEventArgs>(DoActivate);
             BookMarkManager.SharedBookMarks.BookMarkAdded += SharedBookMarks_BookMarkAdded;
             BookMarkManager.SharedBookMarks.BookMarkRemoved += SharedBookMarks_BookMarkRemoved;
-        }
-
-        /// <summary>
-        /// Processes all Windows messages currently in the message queue.
-        /// </summary>
-        public static void DoEvents()
-        {
-            Application.Current.Dispatcher.Invoke(DispatcherPriority.Background, new Action(delegate { }));
         }
 
         protected override void OnClosed(EventArgs e)
@@ -123,6 +116,25 @@ namespace AlternetStudio.Wpf.Demo
         }
 
         #region Designer
+
+        private bool IsXamlFile(string fileName, out string formId)
+        {
+            formId = null;
+
+            var pathWithoutExtension = Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName));
+
+            const string XamlExtension = ".xaml";
+
+            if (fileName.EndsWith(XamlExtension, StringComparison.OrdinalIgnoreCase))
+            {
+                formId = fileName;
+                if (!File.Exists(formId))
+                    return false;
+                return true;
+            }
+
+            return false;
+        }
 
         private void AddReference(IList<string> references, string reference)
         {
@@ -303,7 +315,7 @@ namespace AlternetStudio.Wpf.Demo
                 return null;
 
             string formId;
-            if (FormFilesUtility.IsXamlFile(codeOrXamlFileName, out formId))
+            if (IsXamlFile(codeOrXamlFileName, out formId))
                 return codeOrXamlFileName;
 
             var possibleXamlFile = GetXamlFileName(codeOrXamlFileName);

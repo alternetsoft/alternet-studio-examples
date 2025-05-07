@@ -25,10 +25,11 @@ class MyClass:
         
 
 def ChangeMenuItem():
-    TestMenuItem.Text += "123"
+    TestMenuItem.Text += "1"
     TestMenuItem.Enabled = not TestMenuItem.Enabled
 
-ChangeMenuItem()
+control = TestMenuItem.Owner
+control.Invoke(Action(lambda: ChangeMenuItem()))
 
 x = 123
 a = [1, 2, 3, 4, 5]

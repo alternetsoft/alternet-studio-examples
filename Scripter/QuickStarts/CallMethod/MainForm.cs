@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2023 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Diagnostics;
@@ -17,7 +17,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-using Alternet.Common;
 using Alternet.Editor.Common;
 using Alternet.Editor.Roslyn;
 using Alternet.Scripter;
@@ -36,9 +35,6 @@ namespace CallMethod
         public MainForm()
         {
             InitializeComponent();
-            var asm = this.GetType().Assembly;
-            var prefix = "CallMethod.Resources";
-            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
 
             CreateEditor();
 

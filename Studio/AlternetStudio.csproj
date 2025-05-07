@@ -4,7 +4,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <UseWindowsForms>true</UseWindowsForms>
@@ -17,12 +17,15 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <RootNamespace>AlternetStudio.Demo</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>..\..\bin\Release\Demos.Studio\</OutputPath>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.0</Version>
+      <Version>9.5.16</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -32,7 +35,6 @@
     <None Remove="Resources\Bookmark_HighDpi.png" />
     <None Remove="Resources\ClearBookmark.png" />
     <None Remove="Resources\ClearBookmark_HighDpi.png" />
-    <None Remove="Resources\CodeExplorerImages.png" />
     <None Remove="Resources\Compile.png" />
     <None Remove="Resources\Compile_HighDpi.png" />
     <None Remove="Resources\Copy.png" />
@@ -47,7 +49,6 @@
     <None Remove="Resources\Forwards_HighDpi.png" />
     <None Remove="Resources\GoToDefinition.png" />
     <None Remove="Resources\GoToDefinition_HighDpi.png" />
-    <None Remove="Resources\Icon.ico" />
     <None Remove="Resources\NewFile.png" />
     <None Remove="Resources\NewFile_HighDpi.png" />
     <None Remove="Resources\NextBookmark.png" />
@@ -81,27 +82,24 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.WindowsForms" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.XAML" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.WindowsForms" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.XAML" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.5.16" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dialogs\AddReferenceDialog.cs" />
-    <Compile Include="Dialogs\AddReferenceDialog.Designer.cs" />
-    <Compile Include="Dialogs\AssemblyHelper.cs" />
     <Compile Include="Dialogs\AttachToProcessDialog.cs" />
     <Compile Include="Dialogs\AttachToProcessDialog.Designer.cs" />
     <Compile Include="Dialogs\AboutDialog.cs">
@@ -149,7 +147,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteControl\RemoteControlService.cs" />
-    <EmbeddedResource Include="Dialogs\AddReferenceDialog.resx" />
     <EmbeddedResource Include="Dialogs\AttachToProcessDialog.resx" />
     <EmbeddedResource Include="Dialogs\AboutDialog.resx">
       <SubType>Designer</SubType>
@@ -172,7 +169,6 @@
     <EmbeddedResource Include="Resources\Bookmark_HighDpi.png" />
     <EmbeddedResource Include="Resources\ClearBookmark.png" />
     <EmbeddedResource Include="Resources\ClearBookmark_HighDpi.png" />
-    <EmbeddedResource Include="Resources\CodeExplorerImages.png" />
     <EmbeddedResource Include="Resources\Copy.png" />
     <EmbeddedResource Include="Resources\Copy_HighDpi.png" />
     <EmbeddedResource Include="Resources\Cut.png" />
@@ -185,7 +181,6 @@
     <EmbeddedResource Include="Resources\Forwards_HighDpi.png" />
     <EmbeddedResource Include="Resources\GoToDefinition.png" />
     <EmbeddedResource Include="Resources\GoToDefinition_HighDpi.png" />
-    <EmbeddedResource Include="Resources\Icon.ico" />
     <EmbeddedResource Include="Resources\NewFile.png" />
     <EmbeddedResource Include="Resources\NewFile_HighDpi.png" />
     <EmbeddedResource Include="Resources\NextBookmark.png" />
@@ -200,7 +195,6 @@
     <EmbeddedResource Include="Resources\PrintPreview.png" />
     <EmbeddedResource Include="Resources\PrintPreview_HighDpi.png" />
     <EmbeddedResource Include="Resources\Print_HighDpi.png" />
-    <EmbeddedResource Include="Resources\ProjectExplorerImages.png" />
     <EmbeddedResource Include="Resources\Redo.png" />
     <EmbeddedResource Include="Resources\Redo_HighDpi.png" />
     <EmbeddedResource Include="Resources\ReplaceInFiles.png" />

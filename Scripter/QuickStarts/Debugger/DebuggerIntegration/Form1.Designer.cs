@@ -218,6 +218,7 @@
             this.Controls.Add(this.debuggerControlToolbar1);
             this.Controls.Add(this.mainMenu);
             this.Name = "Form1";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenu;
             this.Text = "Debugger Integration";
             this.mainMenu.ResumeLayout(false);

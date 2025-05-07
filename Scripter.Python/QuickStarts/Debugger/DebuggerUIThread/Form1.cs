@@ -33,9 +33,6 @@ namespace DebuggerIntegration.Python
             SetupPython();
 
             InitializeComponent();
-            var asm = this.GetType().Assembly;
-            var prefix = ".Resources";
-            //Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
 
             editorTabContainer = new DebugCodeEditContainer(editorsTabControl);
 

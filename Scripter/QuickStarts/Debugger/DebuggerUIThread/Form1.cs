@@ -31,9 +31,6 @@ namespace DebuggerUIThread
         public Form1()
         {
             InitializeComponent();
-            var asm = this.GetType().Assembly;
-            var prefix = ".Resources";
-            //Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
 
             codeEditContainer = new DebugCodeEditContainer(editorsTabControl);
             codeEditContainer.EditorRequested += EditorContainer_EditorRequested;
@@ -45,7 +42,7 @@ namespace DebuggerUIThread
                 ScriptRun = scriptRun1,
             };
 
-            debugger.DebuggerErrorOccurred += Debugger_DebuggerErrorOccurred;
+            debugger.DebuggerErrorOccured += Debugger_DebuggerErrorOccured;
 
             debuggerControlToolbar1.Debugger = debugger;
             debuggerControlToolbar1.DebuggerPreStartup += OnDebuggerPreStartup;
@@ -61,6 +58,8 @@ namespace DebuggerUIThread
             codeEditContainer.Debugger = debugger;
             debugMenu1.CommandsListener = new DebuggerUICommands(this, debugger);
             debuggerControlToolbar1.CommandsListener = new DebuggerUICommands(this, debugger);
+
+            ScaleControls();
 
             StartDisplayFormThread(DisplayForm.Command.None);
             FormClosing += Form1_FormClosing;
@@ -109,7 +108,7 @@ namespace DebuggerUIThread
             displayForm = null;
         }
 
-        private void Debugger_DebuggerErrorOccurred(object sender, DebuggerErrorOccurredEventArgs e)
+        private void Debugger_DebuggerErrorOccured(object sender, DebuggerErrorOccuredEventArgs e)
         {
             BeginInvoke(new Action(() => MessageBox.Show(this, e.Exception.ToString(), "Debugger Error", MessageBoxButtons.OK, MessageBoxIcon.Error)));
         }
@@ -140,6 +139,14 @@ namespace DebuggerUIThread
             return false;
         }
 
+        private void ScaleControls()
+        {
+            if (!DisplayScaling.NeedsScaling)
+                return;
+
+            splitContainer.SplitterDistance = DisplayScaling.AutoScale(splitContainer.SplitterDistance);
+        }
+
         private void OpenProject(string projectFilePath)
         {
             if (Project != null && Project.HasProject)
@@ -147,7 +154,8 @@ namespace DebuggerUIThread
 
             Project.Load(projectFilePath);
             scriptRun1.ScriptSource.FromScriptProject(Project.ProjectFileName);
-            CodeEditExtensions.OpenProject(Project);
+            var extension = Project.ProjectExtension;
+            CodeEditExtensions.OpenProject(extension, Project);
 
             if (Project.Files.Count > 0)
             {

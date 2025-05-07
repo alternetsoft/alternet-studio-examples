@@ -12,10 +12,8 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
@@ -56,11 +54,9 @@
             <CheckBox Name="DisableSelectionCheckBox" Content="Disable Selection" Margin="5"
                   Checked="DisableSelectionCheckBox_CheckedChanged" Unchecked="DisableSelectionCheckBox_CheckedChanged" ToolTip="Disable selecting any text"/>
 
-            <CheckBox Name="DisableMouseSelectionCheckBox" Content="Disable Mouse Selection" Margin="5"
-                  Checked="DisableMouseSelectionCheckBox_CheckedChanged" Unchecked="DisableMouseSelectionCheckBox_CheckedChanged" ToolTip="Disable selecting any text by mouse movement"/>
-
             <CheckBox Name="AllowDragAndDropCheckBox" Content="Allow Drag and Drop" Margin="5"
                   Checked="AllowDragAndDropCheckBox_CheckedChanged" Unchecked="AllowDragAndDropCheckBox_CheckedChanged" ToolTip="Enable dragging the selected text"/>
         </StackPanel>
+
     </Grid>
 </UserControl>

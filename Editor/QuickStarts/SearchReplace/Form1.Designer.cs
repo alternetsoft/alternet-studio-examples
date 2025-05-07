@@ -31,239 +31,174 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            pnSettings = new System.Windows.Forms.Panel();
-            groupBox1 = new System.Windows.Forms.GroupBox();
-            chbSearchMultiDoc = new System.Windows.Forms.CheckBox();
-            cbLanguages = new System.Windows.Forms.ComboBox();
-            laLanguages = new System.Windows.Forms.Label();
-            FindNextButton = new System.Windows.Forms.Button();
-            btReplace = new System.Windows.Forms.Button();
-            btGoto = new System.Windows.Forms.Button();
-            FindInFilesButton = new System.Windows.Forms.Button();
-            pnDescription = new System.Windows.Forms.Panel();
-            laDescription = new System.Windows.Forms.Label();
-            toolTip1 = new System.Windows.Forms.ToolTip(components);
-            BottomPanel = new System.Windows.Forms.Panel();
-            FindResultsListView = new System.Windows.Forms.ListView();
-            FileColumn = new System.Windows.Forms.ColumnHeader();
-            LineColumn = new System.Windows.Forms.ColumnHeader();
-            CodeColumn = new System.Windows.Forms.ColumnHeader();
-            tcEditors = new System.Windows.Forms.TabControl();
-            pnSettings.SuspendLayout();
-            groupBox1.SuspendLayout();
-            pnDescription.SuspendLayout();
-            BottomPanel.SuspendLayout();
-            SuspendLayout();
+            this.pnSettings = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chbSearchMultiDoc = new System.Windows.Forms.CheckBox();
+            this.cbLanguages = new System.Windows.Forms.ComboBox();
+            this.laLanguages = new System.Windows.Forms.Label();
+            this.FindNextButton = new System.Windows.Forms.Button();
+            this.btReplace = new System.Windows.Forms.Button();
+            this.btGoto = new System.Windows.Forms.Button();
+            this.pnDescription = new System.Windows.Forms.Panel();
+            this.laDescription = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tcEditors = new System.Windows.Forms.TabControl();
+            this.pnSettings.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.pnDescription.SuspendLayout();
+            this.SuspendLayout();
             // 
             // pnSettings
             // 
-            pnSettings.Controls.Add(groupBox1);
-            pnSettings.Controls.Add(pnDescription);
-            pnSettings.Dock = System.Windows.Forms.DockStyle.Top;
-            pnSettings.Location = new System.Drawing.Point(0, 0);
-            pnSettings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            pnSettings.Name = "pnSettings";
-            pnSettings.Padding = new System.Windows.Forms.Padding(7, 8, 7, 8);
-            pnSettings.Size = new System.Drawing.Size(1000, 152);
-            pnSettings.TabIndex = 4;
+            this.pnSettings.Controls.Add(this.groupBox1);
+            this.pnSettings.Controls.Add(this.pnDescription);
+            this.pnSettings.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnSettings.Location = new System.Drawing.Point(0, 0);
+            this.pnSettings.Name = "pnSettings";
+            this.pnSettings.Padding = new System.Windows.Forms.Padding(5);
+            this.pnSettings.Size = new System.Drawing.Size(667, 99);
+            this.pnSettings.TabIndex = 4;
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(chbSearchMultiDoc);
-            groupBox1.Controls.Add(cbLanguages);
-            groupBox1.Controls.Add(laLanguages);
-            groupBox1.Controls.Add(FindNextButton);
-            groupBox1.Controls.Add(btReplace);
-            groupBox1.Controls.Add(btGoto);
-            groupBox1.Controls.Add(FindInFilesButton);
-            groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            groupBox1.Location = new System.Drawing.Point(7, 68);
-            groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            groupBox1.Size = new System.Drawing.Size(986, 76);
-            groupBox1.TabIndex = 9;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Dialogs";
+            this.groupBox1.Controls.Add(this.chbSearchMultiDoc);
+            this.groupBox1.Controls.Add(this.cbLanguages);
+            this.groupBox1.Controls.Add(this.laLanguages);
+            this.groupBox1.Controls.Add(this.FindNextButton);
+            this.groupBox1.Controls.Add(this.btReplace);
+            this.groupBox1.Controls.Add(this.btGoto);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(5, 44);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(657, 50);
+            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Dialogs";
             // 
             // chbSearchMultiDoc
             // 
-            chbSearchMultiDoc.AutoSize = true;
-            chbSearchMultiDoc.Location = new System.Drawing.Point(785, 32);
-            chbSearchMultiDoc.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            chbSearchMultiDoc.Name = "chbSearchMultiDoc";
-            chbSearchMultiDoc.Size = new System.Drawing.Size(188, 24);
-            chbSearchMultiDoc.TabIndex = 5;
-            chbSearchMultiDoc.Text = "Multi-Document Search";
-            chbSearchMultiDoc.Checked = true;
-            chbSearchMultiDoc.UseVisualStyleBackColor = true;
-            chbSearchMultiDoc.CheckedChanged += SearchMultiDocCheckBox_CheckedChanged;
-            chbSearchMultiDoc.MouseMove += SearchMultiDocCheckBox_MouseMove;
+            this.chbSearchMultiDoc.AutoSize = true;
+            this.chbSearchMultiDoc.Location = new System.Drawing.Point(503, 21);
+            this.chbSearchMultiDoc.Name = "chbSearchMultiDoc";
+            this.chbSearchMultiDoc.Size = new System.Drawing.Size(137, 17);
+            this.chbSearchMultiDoc.TabIndex = 5;
+            this.chbSearchMultiDoc.Text = "Multi-Document Search";
+            this.chbSearchMultiDoc.UseVisualStyleBackColor = true;
+            this.chbSearchMultiDoc.CheckedChanged += new System.EventHandler(this.SearchMultiDocCheckBox_CheckedChanged);
+            this.chbSearchMultiDoc.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SearchMultiDocCheckBox_MouseMove);
             // 
             // cbLanguages
             // 
-            cbLanguages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cbLanguages.Items.AddRange(new object[] { "Default", "English", "French", "German", "Spanish", "Russian", "Ukrainian" });
-            cbLanguages.Location = new System.Drawing.Point(157, 28);
-            cbLanguages.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            cbLanguages.Name = "cbLanguages";
-            cbLanguages.Size = new System.Drawing.Size(160, 28);
-            cbLanguages.TabIndex = 4;
-            cbLanguages.SelectedIndexChanged += LanguagesComboBox_SelectedIndexChanged;
-            cbLanguages.MouseMove += LanguagesComboBox_MouseMove;
+            this.cbLanguages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbLanguages.Items.AddRange(new object[] {
+            "Default",
+            "English",
+            "French",
+            "German",
+            "Spanish",
+            "Russian",
+            "Ukrainian"});
+            this.cbLanguages.Location = new System.Drawing.Point(118, 18);
+            this.cbLanguages.Name = "cbLanguages";
+            this.cbLanguages.Size = new System.Drawing.Size(121, 21);
+            this.cbLanguages.TabIndex = 4;
+            this.cbLanguages.SelectedIndexChanged += new System.EventHandler(this.LanguagesComboBox_SelectedIndexChanged);
+            this.cbLanguages.MouseMove += new System.Windows.Forms.MouseEventHandler(this.LanguagesComboBox_MouseMove);
             // 
             // laLanguages
             // 
-            laLanguages.AutoSize = true;
-            laLanguages.Location = new System.Drawing.Point(21, 32);
-            laLanguages.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            laLanguages.Name = "laLanguages";
-            laLanguages.Size = new System.Drawing.Size(138, 20);
-            laLanguages.TabIndex = 3;
-            laLanguages.Text = "Selected Language:";
+            this.laLanguages.AutoSize = true;
+            this.laLanguages.Location = new System.Drawing.Point(16, 21);
+            this.laLanguages.Name = "laLanguages";
+            this.laLanguages.Size = new System.Drawing.Size(103, 13);
+            this.laLanguages.TabIndex = 3;
+            this.laLanguages.Text = "Selected Language:";
             // 
-            // FindNextButton
+            // btFind
             // 
-            FindNextButton.BackColor = System.Drawing.SystemColors.Control;
-            FindNextButton.Location = new System.Drawing.Point(327, 25);
-            FindNextButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            FindNextButton.Name = "FindNextButton";
-            FindNextButton.Size = new System.Drawing.Size(107, 35);
-            FindNextButton.TabIndex = 0;
-            FindNextButton.Text = "Find Next";
-            FindNextButton.UseVisualStyleBackColor = false;
-            FindNextButton.Click += FindButton_Click;
-            FindNextButton.MouseMove += FindButton_MouseMove;
+            this.FindNextButton.BackColor = System.Drawing.SystemColors.Control;
+            this.FindNextButton.Location = new System.Drawing.Point(245, 16);
+            this.FindNextButton.Name = "btFind";
+            this.FindNextButton.Size = new System.Drawing.Size(80, 23);
+            this.FindNextButton.TabIndex = 0;
+            this.FindNextButton.Text = "Find Next";
+            this.FindNextButton.UseVisualStyleBackColor = false;
+            this.FindNextButton.Click += new System.EventHandler(this.FindButton_Click);
+            this.FindNextButton.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FindButton_MouseMove);
             // 
             // btReplace
             // 
-            btReplace.BackColor = System.Drawing.SystemColors.Control;
-            btReplace.Location = new System.Drawing.Point(441, 25);
-            btReplace.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            btReplace.Name = "btReplace";
-            btReplace.Size = new System.Drawing.Size(107, 35);
-            btReplace.TabIndex = 1;
-            btReplace.Text = "Replace";
-            btReplace.UseVisualStyleBackColor = false;
-            btReplace.Click += ReplaceButton_Click;
-            btReplace.MouseMove += ReplaceButton_MouseMove;
+            this.btReplace.BackColor = System.Drawing.SystemColors.Control;
+            this.btReplace.Location = new System.Drawing.Point(331, 16);
+            this.btReplace.Name = "btReplace";
+            this.btReplace.Size = new System.Drawing.Size(80, 23);
+            this.btReplace.TabIndex = 1;
+            this.btReplace.Text = "Replace";
+            this.btReplace.UseVisualStyleBackColor = false;
+            this.btReplace.Click += new System.EventHandler(this.ReplaceButton_Click);
+            this.btReplace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ReplaceButton_MouseMove);
             // 
             // btGoto
             // 
-            btGoto.BackColor = System.Drawing.SystemColors.Control;
-            btGoto.Location = new System.Drawing.Point(556, 25);
-            btGoto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            btGoto.Name = "btGoto";
-            btGoto.Size = new System.Drawing.Size(107, 35);
-            btGoto.TabIndex = 2;
-            btGoto.Text = "Go to Line";
-            btGoto.UseVisualStyleBackColor = false;
-            btGoto.Click += GotoButton_Click;
-            btGoto.MouseMove += GotoButton_MouseMove;
-            // 
-            // FindInFilesButton
-            // 
-            FindInFilesButton.BackColor = System.Drawing.SystemColors.Control;
-            FindInFilesButton.Location = new System.Drawing.Point(671, 25);
-            FindInFilesButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            FindInFilesButton.Name = "FindInFilesButton";
-            FindInFilesButton.Size = new System.Drawing.Size(107, 35);
-            FindInFilesButton.TabIndex = 2;
-            FindInFilesButton.Text = "Find In Files";
-            FindInFilesButton.UseVisualStyleBackColor = false;
-            FindInFilesButton.Click += FindInFilesButton_Click;
-            FindInFilesButton.MouseMove += FindInFilesButton_MouseMove;
+            this.btGoto.BackColor = System.Drawing.SystemColors.Control;
+            this.btGoto.Location = new System.Drawing.Point(417, 16);
+            this.btGoto.Name = "btGoto";
+            this.btGoto.Size = new System.Drawing.Size(80, 23);
+            this.btGoto.TabIndex = 2;
+            this.btGoto.Text = "Go to Line";
+            this.btGoto.UseVisualStyleBackColor = false;
+            this.btGoto.Click += new System.EventHandler(this.GotoButton_Click);
+            this.btGoto.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GotoButton_MouseMove);
             // 
             // pnDescription
             // 
-            pnDescription.Controls.Add(laDescription);
-            pnDescription.Dock = System.Windows.Forms.DockStyle.Top;
-            pnDescription.Location = new System.Drawing.Point(7, 8);
-            pnDescription.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            pnDescription.Name = "pnDescription";
-            pnDescription.Size = new System.Drawing.Size(986, 60);
-            pnDescription.TabIndex = 8;
+            this.pnDescription.Controls.Add(this.laDescription);
+            this.pnDescription.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnDescription.Location = new System.Drawing.Point(5, 5);
+            this.pnDescription.Name = "pnDescription";
+            this.pnDescription.Size = new System.Drawing.Size(657, 39);
+            this.pnDescription.TabIndex = 8;
             // 
             // laDescription
             // 
-            laDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            laDescription.Location = new System.Drawing.Point(0, 0);
-            laDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            laDescription.Name = "laDescription";
-            laDescription.Size = new System.Drawing.Size(986, 60);
-            laDescription.TabIndex = 1;
-            laDescription.Text = "This demo shows how to use built-in Search, Replace and Go To Line dialogs.  All dialogs can be localized.";
-            laDescription.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // BottomPanel
-            // 
-            BottomPanel.Controls.Add(FindResultsListView);
-            BottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            BottomPanel.Location = new System.Drawing.Point(0, 342);
-            BottomPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            BottomPanel.Name = "BottomPanel";
-            BottomPanel.Size = new System.Drawing.Size(1000, 209);
-            BottomPanel.TabIndex = 5;
-            // 
-            // FindResultsListView
-            // 
-            FindResultsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { FileColumn, LineColumn, CodeColumn });
-            FindResultsListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            FindResultsListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            FindResultsListView.Location = new System.Drawing.Point(0, 0);
-            FindResultsListView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            FindResultsListView.Name = "FindResultsListView";
-            FindResultsListView.Size = new System.Drawing.Size(1000, 209);
-            FindResultsListView.TabIndex = 0;
-            FindResultsListView.UseCompatibleStateImageBehavior = false;
-            FindResultsListView.View = System.Windows.Forms.View.Details;
-            FindResultsListView.MouseDoubleClick += FindResultsListView_MouseDoubleClick;
-            // 
-            // FileColumn
-            // 
-            FileColumn.Text = "File";
-            FileColumn.Width = 120;
-            // 
-            // LineColumn
-            // 
-            LineColumn.Text = "Line";
-            // 
-            // CodeColumn
-            // 
-            CodeColumn.Text = "Code";
-            CodeColumn.Width = 1000;
+            this.laDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.laDescription.Location = new System.Drawing.Point(0, 0);
+            this.laDescription.Name = "laDescription";
+            this.laDescription.Size = new System.Drawing.Size(657, 39);
+            this.laDescription.TabIndex = 1;
+            this.laDescription.Text = "This demo shows how to use built-in Search, Replace and Go To Line dialogs.  All " +
+    "dialogs can be localized.";
+            this.laDescription.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tcEditors
             // 
-            tcEditors.Dock = System.Windows.Forms.DockStyle.Fill;
-            tcEditors.Location = new System.Drawing.Point(0, 152);
-            tcEditors.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            tcEditors.Name = "tcEditors";
-            tcEditors.SelectedIndex = 0;
-            tcEditors.Size = new System.Drawing.Size(1000, 190);
-            tcEditors.TabIndex = 43;
+            this.tcEditors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tcEditors.Location = new System.Drawing.Point(0, 99);
+            this.tcEditors.Name = "tcEditors";
+            this.tcEditors.SelectedIndex = 0;
+            this.tcEditors.Size = new System.Drawing.Size(667, 259);
+            this.tcEditors.TabIndex = 40;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1000, 581);
-            Controls.Add(tcEditors);
-            Controls.Add(BottomPanel);
-            Controls.Add(pnSettings);
-            Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            Name = "Form1";
-            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            Text = "Search & Replace";
-            Load += Form1_Load;
-            pnSettings.ResumeLayout(false);
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            pnDescription.ResumeLayout(false);
-            BottomPanel.ResumeLayout(false);
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(667, 358);
+            this.Controls.Add(this.tcEditors);
+            this.Controls.Add(this.pnSettings);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Search & Replace";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.pnSettings.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.pnDescription.ResumeLayout(false);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
@@ -273,18 +208,12 @@
         private System.Windows.Forms.Button FindNextButton;
         private System.Windows.Forms.Button btReplace;
         private System.Windows.Forms.Button btGoto;
-        private System.Windows.Forms.Button FindInFilesButton;
-        private System.Windows.Forms.Panel BottomPanel;
-        private System.Windows.Forms.ListView FindResultsListView;
         private System.Windows.Forms.Panel pnDescription;
         private System.Windows.Forms.Label laDescription;
         private System.Windows.Forms.ComboBox cbLanguages;
         private System.Windows.Forms.Label laLanguages;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.CheckBox chbSearchMultiDoc;
-        private System.Windows.Forms.ColumnHeader FileColumn;
-        private System.Windows.Forms.ColumnHeader LineColumn;
-        private System.Windows.Forms.ColumnHeader CodeColumn;
         private System.Windows.Forms.TabControl tcEditors;
+        private System.Windows.Forms.CheckBox chbSearchMultiDoc;
     }
 }

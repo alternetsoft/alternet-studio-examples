@@ -182,6 +182,7 @@
             this.Controls.Add(this.laBubbleSort);
             this.Controls.Add(this.pnBubbleSort);
             this.Controls.Add(this.pnDescription);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Threading - TypeScript";

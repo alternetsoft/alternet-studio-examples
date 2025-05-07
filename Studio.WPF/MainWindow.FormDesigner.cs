@@ -1,26 +1,27 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2023 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2023 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2023 Alternet Software
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Alternet.Common;
-using Alternet.Common.Projects.DotNet;
 using Alternet.Editor.Common.Wpf;
 using Alternet.Editor.Roslyn.Wpf;
 using Alternet.FormDesigner.Integration.Wpf;
@@ -126,43 +127,16 @@ namespace AlternetStudio.Wpf.Demo
             if (!CheckUserCodeLanguageNonAmbiguous(xamlFileName, userCodeFileName))
                 return;
 
-            var project = GetProject((TreeViewItem)projectExplorerTreeView.SelectedItem);
-            if (project == null)
-                project = Project;
-            bool addToProject = project != null && project.HasProject;
-
             var source = new FormDesignerDataSource(xamlFileName, language);
-            FormFilesUtility.CreateFormFiles(source, new FormFilesUtility.CreateFormFilesOptions { GenerateMainMethod = !addToProject });
+            FormFilesUtility.CreateFormFiles(source, new FormFilesUtility.CreateFormFilesOptions { GenerateMainMethod = true });
 
-            if (!addToProject)
-            {
-                OpenFile(source.UserCodeFileName);
-                OpenFile(source.XamlFileName);
-                OpenDesigner(source.XamlFileName);
-            }
-            else
-            {
-                project.BeginUpdate();
-                try
-                {
-                    project.AddFile(source.UserCodeFileName);
-                    project.AddFile(source.XamlFileName, BuildAction.Page);
-                    OpenFile(source.UserCodeFileName);
-                    OpenFile(source.XamlFileName);
-                    OpenDesigner(source.XamlFileName);
-                }
-                finally
-                {
-                    project.EndUpdate();
-                }
-            }
+            OpenFile(source.UserCodeFileName);
+            OpenFile(source.XamlFileName);
+            OpenDesigner(source.XamlFileName);
         }
 
         private Tuple<IFormDesignerControl, TabItem> FindDesigner(string fileName)
         {
-            if (!Path.IsPathRooted(fileName))
-                return null;
-
             var canonicalPath = new Uri(fileName).LocalPath;
             foreach (TabItem tabPage in editorsTabControl.Items)
             {
