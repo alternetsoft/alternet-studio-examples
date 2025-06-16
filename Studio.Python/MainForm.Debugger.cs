@@ -1,18 +1,19 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Alternet.Common;
@@ -35,6 +36,7 @@ namespace AlternetStudio.Demo
         /// Gets or sets <see cref="StartDebuggingOptions"/> to use when
         /// the debugging starts while executing commands such as <see cref="Start"/> or <see cref="StepOver"/>.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public StartDebuggingOptions StartDebuggingOptions { get; set; } = new PythonStartDebuggingOptions();
 
         protected IScriptDebugger Debugger
@@ -46,7 +48,7 @@ namespace AlternetStudio.Demo
                     debugger = new Alternet.Scripter.Debugger.Python.ScriptDebugger { ScriptRun = scriptRun };
                     debugger.DebuggingStarted += Debugger_DebuggingStarted;
                     debugger.DebuggingStopped += Debugger_DebuggingStopped;
-                    debugger.DebuggerErrorOccured += Debugger_DebuggerErrorOccured;
+                    debugger.DebuggerErrorOccurred += Debugger_DebuggerErrorOccurred;
                     debugger.ExecutionResumed += Debugger_ExecutionResumed;
                     debugger.ExecutionStopped += Debugger_ExecutionStopped;
                     debugger.StackFrameSwitched += Debugger_StackFrameSwitched;
@@ -283,6 +285,10 @@ namespace AlternetStudio.Demo
 
             startWithoutDebugMenuItem.Enabled = !isEmpty && !isDebugging;
             tsbStartWithoutDebug.Enabled = !isEmpty && !isDebugging;
+
+            bool debuggerEnabled = (Project != null && Project.HasProject) || ActiveSyntaxEdit != null;
+            debuggerControlToolbar.Debugger = debuggerEnabled ? debugger : null;
+            debugMenu1.Debugger = debuggerEnabled ? debugger : null;
         }
 
         private async void UpdateDebugPanels()
@@ -337,7 +343,7 @@ namespace AlternetStudio.Demo
             SetAllEditorsReadOnlyValue(true);
         }
 
-        private void Debugger_DebuggerErrorOccured(object sender, DebuggerErrorOccuredEventArgs e)
+        private void Debugger_DebuggerErrorOccurred(object sender, DebuggerErrorOccurredEventArgs e)
         {
             DisplayDebuggerUnhandledException(e.Exception.Message);
         }

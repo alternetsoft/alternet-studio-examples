@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -180,7 +180,7 @@ namespace Alternet.Editor.Wpf
         {
             cbShortcuts.Text = string.Empty;
             cbShortcuts.Items.Clear();
-            string eventName = index >= 0 ? lbEventHandlers.Items[index].ToString(): string.Empty;
+            string eventName = index >= 0 ? lbEventHandlers.Items[index].ToString() : string.Empty;
             foreach (IKeyData keyData in syntaxSettings.EventDataList)
             {
                 if (string.IsNullOrEmpty(keyData.EventName))
@@ -531,7 +531,7 @@ namespace Alternet.Editor.Wpf
             ILexStyle style = GetSelectedStyle();
             style.ForeColor = curForeColor;
             style.BackColor = curBkColor;
-            style.FontStyle = curFntStyle;
+            style.FontStyle = curFntStyle.ToLexFontStyle();
             style.Desc = curDesc;
             UpdateStyleControls();
         }
@@ -547,18 +547,19 @@ namespace Alternet.Editor.Wpf
             {
                 if (style != null)
                 {
+                    var fontStyle = style.FontStyle.ToFontStyle();
                     laDescription.IsEnabled = true;
                     tbDescription.IsEnabled = true;
 
                     chbBold.IsEnabled = style.BoldEnabled;
                     chbItalic.IsEnabled = style.ItalicEnabled;
-                    chbBold.IsChecked = (style.FontStyle & System.Drawing.FontStyle.Bold) != 0;
-                    chbItalic.IsChecked = (style.FontStyle & System.Drawing.FontStyle.Italic) != 0;
+                    chbBold.IsChecked = (fontStyle & System.Drawing.FontStyle.Bold) != 0;
+                    chbItalic.IsChecked = (fontStyle & System.Drawing.FontStyle.Italic) != 0;
                     curForeColor = style.ForeColor;
                     curBkColor = style.BackColor;
                     cbForeColor.SelectedColor = Color.FromArgb(style.ForeColor.A, style.ForeColor.R, style.ForeColor.G, style.ForeColor.B);
                     cbBackColor.SelectedColor = Color.FromArgb(style.BackColor.A, style.BackColor.R, style.BackColor.G, style.BackColor.B);
-                    curFntStyle = style.FontStyle;
+                    curFntStyle = fontStyle;
                     if ((curFntStyle & System.Drawing.FontStyle.Bold) != 0)
                         curFontWeight = FontWeights.Bold;
                     if ((curFntStyle & System.Drawing.FontStyle.Italic) != 0)
@@ -871,7 +872,7 @@ namespace Alternet.Editor.Wpf
             }
         }
 
-        private void cbShortcuts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Shortcuts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cbShortcuts.SelectedIndex >= 0)
             {

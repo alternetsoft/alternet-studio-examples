@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.ObjectModel;
@@ -396,7 +396,7 @@ namespace IsolatedScript
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "All Isolated classes in the same unit")]
     public class IsolatedAssemblyLoadContext : AssemblyLoadContext
     {
-        public IsolatedAssemblyLoadContext(string? name, bool isCollectible = false)
+        public IsolatedAssemblyLoadContext(string name, bool isCollectible = false)
             : base(name, isCollectible: true)
         {
         }

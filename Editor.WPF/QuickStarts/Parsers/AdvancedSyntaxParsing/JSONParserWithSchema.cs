@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using Alternet.Common;
@@ -13,6 +14,7 @@ namespace AdvancedSyntaxParsing
     {
         private SyntaxError[] semanticErrors;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public JsonSchema Schema { get; set; }
 
         public override void ReparseText()

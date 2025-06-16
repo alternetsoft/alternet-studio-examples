@@ -1,0 +1,31 @@
+<Window xmlns="http://schemas.alternetsoft.com/ui/2021"
+        xmlns:x="http://schemas.alternetsoft.com/ui/2021/uixml"
+        xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+        x:Class="CodeSnippets.Form1"
+        Title="Code Snippets on Alternet.UI" StartLocation="CenterScreen"
+        MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
+        Icon="embres:CodeSnippets.Sample.ico">
+
+  <Window.StatusBar>
+    <StatusBar Name="statusBar">
+      <StatusBarPanel/>
+    </StatusBar>
+  </Window.StatusBar>
+
+  <Label Name="lbDescription" Margin="5"
+   Text="Code Editor provides a way to insert frequently used fragmens of the code into the editor. &#xA;Press 'Ctrl+K+X' to see the snippets"/>
+
+  <RadioButton Name="rbCSharpSnippets" RowColumn="0,0"
+            Text="C# snippets" ToolTip = "Code snippets for C# language"
+               IsChecked="True"
+            Margin="5"/>
+  <RadioButton Name="rbVbSnippets" RowColumn="1,0"
+            Text="VB snippets" ToolTip = "Code snippets for VB language"
+            IsChecked="False"
+            Margin="5"/>
+
+  <Border VerticalAlignment="Fill" Margin="5">
+    <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>
+  </Border>
+</Window>
+

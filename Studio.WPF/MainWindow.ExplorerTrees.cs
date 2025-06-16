@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -20,11 +20,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using Alternet.Common;
 using Alternet.Common.Projects.DotNet;
 using Alternet.Editor.Common.Wpf;
 using Alternet.Editor.Roslyn.Wpf;
-using Alternet.FormDesigner.Wpf;
 using Microsoft.Win32;
 
 namespace AlternetStudio.Wpf.Demo
@@ -55,6 +54,11 @@ namespace AlternetStudio.Wpf.Demo
             return (node.Tag != null) && (node.Tag is DotNetProject);
         }
 
+        private static bool IsProjectFolderNode(TreeViewItem node)
+        {
+            return ProjectExplorer.IsProjectFolder(node);
+        }
+
         private static TreeViewItem GetParentItem(TreeViewItem item)
         {
             for (var i = VisualTreeHelper.GetParent(item); i != null; i = VisualTreeHelper.GetParent(i))
@@ -73,6 +77,13 @@ namespace AlternetStudio.Wpf.Demo
             return !string.IsNullOrEmpty(fileName) && !IsReferenceNode(node);
         }
 
+        private bool IsFolderNode(TreeViewItem node)
+        {
+            string fileName = ProjectExplorer.GetFileNameFromNode(node);
+
+            return !string.IsNullOrEmpty(fileName) && string.Compare(fileName, Alternet.Common.StringConsts.FolderNode) == 0;
+        }
+
         private void InitializeExplorerTrees()
         {
             projectExplorerTreeView.ContextMenu = projectExplorerTreeView.Resources["SolutionContext"] as System.Windows.Controls.ContextMenu;
@@ -81,6 +92,25 @@ namespace AlternetStudio.Wpf.Demo
 
             codeExplorer.ExplorerTree = codeExplorerTreeView;
             codeExplorer.NavigateToNodeRequested += CodeExplorer_NavigateToNodeRequested;
+        }
+
+        private void RemoveFolder(DotNetProject project, TreeViewItem item)
+        {
+            project.RemoveFolder(item.Header.ToString());
+            UpdateProjectExplorer();
+        }
+
+        private void RemoveProjectFolder(DotNetProject project)
+        {
+            var node = GetNodeToRemove((TreeViewItem)projectExplorerTreeView.SelectedItem);
+
+            if (MessageBox.Show(string.Format(StringConsts.RemoveOnlyFolderConfirmation, node.Name), "AlterNET Studio", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+                project.RemoveProjectFolder(node.Name, false);
+            }
+
+            UpdateProjectExplorer();
+            UpdateCodeNavigation();
         }
 
         private void RemoveFile(DotNetProject project)
@@ -119,7 +149,7 @@ namespace AlternetStudio.Wpf.Demo
                     CloseFile(file);
                 }
 
-                CodeEditExtensions.UnregisterCode(project.ProjectExtension, GetSourceFiles(removedFiles));
+                CodeEditExtensions.UnregisterCode(project.ProjectExtension, GetSourceFiles(project, removedFiles, project.ProjectExtension, false));
 
                 UpdateProjectExplorer();
                 UpdateCodeNavigation();
@@ -165,7 +195,7 @@ namespace AlternetStudio.Wpf.Demo
                         OpenFile(file);
                     }
 
-                    CodeEditExtensions.RegisterCode(project.ProjectExtension, GetSourceFiles(addedFiles));
+                    CodeEditExtensions.RegisterCode(project.ProjectExtension, GetSourceFiles(project, addedFiles, project.ProjectExtension, true));
                     UpdateProjectExplorer();
                     UpdateCodeNavigation();
                 }
@@ -340,17 +370,43 @@ namespace AlternetStudio.Wpf.Demo
             if (project == null || !project.HasProject)
                 return;
 
-            var dialog = new OpenFileDialog();
-            dialog.Filter = ".NET assembly files (*.dll)|*.dll|All files (*.*)|*.*";
-            dialog.InitialDirectory = Path.GetDirectoryName(project.ProjectFileName);
-
-            if (!dialog.ShowDialog().Value)
-                return;
-
-            var reference = dialog.FileName;
-            if (project.AddReference(Path.GetFileName(reference), reference))
+            var dlg = new AddReferenceDialog(project, solution);
+            if (dlg.ShowDialog().Value)
             {
-                CodeEditExtensions.RegisterAssemblies(project.ProjectExtension, project.TryResolveAbsolutePaths(new string[] { reference }).ToArray(), keepExisting: true, projectName: project.ProjectName);
+                project.References.Clear();
+                project.ProjectReferences.Clear();
+                var refs = dlg.References;
+                var frameworkRefs = dlg.FrameworkReferences;
+                var projRefs = dlg.ProjectReferences;
+
+                foreach (var item in refs)
+                {
+                    string name = string.Empty;
+                    string version = string.Empty;
+                    if (AssemblyHelper.IsNugetReference(item, ref name, ref version))
+                    {
+                        project.AddNuGetReference(name, item);
+                    }
+                    else
+                    {
+                        name = Path.IsPathRooted(item) ? Path.GetFileNameWithoutExtension(item) : Path.GetFileName(item);
+                        project.AddReference(name, item);
+                    }
+                }
+
+                foreach (var item in frameworkRefs)
+                {
+                    string name = Path.IsPathRooted(item) ? Path.GetFileNameWithoutExtension(item) : Path.GetFileName(item);
+                    project.AddReference(name, name);
+                }
+
+                foreach (var item in projRefs)
+                {
+                    project.ProjectReferences.Add(item);
+                }
+
+                CodeEditExtensions.RegisterAssemblies(project.ProjectExtension, project.TryResolveAbsolutePaths(refs).ToArray(), keepExisting: true, projectName: project.ProjectName);
+                CodeEditExtensions.RegisterAssemblies(project.ProjectExtension, project.TryResolveAbsolutePaths(frameworkRefs).ToArray(), keepExisting: true, projectName: project.ProjectName);
                 UpdateProjectExplorer();
                 UpdateCodeNavigation();
             }
@@ -399,10 +455,13 @@ namespace AlternetStudio.Wpf.Demo
             if (project == null || !(project.HasProject || project.IsFolder))
                 return;
 
+            if (IsProjectFolderNode((TreeViewItem)projectExplorerTreeView.SelectedItem))
+                RemoveProjectFolder(project);
+            else
             if (IsReferenceNode((TreeViewItem)projectExplorerTreeView.SelectedItem))
                 RemoveReference(project);
             else
-                if (IsFileNode((TreeViewItem)projectExplorerTreeView.SelectedItem))
+            if (IsFileNode((TreeViewItem)projectExplorerTreeView.SelectedItem))
                 RemoveFile(project);
             else
                 RemoveProject(project);

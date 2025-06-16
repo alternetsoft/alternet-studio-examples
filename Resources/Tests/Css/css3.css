@@ -1,0 +1,27 @@
+/* css3.css */
+
+.flex-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.grid-item {
+    flex: 1 1 calc(33.333% - 10px);
+    background-color: #eee;
+    padding: 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .grid-item {
+        flex: 1 1 calc(50% - 10px);
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-item {
+        flex: 1 1 100%;
+    }
+}

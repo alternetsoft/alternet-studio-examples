@@ -50,7 +50,6 @@ namespace Alternet.FormDesigner.Demo
             // newFormToolStripButton
             // 
             this.newFormToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.newFormToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("newFormToolStripButton.Image")));
             this.newFormToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newFormToolStripButton.Name = "newFormToolStripButton";
             this.newFormToolStripButton.Size = new System.Drawing.Size(23, 22);
@@ -60,7 +59,6 @@ namespace Alternet.FormDesigner.Demo
             // refreshToolStripButton
             // 
             this.refreshToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.refreshToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("refreshToolStripButton.Image")));
             this.refreshToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.refreshToolStripButton.Name = "refreshToolStripButton";
             this.refreshToolStripButton.Size = new System.Drawing.Size(23, 22);

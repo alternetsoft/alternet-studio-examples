@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Controls:DemoPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AllQuickStarts.Pages.LineStylesPage"
+             xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+             xmlns:Controls="clr-namespace:AllQuickStarts"  
+             xmlns:ui="http://schemas.alternetsoft.com/alternetui/2024"
+             Title="Line Styles">
+    <AbsoluteLayout>
+        <Grid x:Name="MainGrid" RowDefinitions="*" ColumnDefinitions="*, auto">
+
+            <editor:SyntaxEditView x:Name="syntaxEdit1" Grid.Column="0" IsVisible="false"
+                               Margin="10,10,10,10"/>
+
+            <ScrollView Grid.Column="1" x:Name="settingsPanel">
+                <StackLayout Orientation="Vertical" Margin="10,10,10,10">
+                    <Button Margin="10,10,10,10" HorizontalOptions="Start"
+                        x:Name="StartButton" Text="Start" 
+                        ToolTipProperties.Text="Display line style"/>
+                    <Button Margin="10,10,10,10" HorizontalOptions="Start"
+                        x:Name="StepOverButton" Text="Step Over" 
+                        ToolTipProperties.Text="Move line style to the next line"/>
+                    <Button Margin="10,10,10,10" HorizontalOptions="Start"
+                        x:Name="SetBreakpointButton" Text="Toggle Breakpoint" 
+                        ToolTipProperties.Text="Set breakpoint bookmark"/>
+                    <ui:CheckBoxWithLabelView x:Name="chbLineStyleBeyondEol"
+                    ToolTip = "Line style applicable beyond end of line"
+                    Text="Line Style Beyond Eol" IsEnabled="true"/>
+                    <Label Text="Line Style Color:" Margin="10,10,10,10"
+                       HorizontalTextAlignment="Start" VerticalTextAlignment="Center">
+                    </Label>
+                    <ui:ColorPickerView x:Name="LineStyleColorPicker"
+                        MinimumWidthRequest="150"
+                        Margin="10,10,10,10"
+                        >
+                    </ui:ColorPickerView>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </AbsoluteLayout>
+</Controls:DemoPage>

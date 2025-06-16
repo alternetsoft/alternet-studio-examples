@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -19,6 +19,7 @@ using System.Linq;
 using System.Windows;
 using Alternet.Common.Projects;
 using Alternet.Common.Projects.DotNet;
+using Alternet.Common.Python;
 using Alternet.Editor.Common.Wpf;
 using Alternet.Editor.Python.Wpf;
 using Alternet.Editor.Wpf;

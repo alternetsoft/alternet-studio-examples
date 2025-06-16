@@ -1,0 +1,94 @@
+<Window xmlns="http://schemas.alternetsoft.com/ui/2021"
+        xmlns:x="http://schemas.alternetsoft.com/ui/2021/uixml"
+        xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+        x:Class="Margin.Form1"
+        Title="Margin on Alternet.UI" StartLocation="CenterScreen"
+        MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
+        Icon="embres:Margin.Sample.ico">
+
+  <Window.StatusBar>
+    <StatusBar Name="statusBar">
+      <StatusBarPanel/>
+    </StatusBar>
+  </Window.StatusBar>
+
+  <Label Name="lbDescription" Grid.Row="0" Margin="5"
+   Text="Margin indicates a special column visually, while User Margin allows displaying custom information associated with the lines."/>
+
+  <TabControl Name="pnSettings" Margin="5" >
+
+    <Panel Name="gbUserMargin" Padding="5" Title="User Margin" Layout="Horizontal">
+      <Grid RowCount="3" ColumnCount="2">
+        <CheckBox Name="chbDisplayUserMargin" RowColumn="0,0"
+                  Text="Visible" Margin="5" VerticalAlignment="Center"
+                  ToolTip="Specifies that user margin (draws additional information) is visible"/>
+
+        <Label Name="lbUserMarginWidth" RowColumn="1,0" Margin="5"
+               Text="Width:" VerticalAlignment="Center"/>
+        <NumericUpDown Name="nudUserMarginWidth"  RowColumn="1,1"
+                       VerticalAlignment="Center"
+                       Margin="5" ToolTip="User margin width"/>
+
+        <Label Name="lbUserMarginText" RowColumn="2,0" Margin="5"
+               VerticalAlignment="Center" Text="Text:"/>
+        <TextBox Name="tbUserMarginText" Text="" RowColumn="2,1"
+                 VerticalAlignment="Center" Margin="5" ToolTip="Text of the user margin"></TextBox>
+      </Grid>
+
+      <Grid RowCount="2" ColumnCount="2" Margin="5,0,0,0">
+        <Label Name="lbForeColor" RowColumn="0,0"
+               VerticalAlignment="Center" Margin="5" Text="Foreground:"/>
+        <ColorComboBox Name="cbUserMarginForeColor"  RowColumn="0,1"
+                       VerticalAlignment="Center"
+                       ToolTip="Foreground color for the user margin" Margin="5"/>
+
+        <Label Name="lbBackColor" RowColumn="1,0" VerticalAlignment="Center"
+               Margin="5" Text="Background:"/>
+        <ColorComboBox Name="cbUserMarginBkColor" RowColumn="1,1"
+                       VerticalAlignment="Center" Enabled="false"
+                       Margin="5" ToolTip="Background color for the user margin"></ColorComboBox>
+      </Grid>
+    </Panel>
+
+    <Panel Name="gbMargin" Title="Margin"
+              Padding="5" Layout="Horizontal">
+      <Grid  RowCount="2" ColumnCount="2">
+        <CheckBox Name="chbDisplayMargin" RowColumn="0,0"
+                  VerticalAlignment="Center"
+                  Text="Visible" Margin="5" ToolTip="Draw vertical line at Margin column"/>
+        <CheckBox Name="chbDisplayColumns" RowColumn="0,1"
+                       VerticalAlignment="Center"
+                  Text="Display Columns" Margin="5" Enabled="false"
+                  ToolTip="Draw vertical lines at the given text columns"/>
+
+        <Label Name="lbMarginPosition" RowColumn="1,0"
+                         VerticalAlignment="Center"
+               Margin="5" Text="Position:"/>
+        <NumericUpDown Name="nudMarginPositon"  RowColumn="1,1"
+                         VerticalAlignment="Center"
+                       Margin="5" ToolTip="Set margin position"></NumericUpDown>
+      </Grid>
+
+      <Grid  RowCount="2" ColumnCount="2" Margin="5,0,0,0">
+        <Label Name="lbMarginColor" RowColumn="0,0" Margin="5"
+                         VerticalAlignment="Center"
+               Text="Color:"/>
+        <ColorComboBox Name="cbMarginColor"  RowColumn="0,1" Margin="5"
+                         VerticalAlignment="Center"
+                       ToolTip="Color of the margin line"></ColorComboBox>
+
+        <Label Name="lbColumnColor" RowColumn="1,0" Margin="5"
+                         VerticalAlignment="Center"
+               Text="Column Color:"/>
+        <ColorComboBox Name="cbColumnColor" RowColumn="1,1" Margin="5"
+                         VerticalAlignment="Center" Enabled="false"
+                       ToolTip="Color of the column margin line"></ColorComboBox>
+      </Grid>
+    </Panel>
+  </TabControl>
+
+  <Border VerticalAlignment="Fill" Margin="5">
+    <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>
+  </Border>
+</Window>
+

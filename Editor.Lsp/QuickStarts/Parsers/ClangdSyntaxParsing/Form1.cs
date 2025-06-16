@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 #pragma warning disable VSTHRD101 // Avoid unsupported async delegates
 
@@ -36,6 +36,9 @@ namespace ClangdSyntaxParsing
         {
             DeployServer();
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "ClangdSyntaxParsing.Resources";
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
             InitEditor();
             syntaxEdit1.Spelling.SpellColor = Color.Navy;
         }
@@ -122,11 +125,13 @@ namespace ClangdSyntaxParsing
                 cppSource.FileName = fileInfo.FullName;
                 cppSource.LoadFile(fileInfo.FullName);
 
-                cppParser.Workspace.Project = new CProject();
-                cppParser.Workspace.Project.SourceFiles.Add(fileInfo.FullName);
+                var project = new CProject();
+                project.SourceFiles.Add(fileInfo.FullName);
 
-                cppParser.Workspace.Project.IncludeDirectories.Add(
+                project.IncludeDirectories.Add(
                     Path.GetFullPath(Path.Combine(Path.GetDirectoryName(fileInfo.FullName), "../include")));
+
+                cppParser.Workspace.Project = project;
 
                 var dirs = new List<string>();
                 GetHeaderPaths(dirs);

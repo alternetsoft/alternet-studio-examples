@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -61,10 +61,13 @@ namespace CLangSyntaxParsing
                 edit.Source.FileName = fileInfo.FullName;
                 edit.Source.LoadFile(fileInfo.FullName);
 
-                cppParser.Workspace.Project = new CProject();
-                cppParser.Workspace.Project.SourceFiles.Add(fileInfo.FullName);
-                cppParser.Workspace.Project.IncludeDirectories.Add(
+                var project = new CProject();
+                project.SourceFiles.Add(fileInfo.FullName);
+
+                project.IncludeDirectories.Add(
                     Path.GetFullPath(Path.Combine(Path.GetDirectoryName(fileInfo.FullName), "../include")));
+
+                cppParser.Workspace.Project = project;
 
                 var dirs = new List<string>();
                 GetHeaderPaths(dirs);

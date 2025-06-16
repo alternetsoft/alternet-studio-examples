@@ -120,7 +120,7 @@
             this.btSetBreakpoint.Size = new System.Drawing.Size(106, 23);
             this.btSetBreakpoint.TabIndex = 2;
             this.btSetBreakpoint.Text = "Toggle Breakpoint";
-            this.btSetBreakpoint.Click += new System.EventHandler(this.SereakpointTextBoxButton_Click);
+            this.btSetBreakpoint.Click += new System.EventHandler(this.SetBreakpointTextBoxButton_Click);
             this.btSetBreakpoint.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SereakpointTextBoxButton_MouseMove);
             // 
             // btStepOver
@@ -187,7 +187,7 @@
             // 
             this.cmSetBreakpoint.ShortcutKeys = System.Windows.Forms.Keys.F9;
             this.cmSetBreakpoint.Text = "Set Breakpoint";
-            this.cmSetBreakpoint.Click += new System.EventHandler(this.SereakpointTextBoxMenuItem_Click);
+            this.cmSetBreakpoint.Click += new System.EventHandler(this.SetBreakpointTextBoxMenuItem_Click);
             // 
             // syntaxEdit1
             // 
@@ -209,7 +209,6 @@
             this.ClientSize = new System.Drawing.Size(667, 384);
             this.Controls.Add(this.syntaxEdit1);
             this.Controls.Add(this.pnSettings);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Line Styles";

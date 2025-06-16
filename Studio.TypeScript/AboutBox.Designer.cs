@@ -35,7 +35,7 @@ namespace AlternetStudio.Demo
             this.tbCompanyInfo.Name = "tbCompanyInfo";
             this.tbCompanyInfo.Size = new System.Drawing.Size(400, 122);
             this.tbCompanyInfo.TabIndex = 13;
-            this.tbCompanyInfo.Text = resources.GetString("tbCompanyInfo.Text");
+            this.tbCompanyInfo.Text = "AlterNET Studio for TypeScript allows you to extend your WinForms and WPF .NET application with code editing, scripting and user interface designing capabilities. \r\nIt provides a set of component libraries that enables users of your applications to write scripts in TypeScript and JavaScript programming languages to extend your application with custom functionality; run and debug these scripts with a fully-featured debugging engine and design visual user interfaces with graphical Form Designer.";
             // 
             // btClose
             // 

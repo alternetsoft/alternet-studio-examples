@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Form Designer Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -18,6 +18,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Alternet.Common;
 using Alternet.FormDesigner.WinForms;
 
 namespace Alternet.FormDesigner.Demo
@@ -32,6 +33,10 @@ namespace Alternet.FormDesigner.Demo
         public FilesUserControl()
         {
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "FormDesigner.Resources";
+            newFormToolStripButton.Image = ControlUtilities.LoadImageFromAssembly(asm, $"{prefix}.newFormToolStripButton.Image.png");
+            newFormToolStripButton.Image = ControlUtilities.LoadImageFromAssembly(asm, $"{prefix}.refreshToolStripButton.Image.png");
         }
 
         public event EventHandler NewFormButtonClick;

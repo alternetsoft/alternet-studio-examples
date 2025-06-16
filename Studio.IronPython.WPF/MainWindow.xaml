@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:AlternetStudio.IronPython.Wpf.Demo"
         TextOptions.TextFormattingMode="Display"
-        xmlns:CUI="clr-namespace:Alternet.Editor.Common.Wpf;assembly=Alternet.Editor.Common.Wpf.v9"
-        xmlns:UI="clr-namespace:Alternet.Scripter.Debugger.UI.Wpf;assembly=Alternet.Scripter.Debugger.UI.Wpf.v9"
+        xmlns:CUI="clr-namespace:Alternet.Editor.Common.Wpf;assembly=Alternet.Editor.Common.Wpf.v10"
+        xmlns:UI="clr-namespace:Alternet.Scripter.Debugger.UI.Wpf;assembly=Alternet.Scripter.Debugger.UI.Wpf.v10"
         Title="AlterNET Studio - IronPython" Height="564" Width="808" WindowState="Maximized" Loaded="Window_Loaded"
         Icon="/AlternetStudio.IronPython.Wpf;component/Images/Icon.ico" Closing="Window_Closing" Closed="Window_Closed" KeyDown="Window_KeyDown">
     <Window.Resources>
@@ -316,7 +316,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Image Height="16" Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,2" Name="image1" Stretch="None" VerticalAlignment="Top" Width="18" Source="{Binding ImageIndex, Converter={StaticResource imageConverter}}" />
-                                <TextBlock FontWeight="Bold" Grid.Column="1" Text="{Binding Text}" />
+                                <TextBlock FontWeight="Regular" Grid.Column="1" Text="{Binding Text}" />
                             </Grid>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
@@ -330,7 +330,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Image Height="16" Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,2" Name="image1" Stretch="None" VerticalAlignment="Top" Width="18" Source="{Binding ImageIndex, Converter={StaticResource imageConverter}}" />
-                                <TextBlock FontWeight="Bold" Grid.Column="1" Text="{Binding Text}" />
+                                <TextBlock FontWeight="Regular" Grid.Column="1" Text="{Binding Text}" />
                             </Grid>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>

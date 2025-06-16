@@ -1,0 +1,18 @@
+<formatierung xmlns="kokosevent">
+  <formate>
+    <format terminartids="1,2,512">
+      <zeilen>
+        <zeile>
+          <spalten>
+            <spalte width="40">
+              <felder>
+                <feld feld="VonBis" style="Vorstellung Zeile 1"/>
+                <feld feld="Produktionskurzbezeichnung" textbefore=" " style="Vorstellung Zeile 1"/>
+              </felder>
+            </spalte>
+          </spalten>
+        </zeile>
+      </zeilen>
+    </format>
+  </formate>
+</formatierung>

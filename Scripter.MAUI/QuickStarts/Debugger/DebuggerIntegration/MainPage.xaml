@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<alternet:DisposableContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:alternet="http://schemas.alternetsoft.com/alternetui/2024"
+             x:Class="DebuggerIntegration.MainPage">
+    <AbsoluteLayout>
+        <Grid x:Name="MainGrid" RowDefinitions="auto, *" ColumnDefinitions="*">
+            <Label Grid.Row="1" Grid.Column="0"
+               Text="This demo shows how to embed debugger into your application." Margin="5"
+                           HorizontalTextAlignment="Start"
+               VerticalTextAlignment="Center"/>
+            <Grid x:Name="panel" Grid.Row="2" Grid.Column="0" RowDefinitions="*, 200">
+
+            </Grid>
+        </Grid>
+    </AbsoluteLayout>
+</alternet:DisposableContentPage>

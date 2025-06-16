@@ -1,0 +1,76 @@
+<Window xmlns="http://schemas.alternetsoft.com/ui/2021"
+        xmlns:x="http://schemas.alternetsoft.com/ui/2021/uixml"
+        xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+        x:Class="Selection.Form1"
+        Title="Selection on Alternet.UI" StartLocation="CenterScreen"
+        MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
+        Icon="embres:Selection.Sample.ico">
+
+  <Window.StatusBar>
+    <StatusBar Name="statusBar">
+      <StatusBarPanel/>
+    </StatusBar>
+  </Window.StatusBar>
+
+  <Label Name="lbDescription" Margin="5"
+   Text="This demo shows how to customize appearance and behavior of selected text in the editor"/>
+
+  <TabControl Margin="5" ContentPadding="5" Name="tabControl">
+
+    <Grid RowCount="4" ColumnCount="3" Title="Selection Properties" Padding="5" Margin="5">
+
+      <CheckBox Name="chbDisableSelection" RowColumn="0,0" VerticalAlignment="Center"
+                  Text="Disable Selection" Margin="5" ToolTip="Disables to select any text"/>
+      <CheckBox Name="chbDisableDragging" RowColumn="1,0" VerticalAlignment="Center"
+                Text="Disable Dragging" Margin="5"
+                ToolTip="Disables dragging the selected text"/>
+      <CheckBox Name="chbSelectBeyondEol" RowColumn="2,0" VerticalAlignment="Center"
+                Text="Select Beyond EOL" Margin="5"
+                ToolTip="Specifies that selection is drawn beyond end of line"/>
+      <CheckBox Name="chbUseColors" RowColumn="3,0" VerticalAlignment="Center"
+                Text="Use Colors" Margin="5"
+                ToolTip="Selection should paint preserving colors of the text fragments"/>
+      
+      <CheckBox Name="chbHideSelection" RowColumn="0,1" Text="Hide Selection"
+                Margin="5" VerticalAlignment="Center"
+                ToolTip="Selected text is draw as unselected text when control lost focus"/>
+      <CheckBox Name="chbSelectLineOnDblClick" RowColumn="1,1"
+                Text="Select Line on Double Click" Margin="5" VerticalAlignment="Center"
+                ToolTip="Select line instead of single word when user double clicks on text"/>
+      <CheckBox Name="chbHighlightSelectedWords" RowColumn="2,1"
+                Text="Highlight Selected Words" Margin="5" VerticalAlignment="Center"
+                ToolTip="Editor should select all instances of the chosen words"/>
+      <CheckBox Name="chbPersistentBlocks" RowColumn="3,1" Text="Persistent Blocks"
+                Margin="5" VerticalAlignment="Center"
+                ToolTip="Retain selection even when the cursor is moved, until a new block is selected"/>
+      
+      <CheckBox Name="chbOverwriteBlocks" RowColumn="0,2" Text="Overwrite Blocks"
+                Margin="5" VerticalAlignment="Center"
+                ToolTip="Selected text should be replaced with whatever is typed next"/>
+    </Grid>
+
+    <Grid RowCount="3" ColumnCount="2" Title="Selection Colors" Padding="5" Margin="5">
+      <Label Name="lbForeColor" RowColumn="0,0" VerticalAlignment="Center"
+             Margin="5" Text="Foreground:"/>
+      <Label Name="lbBackColor" RowColumn="1,0" VerticalAlignment="Center"
+             Margin="5" Text="Background:"/>
+      <Label Name="bBorderColor" RowColumn="2,0" VerticalAlignment="Center"
+             Margin="5" Text="Border:"/>
+
+      <ColorComboBox Name="cbSelectionForeColor" RowColumn="0,1" Margin="5"
+            VerticalAlignment="Center"
+            ToolTip="Foreground color of the selected text when owner control has input focus"/>
+      <ColorComboBox Name="cbSelectionBackColor" RowColumn="1,1" Margin="5"
+              VerticalAlignment="Center"
+              ToolTip="Background color of the selected text when owner control has input focus"/>
+      <ColorComboBox Name="cbSelectionBorderColor" RowColumn="2,1" Margin="5"
+              VerticalAlignment="Center"
+              ToolTip="Color of the selection border"/>
+    </Grid>
+
+  </TabControl>
+
+  <Border VerticalAlignment="Fill" Margin="5">
+    <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>
+  </Border>
+</Window>

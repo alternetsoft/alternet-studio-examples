@@ -1,16 +1,17 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -94,7 +95,6 @@ namespace Customize.Dialogs
         public System.Windows.Forms.TabPage tpKeyboard;
         public System.Windows.Forms.Panel pnKeyboard;
         public System.Windows.Forms.CheckBox chbLineModificator;
-        public ImageList imageList1;
         public System.Windows.Forms.CheckBox chbWhiteSpace;
 
         private const int OpenFolderImage = 0;
@@ -111,7 +111,7 @@ namespace Customize.Dialogs
         private System.Windows.Forms.ListBox lbEventHandlers;
         private System.Windows.Forms.Label laShortcuts;
         private System.Windows.Forms.ComboBox cbShortcuts;
-        private System.Windows.Forms.Button UpdateShortcutButton;
+        private System.Windows.Forms.Button updateShortcutButton;
         private System.Windows.Forms.ComboBox cbKeyboardSchemes;
         private System.Windows.Forms.GroupBox gbVisualThemes;
         private System.Windows.Forms.ComboBox cbVisualThemes;
@@ -199,7 +199,7 @@ namespace Customize.Dialogs
             this.chbBold = new System.Windows.Forms.CheckBox();
             this.tpKeyboard = new System.Windows.Forms.TabPage();
             this.pnKeyboard = new System.Windows.Forms.Panel();
-            this.UpdateShortcutButton = new System.Windows.Forms.Button();
+            this.updateShortcutButton = new System.Windows.Forms.Button();
             this.cbShortcuts = new System.Windows.Forms.ComboBox();
             this.laShortcuts = new System.Windows.Forms.Label();
             this.lbEventHandlers = new System.Windows.Forms.ListBox();
@@ -212,7 +212,6 @@ namespace Customize.Dialogs
             this.pnTree = new System.Windows.Forms.Panel();
             this.tvProperties = new System.Windows.Forms.TreeView();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.pnButtons.SuspendLayout();
             this.pnMain.SuspendLayout();
             this.pnManage.SuspendLayout();
@@ -864,7 +863,7 @@ namespace Customize.Dialogs
 
             // pnKeyboard
             this.pnKeyboard.Controls.Add(this.cbShortcuts);
-            this.pnKeyboard.Controls.Add(this.UpdateShortcutButton);
+            this.pnKeyboard.Controls.Add(this.updateShortcutButton);
             this.pnKeyboard.Controls.Add(this.laShortcuts);
             this.pnKeyboard.Controls.Add(this.lbEventHandlers);
             this.pnKeyboard.Controls.Add(this.tbShowCommands);
@@ -886,13 +885,13 @@ namespace Customize.Dialogs
             this.cbShortcuts.TabIndex = 8;
             this.cbShortcuts.SelectedIndexChanged += CbShortcuts_SelectedIndexChanged;
 
-            // UpdateShortcutButton
-            this.UpdateShortcutButton.Location = new System.Drawing.Point(8, 319);
-            this.UpdateShortcutButton.Name = "UpdateShortcutButton";
-            this.UpdateShortcutButton.Size = new System.Drawing.Size(100, 21);
-            this.UpdateShortcutButton.Text = "Update shortcut";
-            this.UpdateShortcutButton.TabIndex = 9;
-            this.UpdateShortcutButton.Click += UpdateShortcutButton_Click;
+            // updateShortcutButton
+            this.updateShortcutButton.Location = new System.Drawing.Point(8, 319);
+            this.updateShortcutButton.Name = "UpdateShortcutButton";
+            this.updateShortcutButton.Size = new System.Drawing.Size(100, 21);
+            this.updateShortcutButton.Text = "Update shortcut";
+            this.updateShortcutButton.TabIndex = 9;
+            this.updateShortcutButton.Click += UpdateShortcutButton_Click;
 
             // laShortcuts
             this.laShortcuts.AutoSize = true;
@@ -994,14 +993,6 @@ namespace Customize.Dialogs
             this.tvProperties.Size = new System.Drawing.Size(136, 360);
             this.tvProperties.TabIndex = 0;
             this.tvProperties.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.PropertiesTreeView_AfterSelect);
-
-            // imageList1
-            this.imageList1.ImageStream = (System.Windows.Forms.ImageListStreamer)resources.GetObject("imageList1.ImageStream");
-            this.imageList1.TransparentColor = System.Drawing.Color.Red;
-            this.imageList1.Images.SetKeyName(0, string.Empty);
-            this.imageList1.Images.SetKeyName(1, string.Empty);
-            this.imageList1.Images.SetKeyName(2, string.Empty);
-            this.imageList1.Images.SetKeyName(3, string.Empty);
 
             // DlgSyntaxSettings
             this.AcceptButton = this.btOK;
@@ -1118,6 +1109,7 @@ namespace Customize.Dialogs
         /// <summary>
         /// Gets or sets object that implements <c>ISyntaxSettings</c> for this dialog.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ISyntaxSettings SyntaxSettings
         {
             get
@@ -1741,7 +1733,7 @@ namespace Customize.Dialogs
             ILexStyle style = GetSelectedStyle();
             style.ForeColor = curForeColor;
             style.BackColor = curBkColor;
-            style.FontStyle = curFontStyle;
+            style.FontStyle = curFontStyle.ToLexFontStyle();
             style.Desc = curDesc;
             UpdateStyleControls();
         }
@@ -1769,7 +1761,7 @@ namespace Customize.Dialogs
 
                 curForeColor = style.ForeColor;
                 curBkColor = style.BackColor;
-                curFontStyle = style.FontStyle;
+                curFontStyle = style.FontStyle.ToFontStyle();
                 curDesc = style.Desc;
             }
 

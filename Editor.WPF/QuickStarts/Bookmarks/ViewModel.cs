@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections;
@@ -54,6 +54,18 @@ namespace Bookmarks
         {
             this.tcEditors = tcEditors;
             OpenProject();
+
+            foreach (var editor in editors.Values)
+            {
+                (editor.Lexer as CsParser)?.ReparseText();
+            }
+
+            tcEditors.SelectionChanged += (s, x) =>
+            {
+                var editor = GetEditor(tcEditors.SelectedItem as TabItem);
+                var parser = editor?.Lexer as CsParser;
+                parser?.ReparseText();
+            };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -201,6 +213,9 @@ namespace Bookmarks
                 parser.FileName = fileName;
                 edit.Source.LoadFile(fileName);
                 edit.Source.FileName = fileName;
+
+                parser.Prepare(fileName, edit.Lines);
+                parser.ReparseText();
             }
 
             Random rnd = new Random();

@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Drawing;
@@ -32,6 +32,9 @@ namespace AlternetStudio.Demo
 
         private bool projectIsClosing;
         private string dir = Application.StartupPath + @"\";
+        private ImageList codeExplorerImageList = new ImageList();
+        private ImageList projectExplorerImageList = new ImageList();
+
         #endregion
 
         public MainForm(string[] args)
@@ -39,9 +42,12 @@ namespace AlternetStudio.Demo
             InitializeScripter();
             InitializeEditors();
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "AlternetStudio.Demo.TypeScript.Resources";
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
+            InitImages();
             InitializeCodeNavigationBar();
             InitEditorsContextMenu();
-            InitImages();
             InitializeFormDesigner();
             BookMarkManager.SharedBookMarks.Activate += new EventHandler<ActivateEventArgs>(DoActivate);
             BookMarkManager.SharedBookMarks.BookMarkAdded += SharedBookMarks_BookMarkAdded;
@@ -70,8 +76,18 @@ namespace AlternetStudio.Demo
                     () => getImage(imageName + "_HighDpi")).Image;
         }
 
+        private ImageList LoadImageList(string resource)
+        {
+            return ImageListHelper.LoadImageListFromStrip(typeof(MainForm).Assembly, string.Format("AlternetStudio.Demo.TypeScript.Resources.{0}.png", resource));
+        }
+
         private void InitImages()
         {
+            codeExplorerImageList = LoadImageList("CodeExplorerImages");
+            projectExplorerImageList = LoadImageList("ProjectExplorerImages");
+            codeExplorerTreeView.ImageList = codeExplorerImageList;
+            projectExplorerTreeView.ImageList = projectExplorerImageList;
+
             newMenuItem.Image = LoadImage("NewFile");
             newStripSplitButton.Image = LoadImage("NewFile");
             openMenuItem.Image = LoadImage("OpenFile");
@@ -120,9 +136,10 @@ namespace AlternetStudio.Demo
             if (!DisplayScaling.NeedsScaling)
                 return;
 
-            codeExplorerTreeView.ImageList = DisplayScaling.CloneAndAutoScaleImageList(codeExplorerTreeView.ImageList);
-            projectExplorerTreeView.ImageList = DisplayScaling.CloneAndAutoScaleImageList(projectExplorerTreeView.ImageList);
-            imageList = DisplayScaling.CloneAndAutoScaleImageList(imageList1);
+            codeExplorerTreeView.ImageList = DisplayImageScaling.CloneAndAutoScaleImageList(codeExplorerTreeView.ImageList);
+            projectExplorerTreeView.ImageList = DisplayImageScaling.CloneAndAutoScaleImageList(projectExplorerTreeView.ImageList);
+            codeExplorerImageList = DisplayImageScaling.CloneAndAutoScaleImageList(codeExplorerImageList);
+            projectExplorerImageList = DisplayImageScaling.CloneAndAutoScaleImageList(projectExplorerImageList);
             codeNavigationBarPanel.Height = methodsComboBox.Height + 2;
         }
 
@@ -233,7 +250,7 @@ namespace AlternetStudio.Demo
 
         private void OnDrawItem(ComboBox combo, DrawItemEventArgs e)
         {
-            CodeUtils.DrawItem(combo, e, imageList1);
+            CodeUtils.DrawItem(combo, e, codeExplorerImageList);
         }
 
         #endregion

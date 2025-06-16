@@ -1,19 +1,20 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 using Alternet.Common;
 using Alternet.Editor.Roslyn;
@@ -23,19 +24,42 @@ namespace AlternetStudio.Demo
 {
     public partial class MainForm : Form
     {
+        static MainForm()
+        {
+            Utilities.DoApplicationEvents += (s, e) =>
+            {
+                Application.DoEvents();
+            };
+        }
+
         public MainForm()
         {
             InitializeScripter();
             InitializeEditors();
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "AlternetStudio.Demo.Resources";
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
+
+            InitImages();
             InitializeCodeNavigationBar();
             InitEditorsContextMenu();
-            InitImages();
             InitializeFormDesigner();
             BookMarkManager.SharedBookMarks.Activate += new EventHandler<ActivateEventArgs>(DoActivate);
             BookMarkManager.SharedBookMarks.BookMarkAdded += SharedBookMarks_BookMarkAdded;
             BookMarkManager.SharedBookMarks.BookMarkRemoved += SharedBookMarks_BookMarkRemoved;
             ScaleControls();
+
+            if (Consts.IsDebugDefinedAndAttached)
+            {
+                KeyPreview = true;
+            }
+        }
+
+        public static void ShowLicenseDialog()
+        {
+            var dialog = new Alternet.Common.License.LicenseDialog();
+            dialog.Show();
         }
 
         protected override void OnClosed(System.EventArgs e)
@@ -68,8 +92,15 @@ namespace AlternetStudio.Demo
             InitializeFileProperties();
         }
 
+        private ImageList LoadImageList(string resource)
+        {
+            return ImageListHelper.LoadImageListFromStrip(typeof(MainForm).Assembly, string.Format("AlternetStudio.Demo.Resources.{0}.png", resource));
+        }
+
         private void InitImages()
         {
+            projectExplorerTreeView.ImageList = LoadImageList("ProjectExplorerImages");
+            codeExplorerTreeView.ImageList = LoadImageList("CodeExplorerImages");
             newMenuItem.Image = LoadImage("NewFile");
             newStripSplitButton.Image = LoadImage("NewFile");
             openMenuItem.Image = LoadImage("OpenFile");
@@ -120,9 +151,8 @@ namespace AlternetStudio.Demo
 
             referencesContextMenu.ShowCheckMargin = true;
 
-            codeExplorerTreeView.ImageList = DisplayScaling.CloneAndAutoScaleImageList(codeExplorerTreeView.ImageList);
-            projectExplorerTreeView.ImageList = DisplayScaling.CloneAndAutoScaleImageList(projectExplorerTreeView.ImageList);
-            imageList1 = DisplayScaling.CloneAndAutoScaleImageList(imageList1);
+            codeExplorerTreeView.ImageList = DisplayImageScaling.CloneAndAutoScaleImageList(codeExplorerTreeView.ImageList);
+            projectExplorerTreeView.ImageList = DisplayImageScaling.CloneAndAutoScaleImageList(projectExplorerTreeView.ImageList);
             codeNavigationBarPanel.Height = methodsComboBox.Height + 2;
         }
 

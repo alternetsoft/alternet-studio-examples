@@ -94,7 +94,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IsolatedScript", "Scripter.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesignInMemory.Wpf", "FormDesigner.Wpf\QuickStarts\DesignInMemory\DesignInMemory.Wpf.csproj", "{62D2121B-4155-48DD-A2DF-02F53F0F872F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XAMLParsing", "Editor.Wpf\QuickStarts\Parsers\XAMLParsing\XAMLParsing.csproj", "{06151836-0994-4EF5-A364-227AA1CD9029}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlParsing", "Editor.Wpf\QuickStarts\Parsers\XamlParsing\XamlParsing.csproj", "{06151836-0994-4EF5-A364-227AA1CD9029}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlternetStudio.Wpf", "Studio.Wpf\AlternetStudio.Wpf.csproj", "{8BE798BE-BF18-446E-932F-D6EC9BD834F5}"
 EndProject
@@ -109,6 +109,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PackageReference", "Scripter.Wpf\QuickStarts\PackageReference\PackageReference.csproj", "{1FCCDC49-83FE-4255-814B-723D24685817}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScriptHostObject", "Scripter.Wpf\QuickStarts\ScriptHostObject\ScriptHostObject.csproj", "{C1102F04-1129-46CE-AD7F-CDFBE6E7C589}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerFXSyntaxParsing", "Editor.Wpf\QuickStarts\Parsers\PowerFxSyntaxParsing\PowerFXSyntaxParsing.csproj", "{EDC52D41-E7E3-45BA-BFD5-DCB6F8152E19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -478,6 +480,14 @@ Global
 		{C1102F04-1129-46CE-AD7F-CDFBE6E7C589}.Runtime|Any CPU.Build.0 = Release|Any CPU
 		{C1102F04-1129-46CE-AD7F-CDFBE6E7C589}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
 		{C1102F04-1129-46CE-AD7F-CDFBE6E7C589}.Trial|Any CPU.Build.0 = Debug|Any CPU
+		{EDC52D41-E7E3-45BA-BFD5-DCB6F8152E19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDC52D41-E7E3-45BA-BFD5-DCB6F8152E19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDC52D41-E7E3-45BA-BFD5-DCB6F8152E19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDC52D41-E7E3-45BA-BFD5-DCB6F8152E19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDC52D41-E7E3-45BA-BFD5-DCB6F8152E19}.Runtime|Any CPU.ActiveCfg = Release|Any CPU
+		{EDC52D41-E7E3-45BA-BFD5-DCB6F8152E19}.Runtime|Any CPU.Build.0 = Release|Any CPU
+		{EDC52D41-E7E3-45BA-BFD5-DCB6F8152E19}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDC52D41-E7E3-45BA-BFD5-DCB6F8152E19}.Trial|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -533,6 +543,7 @@ Global
 		{C01E89A2-2F4A-44E7-8642-285713FB0938} = {ED3BD100-BAF6-4A7A-AD26-1664556CDE1A}
 		{1FCCDC49-83FE-4255-814B-723D24685817} = {6976F994-F8DA-4882-A91C-ED1494389851}
 		{C1102F04-1129-46CE-AD7F-CDFBE6E7C589} = {6976F994-F8DA-4882-A91C-ED1494389851}
+		{EDC52D41-E7E3-45BA-BFD5-DCB6F8152E19} = {ED3BD100-BAF6-4A7A-AD26-1664556CDE1A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BCFBB455-6B67-4FAA-B215-0D142C25C4BC}

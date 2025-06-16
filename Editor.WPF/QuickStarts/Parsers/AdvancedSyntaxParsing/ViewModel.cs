@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections;
@@ -16,6 +16,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 using Alternet.Editor.Wpf;
@@ -34,9 +36,11 @@ namespace AdvancedSyntaxParsing
 
         private string dir = AppDomain.CurrentDomain.BaseDirectory + @"\";
         private TextEditor edit;
+        private ComboBox comboBox;
         private string language = string.Empty;
         private OpenFileDialog openFileDialog = new OpenFileDialog { Multiselect = false };
         private ObservableCollection<string> languages = new ObservableCollection<string>();
+        private int updateCount = 0;
 
         private LanguageInfo[] langItems =
         {
@@ -98,10 +102,11 @@ namespace AdvancedSyntaxParsing
             LoadCommand = new RelayCommand(LoadClick);
         }
 
-        public ViewModel(TextEditor edit)
+        public ViewModel(TextEditor edit, ComboBox comboBox)
             : this()
         {
             this.edit = edit;
+            this.comboBox = comboBox;
             Language = "C#";
         }
 
@@ -126,6 +131,9 @@ namespace AdvancedSyntaxParsing
                 {
                     language = value;
                     OnPropertyChanged("Language");
+                    if (updateCount > 0)
+                        return;
+
                     if (edit != null)
                     {
                         int idx = FindLangByDesc(language);
@@ -246,6 +254,17 @@ namespace AdvancedSyntaxParsing
             return -1;
         }
 
+        private int FindLangByExt(string ext)
+        {
+            for (int i = 0; i < langItems.Length; i++)
+            {
+                if (string.Compare(langItems[i].FileExt, ext, true) == 0)
+                    return i;
+            }
+
+            return -1;
+        }
+
         private string RemoveFileExt(string fileName)
         {
             int p = fileName.LastIndexOf(".");
@@ -258,6 +277,21 @@ namespace AdvancedSyntaxParsing
             openFileDialog.FilterIndex = idx + 1;
             if (openFileDialog.ShowDialog().Value)
             {
+                idx = FindLangByExt("*" + Path.GetExtension(openFileDialog.FileName));
+                if (idx >= 0)
+                {
+                    edit.Lexer = GetLexer(idx);
+                    updateCount++;
+                    try
+                    {
+                        comboBox.SelectedIndex = idx;
+                    }
+                    finally
+                    {
+                        updateCount--;
+                    }
+                }
+
                 edit.Source.LoadFile(openFileDialog.FileName);
                 edit.Source.FileName = openFileDialog.FileName;
             }

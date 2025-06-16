@@ -58,13 +58,10 @@ namespace Alternet.CodeEditor.Demo
             System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("About");
             System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("Company Info", new System.Windows.Forms.TreeNode[] {
             treeNode43});
-            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.btPrintSetup = new System.Windows.Forms.Button();
             this.btPrintOptions = new System.Windows.Forms.Button();
-            this.chbPersistentBlocks = new System.Windows.Forms.CheckBox();
             this.btPrint = new System.Windows.Forms.Button();
             this.HighlightSelectedWordsCheckBox = new System.Windows.Forms.CheckBox();
-            this.chbOverwriteBlocks = new System.Windows.Forms.CheckBox();
             this.btPrintPreview = new System.Windows.Forms.Button();
             this.gbSelection = new System.Windows.Forms.GroupBox();
             this.chbSelectLineOnDblClick = new System.Windows.Forms.CheckBox();
@@ -73,6 +70,7 @@ namespace Alternet.CodeEditor.Demo
             this.chbSelectBeyondEol = new System.Windows.Forms.CheckBox();
             this.chbDisableDragging = new System.Windows.Forms.CheckBox();
             this.chbDisableSelection = new System.Windows.Forms.CheckBox();
+            this.chbDisableMouseSelection = new System.Windows.Forms.CheckBox();
             this.gbNavigateOptions = new System.Windows.Forms.GroupBox();
             this.chbMoveOnRightButton = new System.Windows.Forms.CheckBox();
             this.chbDownAtLineEnd = new System.Windows.Forms.CheckBox();
@@ -227,7 +225,6 @@ namespace Alternet.CodeEditor.Demo
             this.bookmarksTypeCheckBox = new System.Windows.Forms.CheckBox();
             this.changedLinesTypeCheckBox = new System.Windows.Forms.CheckBox();
             this.scrollBarAnnotationsEnabledCheckBox = new System.Windows.Forms.CheckBox();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tpVisualThemes = new System.Windows.Forms.TabPage();
@@ -300,16 +297,6 @@ namespace Alternet.CodeEditor.Demo
             this.pnDescription.SuspendLayout();
             this.SuspendLayout();
             // 
-            // imageList2
-            // 
-            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
-            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList2.Images.SetKeyName(0, "");
-            this.imageList2.Images.SetKeyName(1, "");
-            this.imageList2.Images.SetKeyName(2, "");
-            this.imageList2.Images.SetKeyName(3, "");
-            this.imageList2.Images.SetKeyName(4, "");
-            // 
             // btPrintSetup
             // 
             this.btPrintSetup.BackColor = System.Drawing.SystemColors.Control;
@@ -336,17 +323,6 @@ namespace Alternet.CodeEditor.Demo
             this.btPrintOptions.Click += new System.EventHandler(this.PrintOptionsButton_Click);
             this.btPrintOptions.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PrintOptionsButton_MouseMove);
             // 
-            // chbPersistentBlocks
-            // 
-            this.chbPersistentBlocks.Location = new System.Drawing.Point(395, 49);
-            this.chbPersistentBlocks.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.chbPersistentBlocks.Name = "chbPersistentBlocks";
-            this.chbPersistentBlocks.Size = new System.Drawing.Size(149, 26);
-            this.chbPersistentBlocks.TabIndex = 12;
-            this.chbPersistentBlocks.Text = "Persistent Blocks";
-            this.chbPersistentBlocks.CheckedChanged += new System.EventHandler(this.PersistenlocksCheckBoxTextBox_CheckedChanged);
-            this.chbPersistentBlocks.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PersistenlocksCheckBoxTextBox_MouseMove);
-            // 
             // btPrint
             // 
             this.btPrint.BackColor = System.Drawing.SystemColors.Control;
@@ -362,25 +338,14 @@ namespace Alternet.CodeEditor.Demo
             // 
             // HighlightSelectedWordsCheckBox
             // 
-            this.HighlightSelectedWordsCheckBox.Location = new System.Drawing.Point(395, 20);
+            this.HighlightSelectedWordsCheckBox.Location = new System.Drawing.Point(11, 79);
             this.HighlightSelectedWordsCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.HighlightSelectedWordsCheckBox.Name = "HighlightSelectedWordsCheckBox";
             this.HighlightSelectedWordsCheckBox.Size = new System.Drawing.Size(203, 26);
-            this.HighlightSelectedWordsCheckBox.TabIndex = 11;
+            this.HighlightSelectedWordsCheckBox.TabIndex = 2;
             this.HighlightSelectedWordsCheckBox.Text = "Highlight Selected Words";
             this.HighlightSelectedWordsCheckBox.CheckedChanged += new System.EventHandler(this.HighlightSelectedWordsCheckBox_CheckedChanged);
             this.HighlightSelectedWordsCheckBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.HighlightSelectedWordsCheckBox_MouseMove);
-            // 
-            // chbOverwriteBlocks
-            // 
-            this.chbOverwriteBlocks.Location = new System.Drawing.Point(395, 79);
-            this.chbOverwriteBlocks.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.chbOverwriteBlocks.Name = "chbOverwriteBlocks";
-            this.chbOverwriteBlocks.Size = new System.Drawing.Size(149, 26);
-            this.chbOverwriteBlocks.TabIndex = 13;
-            this.chbOverwriteBlocks.Text = "Overwrite Blocks";
-            this.chbOverwriteBlocks.CheckedChanged += new System.EventHandler(this.OverwriteBlocksCheckBox_CheckedChanged);
-            this.chbOverwriteBlocks.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OverwriteBlocksCheckBox_MouseMove);
             // 
             // btPrintPreview
             // 
@@ -397,82 +362,81 @@ namespace Alternet.CodeEditor.Demo
             // 
             // gbSelection
             // 
-            this.gbSelection.Controls.Add(this.chbOverwriteBlocks);
-            this.gbSelection.Controls.Add(this.chbPersistentBlocks);
-            this.gbSelection.Controls.Add(this.HighlightSelectedWordsCheckBox);
-            this.gbSelection.Controls.Add(this.chbSelectLineOnDblClick);
-            this.gbSelection.Controls.Add(this.chbHideSelection);
             this.gbSelection.Controls.Add(this.chbUseColors);
+            this.gbSelection.Controls.Add(this.chbHideSelection);
+            this.gbSelection.Controls.Add(this.HighlightSelectedWordsCheckBox);
             this.gbSelection.Controls.Add(this.chbSelectBeyondEol);
-            this.gbSelection.Controls.Add(this.chbDisableDragging);
+            this.gbSelection.Controls.Add(this.chbSelectLineOnDblClick);
             this.gbSelection.Controls.Add(this.chbDisableSelection);
+            this.gbSelection.Controls.Add(this.chbDisableMouseSelection);
+            this.gbSelection.Controls.Add(this.chbDisableDragging);
             this.gbSelection.Location = new System.Drawing.Point(11, 10);
             this.gbSelection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gbSelection.Name = "gbSelection";
             this.gbSelection.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.gbSelection.Size = new System.Drawing.Size(661, 118);
+            this.gbSelection.Size = new System.Drawing.Size(861, 118);
             this.gbSelection.TabIndex = 2;
             this.gbSelection.TabStop = false;
             this.gbSelection.Text = "Selection Options";
             // 
             // chbSelectLineOnDblClick
             // 
-            this.chbSelectLineOnDblClick.Location = new System.Drawing.Point(192, 79);
+            this.chbSelectLineOnDblClick.Location = new System.Drawing.Point(208, 49);
             this.chbSelectLineOnDblClick.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbSelectLineOnDblClick.Name = "chbSelectLineOnDblClick";
             this.chbSelectLineOnDblClick.Size = new System.Drawing.Size(187, 26);
-            this.chbSelectLineOnDblClick.TabIndex = 10;
+            this.chbSelectLineOnDblClick.TabIndex = 4;
             this.chbSelectLineOnDblClick.Text = "Select Line on DblClick";
             this.chbSelectLineOnDblClick.CheckedChanged += new System.EventHandler(this.SelectLineOnDblClickCheckBox_CheckedChanged);
             this.chbSelectLineOnDblClick.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SelectLineOnDblClickCheckBox_MouseMove);
             // 
             // chbHideSelection
             // 
-            this.chbHideSelection.Location = new System.Drawing.Point(192, 49);
+            this.chbHideSelection.Location = new System.Drawing.Point(11, 49);
             this.chbHideSelection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbHideSelection.Name = "chbHideSelection";
             this.chbHideSelection.Size = new System.Drawing.Size(139, 26);
-            this.chbHideSelection.TabIndex = 9;
+            this.chbHideSelection.TabIndex = 1;
             this.chbHideSelection.Text = "Hide Selection";
             this.chbHideSelection.CheckedChanged += new System.EventHandler(this.HideSelectionCheckBox_CheckedChanged);
             this.chbHideSelection.MouseMove += new System.Windows.Forms.MouseEventHandler(this.HideSelectionCheckBox_MouseMove);
             // 
             // chbUseColors
             // 
-            this.chbUseColors.Location = new System.Drawing.Point(192, 20);
+            this.chbUseColors.Location = new System.Drawing.Point(11, 20);
             this.chbUseColors.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbUseColors.Name = "chbUseColors";
             this.chbUseColors.Size = new System.Drawing.Size(139, 26);
-            this.chbUseColors.TabIndex = 8;
+            this.chbUseColors.TabIndex = 0;
             this.chbUseColors.Text = "Use Colors";
             this.chbUseColors.CheckedChanged += new System.EventHandler(this.UseColorsCheckBox_CheckedChanged);
             this.chbUseColors.MouseMove += new System.Windows.Forms.MouseEventHandler(this.UseColorsCheckBox_MouseMove);
             // 
             // chbSelectBeyondEol
             // 
-            this.chbSelectBeyondEol.Location = new System.Drawing.Point(11, 79);
+            this.chbSelectBeyondEol.Location = new System.Drawing.Point(208, 20);
             this.chbSelectBeyondEol.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbSelectBeyondEol.Name = "chbSelectBeyondEol";
             this.chbSelectBeyondEol.Size = new System.Drawing.Size(160, 26);
-            this.chbSelectBeyondEol.TabIndex = 7;
+            this.chbSelectBeyondEol.TabIndex = 3;
             this.chbSelectBeyondEol.Text = "Select Beyond Eol";
             this.chbSelectBeyondEol.CheckedChanged += new System.EventHandler(this.SeleceyondEolCheckBoxTextBox_CheckedChanged);
             this.chbSelectBeyondEol.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SeleceyondEolCheckBoxTextBox_MouseMove);
             // 
             // chbDisableDragging
             // 
-            this.chbDisableDragging.Location = new System.Drawing.Point(11, 49);
+            this.chbDisableDragging.Location = new System.Drawing.Point(395, 79);
             this.chbDisableDragging.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbDisableDragging.Name = "chbDisableDragging";
             this.chbDisableDragging.Size = new System.Drawing.Size(149, 26);
-            this.chbDisableDragging.TabIndex = 6;
+            this.chbDisableDragging.TabIndex = 7;
             this.chbDisableDragging.Text = "Disable Dragging";
             this.chbDisableDragging.CheckedChanged += new System.EventHandler(this.DisableDraggingCheckBox_CheckedChanged);
             this.chbDisableDragging.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DisableDraggingCheckBox_MouseMove);
             // 
             // chbDisableSelection
             // 
-            this.chbDisableSelection.Location = new System.Drawing.Point(11, 20);
+            this.chbDisableSelection.Location = new System.Drawing.Point(395, 20);
             this.chbDisableSelection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chbDisableSelection.Name = "chbDisableSelection";
             this.chbDisableSelection.Size = new System.Drawing.Size(149, 26);
@@ -480,6 +444,18 @@ namespace Alternet.CodeEditor.Demo
             this.chbDisableSelection.Text = "Disable Selection";
             this.chbDisableSelection.CheckedChanged += new System.EventHandler(this.DisableSelectionCheckBox_CheckedChanged);
             this.chbDisableSelection.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DisableSelectionCheckBox_MouseMove);
+            // 
+            // chbDisableMouseSelection
+            // 
+            this.chbDisableMouseSelection.Location = new System.Drawing.Point(395, 49);
+            this.chbDisableMouseSelection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbDisableMouseSelection.Name = "chbDisableMouseSelection";
+            this.chbDisableMouseSelection.Size = new System.Drawing.Size(199, 26);
+            //this.chbDisableMouseSelection.AutoSize = true;
+            this.chbDisableMouseSelection.TabIndex = 6;
+            this.chbDisableMouseSelection.Text = "Disable Mouse Selection";
+            this.chbDisableMouseSelection.CheckedChanged += new System.EventHandler(this.DisableMouseSelectionCheckBox_CheckedChanged);
+            this.chbDisableMouseSelection.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DisableMouseSelectionCheckBox_MouseMove);
             // 
             // gbNavigateOptions
             // 
@@ -1331,7 +1307,6 @@ namespace Alternet.CodeEditor.Demo
             this.tbCompanyInfo.Name = "tbCompanyInfo";
             this.tbCompanyInfo.Size = new System.Drawing.Size(533, 101);
             this.tbCompanyInfo.TabIndex = 9;
-            this.tbCompanyInfo.Text = resources.GetString("tbCompanyInfo.Text");
             // 
             // chbHighlightUrls
             // 
@@ -1423,7 +1398,6 @@ namespace Alternet.CodeEditor.Demo
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(33, 42);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
@@ -1583,7 +1557,6 @@ namespace Alternet.CodeEditor.Demo
             // syntaxEdit
             // 
             this.syntaxEdit.BackColor = System.Drawing.SystemColors.Window;
-            this.syntaxEdit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("syntaxEdit.BackgroundImage")));
             this.syntaxEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.syntaxEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.syntaxEdit.EditMargin.ColumnPositions = new int[] {
@@ -1693,7 +1666,6 @@ namespace Alternet.CodeEditor.Demo
             // syntaxSplitEdit
             // 
             this.syntaxSplitEdit.BackColor = System.Drawing.SystemColors.Window;
-            this.syntaxSplitEdit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("syntaxSplitEdit.BackgroundImage")));
             this.syntaxSplitEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.syntaxSplitEdit.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.syntaxSplitEdit.EditMargin.ColumnPositions = new int[] {
@@ -2409,13 +2381,6 @@ namespace Alternet.CodeEditor.Demo
             this.scrollBarAnnotationsEnabledCheckBox.UseVisualStyleBackColor = true;
             this.scrollBarAnnotationsEnabledCheckBox.CheckedChanged += new System.EventHandler(this.ScrolarAnnotationsEnabledCheckBoxLisoxTextBox_CheckedChanged);
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.White;
-            this.imageList1.Images.SetKeyName(0, "");
-            this.imageList1.Images.SetKeyName(1, "");
-            // 
             // saveFileDialog2
             // 
             this.saveFileDialog2.Filter = "Rtf files (*.rtf)|*.rtf|Html files (*.html; *.htm)|*.html;*.htm|Xml files (*.xml)" +
@@ -2488,7 +2453,6 @@ namespace Alternet.CodeEditor.Demo
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1303, 788);
             this.Controls.Add(this.pnMain);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -2571,11 +2535,8 @@ namespace Alternet.CodeEditor.Demo
 
         private System.Windows.Forms.Button btPrintSetup;
         private System.Windows.Forms.Button btPrintOptions;
-        private System.Windows.Forms.ImageList imageList2;
-        private System.Windows.Forms.CheckBox chbPersistentBlocks;
         private System.Windows.Forms.Button btPrint;
         private System.Windows.Forms.CheckBox HighlightSelectedWordsCheckBox;
-        private System.Windows.Forms.CheckBox chbOverwriteBlocks;
         private System.Windows.Forms.Button btPrintPreview;
         private System.Windows.Forms.GroupBox gbSelection;
         private System.Windows.Forms.CheckBox chbSelectLineOnDblClick;
@@ -2584,6 +2545,7 @@ namespace Alternet.CodeEditor.Demo
         private System.Windows.Forms.CheckBox chbSelectBeyondEol;
         private System.Windows.Forms.CheckBox chbDisableDragging;
         private System.Windows.Forms.CheckBox chbDisableSelection;
+        private System.Windows.Forms.CheckBox chbDisableMouseSelection;
         private System.Windows.Forms.GroupBox gbNavigateOptions;
         private System.Windows.Forms.CheckBox chbMoveOnRightButton;
         private System.Windows.Forms.CheckBox chbDownAtLineEnd;
@@ -2721,7 +2683,6 @@ namespace Alternet.CodeEditor.Demo
         private System.Windows.Forms.TabPage tpSpellAndUrl;
         private System.Windows.Forms.Panel pnSpellAndUrl;
         private System.Windows.Forms.GroupBox gbSpellAndUrl;
-        private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog2;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TabPage tpScrollbarAnnotations;

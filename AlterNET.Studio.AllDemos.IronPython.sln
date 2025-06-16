@@ -41,8 +41,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomizeToolbox", "FormDes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoadAndSave", "FormDesigner.IronPython\QuickStarts\LoadAndSave\LoadAndSave.csproj", "{5B704900-9EF3-4FC8-9B3C-2743D4AF2781}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DebuggerUIThread.IronPython", "Scripter.IronPython\QuickStarts\Debugger\DebuggerUIThread\DebuggerUIThread.IronPython.csproj", "{D228BF38-C608-4EC1-921B-03D958E90F7C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,14 +145,6 @@ Global
 		{5B704900-9EF3-4FC8-9B3C-2743D4AF2781}.Runtime|Any CPU.Build.0 = Release|Any CPU
 		{5B704900-9EF3-4FC8-9B3C-2743D4AF2781}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
 		{5B704900-9EF3-4FC8-9B3C-2743D4AF2781}.Trial|Any CPU.Build.0 = Debug|Any CPU
-		{D228BF38-C608-4EC1-921B-03D958E90F7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D228BF38-C608-4EC1-921B-03D958E90F7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D228BF38-C608-4EC1-921B-03D958E90F7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D228BF38-C608-4EC1-921B-03D958E90F7C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D228BF38-C608-4EC1-921B-03D958E90F7C}.Runtime|Any CPU.ActiveCfg = Release|Any CPU
-		{D228BF38-C608-4EC1-921B-03D958E90F7C}.Runtime|Any CPU.Build.0 = Release|Any CPU
-		{D228BF38-C608-4EC1-921B-03D958E90F7C}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
-		{D228BF38-C608-4EC1-921B-03D958E90F7C}.Trial|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -177,7 +167,6 @@ Global
 		{4619F151-EA3F-409D-81DD-C55CF33FCCB0} = {EE11706C-5455-4B80-BFB9-C549EFA3C6D9}
 		{426CB36B-039E-413F-ABFC-EF8E52568FC7} = {EE11706C-5455-4B80-BFB9-C549EFA3C6D9}
 		{5B704900-9EF3-4FC8-9B3C-2743D4AF2781} = {EE11706C-5455-4B80-BFB9-C549EFA3C6D9}
-		{D228BF38-C608-4EC1-921B-03D958E90F7C} = {6B4421C3-DFEE-4741-8ED6-5C14502DC4FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F273BD5C-AD6F-4106-A530-507C5A115BBC}

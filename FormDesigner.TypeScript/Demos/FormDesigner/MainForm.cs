@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Form Designer Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -22,6 +22,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
+using Alternet.Common;
 using Alternet.Common.DotNet.DefaultAssemblies;
 using Alternet.Common.TypeScript.HostObjects;
 using Alternet.Editor.Common;
@@ -46,6 +47,9 @@ namespace Alternet.FormDesigner.Demo
         public MainForm()
         {
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "Alternet.FormDesigner.Demo.Resources";
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
 
             scriptRun = new ScriptRun();
             InitDefaultHostAssemblies();
@@ -91,6 +95,7 @@ namespace Alternet.FormDesigner.Demo
         private void InitDefaultHostAssemblies()
         {
             scriptRun.ScriptHost.HostItemsConfiguration.AddSystemAssemblies(options: HostItemOptions.GlobalMembers | HostItemOptions.GenerateDescriptions);
+            CodeEditExtensions.DefaultProject.HostItemsConfiguration = scriptRun.ScriptHost.HostItemsConfiguration;
         }
 
         private void UpdateOptions()
@@ -645,7 +650,7 @@ namespace Alternet.FormDesigner.Demo
 
         #region Scripter
 
-        private void RunScript()
+        private async void RunScript()
         {
             var source = GetActiveDesignerSource();
             if (source == null)
@@ -664,7 +669,14 @@ namespace Alternet.FormDesigner.Demo
                     }
                 }
 
-                scriptRun.RunAsync();
+                try
+                {
+                    await scriptRun.RunAsync();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 

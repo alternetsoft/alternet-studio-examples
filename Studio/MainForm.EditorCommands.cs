@@ -1,20 +1,22 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Alternet.Editor.Roslyn;
 using Alternet.Editor.TextSource;
 using Alternet.FormDesigner.WinForms;
 
@@ -25,12 +27,16 @@ namespace AlternetStudio.Demo
         private ToolStripButton newFile = new ToolStripButton("File...");
         private ToolStripButton newProject = new ToolStripButton("Project...");
         private ToolStripButton newForm = new ToolStripButton("Form...");
+        private IList<string> recentFiles = new List<string>();
+        private IList<string> recentProjects = new List<string>();
 
         private void InitializeToolbar()
         {
             filesMenuStrip.Items.Add(newFile);
             filesMenuStrip.Items.Add(newForm);
             filesMenuStrip.Items.Add(newProject);
+            fileMenuItem.DropDownOpening += FileMenuItem_DropDownOpening;
+            LoadRecentFiles();
 
             newFile.Click += new System.EventHandler(this.NewMenuItem_Click);
             newFile.ImageScaling = ToolStripItemImageScaling.None;
@@ -54,6 +60,20 @@ namespace AlternetStudio.Demo
             gotoToolButton.Tag = gotoMenuItem;
             printPreviewToolButton.Tag = printPreviewMenuItem;
             printToolButton.Tag = printMenuItem;
+
+            ProjectFrameworksComboBox.SelectedIndexChanged += ProjectComboBox_SelectedIndexChanged;
+        }
+
+        private void FileMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            recentFilesMenuItem.Enabled = recentFiles.Count > 0;
+            recentProjectsMenuItem.Enabled = recentProjects.Count > 0;
+            UpdateRecentFiles();
+        }
+
+        private void ProjectComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CurrentFramework = CodeUtils.GetSelectedFramework(ProjectFrameworksComboBox);
         }
 
         private void UpdateEditorStatus()
@@ -102,6 +122,9 @@ namespace AlternetStudio.Demo
 
             closeProjectMenuItem.Enabled = HasProject();
             saveProjectMenuItem.Enabled = HasProject();
+            bool hasFrameworks = HasProject() && Project.TargetFrameworks?.Count > 0;
+            ProjectFrameworksComboBox.Visible = hasFrameworks;
+
             saveMenuItem.Enabled = enabled;
 
             saveAsMenuItem.Enabled = enabled && !edit.FileName.Contains("Designer");

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Controls:DemoPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+             xmlns:Controls="clr-namespace:AllQuickStarts"  
+             xmlns:ui="http://schemas.alternetsoft.com/alternetui/2024"
+             x:Class="AllQuickStarts.Pages.HypertextPage"
+             Title="Hyper Text">
+    <AbsoluteLayout>
+        <Grid x:Name="MainGrid" RowDefinitions="*" ColumnDefinitions="*, auto">
+
+            <editor:SyntaxEditView x:Name="syntaxEdit1" Grid.Column="0" IsVisible="false"
+                               Margin="10,10,10,10"/>
+            <ScrollView Grid.Column="1" x:Name="settingsPanel">
+                <StackLayout Orientation="Vertical" Margin="10,10,10,10">
+                    <ui:CheckBoxWithLabelView x:Name="chbHighlightUrls"
+                    ToolTip = "Indicating whether hypertext urls in the text should be highlighted"
+                    Text="Highlight URLs" IsEnabled="true"/>
+                    <Label Margin="10,10,10,10" HorizontalTextAlignment="Start" 
+                       Text="URL Color:"  VerticalTextAlignment="Center"/>
+                    <ui:ColorPickerView x:Name="UrlColorPicker"
+                        MinimumWidthRequest="150"
+                        ToolTipProperties.Text="Color of highlighted urls"
+                        Margin="10,10,10,10"
+                        SelectedIndexChanged = "UrlColorPicker_SelectedIndexChanged"
+                        >
+                    </ui:ColorPickerView>
+                    <ui:CheckBoxWithLabelView x:Name="chbCustomHypertext"
+                    ToolTip = "Highlight custom hypertext"
+                    Text="Custom Hypertext" IsEnabled="true"/>
+                    <Label Margin="10,10,10,10" HorizontalTextAlignment="Start" 
+                       Text="Font Style:"  VerticalTextAlignment="Center"/>
+                    <Picker x:Name="FontStylePicker"
+                        MinimumWidthRequest="150"
+                        ToolTipProperties.Text="Font style of highlighted urls"
+                        Margin="10,10,10,10"
+                        SelectedIndexChanged = "FontStylePicker_SelectedIndexChanged"
+                        >
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Regular</x:String>
+                                <x:String>Bold</x:String>
+                                <x:String>Italic</x:String>
+                                <x:String>Underline</x:String>
+                                <x:String>Strikeout</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </AbsoluteLayout>
+</Controls:DemoPage>

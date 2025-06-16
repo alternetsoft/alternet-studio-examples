@@ -33,6 +33,9 @@ namespace CppLlvmDapDebugger
         {
             DeployServer();
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "CppLldbDapDebugger.Resources";
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
 
             codeEditContainer = new DebugCodeEditContainer(editorsTabControl);
             codeEditContainer.EditorRequested += EditorContainer_EditorRequested;
@@ -55,8 +58,6 @@ namespace CppLlvmDapDebugger
             controller.Debugger = debugger;
             controller.DebuggerPanels = debuggerPanelsTabControl;
             codeEditContainer.Debugger = debugger;
-
-            ScaleControls();
         }
 
         public void SaveAllModifiedFiles()
@@ -114,14 +115,6 @@ namespace CppLlvmDapDebugger
             }
 
             return false;
-        }
-
-        private void ScaleControls()
-        {
-            if (!DisplayScaling.NeedsScaling)
-                return;
-
-            splitContainer.SplitterDistance = DisplayScaling.AutoScale(splitContainer.SplitterDistance);
         }
 
         private void EditorContainer_EditorRequested(object sender, DebugEditRequestedEventArgs e)

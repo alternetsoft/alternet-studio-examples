@@ -21,6 +21,8 @@ namespace AlternetStudio.Demo
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.filesMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.recentFilesMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.recentProjectsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newStripSplitButton = new System.Windows.Forms.ToolStripSplitButton();
             this.referencesContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addProjectMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -35,6 +37,8 @@ namespace AlternetStudio.Demo
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.fileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recentFilesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recentProjectsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newFormMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newProjectMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
@@ -52,6 +56,7 @@ namespace AlternetStudio.Demo
             this.printPreviewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem33 = new System.Windows.Forms.ToolStripSeparator();
             this.exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -112,7 +117,6 @@ namespace AlternetStudio.Demo
             this.nextBookmarkToolButton = new System.Windows.Forms.ToolStripButton();
             this.clearAllBookmarksToolButton = new System.Windows.Forms.ToolStripButton();
             this.debuggerControlToolbar = new Alternet.Scripter.Debugger.UI.DebuggerControlToolbar();
-            this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.positionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.modifiedStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -121,6 +125,7 @@ namespace AlternetStudio.Demo
             this.codeNavigationBarPanel = new System.Windows.Forms.Panel();
             this.methodsComboBox = new System.Windows.Forms.ComboBox();
             this.classesComboBox = new System.Windows.Forms.ComboBox();
+            this.ProjectFrameworksComboBox = new System.Windows.Forms.ComboBox();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.editorsTabControl = new System.Windows.Forms.TabControl();
@@ -141,7 +146,6 @@ namespace AlternetStudio.Demo
             this.errorsControl = new Alternet.Scripter.Debugger.UI.Errors();
             this.threadsTabPage = new System.Windows.Forms.TabPage();
             this.threadsControl = new Alternet.Scripter.Debugger.UI.Threads();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.rightTabControl = new System.Windows.Forms.TabControl();
             this.projectExplorerTabPage = new System.Windows.Forms.TabPage();
             this.propertyGrid = new System.Windows.Forms.PropertyGrid();
@@ -157,6 +161,7 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.mainMenu.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.standardToolStrip.SuspendLayout();
+            this.ProjectFrameworksComboBox.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.codeNavigationBarPanel.SuspendLayout();
             this.breakpointsTabPage.SuspendLayout();
@@ -178,7 +183,7 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // 
             // openFileDialog
             // 
-            this.openFileDialog.Filter = resources.GetString("openFileDialog.Filter");
+            this.openFileDialog.Filter = "C# files (*.cs) |*.cs|Visual Basic files (*.vb) | *.vb|CS script files (*.csx) |*.csx| All project files (*.csproj; *.vbproj; *.sln)|*.csproj; *.vbproj; *.sln| Any files (*.*) | *.*";
             // 
             // saveFileDialog
             // 
@@ -193,6 +198,17 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.filesMenuStrip.OwnerItem = this.newStripSplitButton;
             this.filesMenuStrip.Size = new System.Drawing.Size(61, 4);
             // 
+            // recentFilesMenuStrip
+            // 
+            this.recentFilesMenuStrip.ImageScalingSize = new System.Drawing.Size(36, 36);
+            this.recentFilesMenuStrip.Name = "mnuRecentFiles";
+            this.recentFilesMenuStrip.Size = new System.Drawing.Size(61, 4);
+            // 
+            // recentProjectsMenuStrip
+            // 
+            this.recentProjectsMenuStrip.ImageScalingSize = new System.Drawing.Size(36, 36);
+            this.recentProjectsMenuStrip.Name = "mnuRecentProjects";
+            this.recentProjectsMenuStrip.Size = new System.Drawing.Size(61, 4);            // 
             // newStripSplitButton
             // 
             this.newStripSplitButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -322,6 +338,9 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.printPreviewMenuItem,
             this.printMenuItem,
             this.toolStripMenuItem3,
+            this.recentFilesMenuItem,
+            this.recentProjectsMenuItem,
+            this.toolStripMenuItem33,
             this.exitMenuItem});
             this.fileMenuItem.Name = "fileMenuItem";
             this.fileMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -334,6 +353,22 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.newMenuItem.Size = new System.Drawing.Size(187, 22);
             this.newMenuItem.Text = "&New";
             this.newMenuItem.DropDown = this.filesMenuStrip;
+            // 
+            // recentFilesMenuItem
+            // 
+            this.recentFilesMenuItem.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.recentFilesMenuItem.Name = "recentFilesMenuItem";
+            this.recentFilesMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.recentFilesMenuItem.Text = "Recent Files";
+            this.recentFilesMenuItem.DropDown = this.recentFilesMenuStrip;
+            // 
+            // recentProjectsMenuItem
+            // 
+            this.recentProjectsMenuItem.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.recentProjectsMenuItem.Name = "recentProjectsMenuItem";
+            this.recentProjectsMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.recentProjectsMenuItem.Text = "Recent Projects and Solutions";
+            this.recentProjectsMenuItem.DropDown = this.recentProjectsMenuStrip;
             // 
             // newFormMenuItem
             // 
@@ -402,7 +437,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // 
             // saveMenuItem
             // 
-            this.saveMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveMenuItem.Image")));
             this.saveMenuItem.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.saveMenuItem.Name = "saveMenuItem";
             this.saveMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
@@ -412,7 +446,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // 
             // saveAsMenuItem
             // 
-            this.saveAsMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveAsMenuItem.Image")));
             this.saveAsMenuItem.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.saveAsMenuItem.Name = "saveAsMenuItem";
             this.saveAsMenuItem.Size = new System.Drawing.Size(187, 22);
@@ -421,7 +454,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // 
             // saveAllMenuItem
             // 
-            this.saveAllMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveAllMenuItem.Image")));
             this.saveAllMenuItem.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.saveAllMenuItem.Name = "saveAllMenuItem";
             this.saveAllMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
@@ -437,7 +469,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // 
             // printPreviewMenuItem
             // 
-            this.printPreviewMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("printPreviewMenuItem.Image")));
             this.printPreviewMenuItem.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.printPreviewMenuItem.Name = "printPreviewMenuItem";
             this.printPreviewMenuItem.Size = new System.Drawing.Size(187, 22);
@@ -457,6 +488,11 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(184, 6);
+            // 
+            // toolStripMenuItem33
+            // 
+            this.toolStripMenuItem33.Name = "toolStripMenuItem33";
+            this.toolStripMenuItem33.Size = new System.Drawing.Size(184, 6);
             // 
             // exitMenuItem
             // 
@@ -484,7 +520,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // 
             // undoMenuItem
             // 
-            this.undoMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("undoMenuItem.Image")));
             this.undoMenuItem.Name = "undoMenuItem";
             this.undoMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
             this.undoMenuItem.Size = new System.Drawing.Size(164, 22);
@@ -493,7 +528,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // 
             // redoMenuItem
             // 
-            this.redoMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("redoMenuItem.Image")));
             this.redoMenuItem.Name = "redoMenuItem";
             this.redoMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
             this.redoMenuItem.Size = new System.Drawing.Size(164, 22);
@@ -548,7 +582,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // 
             // selectAllMenuItem
             // 
-            this.selectAllMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("selectAllMenuItem.Image")));
             this.selectAllMenuItem.Name = "selectAllMenuItem";
             this.selectAllMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
             this.selectAllMenuItem.Size = new System.Drawing.Size(164, 22);
@@ -610,7 +643,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // 
             // gotoMenuItem
             // 
-            this.gotoMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("gotoMenuItem.Image")));
             this.gotoMenuItem.Name = "gotoMenuItem";
             this.gotoMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
             this.gotoMenuItem.Size = new System.Drawing.Size(226, 22);
@@ -722,6 +754,7 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1.AutoSize = true;
             this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel1.Controls.Add(this.standardToolStrip);
+            this.flowLayoutPanel1.Controls.Add(this.ProjectFrameworksComboBox);
             this.flowLayoutPanel1.Controls.Add(this.debuggerControlToolbar);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 24);
@@ -818,7 +851,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // undoToolButton
             // 
             this.undoToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.undoToolButton.Image = ((System.Drawing.Image)(resources.GetObject("undoToolButton.Image")));
             this.undoToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.undoToolButton.Name = "undoToolButton";
             this.undoToolButton.Size = new System.Drawing.Size(23, 22);
@@ -828,7 +860,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // redoToolButton
             // 
             this.redoToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.redoToolButton.Image = ((System.Drawing.Image)(resources.GetObject("redoToolButton.Image")));
             this.redoToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.redoToolButton.Name = "redoToolButton";
             this.redoToolButton.Size = new System.Drawing.Size(23, 22);
@@ -861,7 +892,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // gotoToolButton
             // 
             this.gotoToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.gotoToolButton.Image = ((System.Drawing.Image)(resources.GetObject("gotoToolButton.Image")));
             this.gotoToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.gotoToolButton.Name = "gotoToolButton";
             this.gotoToolButton.Size = new System.Drawing.Size(23, 22);
@@ -876,7 +906,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // printPreviewToolButton
             // 
             this.printPreviewToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.printPreviewToolButton.Image = ((System.Drawing.Image)(resources.GetObject("printPreviewToolButton.Image")));
             this.printPreviewToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.printPreviewToolButton.Name = "printPreviewToolButton";
             this.printPreviewToolButton.Size = new System.Drawing.Size(23, 22);
@@ -913,7 +942,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // 
             // historyForwardToolButton
             // 
-            this.historyForwardToolButton.Image = ((System.Drawing.Image)(resources.GetObject("historyForwardToolButton.Image")));
             this.historyForwardToolButton.Name = "historyForwardToolButton";
             this.historyForwardToolButton.Size = new System.Drawing.Size(23, 22);
             this.historyForwardToolButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
@@ -973,29 +1001,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.debuggerControlToolbar.Size = new System.Drawing.Size(127, 25);
             this.debuggerControlToolbar.TabIndex = 4;
             // 
-            // imageList
-            // 
-            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
-            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList.Images.SetKeyName(0, "CS_ProjectSENode_16x.png");
-            this.imageList.Images.SetKeyName(1, "Reference.png");
-            this.imageList.Images.SetKeyName(2, "Property.png");
-            this.imageList.Images.SetKeyName(3, "CS_16x.png");
-            this.imageList.Images.SetKeyName(4, "GenerateFile_16x.png");
-            this.imageList.Images.SetKeyName(5, "WindowsForm_16x.png");
-            this.imageList.Images.SetKeyName(6, "FileGroup_16x.png");
-            this.imageList.Images.SetKeyName(7, "FolderClosed.png");
-            this.imageList.Images.SetKeyName(8, "FolderOpened.png");
-            this.imageList.Images.SetKeyName(9, "VB_16x.png");
-            this.imageList.Images.SetKeyName(10, "WPFApplication_16x.png");
-            this.imageList.Images.SetKeyName(11, "");
-            this.imageList.Images.SetKeyName(12, "");
-            this.imageList.Images.SetKeyName(13, "");
-            this.imageList.Images.SetKeyName(14, "");
-            this.imageList.Images.SetKeyName(15, "");
-            this.imageList.Images.SetKeyName(16, "");
-            this.imageList.Images.SetKeyName(17, "");
-            // 
             // statusStrip
             // 
             this.statusStrip.ImageScalingSize = new System.Drawing.Size(36, 36);
@@ -1032,7 +1037,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.projectExplorerTreeView.ContextMenuStrip = this.referencesContextMenu;
             this.projectExplorerTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.projectExplorerTreeView.ImageIndex = 0;
-            this.projectExplorerTreeView.ImageList = this.imageList;
             this.projectExplorerTreeView.Location = new System.Drawing.Point(3, 3);
             this.projectExplorerTreeView.Name = "projectExplorerTreeView";
             this.projectExplorerTreeView.SelectedImageIndex = 0;
@@ -1079,6 +1083,19 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.classesComboBox.Size = new System.Drawing.Size(333, 24);
             this.classesComboBox.Sorted = true;
             this.classesComboBox.TabIndex = 0;
+            // 
+            // ProjectFrameworksComboBox
+            // 
+            this.ProjectFrameworksComboBox.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ProjectFrameworksComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.ProjectFrameworksComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ProjectFrameworksComboBox.FormattingEnabled = true;
+            this.ProjectFrameworksComboBox.Location = new System.Drawing.Point(0, 0);
+            this.ProjectFrameworksComboBox.Name = "ProjectFrameworksComboBox";
+            this.ProjectFrameworksComboBox.Size = new System.Drawing.Size(120, 24);
+            this.ProjectFrameworksComboBox.Sorted = false;
+            this.ProjectFrameworksComboBox.TabIndex = 0;
+            this.ProjectFrameworksComboBox.Margin = new System.Windows.Forms.Padding(3,0,3,8);
             // 
             // splitter1
             // 
@@ -1293,56 +1310,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.threadsControl.Size = new System.Drawing.Size(1591, 322);
             this.threadsControl.TabIndex = 0;
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "");
-            this.imageList1.Images.SetKeyName(1, "");
-            this.imageList1.Images.SetKeyName(2, "");
-            this.imageList1.Images.SetKeyName(3, "");
-            this.imageList1.Images.SetKeyName(4, "");
-            this.imageList1.Images.SetKeyName(5, "");
-            this.imageList1.Images.SetKeyName(6, "");
-            this.imageList1.Images.SetKeyName(7, "");
-            this.imageList1.Images.SetKeyName(8, "");
-            this.imageList1.Images.SetKeyName(9, "");
-            this.imageList1.Images.SetKeyName(10, "");
-            this.imageList1.Images.SetKeyName(11, "");
-            this.imageList1.Images.SetKeyName(12, "");
-            this.imageList1.Images.SetKeyName(13, "");
-            this.imageList1.Images.SetKeyName(14, "");
-            this.imageList1.Images.SetKeyName(15, "");
-            this.imageList1.Images.SetKeyName(16, "");
-            this.imageList1.Images.SetKeyName(17, "");
-            this.imageList1.Images.SetKeyName(18, "");
-            this.imageList1.Images.SetKeyName(19, "");
-            this.imageList1.Images.SetKeyName(20, "");
-            this.imageList1.Images.SetKeyName(21, "");
-            this.imageList1.Images.SetKeyName(22, "");
-            this.imageList1.Images.SetKeyName(23, "");
-            this.imageList1.Images.SetKeyName(24, "");
-            this.imageList1.Images.SetKeyName(25, "");
-            this.imageList1.Images.SetKeyName(26, "");
-            this.imageList1.Images.SetKeyName(27, "");
-            this.imageList1.Images.SetKeyName(28, "");
-            this.imageList1.Images.SetKeyName(29, "");
-            this.imageList1.Images.SetKeyName(30, "");
-            this.imageList1.Images.SetKeyName(31, "");
-            this.imageList1.Images.SetKeyName(32, "");
-            this.imageList1.Images.SetKeyName(33, "");
-            this.imageList1.Images.SetKeyName(34, "");
-            this.imageList1.Images.SetKeyName(35, "");
-            this.imageList1.Images.SetKeyName(36, "");
-            this.imageList1.Images.SetKeyName(37, "");
-            this.imageList1.Images.SetKeyName(38, "");
-            this.imageList1.Images.SetKeyName(39, "");
-            this.imageList1.Images.SetKeyName(40, "");
-            this.imageList1.Images.SetKeyName(41, "");
-            this.imageList1.Images.SetKeyName(42, "");
-            this.imageList1.Images.SetKeyName(43, "");
-            this.imageList1.Images.SetKeyName(44, "");
-            // 
             // rightTabControl
             // 
             this.rightTabControl.Controls.Add(this.projectExplorerTabPage);
@@ -1390,7 +1357,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // 
             this.codeExplorerTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.codeExplorerTreeView.ImageIndex = 0;
-            this.codeExplorerTreeView.ImageList = this.imageList1;
             this.codeExplorerTreeView.Location = new System.Drawing.Point(3, 3);
             this.codeExplorerTreeView.Name = "codeExplorerTreeView";
             this.codeExplorerTreeView.SelectedImageIndex = 0;
@@ -1472,7 +1438,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.Controls.Add(this.mainMenu);
             this.Controls.Add(this.statusStrip);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "AlterNET Studio";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -1485,6 +1450,8 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1.PerformLayout();
             this.standardToolStrip.ResumeLayout(false);
             this.standardToolStrip.PerformLayout();
+            this.ProjectFrameworksComboBox.ResumeLayout(false);
+            this.ProjectFrameworksComboBox.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.codeNavigationBarPanel.ResumeLayout(false);
@@ -1515,11 +1482,15 @@ this.panelProperties = new System.Windows.Forms.Panel();
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.ContextMenuStrip filesMenuStrip;
+        private System.Windows.Forms.ContextMenuStrip recentFilesMenuStrip;
+        private System.Windows.Forms.ContextMenuStrip recentProjectsMenuStrip;
         private System.Windows.Forms.ContextMenuStrip referencesContextMenu;
         private System.Windows.Forms.ToolStripSplitButton newStripSplitButton;
         private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.ToolStripMenuItem fileMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem recentFilesMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem recentProjectsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem saveMenuItem;
@@ -1529,6 +1500,7 @@ this.panelProperties = new System.Windows.Forms.Panel();
         private System.Windows.Forms.ToolStripMenuItem printPreviewMenuItem;
         private System.Windows.Forms.ToolStripMenuItem printMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem33;
         private System.Windows.Forms.ToolStripMenuItem exitMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editMenuItem;
         private System.Windows.Forms.ToolStripMenuItem undoMenuItem;
@@ -1574,7 +1546,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
         private System.Windows.Forms.ToolStripButton prevBookmarkToolButton;
         private System.Windows.Forms.ToolStripButton nextBookmarkToolButton;
         private System.Windows.Forms.ToolStripButton clearAllBookmarksToolButton;
-        private System.Windows.Forms.ImageList imageList;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel positionStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel modifiedStatusLabel;
@@ -1584,6 +1555,7 @@ this.panelProperties = new System.Windows.Forms.Panel();
         private System.Windows.Forms.Panel codeNavigationBarPanel;
         private System.Windows.Forms.ComboBox methodsComboBox;
         private System.Windows.Forms.ComboBox classesComboBox;
+        private System.Windows.Forms.ComboBox ProjectFrameworksComboBox;
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.Splitter splitter2;
         private System.Windows.Forms.TabControl editorsTabControl;
@@ -1636,7 +1608,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
         private System.Windows.Forms.TabPage threadsTabPage;
         private Alternet.Scripter.Debugger.UI.Threads threadsControl;
         private System.Windows.Forms.ToolStripMenuItem closeFileMenuItem;
-        private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.TabControl rightTabControl;
         private System.Windows.Forms.TabPage projectExplorerTabPage;
         private System.Windows.Forms.TabPage propertiesTabPage;

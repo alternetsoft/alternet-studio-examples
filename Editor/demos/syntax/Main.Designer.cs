@@ -78,7 +78,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tpEventLog = new System.Windows.Forms.TabPage();
             this.lbEvents = new System.Windows.Forms.ListBox();
             this.tpFindResults = new System.Windows.Forms.TabPage();
@@ -89,7 +88,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             this.cbClasses = new System.Windows.Forms.ComboBox();
             this.gbExplorer = new System.Windows.Forms.GroupBox();
             this.tvSyntax = new System.Windows.Forms.TreeView();
-            this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.tsStandard = new System.Windows.Forms.ToolStrip();
             this.openToolButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolButton = new System.Windows.Forms.ToolStripButton();
@@ -155,7 +153,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             // 
             this.newStripSplitButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.newStripSplitButton.DropDown = this.mnuFiles;
-            this.newStripSplitButton.Image = ((System.Drawing.Image)(resources.GetObject("tsbNew.Image")));
             this.newStripSplitButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newStripSplitButton.Name = "tsbNew";
             this.newStripSplitButton.Size = new System.Drawing.Size(32, 22);
@@ -636,7 +633,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             this.lvErrors.MultiSelect = false;
             this.lvErrors.Name = "lvErrors";
             this.lvErrors.Size = new System.Drawing.Size(1393, 206);
-            this.lvErrors.SmallImageList = this.imageList1;
             this.lvErrors.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvErrors.TabIndex = 2;
             this.lvErrors.UseCompatibleStateImageBehavior = false;
@@ -657,57 +653,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             // 
             this.columnHeader3.Text = "Description";
             this.columnHeader3.Width = 900;
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "Unit.bmp");
-            this.imageList1.Images.SetKeyName(1, "");
-            this.imageList1.Images.SetKeyName(2, "");
-            this.imageList1.Images.SetKeyName(3, "");
-            this.imageList1.Images.SetKeyName(4, "");
-            this.imageList1.Images.SetKeyName(5, "");
-            this.imageList1.Images.SetKeyName(6, "");
-            this.imageList1.Images.SetKeyName(7, "");
-            this.imageList1.Images.SetKeyName(8, "");
-            this.imageList1.Images.SetKeyName(9, "");
-            this.imageList1.Images.SetKeyName(10, "");
-            this.imageList1.Images.SetKeyName(11, "");
-            this.imageList1.Images.SetKeyName(12, "");
-            this.imageList1.Images.SetKeyName(13, "");
-            this.imageList1.Images.SetKeyName(14, "");
-            this.imageList1.Images.SetKeyName(15, "");
-            this.imageList1.Images.SetKeyName(16, "");
-            this.imageList1.Images.SetKeyName(17, "");
-            this.imageList1.Images.SetKeyName(18, "");
-            this.imageList1.Images.SetKeyName(19, "");
-            this.imageList1.Images.SetKeyName(20, "");
-            this.imageList1.Images.SetKeyName(21, "");
-            this.imageList1.Images.SetKeyName(22, "");
-            this.imageList1.Images.SetKeyName(23, "");
-            this.imageList1.Images.SetKeyName(24, "");
-            this.imageList1.Images.SetKeyName(25, "");
-            this.imageList1.Images.SetKeyName(26, "");
-            this.imageList1.Images.SetKeyName(27, "");
-            this.imageList1.Images.SetKeyName(28, "");
-            this.imageList1.Images.SetKeyName(29, "");
-            this.imageList1.Images.SetKeyName(30, "");
-            this.imageList1.Images.SetKeyName(31, "");
-            this.imageList1.Images.SetKeyName(32, "");
-            this.imageList1.Images.SetKeyName(33, "");
-            this.imageList1.Images.SetKeyName(34, "");
-            this.imageList1.Images.SetKeyName(35, "");
-            this.imageList1.Images.SetKeyName(36, "");
-            this.imageList1.Images.SetKeyName(37, "");
-            this.imageList1.Images.SetKeyName(38, "");
-            this.imageList1.Images.SetKeyName(39, "");
-            this.imageList1.Images.SetKeyName(40, "");
-            this.imageList1.Images.SetKeyName(41, "");
-            this.imageList1.Images.SetKeyName(42, "");
-            this.imageList1.Images.SetKeyName(43, "error.bmp");
-            this.imageList1.Images.SetKeyName(44, "");
-            this.imageList1.Images.SetKeyName(45, "StatusWarning_12x_16x.png");
             // 
             // tpEventLog
             // 
@@ -823,7 +768,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             this.tvSyntax.ContextMenuStrip = this.cmReferences;
             this.tvSyntax.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvSyntax.ImageIndex = 0;
-            this.tvSyntax.ImageList = this.imageList;
             this.tvSyntax.Location = new System.Drawing.Point(3, 19);
             this.tvSyntax.Name = "tvSyntax";
             this.tvSyntax.SelectedImageIndex = 0;
@@ -833,21 +777,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             this.tvSyntax.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.SyntaxTreeView_BeforeExpand);
             this.tvSyntax.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.SyntaxTreeView_NodeMouseDoubleClick);
             this.tvSyntax.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SyntaxTreeView_MouseDown);
-            // 
-            // imageList
-            // 
-            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
-            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList.Images.SetKeyName(0, "CS_ProjectSENode_16x.png");
-            this.imageList.Images.SetKeyName(1, "Reference_16x.png");
-            this.imageList.Images.SetKeyName(2, "Property_16x.png");
-            this.imageList.Images.SetKeyName(3, "CS_16x.png");
-            this.imageList.Images.SetKeyName(4, "GenerateFile_16x.png");
-            this.imageList.Images.SetKeyName(5, "WindowsForm_16x.png");
-            this.imageList.Images.SetKeyName(6, "FileGroup_16x.png");
-            this.imageList.Images.SetKeyName(7, "folder_Closed_16xLG.png");
-            this.imageList.Images.SetKeyName(8, "folder_Open_16xLG.png");
-            this.imageList.Images.SetKeyName(9, "VB_16x.png");
             // 
             // tsStandard
             // 
@@ -880,7 +809,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             // tsbOpen
             // 
             this.openToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openToolButton.Image = ((System.Drawing.Image)(resources.GetObject("tsbOpen.Image")));
             this.openToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolButton.Name = "tsbOpen";
             this.openToolButton.Size = new System.Drawing.Size(23, 22);
@@ -889,7 +817,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             // tsbSave
             // 
             this.saveToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveToolButton.Image = ((System.Drawing.Image)(resources.GetObject("tsbSave.Image")));
             this.saveToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolButton.Name = "tsbSave";
             this.saveToolButton.Size = new System.Drawing.Size(23, 22);
@@ -903,7 +830,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             // tsbCut
             // 
             this.cutToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.cutToolButton.Image = ((System.Drawing.Image)(resources.GetObject("tsbCut.Image")));
             this.cutToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cutToolButton.Name = "tsbCut";
             this.cutToolButton.Size = new System.Drawing.Size(23, 22);
@@ -912,7 +838,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             // tsbCopy
             // 
             this.copyToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.copyToolButton.Image = ((System.Drawing.Image)(resources.GetObject("tsbCopy.Image")));
             this.copyToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.copyToolButton.Name = "tsbCopy";
             this.copyToolButton.Size = new System.Drawing.Size(23, 22);
@@ -921,7 +846,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             // tsbPaste
             // 
             this.pasteToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.pasteToolButton.Image = ((System.Drawing.Image)(resources.GetObject("tsbPaste.Image")));
             this.pasteToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.pasteToolButton.Name = "tsbPaste";
             this.pasteToolButton.Size = new System.Drawing.Size(23, 22);
@@ -930,7 +854,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             // tsbUndo
             // 
             this.undoToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.undoToolButton.Image = ((System.Drawing.Image)(resources.GetObject("tsbUndo.Image")));
             this.undoToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.undoToolButton.Name = "tsbUndo";
             this.undoToolButton.Size = new System.Drawing.Size(23, 22);
@@ -939,7 +862,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             // tsbRedo
             // 
             this.redoToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.redoToolButton.Image = ((System.Drawing.Image)(resources.GetObject("tsbRedo.Image")));
             this.redoToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.redoToolButton.Name = "tsbRedo";
             this.redoToolButton.Size = new System.Drawing.Size(23, 22);
@@ -953,7 +875,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             // tsbFind
             // 
             this.findToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.findToolButton.Image = ((System.Drawing.Image)(resources.GetObject("tsbFind.Image")));
             this.findToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.findToolButton.Name = "tsbFind";
             this.findToolButton.Size = new System.Drawing.Size(23, 22);
@@ -962,7 +883,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             // tsbReplace
             // 
             this.replaceToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.replaceToolButton.Image = ((System.Drawing.Image)(resources.GetObject("tsbReplace.Image")));
             this.replaceToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.replaceToolButton.Name = "tsbReplace";
             this.replaceToolButton.Size = new System.Drawing.Size(23, 22);
@@ -984,7 +904,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             // tsbPrintPreview
             // 
             this.printPreviewToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.printPreviewToolButton.Image = ((System.Drawing.Image)(resources.GetObject("tsbPrintPreview.Image")));
             this.printPreviewToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.printPreviewToolButton.Name = "tsbPrintPreview";
             this.printPreviewToolButton.Size = new System.Drawing.Size(23, 22);
@@ -993,7 +912,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             // tsbPrint
             // 
             this.printToolButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.printToolButton.Image = ((System.Drawing.Image)(resources.GetObject("tsbPrint.Image")));
             this.printToolButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.printToolButton.Name = "tsbPrint";
             this.printToolButton.Size = new System.Drawing.Size(23, 22);
@@ -1142,7 +1060,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             this.Controls.Add(this.toolStripContainer1);
             this.Controls.Add(this.mainMenu);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMain";
             this.Text = "Syntax Editor";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -1243,8 +1160,6 @@ namespace Alternet.CodeEditorSyntax.Demo
         private System.Windows.Forms.ToolStripButton printPreviewToolButton;
         private System.Windows.Forms.ToolStripButton printToolButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ImageList imageList;
-        private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ContextMenuStrip cmMain;
         private System.Windows.Forms.ToolStripMenuItem cutContextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyContextMenuItem;

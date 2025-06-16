@@ -44,7 +44,6 @@
             this.btSetUnindexedBookmarks = new System.Windows.Forms.Button();
             this.pnDescription = new System.Windows.Forms.Panel();
             this.laDescription = new System.Windows.Forms.Label();
-            this.imageList1 = new System.Windows.Forms.ImageList();
             this.toolTip1 = new System.Windows.Forms.ToolTip();
             this.tcEditors = new System.Windows.Forms.TabControl();
             this.pnSettings.SuspendLayout();
@@ -180,14 +179,6 @@
             this.laDescription.Text = "Bookmarks are used to simplify navigation through the text.";
             this.laDescription.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Magenta;
-            this.imageList1.Images.SetKeyName(0, "");
-            this.imageList1.Images.SetKeyName(1, "");
-            this.imageList1.Images.SetKeyName(2, "");
-            // 
             // tcEditors
             // 
             this.tcEditors.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -204,7 +195,6 @@
             this.ClientSize = new System.Drawing.Size(667, 386);
             this.Controls.Add(this.tcEditors);
             this.Controls.Add(this.pnSettings);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bookmarks";
@@ -228,7 +218,6 @@
         private System.Windows.Forms.Button btSetUnindexedBookmarks;
         private System.Windows.Forms.Panel pnDescription;
         private System.Windows.Forms.Label laDescription;
-        private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btPrevBookmark;
         private System.Windows.Forms.Button btNextBookmark;

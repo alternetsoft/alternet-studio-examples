@@ -1,0 +1,51 @@
+<Window xmlns="http://schemas.alternetsoft.com/ui/2021"
+        xmlns:x="http://schemas.alternetsoft.com/ui/2021/uixml"
+        xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+        x:Class="SearchReplace.Form1"
+        Title="Search &amp; Replace on Alternet.UI" StartLocation="CenterScreen"
+        MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
+        Icon="embres:SearchReplace.Sample.ico">
+
+  <Window.StatusBar>
+    <StatusBar Name="statusBar">
+      <StatusBarPanel/>
+    </StatusBar>
+  </Window.StatusBar>
+
+  <Label Name="lbDescription" Margin="5"
+   Text="This demo shows how to use built-in 'Search', 'Replace' and 'Go To Line' dialogs.  All dialogs can be localized."/>
+
+  <TabControl Margin="5" >
+    <Panel Title="Dialogs" Name="gbDialogs" Layout="Vertical" Padding="5">
+      <HorizontalStackPanel>
+        <Button Name="FindButton" RowColumn="0,0" Text="Find"
+                ToolTip = "Display Search Dialog" Margin="5"/>
+        <Button Name="ReplaceButton" RowColumn="0,1" Text="Replace"
+                ToolTip = "Display Replace Dialog" Margin="5"/>
+        <Button Name="GotoButton" RowColumn="0,2" Text="Go To Line"
+                ToolTip = "Display Goto Line Dialog" Margin="5"/>
+      </HorizontalStackPanel>
+      
+      <HorizontalStackPanel>
+        <Button Name="FindInFiles" Visible="True" RowColumn="1,0" Text="Find In Files"
+                  ToolTip = "Display Find in Files Dialog" Margin="5"/>
+        <CheckBox Name="chbSearchMultiDoc" Checked="True" RowColumn="1,1"
+                  Text="Multi-Document Search"
+                  ToolTip = "Select search mode one or several documents"
+                  Margin="5"/>
+      </HorizontalStackPanel>
+
+      <HorizontalStackPanel>
+        <Label Name="lbLanguages" RowColumn="2,0" VerticalAlignment="Center"
+         Margin="5" Text="Dialog Language:"/>
+        <ComboBox Name="cbLanguages" RowColumn="2,1" VerticalAlignment="Center"
+          ToolTip = "Choose dialogs language"
+          DropDownStyle = "DropDownList" Margin="5"/>
+      </HorizontalStackPanel>
+    </Panel>
+  </TabControl>
+
+  <TabControl Margin="5" Name="tcEditors"
+                VerticalAlignment="Fill" MinHeight="200">
+  </TabControl>
+</Window>

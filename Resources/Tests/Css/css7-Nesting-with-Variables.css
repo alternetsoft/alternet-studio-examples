@@ -1,0 +1,24 @@
+/* css7-Nesting-with-Variables.css */
+
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+}
+
+.navbar {
+  background-color: var(--primary-color);
+  padding: 15px;
+  
+  .nav-item {
+    color: white;
+    margin-right: 10px;
+    
+    &.active {
+      font-weight: bold;
+    }
+    
+    &:hover {
+      color: var(--secondary-color);
+    }
+  }
+}

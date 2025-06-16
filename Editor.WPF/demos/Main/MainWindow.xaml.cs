@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -29,9 +29,9 @@ namespace Alternet.Editor.Wpf.MainDemo_Wpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static IDictionary<string, IDemoSettingsControl> controls = new Dictionary<string, IDemoSettingsControl>();
         private bool contentInitialized;
         private IDemoSettingsControl currentDemoSettingsControl;
-        public static IDictionary<string, IDemoSettingsControl> controls = new Dictionary<string, IDemoSettingsControl>();
         private string sampleDir = AppDomain.CurrentDomain.BaseDirectory + @"\";
 
         public MainWindow()

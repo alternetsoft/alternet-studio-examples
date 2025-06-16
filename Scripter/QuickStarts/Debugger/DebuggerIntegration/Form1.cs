@@ -25,7 +25,9 @@ namespace DebuggerIntegration
         public Form1()
         {
             InitializeComponent();
-
+            var asm = this.GetType().Assembly;
+            var prefix = "DebuggerIntegration.Resources";
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
             codeEditContainer = new DebugCodeEditContainer(editorsTabControl);
             codeEditContainer.EditorRequested += EditorContainer_EditorRequested;
 
@@ -36,7 +38,7 @@ namespace DebuggerIntegration
                 ScriptRun = scriptRun1,
             };
 
-            debugger.DebuggerErrorOccured += Debugger_DebuggerErrorOccured;
+            debugger.DebuggerErrorOccurred += Debugger_DebuggerErrorOccurred;
 
             debuggerControlToolbar1.Debugger = debugger;
             debuggerControlToolbar1.DebuggerPreStartup += OnDebuggerPreStartup;
@@ -51,7 +53,7 @@ namespace DebuggerIntegration
             controller.DebuggerPanels = debuggerPanelsTabControl;
             codeEditContainer.Debugger = debugger;
 
-            ScaleControls();
+            UpdateDebugControls();
         }
 
         protected DotNetProject Project { get; private set; } = new DotNetProject();
@@ -71,7 +73,7 @@ namespace DebuggerIntegration
         private static string FindDefaultProjectDirectory() =>
             ProjectSearchDirectories.Select(x => Path.GetFullPath(Path.Combine(Application.StartupPath, x, Path.GetDirectoryName(StartupProjectFileSubPath)))).FirstOrDefault(Directory.Exists);
 
-        private void Debugger_DebuggerErrorOccured(object sender, DebuggerErrorOccuredEventArgs e)
+        private void Debugger_DebuggerErrorOccurred(object sender, DebuggerErrorOccurredEventArgs e)
         {
             BeginInvoke(new Action(() => MessageBox.Show(this, e.Exception.ToString(), "Debugger Error", MessageBoxButtons.OK, MessageBoxIcon.Error)));
         }
@@ -100,23 +102,18 @@ namespace DebuggerIntegration
             return false;
         }
 
-        private void ScaleControls()
-        {
-            if (!DisplayScaling.NeedsScaling)
-                return;
-
-            splitContainer.SplitterDistance = DisplayScaling.AutoScale(splitContainer.SplitterDistance);
-        }
-
         private void OpenProject(string projectFilePath)
         {
+            if (!TryResetDebuggerOnProjectChange())
+                return;
+
             if (Project != null && Project.HasProject)
                 CloseProject(Project);
 
             Project.Load(projectFilePath);
             scriptRun1.ScriptSource.FromScriptProject(Project.ProjectFileName);
             var extension = Project.ProjectExtension;
-            CodeEditExtensions.OpenProject(extension, Project);
+            CodeEditExtensions.OpenProject(Project);
 
             if (Project.Files.Count > 0)
             {
@@ -124,10 +121,36 @@ namespace DebuggerIntegration
             }
 
             debuggerPanelsTabControl.Errors.Clear();
+            UpdateDebugControls();
+        }
+
+        private bool TryResetDebuggerOnProjectChange()
+        {
+            if (debugger != null && debugger.IsStarted)
+            {
+                MessageBox.Show("Please stop debugging session first");
+                return false;
+            }
+
+            if (debugger != null)
+                debugger.Breakpoints.Clear();
+
+            return true;
+        }
+
+        private void UpdateDebugControls()
+        {
+            bool enabled = (Project != null && Project.HasProject) || codeEditContainer.ActiveEditor != null;
+
+            debuggerControlToolbar1.Debugger = enabled ? debugger : null;
+            debugMenu1.Debugger = enabled ? debugger : null;
         }
 
         private void CloseProject(DotNetProject project)
         {
+            if (!TryResetDebuggerOnProjectChange())
+                return;
+
             foreach (string fileName in project.Files)
             {
                 CloseFile(fileName);
@@ -143,6 +166,7 @@ namespace DebuggerIntegration
             CodeEditExtensions.CloseProject(extension, project.ProjectName);
             Project?.Reset();
             scriptRun1.ScriptSource?.Reset();
+            UpdateDebugControls();
         }
 
         private void CloseFile(string fileName)
@@ -207,6 +231,8 @@ namespace DebuggerIntegration
                 if (dialog.ShowDialog(this) != DialogResult.OK)
                     return;
                 codeEditContainer.TryActivateEditor(dialog.FileName);
+
+                UpdateDebugControls();
             }
         }
 
@@ -230,6 +256,8 @@ namespace DebuggerIntegration
                 Project?.Reset();
                 scriptRun1.ScriptSource?.Reset();
             }
+
+            UpdateDebugControls();
         }
 
         private void FileToolStripMenuItem_DropDownOpening(object sender, System.EventArgs e)

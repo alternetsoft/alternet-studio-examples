@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PowerFXSyntaxParsing": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

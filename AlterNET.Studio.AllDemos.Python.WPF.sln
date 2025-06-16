@@ -31,8 +31,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threading", "Scripter.Pytho
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlternetStudio.Python.Wpf", "Studio.Python.Wpf\AlternetStudio.Python.Wpf.csproj", "{1F62DF39-D25E-4E6A-B053-F9223BAA4495}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DebuggerUIThread.Python", "Scripter.Python.Wpf\QuickStarts\Debugger\DebuggerUIThread\DebuggerUIThread.Python.csproj", "{4D7AEC2E-6AFA-4DF1-918E-8337921E2BA6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,14 +103,6 @@ Global
 		{1F62DF39-D25E-4E6A-B053-F9223BAA4495}.Runtime|Any CPU.Build.0 = Release|Any CPU
 		{1F62DF39-D25E-4E6A-B053-F9223BAA4495}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
 		{1F62DF39-D25E-4E6A-B053-F9223BAA4495}.Trial|Any CPU.Build.0 = Debug|Any CPU
-		{4D7AEC2E-6AFA-4DF1-918E-8337921E2BA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D7AEC2E-6AFA-4DF1-918E-8337921E2BA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D7AEC2E-6AFA-4DF1-918E-8337921E2BA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D7AEC2E-6AFA-4DF1-918E-8337921E2BA6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D7AEC2E-6AFA-4DF1-918E-8337921E2BA6}.Runtime|Any CPU.ActiveCfg = Release|Any CPU
-		{4D7AEC2E-6AFA-4DF1-918E-8337921E2BA6}.Runtime|Any CPU.Build.0 = Release|Any CPU
-		{4D7AEC2E-6AFA-4DF1-918E-8337921E2BA6}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D7AEC2E-6AFA-4DF1-918E-8337921E2BA6}.Trial|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,7 +120,6 @@ Global
 		{F34DBFB1-874D-45F7-AF8C-79563D45152A} = {6B4421C3-DFEE-4741-8ED6-5C14502DC4FC}
 		{46A8F14E-9E98-44AA-AB94-ECAC272FC7D5} = {FF9044DD-98D8-4E04-BAD2-B66FF733CF26}
 		{1F62DF39-D25E-4E6A-B053-F9223BAA4495} = {05FA0710-6BAC-44A6-8728-D1242C0C6F97}
-		{4D7AEC2E-6AFA-4DF1-918E-8337921E2BA6} = {6B4421C3-DFEE-4741-8ED6-5C14502DC4FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F273BD5C-AD6F-4106-A530-507C5A115BBC}

@@ -1,29 +1,32 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Alternet.Common;
 using Alternet.Common.Projects;
 using Alternet.Common.Projects.DotNet;
+using Alternet.Editor;
 using Alternet.Editor.Common;
 using Alternet.Editor.Roslyn;
 using Alternet.Editor.TextSource;
 using Alternet.FormDesigner.WinForms;
 using Alternet.Scripter.Debugger;
+using Alternet.Syntax.Parsers.Roslyn;
 
 namespace AlternetStudio.Demo
 {
@@ -36,6 +39,26 @@ namespace AlternetStudio.Demo
         private ProjectCreationData projectCreationData = new ProjectCreationData { ProjectType = "WindowsFormsApp" };
 
         protected DotNetProject Project { get; private set; } = new DotNetProject();
+
+        protected TargetFramework CurrentFramework
+        {
+            get
+            {
+                return Project != null && Project.HasProject ? Project.TargetFramework : null;
+            }
+
+            set
+            {
+                if (CurrentFramework != value)
+                {
+                    if (Project != null && Project.HasProject)
+                    {
+                        Project.TargetFramework = value;
+                        RefreshProject(Project);
+                    }
+                }
+            }
+        }
 
         private string TemplateSubPath
         {
@@ -64,6 +87,7 @@ namespace AlternetStudio.Demo
             if (!TryResetDebuggerOnProjectChange())
                 return;
 
+            string originalFileName = fileName;
             if (Path.GetExtension(fileName).EndsWith("sln"))
             {
                 solution.Load(fileName);
@@ -128,7 +152,15 @@ namespace AlternetStudio.Demo
 
             UpdateProjectExplorer();
             UpdateCodeNavigation();
+            bool hasFrameworks = HasProject() && Project.TargetFrameworks?.Count > 0;
+            if (hasFrameworks)
+            {
+                FillProjectFrameworks();
+            }
+
             errorsControl.Clear();
+            if (!recentProjects.Contains(originalFileName))
+                recentProjects.Insert(0, originalFileName);
         }
 
         private void RegisterWinFormsApplicationConfigurationCode()
@@ -189,9 +221,20 @@ namespace AlternetStudio.Demo
             return null;
         }
 
+        private void FillProjectFrameworks()
+        {
+            CodeUtils.FillFrameworks(ProjectFrameworksComboBox, Project?.TargetFrameworks);
+        }
+
         private bool HasProject()
         {
             return !solution.IsEmpty || Project.HasProject;
+        }
+
+        private bool SameProject(string fileName)
+        {
+            return !solution.IsEmpty ? (string.Compare(fileName, solution.SolutionFileName) == 0) :
+            Project.HasProject ? (string.Compare(fileName, Project.ProjectFileName) == 0) : false;
         }
 
         private DotNetProject GetProject(IFormDesignerDataSource source)
@@ -276,11 +319,12 @@ namespace AlternetStudio.Demo
             return Path.GetExtension(fileName).EndsWith("sln");
         }
 
-        private bool AddReferencesToProject(DotNetProject project, IEnumerable<string> references)
+        private bool AddReferencesToProject(DotNetProject project, IEnumerable<string> references, IEnumerable<string> newReferences)
         {
             bool result = false;
+            var refs = newReferences.Except(references);
             IList<string> newRefs = new List<string>();
-            foreach (var reference in references)
+            foreach (var reference in refs)
             {
                 if (reference.StartsWith("mscorlib"))
                     continue;
@@ -326,6 +370,18 @@ namespace AlternetStudio.Demo
                     return true;
             }
 
+            return IsAutoGenerateCode(project, fileName);
+        }
+
+        private bool IsAutoGenerateCode(DotNetProject project, string fileName)
+        {
+            // To be tested with VB
+            if (fileName.EndsWith(".g.cs", StringComparison.OrdinalIgnoreCase) ||
+                fileName.EndsWith(".g.i.cs", StringComparison.OrdinalIgnoreCase) ||
+                fileName.EndsWith(".g.vb", StringComparison.OrdinalIgnoreCase) ||
+                fileName.EndsWith(".g.i.vb", StringComparison.OrdinalIgnoreCase))
+                return PathUtilities.IsPathRelative(fileName, Path.GetDirectoryName(project.ProjectFileName));
+
             return false;
         }
 
@@ -342,10 +398,39 @@ namespace AlternetStudio.Demo
             return !string.IsNullOrEmpty(GetProjectName(fileName));
         }
 
+        private void RefreshProject(DotNetProject project)
+        {
+            CodeEditExtensions.RefreshProject(project, GetSourceFiles(project, project.Files, project.ProjectExtension, true));
+            scriptRun.ScriptSource.FromScriptProject(Project.ProjectFileName, project.TargetFramework);
+            UpdateOpenFiles();
+            UpdateErrors(project);
+        }
+
         private void OpenProject(DotNetProject project)
         {
-            var extension = string.Format(".{0}", project.DefaultExtension);
-            CodeEditExtensions.OpenProject(extension, project);
+            CodeEditExtensions.OpenProject(project, GetSourceFiles(project, project.Files, project.ProjectExtension, true));
+        }
+
+        private void UpdateOpenFiles()
+        {
+            foreach (TabPage tabPage in editorsTabControl.TabPages)
+            {
+                var edit = GetEditor(tabPage) as SyntaxEdit;
+                var parser = edit?.Lexer as RoslynParser;
+                if (parser != null)
+                    parser.ReparseText();
+            }
+        }
+
+        private async void UpdateErrors(DotNetProject project)
+        {
+            var proj = CodeEditExtensions.GetProject(project);
+            if (proj != null)
+            {
+                var compilation = await proj.GetCompilationAsync();
+                errorsControl.Clear(FilterError);
+                errorsControl.AddCompilerErrors(GetErrors(compilation.GetDiagnostics()));
+            }
         }
 
         private void ProjectModified(object sender, EventArgs e)

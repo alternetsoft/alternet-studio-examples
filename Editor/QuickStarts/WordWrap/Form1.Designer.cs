@@ -129,7 +129,6 @@
             this.ClientSize = new System.Drawing.Size(667, 376);
             this.Controls.Add(this.syntaxEdit1);
             this.Controls.Add(this.pnlSettings);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Word Warp";

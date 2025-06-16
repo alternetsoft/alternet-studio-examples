@@ -109,7 +109,6 @@ namespace AlternetStudio.Demo
             this.prevBookmarkToolButton = new System.Windows.Forms.ToolStripButton();
             this.nextBookmarkToolButton = new System.Windows.Forms.ToolStripButton();
             this.clearAllBookmarksToolButton = new System.Windows.Forms.ToolStripButton();
-            this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.positionStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.modifiedStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -138,7 +137,6 @@ namespace AlternetStudio.Demo
             this.errorsControl = new Alternet.Scripter.Debugger.UI.Errors();
             this.threadsTabPage = new System.Windows.Forms.TabPage();
             this.threadsControl = new Alternet.Scripter.Debugger.UI.Threads();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.rightTabControl = new System.Windows.Forms.TabControl();
             this.projectExplorerTabPage = new System.Windows.Forms.TabPage();
             this.codeExplorerTabPage = new System.Windows.Forms.TabPage();
@@ -182,7 +180,7 @@ namespace AlternetStudio.Demo
             // 
             // openFileDialog
             // 
-            this.openFileDialog.Filter = resources.GetString("openFileDialog.Filter");
+            this.openFileDialog.Filter = "Python files (*.py) |*.py| All project files (*.pyproj)|*.pyproj| Any files (*.*) | *.*";
             // 
             // saveFileDialog
             // 
@@ -911,25 +909,6 @@ namespace AlternetStudio.Demo
             this.clearAllBookmarksToolButton.ToolTipText = "Clear all bookmarks in all files. (Ctrl + K, Ctrl + L)";
             this.clearAllBookmarksToolButton.Click += ClearAllBookmarksToolButton_Click;
             // 
-            // imageList
-            // 
-            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
-            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList.Images.SetKeyName(0, "CS_ProjectSENode_16x.png");
-            this.imageList.Images.SetKeyName(1, "Reference_16x.png");
-            this.imageList.Images.SetKeyName(2, "Property_16x.png");
-            this.imageList.Images.SetKeyName(3, "CS_16x.png");
-            this.imageList.Images.SetKeyName(4, "GenerateFile_16x.png");
-            this.imageList.Images.SetKeyName(5, "WindowsForm_16x.png");
-            this.imageList.Images.SetKeyName(6, "FileGroup_16x.png");
-            this.imageList.Images.SetKeyName(7, "folder_Closed_16xLG.png");
-            this.imageList.Images.SetKeyName(8, "folder_Open_16xLG.png");
-            this.imageList.Images.SetKeyName(9, "VB_16x.png");
-            this.imageList.Images.SetKeyName(10, "WPFApplication_16x.png");
-            this.imageList.Images.SetKeyName(11, "");
-            this.imageList.Images.SetKeyName(12, "");
-            this.imageList.Images.SetKeyName(13, "");
-            // 
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(36, 36);
@@ -966,7 +945,6 @@ namespace AlternetStudio.Demo
             this.projectExplorerTreeView.ContextMenuStrip = this.referencesContextMenu;
             this.projectExplorerTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.projectExplorerTreeView.ImageIndex = 0;
-            this.projectExplorerTreeView.ImageList = this.imageList;
             this.projectExplorerTreeView.Location = new System.Drawing.Point(3, 3);
             this.projectExplorerTreeView.Name = "projectExplorerTreeView";
             this.projectExplorerTreeView.SelectedImageIndex = 0;
@@ -1224,55 +1202,6 @@ namespace AlternetStudio.Demo
             this.threadsControl.Size = new System.Drawing.Size(1591, 322);
             this.threadsControl.TabIndex = 0;
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "");
-            this.imageList1.Images.SetKeyName(1, "");
-            this.imageList1.Images.SetKeyName(2, "");
-            this.imageList1.Images.SetKeyName(3, "");
-            this.imageList1.Images.SetKeyName(4, "");
-            this.imageList1.Images.SetKeyName(5, "");
-            this.imageList1.Images.SetKeyName(6, "");
-            this.imageList1.Images.SetKeyName(7, "");
-            this.imageList1.Images.SetKeyName(8, "");
-            this.imageList1.Images.SetKeyName(9, "");
-            this.imageList1.Images.SetKeyName(10, "");
-            this.imageList1.Images.SetKeyName(11, "");
-            this.imageList1.Images.SetKeyName(12, "");
-            this.imageList1.Images.SetKeyName(13, "");
-            this.imageList1.Images.SetKeyName(14, "");
-            this.imageList1.Images.SetKeyName(15, "");
-            this.imageList1.Images.SetKeyName(16, "");
-            this.imageList1.Images.SetKeyName(17, "");
-            this.imageList1.Images.SetKeyName(18, "");
-            this.imageList1.Images.SetKeyName(19, "");
-            this.imageList1.Images.SetKeyName(20, "");
-            this.imageList1.Images.SetKeyName(21, "");
-            this.imageList1.Images.SetKeyName(22, "");
-            this.imageList1.Images.SetKeyName(23, "");
-            this.imageList1.Images.SetKeyName(24, "");
-            this.imageList1.Images.SetKeyName(25, "");
-            this.imageList1.Images.SetKeyName(26, "");
-            this.imageList1.Images.SetKeyName(27, "");
-            this.imageList1.Images.SetKeyName(28, "");
-            this.imageList1.Images.SetKeyName(29, "");
-            this.imageList1.Images.SetKeyName(30, "");
-            this.imageList1.Images.SetKeyName(31, "");
-            this.imageList1.Images.SetKeyName(32, "");
-            this.imageList1.Images.SetKeyName(33, "");
-            this.imageList1.Images.SetKeyName(34, "");
-            this.imageList1.Images.SetKeyName(35, "");
-            this.imageList1.Images.SetKeyName(36, "");
-            this.imageList1.Images.SetKeyName(37, "");
-            this.imageList1.Images.SetKeyName(38, "");
-            this.imageList1.Images.SetKeyName(39, "");
-            this.imageList1.Images.SetKeyName(40, "");
-            this.imageList1.Images.SetKeyName(41, "");
-            this.imageList1.Images.SetKeyName(42, "");
-            this.imageList1.Images.SetKeyName(43, "");
-            // 
             // tcRight
             // 
             this.rightTabControl.Controls.Add(this.projectExplorerTabPage);
@@ -1340,7 +1269,7 @@ namespace AlternetStudio.Demo
             // 
             this.codeExplorerTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.codeExplorerTreeView.ImageIndex = 0;
-            this.codeExplorerTreeView.ImageList = this.imageList1;
+            //this.codeExplorerTreeView.ImageList = this.imageList1;
             this.codeExplorerTreeView.Location = new System.Drawing.Point(3, 3);
             this.codeExplorerTreeView.Name = "tvCodeSyntax";
             this.codeExplorerTreeView.SelectedImageIndex = 0;
@@ -1362,7 +1291,6 @@ namespace AlternetStudio.Demo
             this.Controls.Add(this.mainMenu);
             this.Controls.Add(this.statusStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMain";
             this.Text = "AlterNET Studio - IronPython";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -1462,7 +1390,6 @@ namespace AlternetStudio.Demo
         private System.Windows.Forms.ToolStripButton prevBookmarkToolButton;
         private System.Windows.Forms.ToolStripButton nextBookmarkToolButton;
         private System.Windows.Forms.ToolStripButton clearAllBookmarksToolButton;
-        private System.Windows.Forms.ImageList imageList;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel positionStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel modifiedStatusLabel;
@@ -1523,7 +1450,6 @@ namespace AlternetStudio.Demo
         private System.Windows.Forms.TabPage threadsTabPage;
         private Alternet.Scripter.Debugger.UI.Threads threadsControl;
         private System.Windows.Forms.ToolStripMenuItem closeFileMenuItem;
-        private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.TabPage propertiesTabPage;
         private System.Windows.Forms.TabPage outlineTabPage;
         private System.Windows.Forms.TabPage toolboxTabPage;

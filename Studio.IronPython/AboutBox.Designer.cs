@@ -35,7 +35,8 @@ namespace AlternetStudio.Demo
             this.tbCompanyInfo.Name = "tbCompanyInfo";
             this.tbCompanyInfo.Size = new System.Drawing.Size(400, 96);
             this.tbCompanyInfo.TabIndex = 13;
-            this.tbCompanyInfo.Text = resources.GetString("tbCompanyInfo.Text");
+            this.tbCompanyInfo.Text = @"AlterNET Studio for IronPython allows you to extend your WinForms and WPF .NET application with code editing and scripting capabilities. 
+It provides a set of component libraries that enables users of your applications to write scripts in IronPython programming language to extend your application with custom functionality; run and debug these scripts with a fully-featured debugging engine.";
             // 
             // btClose
             // 
@@ -92,7 +93,6 @@ namespace AlternetStudio.Demo
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(110, 55);

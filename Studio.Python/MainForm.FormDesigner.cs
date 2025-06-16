@@ -1,22 +1,21 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -242,7 +241,14 @@ namespace AlternetStudio.Demo
 
         private bool IsFormFile(string fileName, out string formId)
         {
+            string designFile;
+            return IsFormFile(fileName, out designFile, out formId);
+        }
+
+        private bool IsFormFile(string fileName, out string designFile, out string formId)
+        {
             formId = null;
+            designFile = string.Empty;
 
             var pathWithoutExtension = Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName));
 
@@ -252,11 +258,12 @@ namespace AlternetStudio.Demo
                  ((!Path.GetFileName(fileName).StartsWith("Resources", StringComparison.OrdinalIgnoreCase)) &&
                   (!Path.GetFileName(fileName).StartsWith("Application", StringComparison.OrdinalIgnoreCase))))
             {
+                designFile = fileName;
                 pathWithoutExtension = pathWithoutExtension.Substring(0, pathWithoutExtension.Length - DesignerSuffix.Length);
             }
             else
             {
-                var designFile = pathWithoutExtension + DesignerSuffix + Path.GetExtension(fileName);
+                designFile = pathWithoutExtension + DesignerSuffix + Path.GetExtension(fileName);
 
                 if (!File.Exists(designFile))
                     return false;
@@ -643,6 +650,7 @@ namespace AlternetStudio.Demo
                 Column = error.CharacterNumber,
                 Message = error.Message,
                 Kind = ScriptCompilationDiagnosticKind.Error,
+                InSource = !string.IsNullOrEmpty(error.FilePath),
             };
         }
 
@@ -724,40 +732,6 @@ namespace AlternetStudio.Demo
             var fileName = activeEditor.FileName;
             if (FormFilesUtility.CheckIfFormFilesExist(fileName))
                 OpenDesigner(fileName);
-        }
-
-        private class DesignedComponentAssemblyManager
-        {
-            private readonly IScriptRun scriptRun;
-
-            public DesignedComponentAssemblyManager(IScriptRun scriptRun)
-            {
-                this.scriptRun = scriptRun;
-            }
-
-            public string AssemblyPath
-            {
-                get
-                {
-                    return Path.Combine(AssemblyDirectoryPath, Path.GetFileName(scriptRun.ScriptHost.ModulesDirectoryPath));
-                }
-            }
-
-            private string AssemblyDirectoryPath
-            {
-                get
-                {
-                    var path = Path.Combine(Path.GetTempPath(), @"Alternet.Studio.Demo\DesignedComponentAssembly");
-                    if (!Directory.Exists(path))
-                        Directory.CreateDirectory(path);
-                    return path;
-                }
-            }
-
-            public void CopyOutput()
-            {
-                FileSystemUtility.CopyDirectory(Path.GetDirectoryName(scriptRun.ScriptHost.ModulesDirectoryPath), AssemblyDirectoryPath);
-            }
         }
     }
 }

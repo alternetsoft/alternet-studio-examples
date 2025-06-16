@@ -2,6 +2,10 @@
   "profiles": {
     "AlternetStudio": {
       "commandName": "Project"
+    },
+    "IsDark": {
+      "commandName": "Project",
+      "commandLineArgs": "-IsDark=true"
     }
   }
 }

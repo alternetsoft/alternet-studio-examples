@@ -1,7 +1,7 @@
 <Window x:Class="LineStyles.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v9"        
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v10"        
         xmlns:cp="clr-namespace:ColorPicker"
         Icon="/LineStyles.Wpf;component/Images/Icon.ico"
         Title="Line Styles" Height="417" Width="679">

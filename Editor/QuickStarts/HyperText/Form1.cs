@@ -1,21 +1,23 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
+using Alternet.Common;
 using Alternet.Editor;
 using Alternet.Editor.TextSource;
 using Alternet.Syntax.Parsers.Roslyn;
@@ -34,6 +36,9 @@ namespace HyperText
         public Form1()
         {
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "HyperText.Resources";
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -59,24 +64,12 @@ namespace HyperText
         private void HighlightUrlsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             syntaxEdit1.HyperText.HighlightHyperText = chbHighlightUrls.Checked;
-            syntaxEdit1.Invalidate();
+            UpdateUrlTable();
         }
 
         private void CustomHypertextCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            Hashtable hs = ((TextSource)syntaxEdit1.Source).UrlTable;
-            if (chbCustomHypertext.Checked)
-            {
-                hs.Add('<', true);
-                hs.Add('>', false);
-            }
-            else
-            {
-                hs.Remove('<');
-                hs.Remove('>');
-            }
-
-            syntaxEdit1.Source.Notification(syntaxEdit1.Lexer, EventArgs.Empty);
+            UpdateUrlTable();
         }
 
         private void UrlColorComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -104,6 +97,26 @@ namespace HyperText
         {
             if (chbCustomHypertext.Checked)
                 e.IsHyperText = e.Text.IndexOf("<") >= 0;
+        }
+
+        private void UpdateUrlTable()
+        {
+            var hs = ((TextSource)syntaxEdit1.Source).UrlTable;
+            if (hs != null)
+            {
+                if (chbCustomHypertext.Checked)
+                {
+                    hs['<'] = true;
+                    hs['>'] = false;
+                }
+                else
+                {
+                    hs.Remove('<');
+                    hs.Remove('>');
+                }
+            }
+
+            syntaxEdit1.Source.Notification(syntaxEdit1.Lexer, EventArgs.Empty);
         }
 
         private void HighlightUrlsCheckBox_MouseMove(object sender, MouseEventArgs e)

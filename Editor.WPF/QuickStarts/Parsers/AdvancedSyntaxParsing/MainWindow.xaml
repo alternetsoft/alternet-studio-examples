@@ -1,7 +1,7 @@
 <Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v9" x:Class="AdvancedSyntaxParsing.MainWindow"
+        xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v10" x:Class="AdvancedSyntaxParsing.MainWindow"
         xmlns:local="clr-namespace:AdvancedSyntaxParsing"
         Icon="/AdvancedSyntaxParsing.Wpf;component/Images/Icon.Ico" 
         Title="Advanced Syntax Parsing" Height="400" Width="679" Loaded="Window_Loaded">
@@ -20,7 +20,7 @@
         </Label>
         <Label Grid.Column="0" Grid.Row="1" Content="Language:" Width="70" HorizontalAlignment="Left" />
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" Margin="70,0,0,0">
-            <ComboBox Width="121" Height="21" ItemsSource="{Binding Path=Languages}" SelectedItem="{Binding Language}" ToolTip="Choose programming language"/>
+            <ComboBox Width="121" Height="21" Name="LanguagesComboBox" ItemsSource="{Binding Path=Languages}" SelectedItem="{Binding Language}" ToolTip="Choose programming language"/>
         </StackPanel>
         <Button Height="21" Grid.Column="0" Grid.Row="1" Content="Load" HorizontalAlignment="Right"  Margin="310,0,10,0" Width="85" HorizontalContentAlignment="Center" Command="{Binding LoadCommand}" ToolTip="Load code file"/>
         <Wpf:TextEditor Grid.Column="0" Grid.Row="3" Name="syntaxEdit1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" AllowOutlining="True"/>

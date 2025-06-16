@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -558,14 +558,19 @@ namespace AlternetStudio.IronPython.Wpf.Demo
 
         private void CodeEdit_StatusChanged(object sender, EventArgs e)
         {
-            if (sender != ActiveSyntaxEdit)
+            var edit = ActiveSyntaxEdit;
+            if (edit == null || sender != edit)
                 return;
 
             var args = e as NotifyEventArgs;
 
             bool update = args != null && ((args.State & NotifyState.Edit) != 0 || (args.State & NotifyState.Modified) != 0 || (args.State & NotifyState.TextParsed) != 0);
+            bool reparse = args != null && (args.State & NotifyState.TextParsed) != 0;
 
             UpdateCodeNavigation(update);
+
+            if (reparse)
+                UpdateErrors(edit);
 
             if (args != null)
             {

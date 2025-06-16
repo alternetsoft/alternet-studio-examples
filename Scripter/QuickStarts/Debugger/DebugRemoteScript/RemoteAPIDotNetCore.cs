@@ -1,18 +1,18 @@
 #if NETCOREAPP
 
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using EasyPipes;
 
@@ -47,11 +47,22 @@ namespace DebugRemoteScript
             return api;
         }
 
-        public static void StartServer(string ipcPortName = null, string ipcObjectUri = null)
+        public static Server StartServer(string ipcPortName = null, string ipcObjectUri = null)
         {
             var server = new Server(ipcPortName ?? DefaultIpcPortName);
             server.RegisterService<IScriptAPI>(new ScriptAPIDebugWrapper());
             server.Start();
+            return server;
+        }
+
+        public static void StopServer(object server)
+        {
+            var srv = server as Server;
+            if (srv != null)
+            {
+                srv.DeregisterService<IScriptAPI>();
+                srv.Stop();
+            }
         }
 
         public static IScriptAPI InitializeAPI(string ipcPortName, string ipcObjectUri)

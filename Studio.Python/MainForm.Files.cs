@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -17,6 +17,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Alternet.Common;
+using Alternet.Common.Python;
 using Alternet.Editor;
 using Alternet.Editor.Common;
 using Alternet.Editor.Python;
@@ -608,14 +609,19 @@ namespace AlternetStudio.Demo
 
         private void CodeEdit_StatusChanged(object sender, EventArgs e)
         {
-            if (sender != ActiveSyntaxEdit)
+            var edit = ActiveSyntaxEdit;
+            if (edit == null || sender != edit)
                 return;
 
             var args = e as NotifyEventArgs;
+            bool reparse = args != null && (args.State & NotifyState.TextParsed) != 0;
 
             bool update = args != null && ((args.State & NotifyState.Edit) != 0 || (args.State & NotifyState.Modified) != 0 || (args.State & NotifyState.TextParsed) != 0);
 
             UpdateCodeNavigation(update);
+
+            if (reparse)
+                UpdateErrors(edit);
 
             if (args != null)
             {
@@ -699,6 +705,18 @@ namespace AlternetStudio.Demo
         private void CloseFile(IScriptEdit edit)
         {
             var fileName = edit.FileName;
+
+            string formId;
+            string designFile;
+            if (IsFormFile(fileName, out designFile, out formId) && File.Exists(formId))
+            {
+                bool isCodeFile = string.Compare(fileName, formId, true) == 0;
+                if ((isCodeFile || (FindFile(formId) == null)) && (!isCodeFile || (FindFile(designFile) == null)) && (FindDesigner(formId) == null))
+                {
+                    if (sourcesByFormId.ContainsKey(formId))
+                        sourcesByFormId.Remove(formId);
+                }
+            }
 
             if (!FileBelongsToProject(fileName))
                 edit.FileName = string.Empty;

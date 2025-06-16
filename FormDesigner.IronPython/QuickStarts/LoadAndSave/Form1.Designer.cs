@@ -148,7 +148,6 @@ namespace LoadAndSave
             this.Controls.Add(this.toolboxControl1);
             this.Controls.Add(this.propertyGridControl1);
             this.Controls.Add(this.pnDescription);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Load & Save Designer";

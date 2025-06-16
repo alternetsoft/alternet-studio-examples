@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Windows;
@@ -36,7 +36,7 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
         /// Gets or sets <see cref="StartDebuggingOptions"/> to use when
         /// the debugging starts while executing commands such as <see cref="Start"/> or <see cref="StepOver"/>.
         /// </summary>
-        public StartDebuggingOptions StartDebuggingOptions { get; set; } = new StartDebuggingOptions();
+        public StartDebuggingOptions StartDebuggingOptions { get; set; } = new TypeScriptStartDebuggingOptions();
 
         private IScriptDebugger Debugger
         {
@@ -47,7 +47,7 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
                     debugger = new Alternet.Scripter.Debugger.TypeScript.ScriptDebugger { ScriptRun = scriptRun };
                     debugger.DebuggingStarted += Debugger_DebuggingStarted;
                     debugger.DebuggingStopped += Debugger_DebuggingStopped;
-                    debugger.DebuggerErrorOccured += Debugger_DebuggerErrorOccured;
+                    debugger.DebuggerErrorOccurred += Debugger_DebuggerErrorOccurred;
                     debugger.ExecutionResumed += Debugger_ExecutionResumed;
                     debugger.ExecutionStopped += Debugger_ExecutionStopped;
                     debugger.StackFrameSwitched += Debugger_StackFrameSwitched;
@@ -287,6 +287,10 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
             var isEmpty = !(hasProject | ActiveSyntaxEdit != null);
             var isDebuggingStarted = Debugger.IsStarted;
             var isDebugging = isDebuggingStarted || state == DebuggerState.Startup;
+
+            bool debuggerEnabled = (Project != null && Project.HasProject) || ActiveSyntaxEdit != null;
+            debuggerControlToolbar.Debugger = debuggerEnabled ? debugger : null;
+            debugMenu.Debugger = debuggerEnabled ? debugger : null;
         }
 
         private async void UpdateDebugPanels()
@@ -342,7 +346,7 @@ namespace AlternetStudio.TypeScript.Wpf.Demo
             outputControl.CustomLog(string.Format("Unhandled exception: {0}\r\n", exception));
         }
 
-        private void Debugger_DebuggerErrorOccured(object sender, DebuggerErrorOccuredEventArgs e)
+        private void Debugger_DebuggerErrorOccurred(object sender, DebuggerErrorOccurredEventArgs e)
         {
             DisplayDebuggerUnhandledException(e.Exception.Message);
         }

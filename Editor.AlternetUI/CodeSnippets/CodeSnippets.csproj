@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">net462;net471;net8.0;net9.0</TargetFrameworks>
+    <TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('windows'))">net8.0;net9.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <Platforms>AnyCPU;x64</Platforms>
+    <ApplicationIcon>Sample.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>CodeSnippets.AlternetUI</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Sample.ico" />
+    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.0" />
+    <PackageReference Include="Alternet.UI" Version="0.9.736-beta" />
+  </ItemGroup>
+</Project>

@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.ComponentModel;
@@ -67,7 +67,7 @@ namespace LineStyles
                 style.BackColor = System.Drawing.Color.Black;
                 style.ForeColor = System.Drawing.Color.FromArgb(255, 241, 129);
                 style.Options = LineStyleOptions.BeyondEol | LineStyleOptions.InvertColors;
-                style.ImageIndex = 12;
+                style.ImageIndex = (int)KnownImageIndex.TraceLine;
                 edit.LineStyles.Add(style);
 
                 edit.LineStyles.Add(new EditLineStyle() // breakpoint style
@@ -75,7 +75,7 @@ namespace LineStyles
                     BackColor = Color.White,
                     ForeColor = Color.FromArgb(171, 97, 107),
                     Options = LineStyleOptions.BeyondEol | LineStyleOptions.InvertColors,
-                    ImageIndex = 11,
+                    ImageIndex = (int)KnownImageIndex.Breakpoint,
                 });
 
                 LineStyleBeyond = (LineStyleOptions.BeyondEol & style.Options) != 0;
@@ -90,10 +90,19 @@ namespace LineStyles
                 }
 
                 endLine = edit.Lines.Count - 2;
+
+                edit.GutterClick += Edit_GutterClick;
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private enum KnownImageIndex
+        {
+            Breakpoint = 11,
+
+            TraceLine,
+        }
 
         public string StartText
         {
@@ -193,6 +202,11 @@ namespace LineStyles
             }
         }
 
+        private void Edit_GutterClick(object sender, EventArgs e)
+        {
+            DoSetBreakpoint();
+        }
+
         private void StartDebugClick()
         {
             Start();
@@ -251,7 +265,6 @@ namespace LineStyles
         {
             if (edit != null)
             {
-                edit.Source.BookMarks.ToggleBookMark(edit.Position, 11);
                 edit.Source.LineStyles.ToggleLineStyle(edit.Position.Y, 0, 1);
             }
         }

@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Diagnostics;
@@ -17,6 +17,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Remoting;
 using System.Windows.Forms;
+using Alternet.Common;
 using Alternet.Scripter;
 using Alternet.Scripter.Debugger;
 
@@ -39,6 +40,9 @@ namespace DebugMyScript
         public MainForm(string[] args)
         {
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "DebugMyScript.Resources";
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
 
             ParseCommandLineArgs(args);
             DebuggerCommunication.StartServer(this, ipcPortName, ipcObjectUri);
@@ -50,7 +54,6 @@ namespace DebugMyScript
             }
 
             scriptRun.ScriptHost.GenerateModulesOnDisk = true;
-            scriptRun.ScriptHost.ModulesDirectoryPath = Path.Combine(Environment.GetEnvironmentVariable("TEMP"), "Alternet Script Debugger Generated Modules");
 
             scriptRun.ScriptSource.WithDefaultReferences();
 
@@ -262,7 +265,6 @@ namespace DebugMyScript
 
         private void UpdateButtons()
         {
-            //runScriptButton.Enabled = debuggerProcess == null;
             runScriptButton.Text = scriptRunning ? "Stop Script" : (onStartDebug != null ? "Start Debug" : "Start Script");
             startDebuggerButton.Enabled = !scriptRunning && debuggerProcess == null;
         }

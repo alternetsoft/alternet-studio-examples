@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         TextOptions.TextFormattingMode="Display"
         xmlns:local="clr-namespace:SyntaxEditor_Wpf"
-        xmlns:CUI="clr-namespace:Alternet.Editor.Common.Wpf;assembly=Alternet.Editor.Common.Wpf.v9"
+        xmlns:CUI="clr-namespace:Alternet.Editor.Common.Wpf;assembly=Alternet.Editor.Common.Wpf.v10"
         Title="Syntax Editor" Height="564" Width="808" WindowState="Maximized" Loaded="Window_Loaded"
         Icon="/CodeEditorSyntax.Wpf;component/Images/Icon.ico" Closed="Window_Closed" KeyDown="Window_KeyDown">
     <Window.CommandBindings>
@@ -266,7 +266,7 @@
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
                                             <Image Height="16" Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,2" Name="image1" Stretch="None" VerticalAlignment="Top" Width="18" Source="{Binding ImageIndex, Converter={StaticResource imageConverter}}" />
-                                            <TextBlock FontWeight="Bold" Grid.Column="1" Text="{Binding Text}" />
+                                            <TextBlock FontWeight="Regular" Grid.Column="1" Text="{Binding Text}" />
                                         </Grid>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
@@ -280,7 +280,7 @@
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
                                             <Image Height="16" Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,2" Name="image1" Stretch="None" VerticalAlignment="Top" Width="18" Source="{Binding ImageIndex, Converter={StaticResource imageConverter}}" />
-                                            <TextBlock FontWeight="Bold" Grid.Column="1" Text="{Binding Text}" />
+                                            <TextBlock FontWeight="Regular" Grid.Column="1" Text="{Binding Text}" />
                                         </Grid>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>

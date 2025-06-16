@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Controls:DemoPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AllQuickStarts.Pages.MiscellaneousPage"
+             xmlns:Controls="clr-namespace:AllQuickStarts"  
+             xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+             xmlns:ui="http://schemas.alternetsoft.com/alternetui/2024"
+             Title="MiscellaneousPage">
+    <AbsoluteLayout>
+        <Grid x:Name="MainGrid" RowDefinitions="*" ColumnDefinitions="*, auto">
+
+            <editor:SyntaxEditView x:Name="syntaxEdit1" Grid.Column="0" IsVisible="false"
+                               Margin="10,10,10,10"/>
+            <ScrollView Grid.Column="1" x:Name="settingsPanel">
+                <StackLayout Orientation="Vertical" Margin="10,10,10,10">
+
+                    <ui:CheckBoxWithLabelView x:Name="chbTransparent"
+                    ToolTip = "Specifies whether to draw edit control background"
+                    Text="Transparent" IsEnabled="true"/>
+
+                    <Label Margin="10,10,10,10" HorizontalTextAlignment="Start" 
+                       Text="Background Style:"  VerticalTextAlignment="Center"/>
+                    <Picker x:Name="BackgroundStylePicker"
+                        MinimumWidthRequest="150"
+                        ToolTipProperties.Text="Background style for the Edit control"
+                        Margin="10,10,10,10">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Solid Color</x:String>
+                                <x:String>Gradient</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+
+                    <Label Text="Background Color:" Margin="10,10,10,10"
+                        HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                    <ui:ColorPickerView x:Name="BackgroundColorPicker"
+                        MinimumWidthRequest="150"
+                        ToolTipProperties.Text="Background color"
+                        Margin="10,10,10,10"/>
+
+                    <Label Text="Gradient Begin:" Margin="10,10,10,10"
+                            HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                    <ui:ColorPickerView x:Name="GradientBeginColorPicker"
+                        MinimumWidthRequest="150"
+                        ToolTipProperties.Text="Gradient background start color"
+                        Margin="10,10,10,10"/>
+
+                    <Label Text="Gradient End:" Margin="10,10,10,10"
+                            HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                    <ui:ColorPickerView x:Name="GradientEndColorPicker"
+                        MinimumWidthRequest="150"
+                        ToolTipProperties.Text="Gradient background end color"
+                        Margin="10,10,10,10"/>
+                    <ui:CheckBoxWithLabelView x:Name="chbHighlightBraces"
+                    ToolTip = "Specifies that matching braces should be highlighted."
+                    Text="Highlight Matching Braces" IsEnabled="true"/>
+
+                    <ui:CheckBoxWithLabelView x:Name="chbHighlightBounds"
+                    ToolTip = "Highlight braces only if caret is positioned on the brace"
+                    Text="If caret on the brace" IsEnabled="true"/>
+
+                    <ui:CheckBoxWithLabelView x:Name="chbTempHighlightBraces"
+                    ToolTip = "The highlighting will disapear after small delay"
+                    Text="Temporarily" IsEnabled="true"/>
+
+                    <Label Margin="10,10,10,10" HorizontalTextAlignment="Start" 
+                            Text="Font Style:"  VerticalTextAlignment="Center"/>
+                    <Picker x:Name="FontStylePicker"
+                            MinimumWidthRequest="150"
+                            ToolTipProperties.Text="FontStyle value that is used to draw matching braces"
+                            Margin="10,10,10,10"/>
+
+                    <Label Text="Color:" Margin="10,10,10,10"
+                            HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                    <ui:ColorPickerView x:Name="BracesColorPicker"
+                        MinimumWidthRequest="150"
+                        ToolTipProperties.Text="Represents background color to draw matching braces"
+                        Margin="10,10,10,10"/>
+
+                    <ui:CheckBoxWithLabelView x:Name="chbCheckSpelling"
+                    ToolTip = ""
+                    Text="Check Spelling" IsEnabled="true"/>
+
+                    <ui:CheckBoxWithLabelView x:Name="chbWhiteSpaceVisible"
+                    ToolTip = "Indicates whether white space symbols are visible in the contol's text content"
+                    Text="Whitespace Visible" IsEnabled="true"/>
+                    <ui:CheckBoxWithLabelView x:Name="chbSeparateLines"
+                    ToolTip = "Specifies that lines are visualy separated in Edit control"
+                    Text="Separate Lines" IsEnabled="true"/>
+
+                    <Label Text="Spell:" Margin="10,10,10,10"
+                            HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                    <ui:ColorPickerView x:Name="SpellColorPicker"
+                            MinimumWidthRequest="150"
+                            ToolTipProperties.Text=
+                                "Represents color to draw wavy underlines under mispelled words"
+                            Margin="10,10,10,10"/>
+
+                    <Label Text="Symbol:" Margin="10,10,10,10"
+                            HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                    <ui:ColorPickerView x:Name="SymbolColorPicker"
+                            MinimumWidthRequest="150"
+                            ToolTipProperties.Text="Color used to paint special symbols"
+                            Margin="10,10,10,10"/>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </AbsoluteLayout>
+</Controls:DemoPage>

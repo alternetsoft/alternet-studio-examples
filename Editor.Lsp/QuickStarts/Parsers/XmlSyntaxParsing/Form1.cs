@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 #pragma warning disable VSTHRD101 // Avoid unsupported async delegates
 
@@ -35,6 +35,9 @@ namespace XmlSyntaxParsing
         {
             DeployServer();
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "XmlSyntaxParsing.Resources";
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
             syntaxEdit1.Spelling.SpellColor = Color.Navy;
             InitEditor();
         }

@@ -24,7 +24,7 @@ namespace AlternetStudio.Wpf
             InitializeComponent();
 
             ReloadProcesses();
-            FilterProcessTextBox.TextChanged += FilterProcessTextBox_TextChanged; ;
+            FilterProcessTextBox.TextChanged += FilterProcessTextBox_TextChanged;
         }
 
         public string Filter
@@ -44,6 +44,8 @@ namespace AlternetStudio.Wpf
             }
         }
 
+        public Process SelectedProcess { get; private set; }
+
         protected virtual void OnFilterChanged()
         {
             ReloadProcesses(false);
@@ -57,8 +59,6 @@ namespace AlternetStudio.Wpf
                 FilterPlaceholder.Visibility = Visibility.Hidden;
             Filter = string.Compare(FilterProcessTextBox.Text, watermark) == 0 ? string.Empty : FilterProcessTextBox.Text;
         }
-
-        public Process SelectedProcess { get; private set; }
 
         private void ReloadProcesses(bool forceReload = true)
         {

@@ -195,7 +195,30 @@
             // textSource2
             // 
             this.textSource2.OptimizedForMemory = false;
-            this.textSource2.Text = resources.GetString("textSource2.Text");
+            this.textSource2.Text = @"[connect default]
+;If we want to disable unknown connect values, we set Access to NoAccess
+Access=NoAccess
+
+[sql default]
+;If we want to disable unknown sql values, we set Sql to an invalid query.
+Sql="" ""
+
+[connect CustomerDatabase]
+Access=ReadWrite
+Connect=""DSN=AdvWorks""
+
+[sql CustomerById]
+Sql=""SELECT * FROM Customers WHERE CustomerID = ?""
+
+[connect AuthorDatabase]
+Access=ReadOnly
+Connect=""DSN=MyLibraryInfo;UID=MyUserID;PWD=MyPassword""
+
+[userlist AuthorDatabase]
+Administrator=ReadWrite
+
+[sql AuthorById]
+Sql=""SELECT * FROM Authors WHERE au_id = ?""";
             // 
             // Form1
             // 
@@ -204,7 +227,6 @@
             this.ClientSize = new System.Drawing.Size(667, 380);
             this.Controls.Add(this.syntaxEdit1);
             this.Controls.Add(this.pnSettings);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Code Outlining";

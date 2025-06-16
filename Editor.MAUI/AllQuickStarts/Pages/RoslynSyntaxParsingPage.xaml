@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Controls:DemoPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:alternet="http://schemas.alternetsoft.com/alternetui/2024"
+             xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+             xmlns:Controls="clr-namespace:AllQuickStarts"  
+             x:Class="AllQuickStarts.RoslynSyntaxParsingPage"
+             Title="Roslyn-Based Parsing">
+    <AbsoluteLayout>
+        <Grid x:Name="MainGrid" RowDefinitions="*" ColumnDefinitions="*, auto">
+
+            <editor:SyntaxEditView x:Name="syntaxEdit1" Grid.Column="0"
+                               Margin="10,10,10,10" IsVisible="false"/>
+            <ScrollView Grid.Column="1" x:Name="settingsPanel">
+                <StackLayout Orientation="Vertical" Margin="10,10,10,10" x:Name="settingsInnerPanel">
+                    <Label Margin="10,10,10,10" HorizontalTextAlignment="Start" 
+                       Text="Language:"  VerticalTextAlignment="Center"/>
+                    <Picker x:Name="LanguagesPicker"
+                        MinimumWidthRequest="150"
+                        ToolTipProperties.Text="Choose programming language"
+                        Margin="10,10,10,10"
+                        SelectedIndexChanged = "LanguagesPicker_SelectedIndexChanged"
+                        >
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>c#</x:String>
+                                <x:String>Visual Basic</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                    <Button Margin="10,10,10,10" HorizontalOptions="Start"
+                        x:Name="loadButton" Text="Load" 
+                        Clicked="LoadButton_Clicked" 
+                        ToolTipProperties.Text="Load code file"/>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </AbsoluteLayout>
+</Controls:DemoPage>

@@ -1,0 +1,43 @@
+<Window xmlns="http://schemas.alternetsoft.com/ui/2021"
+        xmlns:x="http://schemas.alternetsoft.com/ui/2021/uixml"
+        xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+        x:Class="LineStyles.Form1"
+        Title="Line Styles on Alternet.UI" StartLocation="CenterScreen"
+        MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
+        Icon="embres:LineStyles.Sample.ico">
+
+  <Window.StatusBar>
+    <StatusBar Name="statusBar">
+      <StatusBarPanel/>
+    </StatusBar>
+  </Window.StatusBar>
+
+  <Label Name="lbDescription" Margin="5"
+   Text="Single line or continuous text range can be associated with the line style represented by visual indicator in gutter area and different background color."/>
+
+  <TabControl Margin="5">
+    <Panel Title="Line Styles" Name="gbLineStyles" Padding="5">
+      <Grid RowCount="2" ColumnCount="5">
+        <Button Name="btStart" RowColumn="0,0" Text="Start"
+                ToolTip = "Display line style" Margin="5"/>
+        <Button Name="btStepOver" RowColumn="0,1" Text="Step Over"
+                ToolTip = "Move line style to the next line" Margin="5"/>
+        <Button Name="btSetBreakpoint" RowColumn="0,2" Text="Toggle Breakpoint"
+                ToolTip = "Set breakpoint bookmark" Margin="5"/>
+
+        <CheckBox Name="chbLineStyleBeyondEol" RowColumn="1,0"
+                  Text="Line Style Beyond Eol" VerticalAlignment="Center"
+                  ToolTip = "Line style applicable beyond end of line" Margin="5"/>
+        <Label Name="lbLineStyleColor" RowColumn="1,1" Margin="5"
+               Text="Line Style Color:" VerticalAlignment="Center"/>
+        <ColorComboBox Name="cbLineStyleColor" RowColumn="1,2" Margin="5"
+                       VerticalAlignment="Center"
+                       ToolTip="Line style color"></ColorComboBox>
+      </Grid>
+      </Panel>
+    </TabControl>
+
+  <Border VerticalAlignment="Fill" Margin="5" >
+    <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>
+  </Border>
+</Window>

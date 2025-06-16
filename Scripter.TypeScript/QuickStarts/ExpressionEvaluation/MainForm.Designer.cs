@@ -126,7 +126,6 @@
             this.ClientSize = new System.Drawing.Size(528, 165);
             this.Controls.Add(this.pnEdit);
             this.Controls.Add(this.pnDescription);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Evaluate Expression - TypeScript";

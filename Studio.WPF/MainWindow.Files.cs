@@ -1,25 +1,23 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 using Alternet.Common;
 using Alternet.Common.Projects.DotNet;
@@ -96,6 +94,11 @@ namespace AlternetStudio.Wpf.Demo
             }
         }
 
+        protected bool IsXamlCodeBehindFile(string fileName, out string formId)
+        {
+            return FormFilesUtility.IsXamlCodeBehindFile(fileName, out formId);
+        }
+
         protected virtual IScriptEdit NewFile(string fileName)
         {
             TabItem page = new TabItem();
@@ -111,15 +114,15 @@ namespace AlternetStudio.Wpf.Demo
             InitMenuIcons(edit.DefaultMenu);
 
             string formId;
-            var isXamlCodeBehindFile = FormFilesUtility.IsXamlCodeBehindFile(fileName, out formId);
-            if (isXamlCodeBehindFile || IsXamlFile(fileName, out formId))
+            var isXamlCodeBehindFile = IsXamlCodeBehindFile(fileName, out formId);
+            if (isXamlCodeBehindFile)
             {
                 var source = GetDesignerSource(formId);
                 FormDesignerEditorHelpers.SetEditorSource(edit, fileName, source);
 
-                if (isXamlCodeBehindFile && !HasProject())
+                if (!HasProject())
                 {
-                    var generatedCodeFileName = XamlGeneratedCodeFileService.GetGeneratedCodeFile(source);
+                    var generatedCodeFileName = XamlGeneratedCodeFileService.GetGeneratedCodeFile(null, source);
                     CodeEditExtensions.RegisterCode(edit, generatedCodeFileName, File.ReadAllText(generatedCodeFileName));
                 }
             }
@@ -479,6 +482,37 @@ namespace AlternetStudio.Wpf.Demo
             }
         }
 
+        private void OpenFileMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem item = sender as MenuItem;
+            if (item != null)
+            {
+                string fileName = item.Tag as string;
+                if (File.Exists(fileName))
+                    OpenFile(fileName);
+            }
+        }
+
+        private void OpenProjectFileMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem item = sender as MenuItem;
+            if (item != null)
+            {
+                string fileName = item.Tag as string;
+                if (File.Exists(fileName))
+                {
+                    if (HasProject())
+                    {
+                        if (SameProject(fileName))
+                            return;
+                        CloseProject();
+                    }
+
+                    OpenProject(fileName);
+                }
+            }
+        }
+
         private void SaveMenuItem_Click(object sender, RoutedEventArgs e)
         {
             IScriptEdit edit = ActiveSyntaxEdit;
@@ -507,7 +541,7 @@ namespace AlternetStudio.Wpf.Demo
             {
                 var designer = ActiveFormDesigner;
                 if (designer != null)
-                    SaveDesignerFiles(designer);
+                    SaveDesignerFiles((TabItem)editorsTabControl.SelectedItem, designer);
             }
         }
 
@@ -597,7 +631,7 @@ namespace AlternetStudio.Wpf.Demo
                 IFormDesignerControl designer;
                 if (formDesigners.TryGetValue(tabPage, out designer))
                 {
-                    SaveDesignerFiles(designer);
+                    SaveDesignerFiles(tabPage, designer);
                 }
             }
 
@@ -613,19 +647,60 @@ namespace AlternetStudio.Wpf.Demo
             return string.Compare(ext, ".resx", true) == 0 || string.Compare(ext, ".xaml", true) == 0;
         }
 
-        private string[] GetSourceFiles(IList<string> files)
+        private bool IsSourceFile(string fileName, string extension)
+        {
+            string ext = Path.GetExtension(fileName);
+            return string.Compare(ext, extension) == 0;
+        }
+
+        private bool FileBelongsToProjectFramework(DotNetProject project, string fileName)
+        {
+            bool IsPlatform(string path, out string platform)
+            {
+                platform = string.Empty;
+                string name = string.Empty;
+                DirectoryInfo info = new DirectoryInfo(path);
+                while (info != null)
+                {
+                    name = info.Name;
+                    if (string.Compare(name, "platforms", true) == 0)
+                        return true;
+                    else
+                        platform = name;
+                    info = info.Parent;
+                }
+
+                return false;
+            }
+
+            var framework = project.HasProject ? project.TargetFramework : null;
+
+            if (framework == null)
+                return true;
+
+            if (Path.IsPathRooted(fileName))
+            {
+                var path = Path.GetDirectoryName(fileName);
+                if (IsPlatform(path, out string platform))
+                    return framework.DisplayName.Equals(platform, StringComparison.OrdinalIgnoreCase);
+            }
+
+            return true;
+        }
+
+        private string[] GetSourceFiles(DotNetProject project, IList<string> files, string extension, bool includeAutoGenerated)
         {
             IList<string> sourceFiles = new List<string>();
             foreach (var file in files)
             {
-                if (!IsResourceFileName(file))
+                if (!IsResourceFileName(file) && IsSourceFile(file, extension) && FileBelongsToProjectFramework(project, file))
                     sourceFiles.Add(file);
 
                 string formId;
-                if (FormFilesUtility.IsXamlCodeBehindFile(file, out formId))
+                if (includeAutoGenerated && IsXamlCodeBehindFile(file, out formId))
                 {
                     sourceFiles.Add(
-                        XamlGeneratedCodeFileService.GetGeneratedCodeFile(GetDesignerSource(formId)));
+                        XamlGeneratedCodeFileService.GetGeneratedCodeFile(project, GetDesignerSource(formId)));
                 }
             }
 
@@ -634,6 +709,9 @@ namespace AlternetStudio.Wpf.Demo
 
         private IScriptEdit FindFile(string fileName)
         {
+            if (!PathUtilities.IsPathFullyQualified(fileName))
+                return null;
+
             var canonicalPath = new Uri(fileName).LocalPath;
             foreach (TabItem tabPage in editorsTabControl.Items)
             {
@@ -697,14 +775,19 @@ namespace AlternetStudio.Wpf.Demo
 
         private void CodeEdit_StatusChanged(object sender, EventArgs e)
         {
-            if (sender != ActiveSyntaxEdit)
+            var edit = ActiveSyntaxEdit;
+            if (edit == null || sender != edit)
                 return;
 
             var args = e as NotifyEventArgs;
 
             bool update = args != null && ((args.State & NotifyState.Edit) != 0 || (args.State & NotifyState.Modified) != 0 || (args.State & NotifyState.TextParsed) != 0);
+            bool reparse = args != null && (args.State & NotifyState.TextParsed) != 0;
 
             UpdateCodeNavigation(update);
+
+            if (reparse)
+                UpdateErrors(edit);
 
             if (args != null)
             {
@@ -768,6 +851,8 @@ namespace AlternetStudio.Wpf.Demo
                 }
 
                 UpdateControls();
+                if (!recentFiles.Contains(fileName))
+                    recentFiles.Insert(0, fileName);
                 return edit;
             }
             catch (Exception e)
@@ -806,6 +891,16 @@ namespace AlternetStudio.Wpf.Demo
             CodeEditExtensions.UnregisterCode(Path.GetExtension(fileName), new string[] { fileName });
             if (!HasProject())
                 RemoveDesignFileForParsing(fileName);
+
+            string formId;
+            if (IsXamlCodeBehindFile(fileName, out formId))
+            {
+                if (FindFile(formId) == null && FindDesigner(formId) == null)
+                {
+                    if (sourcesByFormId.ContainsKey(formId))
+                        sourcesByFormId.Remove(formId);
+                }
+            }
 
             if (!FileBelongsToProject(fileName))
                 edit.FileName = string.Empty;
@@ -917,8 +1012,8 @@ namespace AlternetStudio.Wpf.Demo
             if (!string.IsNullOrEmpty(edit.FileName))
             {
                 saveFileDialog.FileName = edit.FileName;
-                string extenstion = Path.GetExtension(edit.FileName).ToLower();
-                switch (extenstion)
+                string extension = Path.GetExtension(edit.FileName).ToLower();
+                switch (extension)
                 {
                     case ".vb":
                         saveFileDialog.FilterIndex = 2;
@@ -1006,11 +1101,78 @@ namespace AlternetStudio.Wpf.Demo
             foreach (var designerTab in designerTabs)
             {
                 var designer = designerTab.Item1;
-                designer.Save();
+                SaveDesignerFiles(designerTab.Item2, designer);
                 UpdateDesignPage(designerTab.Item2, ((IFormDesignerDataSource)designer.Source).XamlFileName, designer.Source.IsModified);
             }
 
             return true;
+        }
+
+        private string GetRecentFilesAutoSaveFileName()
+        {
+            var directory = Path.Combine(Path.GetTempPath(), "AlternetStudio.Wpf.Demo", "dotnet-" + Environment.Version.ToString(2));
+
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            return Path.Combine(directory, "RecentFiles.xml");
+        }
+
+        private void UpdateRecentFiles()
+        {
+            if (recentFilesMenuItem.Items.Count != recentFiles.Count || recentProjectsMenuItem.Items.Count != recentProjects.Count)
+            {
+                recentFilesMenuItem.Items.Clear();
+                recentProjectsMenuItem.Items.Clear();
+                if (recentFiles.Count > 0)
+                {
+                    for (int i = 0; i < recentFiles.Count; i++)
+                    {
+                        MenuItem item = new MenuItem();
+
+                        string file = recentFiles[i];
+                        item.Header = string.Format("{0} {1}", i + 1, file.EllipsisString(Consts.MaxFirstCharsCount, Consts.MaxLastCharsCount));
+                        item.Tag = file;
+                        item.Click += OpenFileMenuItem_Click;
+                        recentFilesMenuItem.Items.Add(item);
+                    }
+                }
+
+                if (recentProjects.Count > 0)
+                {
+                    for (int i = 0; i < recentProjects.Count; i++)
+                    {
+                        MenuItem item = new MenuItem();
+
+                        string file = recentProjects[i];
+                        item.Header = string.Format("{0} {1}", i + 1, file.EllipsisString(Consts.MaxFirstCharsCount, Consts.MaxLastCharsCount));
+                        item.Tag = file;
+                        item.Click += OpenProjectFileMenuItem_Click;
+                        recentProjectsMenuItem.Items.Add(item);
+                    }
+                }
+            }
+        }
+
+        private void LoadRecentFiles()
+        {
+            recentFiles.Clear();
+            recentProjects.Clear();
+            var fileName = GetRecentFilesAutoSaveFileName();
+            if (File.Exists(fileName))
+            {
+                FilesData data = FilesDataService.LoadData(fileName);
+                recentFiles = data.Files.ToList();
+                recentProjects = data.Projects.ToList();
+                UpdateRecentFiles();
+            }
+        }
+
+        private void AutoSaveRecentFiles()
+        {
+            var fileName = GetRecentFilesAutoSaveFileName();
+            FilesData data = new FilesData(recentFiles, recentProjects);
+            FilesDataService.SaveData(data, fileName);
         }
     }
 }

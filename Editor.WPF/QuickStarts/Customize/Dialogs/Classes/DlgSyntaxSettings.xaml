@@ -204,7 +204,7 @@
                                     <TextBox Height="23" HorizontalAlignment="Left" Margin="8,82,0,0" Name="tbShowCommands" VerticalAlignment="Top" Width="376" TextChanged="ShowCommandsTextBox_TextChanged" />
                                     <ListBox Height="127" HorizontalAlignment="Left" Margin="8,109,0,0" Name="lbEventHandlers" VerticalAlignment="Top" Width="376" SelectionChanged="EventHandlersListBox_SelectionChanged" />
                                     <Label Content="Shortcut(s) for selected command:" Height="28" HorizontalAlignment="Left" Margin="8,238,0,0" Name="laShortcuts" VerticalAlignment="Top" />
-                                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="8,266,0,0" Name="cbShortcuts" VerticalAlignment="Top" Width="296" IsEditable="True" SelectionChanged="cbShortcuts_SelectionChanged"/>
+                                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="8,266,0,0" Name="cbShortcuts" VerticalAlignment="Top" Width="296" IsEditable="True" SelectionChanged="Shortcuts_SelectionChanged"/>
                                     <Button Name="UpdateShortcutButton" Content="Update shortcut" Margin="8,294,0,28" HorizontalAlignment="Left" Height="23" Width="100" Click="UpdateShortcutButton_Click"/>
                                 </Grid>
                             </DockPanel>

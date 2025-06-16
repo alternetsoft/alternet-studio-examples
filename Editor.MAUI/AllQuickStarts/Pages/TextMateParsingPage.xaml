@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Controls:DemoPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:alternet="http://schemas.alternetsoft.com/alternetui/2024"
+             xmlns:Controls="clr-namespace:AllQuickStarts"  
+             xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+             x:Class="AllQuickStarts.TextMateParsingPage"
+             Title="TextMate Parsing">
+    <AbsoluteLayout>
+        <Grid x:Name="MainGrid" RowDefinitions="*" ColumnDefinitions="*, auto">
+
+            <editor:SyntaxEditView x:Name="syntaxEdit1" Grid.Column="0"
+                               Margin="10,10,10,10" IsVisible="false"/>
+            <ScrollView Grid.Column="1" x:Name="settingsPanel">
+                <StackLayout Orientation="Vertical" Margin="10,10,10,10">
+                    <Label Margin="10,10,10,10" HorizontalTextAlignment="Start" 
+                       Text="Language:"  VerticalTextAlignment="Center"/>
+                    <Picker x:Name="LanguagesPicker"
+                        MinimumWidthRequest="150"
+                        ToolTipProperties.Text="Choose programming language"
+                        Margin="10,10,10,10"
+                        SelectedIndexChanged = "LanguagesPicker_SelectedIndexChanged"
+                        >
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                    <Label Margin="10,10,10,10" HorizontalTextAlignment="Start" 
+                       Text="Visual Themes:"  VerticalTextAlignment="Center"/>
+                    <Picker x:Name="VisualThemePicker"
+                        MinimumWidthRequest="150"
+                        Margin="10,10,10,10"
+                        SelectedIndexChanged = "VisualThemePicker_SelectedIndexChanged"
+                        >
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                    <Label Margin="10,10,10,10" HorizontalTextAlignment="Start" 
+                       Text="Colors:"  VerticalTextAlignment="Center"/>
+                    <Picker x:Name="ThemeNamesPicker"
+                        MinimumWidthRequest="150"
+                        Margin="10,10,10,10"
+                        SelectedIndexChanged = "ThemeNamesPicker_SelectedIndexChanged"
+                        >
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </AbsoluteLayout>
+</Controls:DemoPage>

@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 
 using Alternet.Editor.Common.Wpf;
 using Alternet.Editor.Roslyn.Wpf;
+using Alternet.Scripter;
 using Alternet.Scripter.Debugger;
 
 namespace AlternetStudio.Wpf.Demo.RemoteControl
@@ -57,6 +58,22 @@ namespace AlternetStudio.Wpf.Demo.RemoteControl
                     Dispatcher.Invoke((Action)(() => StartDebugging(false)));
                 });
             }
+        }
+
+        protected override bool CompileIfNeeded()
+        {
+            return true;
+        }
+
+        protected override bool CompileCore()
+        {
+            remoteControlService.CompileScript(result =>
+            {
+                if (!result.IsSuccessful && result.Errors.Length > 0)
+                    ReportScriptCompilationErrors(result.Errors);
+            });
+
+            return true;
         }
 
         protected override void RunScriptCore()
@@ -110,9 +127,9 @@ namespace AlternetStudio.Wpf.Demo.RemoteControl
             return scriptEdit;
         }
 
-        protected override bool SetScriptSource()
+        protected override bool SetScriptSource(bool modified)
         {
-            if (!base.SetScriptSource())
+            if (!base.SetScriptSource(modified))
                 return false;
 
             if (Project.HasProject)

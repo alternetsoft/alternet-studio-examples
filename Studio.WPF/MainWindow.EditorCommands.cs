@@ -1,29 +1,50 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Alternet.Editor.Roslyn.Wpf;
 using Alternet.Editor.Wpf;
 
 namespace AlternetStudio.Wpf.Demo
 {
     public partial class MainWindow
     {
+        private IList<string> recentFiles = new List<string>();
+        private IList<string> recentProjects = new List<string>();
+
         private void InitializeToolbar()
         {
+            ProjectFrameworks.Visibility = Visibility.Collapsed;
+            ProjectFrameworks.SelectionChanged += ProjectFrameworks_SelectionChanged;
+            fileMenuItem.SubmenuOpened += FileMenuItem_SubmenuOpened;
+            LoadRecentFiles();
+        }
+
+        private void FileMenuItem_SubmenuOpened(object sender, RoutedEventArgs e)
+        {
+            recentFilesMenuItem.IsEnabled = recentFiles.Count > 0;
+            recentProjectsMenuItem.IsEnabled = recentProjects.Count > 0;
+            UpdateRecentFiles();
+        }
+
+        private void ProjectFrameworks_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CurrentFramework = CodeUtils.GetSelectedFramework(ProjectFrameworks);
         }
 
         private void UpdateEditorStatus()
@@ -66,6 +87,9 @@ namespace AlternetStudio.Wpf.Demo
 
             saveProjectMenuItem.IsEnabled = HasProject();
             closeProjectMenuItem.IsEnabled = HasProject();
+            bool hasFrameworks = HasProject() && Project.TargetFrameworks?.Count > 0;
+            ProjectFrameworks.Visibility = hasFrameworks ? Visibility.Visible : Visibility.Collapsed;
+
             saveMenuItem.IsEnabled = enabled;
             saveMenuItemAs.IsEnabled = enabled && !FileBelongsToProject(edit.FileName);
             findMenuItem.IsEnabled = enabled;

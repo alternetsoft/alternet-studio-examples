@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -19,6 +19,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Alternet.Common.Python;
 using Alternet.Editor.Common;
 using Alternet.Editor.Python;
 using Alternet.FormDesigner.WinForms;
@@ -232,6 +233,7 @@ namespace AlternetStudio.Demo
                     OpenDesigner(formNodeData.FileName);
                     return;
                 }
+
                 codeFileName = formNodeData.FileName;
             }
             else

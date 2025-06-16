@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -25,6 +25,7 @@ using Alternet.Editor.TextSource;
 using Alternet.FormDesigner.Integration;
 using Alternet.FormDesigner.WinForms;
 using Alternet.Scripter.Integration;
+using Alternet.Syntax.Parsers.XAML;
 
 namespace AlternetStudio.Demo
 {
@@ -111,6 +112,16 @@ namespace AlternetStudio.Demo
             }
         }
 
+        protected bool IsXamlCodeBehindFile(string fileName, out string formId)
+        {
+            return FormFilesUtility.IsXamlCodeBehindFile(fileName, out formId);
+        }
+
+        protected IScriptEdit OpenFile(string fileName)
+        {
+            return OpenFile(fileName, false);
+        }
+
         protected virtual IScriptEdit NewFile(string fileName)
         {
             var page = new TabPage(Path.GetFileName(fileName));
@@ -118,12 +129,23 @@ namespace AlternetStudio.Demo
 
             editorsTabControl.TabPages.Add(page);
             var edit = CreateDebugEdit();
+            edit.ParserChanged += DoParserChanged;
             editors.Add(page, edit);
 
             edit.DefaultMenu.Opened += EditorContextMenu_Opened;
             InitMenuIcons(edit.DefaultMenu);
 
             string formId;
+            var isXamlCodeBehindFile = IsXamlCodeBehindFile(fileName, out formId);
+            if (isXamlCodeBehindFile)
+            {
+                if (!HasProject())
+                {
+                    var generatedCodeFileName = XamlGeneratedCodeFileService.GetGeneratedCodeFile(null, fileName, formId);
+                    CodeEditExtensions.RegisterCode(edit, generatedCodeFileName, File.ReadAllText(generatedCodeFileName));
+                }
+            }
+
             if (IsFormFile(fileName, out formId) && File.Exists(formId))
             {
                 var source = GetDesignerSource(formId);
@@ -170,7 +192,6 @@ namespace AlternetStudio.Demo
             edit.Bounds = new Rectangle(0, 0, page.ClientRectangle.Width, page.ClientRectangle.Height);
             edit.HighlightReferences = true;
             edit.OpenSharedEditorFunc = OpenSharedEditorFunc;
-
             page.Controls.Add(edit as Control);
 
             editorsTabControl.SelectedTab = page;
@@ -181,9 +202,17 @@ namespace AlternetStudio.Demo
             return edit;
         }
 
-        protected IScriptEdit OpenFile(string fileName)
+        private void DoParserChanged(object sender, EventArgs e)
         {
-            return OpenFile(fileName, false);
+            if (sender is ScriptCodeEdit)
+            {
+                XAMLParser parser = ((ScriptCodeEdit)sender).Lexer as XAMLParser;
+                if (parser != null)
+                {
+                    bool useMaui = Project.HasProject && Project.IsMaui;
+                    parser.MAUITypes = useMaui;
+                }
+            }
         }
 
         private void InitializeEditors()
@@ -518,6 +547,37 @@ namespace AlternetStudio.Demo
             }
         }
 
+        private void OpenFileMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            if (item != null)
+            {
+                string fileName = item.Tag as string;
+                if (File.Exists(fileName))
+                    OpenFile(fileName);
+            }
+        }
+
+        private void OpenProjectFileMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            if (item != null)
+            {
+                string fileName = item.Tag as string;
+                if (File.Exists(fileName))
+                {
+                    if (HasProject())
+                    {
+                        if (SameProject(fileName))
+                            return;
+                        CloseProject();
+                    }
+
+                    OpenProject(fileName);
+                }
+            }
+        }
+
         private void SaveMenuItem_Click(object sender, EventArgs e)
         {
             var edit = ActiveSyntaxEdit;
@@ -653,13 +713,61 @@ namespace AlternetStudio.Demo
             return string.Compare(ext, ".resx", true) == 0 || string.Compare(ext, ".xaml", true) == 0;
         }
 
-        private string[] GetSourceFiles(IList<string> files)
+        private bool IsSourceFile(string fileName, string extension)
+        {
+            string ext = Path.GetExtension(fileName);
+            return string.Compare(ext, extension) == 0;
+        }
+
+        private bool FileBelongsToProjectFramework(DotNetProject project, string fileName)
+        {
+            bool IsPlatform(string path, out string platform)
+            {
+                platform = string.Empty;
+                string name = string.Empty;
+                DirectoryInfo info = new DirectoryInfo(path);
+                while (info != null)
+                {
+                    name = info.Name;
+                    if (string.Compare(name, "platforms", true) == 0)
+                        return true;
+                    else
+                        platform = name;
+                    info = info.Parent;
+                }
+
+                return false;
+            }
+
+            var framework = project.HasProject ? project.TargetFramework : null;
+
+            if (framework == null)
+                return true;
+
+            if (Path.IsPathRooted(fileName))
+            {
+                var path = Path.GetDirectoryName(fileName);
+                if (IsPlatform(path, out string platform))
+                    return framework.DisplayName.Equals(platform, StringComparison.OrdinalIgnoreCase);
+            }
+
+            return true;
+        }
+
+        private string[] GetSourceFiles(DotNetProject project, IList<string> files, string extension, bool includeAutoGenerated)
         {
             IList<string> sourceFiles = new List<string>();
             foreach (var file in files)
             {
-                if (!IsResourceFileName(file))
+                if (!IsResourceFileName(file) && IsSourceFile(file, extension) && FileBelongsToProjectFramework(project, file))
                     sourceFiles.Add(file);
+
+                string formId;
+                if (includeAutoGenerated && IsXamlCodeBehindFile(file, out formId))
+                {
+                    sourceFiles.Add(
+                        XamlGeneratedCodeFileService.GetGeneratedCodeFile(project, file, formId));
+                }
             }
 
             return sourceFiles.ToArray();
@@ -736,14 +844,19 @@ namespace AlternetStudio.Demo
 
         private void CodeEdit_StatusChanged(object sender, EventArgs e)
         {
-            if (sender != ActiveSyntaxEdit)
+            var edit = ActiveSyntaxEdit;
+            if (edit == null || sender != edit)
                 return;
 
             var args = e as NotifyEventArgs;
 
             bool update = args != null && ((args.State & NotifyState.Edit) != 0 || (args.State & NotifyState.Modified) != 0 || (args.State & NotifyState.TextParsed) != 0);
+            bool reparse = args != null && (args.State & NotifyState.TextParsed) != 0;
 
             UpdateCodeNavigation(update);
+
+            if (reparse)
+                UpdateErrors(edit);
 
             if (args != null)
             {
@@ -799,11 +912,14 @@ namespace AlternetStudio.Demo
             {
                 CodeEditExtensions.RegisterDefaultAssemblies(edit);
                 AddDesignFileForParsing(fileName);
+                string formID;
+                if (IsFormFile(fileName, out formID))
+                    AddDesignerReferencesToEditor(edit, formID, Project.TargetFramework);
             }
-            else
-                AddDesignerReferencesToEditor(edit, fileName, Project.TargetFramework);
 
             UpdateControls();
+            if (!recentFiles.Contains(fileName))
+                recentFiles.Insert(0, fileName);
             return edit;
         }
 
@@ -836,6 +952,18 @@ namespace AlternetStudio.Demo
             var fileName = edit.FileName;
             if (!HasProject())
                 RemoveDesignFileForParsing(fileName);
+
+            string formId;
+            string designFile;
+            if (IsFormFile(fileName, out designFile, out formId) && File.Exists(formId))
+            {
+                bool isCodeFile = string.Compare(fileName, formId, true) == 0;
+                if ((isCodeFile || (FindFile(formId) == null)) && (!isCodeFile || (FindFile(designFile) == null)) && (FindDesigner(formId) == null))
+                {
+                    if (sourcesByFormId.ContainsKey(formId))
+                        sourcesByFormId.Remove(formId);
+                }
+            }
 
             if (!FileBelongsToProject(fileName))
                 edit.FileName = string.Empty;
@@ -1031,11 +1159,78 @@ namespace AlternetStudio.Demo
             foreach (var designerTab in designerTabs)
             {
                 var designer = designerTab.Item1;
-                designer.Save();
+                SaveDesignerFiles(designerTab.Item2, designer);
                 UpdateDesignPage(designerTab.Item2, designer.Source.UserCodeFileName, designer.Source.IsModified);
             }
 
             return true;
+        }
+
+        private string GetRecentFilesAutoSaveFileName()
+        {
+            var directory = Path.Combine(Path.GetTempPath(), "Alternet.Studio.Demo", "dotnet-" + Environment.Version.ToString(2));
+
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            return Path.Combine(directory, "RecentFiles.xml");
+        }
+
+        private void UpdateRecentFiles()
+        {
+            if (recentFilesMenuStrip.Items.Count != recentFiles.Count || recentProjectsMenuStrip.Items.Count != recentProjects.Count)
+            {
+                recentFilesMenuStrip.Items.Clear();
+                recentProjectsMenuStrip.Items.Clear();
+                if (recentFiles.Count > 0)
+                {
+                    for (int i = 0; i < recentFiles.Count; i++)
+                    {
+                        ToolStripItem item = new ToolStripMenuItem();
+
+                        string file = recentFiles[i];
+                        item.Text = string.Format("{0} {1}", i + 1, file.EllipsisString(Consts.MaxFirstCharsCount, Consts.MaxLastCharsCount));
+                        item.Tag = file;
+                        item.Click += new System.EventHandler(this.OpenFileMenuItem_Click);
+                        recentFilesMenuStrip.Items.Add(item);
+                    }
+                }
+
+                if (recentProjects.Count > 0)
+                {
+                    for (int i = 0; i < recentProjects.Count; i++)
+                    {
+                        ToolStripItem item = new ToolStripMenuItem();
+
+                        string file = recentProjects[i];
+                        item.Text = string.Format("{0} {1}", i + 1, file.EllipsisString(Consts.MaxFirstCharsCount, Consts.MaxLastCharsCount));
+                        item.Tag = file;
+                        item.Click += new System.EventHandler(this.OpenProjectFileMenuItem_Click);
+                        recentProjectsMenuStrip.Items.Add(item);
+                    }
+                }
+            }
+        }
+
+        private void LoadRecentFiles()
+        {
+            recentFiles.Clear();
+            recentProjects.Clear();
+            var fileName = GetRecentFilesAutoSaveFileName();
+            if (File.Exists(fileName))
+            {
+                FilesData data = FilesDataService.LoadData(fileName);
+                recentFiles = data.Files.ToList();
+                recentProjects = data.Projects.ToList();
+                UpdateRecentFiles();
+            }
+        }
+
+        private void AutoSaveRecentFiles()
+        {
+            var fileName = GetRecentFilesAutoSaveFileName();
+            FilesData data = new FilesData(recentFiles, recentProjects);
+            FilesDataService.SaveData(data, fileName);
         }
     }
 }

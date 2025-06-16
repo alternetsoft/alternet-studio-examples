@@ -1,0 +1,19 @@
+/* css2.css */
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    flex: 1 1 calc(33.333% - 20px);
+    background-color: #f8f8f8;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.card-header, .card-content, .card-footer {
+    margin-bottom: 10px;
+}

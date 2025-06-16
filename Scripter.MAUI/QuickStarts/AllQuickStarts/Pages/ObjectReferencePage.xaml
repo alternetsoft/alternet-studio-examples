@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Controls:DemoPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+             xmlns:Controls="clr-namespace:AllQuickStarts.Scripter"  
+             xmlns:alternet="http://schemas.alternetsoft.com/alternetui/2024"
+             x:Class="AllQuickStarts.Scripter.Pages.ObjectReferencePage"
+             Title="Object Reference">
+    <AbsoluteLayout>
+        <Grid x:Name="MainGrid" RowDefinitions="170, *" ColumnDefinitions="*, auto"
+              Margin="10,10,10,10">
+            <Border Grid.Row="0" Margin="10,10,10,10">
+                <StackLayout x:Name="panel" >
+                    <Button Margin="10,10,10,10" HorizontalOptions="Start"
+                        x:Name="TestButton" Text="Test Button" />
+                </StackLayout>
+            </Border>
+            <editor:SyntaxEditView x:Name="syntaxEdit1" Grid.Row="1" Grid.Column="0"
+                               Margin="0" IsVisible="false"/>
+            <ScrollView Grid.Column="1" x:Name="settingsPanel" Grid.RowSpan="2">
+                <StackLayout Orientation="Vertical" Margin="10,10,10,10" x:Name="settingsInnerPanel">
+                    <Button Margin="10,10,10,10" HorizontalOptions="Start"
+                        x:Name="ScriptButton" Text="Run Script" />
+                    <Label Margin="10,10,10,10" HorizontalTextAlignment="Start" 
+                       Text="Language:"  VerticalTextAlignment="Center"/>
+                    <Picker x:Name="LanguagesPicker"
+                        MinimumWidthRequest="150" IsEnabled="false"
+                        ToolTipProperties.Text="Choose programming language"
+                        Margin="10,10,10,10"
+                        SelectedIndexChanged = "LanguagesPicker_SelectedIndexChanged"
+                        >
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>c#</x:String>
+                                <x:String>Visual Basic</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </AbsoluteLayout>
+</Controls:DemoPage>

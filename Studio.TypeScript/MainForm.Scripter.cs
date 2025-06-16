@@ -1,27 +1,30 @@
-﻿#region Copyright (c) 2016-2023 Alternet Software
+﻿#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Windows.Forms;
+using System.Linq;
+
 using Alternet.Common.TypeScript.HostObjects;
 using Alternet.Editor.Common;
 using Alternet.Editor.TypeScript;
 using Alternet.Scripter;
 using Alternet.Scripter.Debugger.UI;
 using Alternet.Scripter.TypeScript;
+using Alternet.Syntax;
 
 namespace AlternetStudio.Demo
 {
@@ -61,6 +64,58 @@ namespace AlternetStudio.Demo
             bottomTabControl.SelectedTab = errorsTabPage;
         }
 
+        private ScriptCompilationDiagnosticKind GetErrorSeverity(SyntaxErrorType errorType)
+        {
+            switch (errorType)
+            {
+                case SyntaxErrorType.Hidden:
+                case SyntaxErrorType.Info:
+                    return ScriptCompilationDiagnosticKind.Info;
+
+                case SyntaxErrorType.Warning:
+                    return ScriptCompilationDiagnosticKind.Warning;
+
+                case SyntaxErrorType.Error:
+                    return ScriptCompilationDiagnosticKind.Error;
+
+                default:
+                    throw new Exception();
+            }
+        }
+
+        private ScriptCompilationDiagnostic[] GetErrors(string fileName, IList<ISyntaxError> errors)
+        {
+            if (errors == null)
+                return null;
+
+            return errors.Where(t => t.ErrorType != SyntaxErrorType.Hidden).Select(
+                error =>
+                {
+                    return new ScriptCompilationDiagnostic
+                    {
+                        Kind = GetErrorSeverity(error.ErrorType),
+                        FileName = fileName,
+                        Line = error.Position.Y,
+                        Column = error.Position.X,
+                        Message = error.Description,
+                        Code = error.ErrorCode,
+                        InSource = !string.IsNullOrEmpty(fileName),
+                    };
+                }).ToArray();
+        }
+
+        private void UpdateErrors(ScriptCodeEdit edit)
+        {
+            ISyntaxParser parser = edit.Lexer as ISyntaxParser;
+            if (parser == null)
+                return;
+
+            IList<ISyntaxError> list = new List<ISyntaxError>();
+            parser.GetSyntaxErrors(list);
+            errorsControl.Clear();
+            errorsControl.AddCompilerErrors(GetErrors(parser.FileName, list));
+        }
+
         private void ErrorsControl_ErrorClick(object sender, ErrorClickEventArgs e)
         {
             NavigateToCompilationError(e.Error);
@@ -87,9 +142,6 @@ namespace AlternetStudio.Demo
         private void UpdateScriptProject(TSProject project)
         {
             scriptRun.ScriptSource.FromScriptProject(project.ProjectFileName);
-
-            scriptRun.ScriptSource.SearchPaths.Clear();
-            scriptRun.ScriptSource.SearchPaths.Add(Path.GetDirectoryName(scriptRun.ScriptHost.ModulesDirectoryPath));
         }
 
         private bool SetScriptSource()
@@ -132,7 +184,6 @@ namespace AlternetStudio.Demo
                     ActivateErrorsTab();
                 else
                 {
-                    designedComponentAssemblyManager.CopyOutput();
                     foreach (var source in sourcesByFormId.Values)
                         source.DesignedComponentAssembly.NotifyAssemblyChanged();
                 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Controls:DemoPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Controls="clr-namespace:AllQuickStarts"  
+             xmlns:alternet="http://schemas.alternetsoft.com/alternetui/2024"
+             xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+             xmlns:ui="http://schemas.alternetsoft.com/alternetui/2024"
+             x:Class="AllQuickStarts.PowerFXSyntaxParsingPage"
+             Title="PowerFX Parsing">
+    <AbsoluteLayout>
+        <Grid x:Name="MainGrid" RowDefinitions="*" ColumnDefinitions="*, auto">
+            <editor:SyntaxEditView x:Name="syntaxEdit1" Grid.Column="0"
+                               Margin="10,10,10,10" IsVisible="false"/>
+            <ScrollView Grid.Column="1" x:Name="settingsPanel">
+                <StackLayout Orientation="Vertical" Margin="10,10,10,10">
+                    <ui:CheckBoxWithLabelView x:Name="EvaluateQuickInfo"
+                    ToolTip = "Evaluate Qucik Info"
+                    Text="Evaluate Quick Info" IsEnabled="true"/>
+                    <Button Margin="10,10,10,10" HorizontalOptions="Start"
+                        x:Name="evaluateButton" Text="Evaluate" 
+                        Clicked="EvaluateButton_Clicked" />
+                    <Button Margin="10,10,10,10" HorizontalOptions="Start"
+                        x:Name="loadButton" Text="Load" 
+                        Clicked="LoadButton_Clicked" />
+                    <Button Margin="10,10,10,10" HorizontalOptions="Start"
+                        x:Name="editContextButton" Text="Edit Context" 
+                        Clicked="EditContextButton_Clicked" />
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </AbsoluteLayout>
+</Controls:DemoPage>

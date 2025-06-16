@@ -1,0 +1,47 @@
+<Window xmlns="http://schemas.alternetsoft.com/ui/2021"
+        xmlns:x="http://schemas.alternetsoft.com/ui/2021/uixml"
+        xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+        x:Class="Bookmarks.Form1" 
+        Title="Bookmarks on Alternet.UI" StartLocation="CenterScreen"
+        MinimumSize="600, 400" Size="1000,800" Layout="Vertical" Padding="10"
+        Icon="embres:Bookmarks.Sample.ico">
+
+  <Window.StatusBar>
+    <StatusBar Name="statusBar">
+      <StatusBarPanel/>
+    </StatusBar>
+  </Window.StatusBar>
+
+	  <Label Name="lbDescription" Margin="5"
+	   Text="Bookmarks are used to simplify navigation through the text."/>
+	  <Panel Name="gbBookmarks" Margin="5">
+		  <Grid RowCount="2" ColumnCount="4" MinChildMargin="5">
+			  <CheckBox Name="chbDrawBookmarks" RowColumn="0,0"
+                        Text="Bookmarks"
+                        ToolTip = "Show or hide bookmarks" Margin="0,0,5,0"/>
+			  <Button Name="btSetBookmark" RowColumn="0,1"
+                      Text="Set Indexed"
+                      ToolTip = "Sets an indexed bookmark at the current caret position" Margin="0,0,5,0"/>
+			  <Button Name="btSetUnindexedBookmark" RowColumn="0,2"
+                      Text="Set Unindexed"
+                      ToolTip = "Sets an unindexed bookmark at the current caret position"
+                      Margin="0,0,5,0"/>
+			  <Button Name="btNextBookmark" RowColumn="0,3"
+                      Text="Next"
+                      ToolTip = "Moves caret to the location of the next unnumbered bookmark"
+                      Margin="0,0,5,0"/>
+			  <CheckBox Name="chbDrawLineBookmarks" RowColumn="1,0" Text="Inline" 
+                        ToolTip = "Display triangle at bookmark position inside the text"
+                        Margin="0,0,5,0"/>
+			  <Button Name="btClearBookmarks" RowColumn="1,1" Text="Clear"
+                      ToolTip = "Clear all bookmarks" Margin="0,0,5,0"/>
+			  <Button Name="btSetCustomBookmarks" RowColumn="1,2" Text="Set Custom" 
+                      ToolTip = "Sets a bookmark with url and description at the current caret position" 
+                      Margin="0,0,5,0"/>
+			  <Button Name="btPrevBookmark" RowColumn="1,3" Text="Previous"
+                      ToolTip = "Moves caret to the location of the previous unnumbered bookmark"
+                      Margin="0,0,5,0"/>
+		  </Grid>
+	  </Panel>
+	  <TabControl Name="tcEditors" VerticalAlignment="Fill"></TabControl>
+</Window>

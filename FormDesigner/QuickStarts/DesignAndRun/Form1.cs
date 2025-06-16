@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2023 Alternet Software
+#region Copyright (c) 2016-2025 Alternet Software
 
 /*
     AlterNET Form Designer Library
 
-    Copyright (c) 2016-2023 Alternet Software
+    Copyright (c) 2016-2025 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2023 Alternet Software
+#endregion Copyright (c) 2016-2025 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -20,6 +20,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Alternet.Common;
 using Alternet.Common.DotNet.DefaultAssemblies;
 using Alternet.Editor.Common;
 using Alternet.Editor.Roslyn;
@@ -40,6 +41,9 @@ namespace DesignAndRun
         public Form1()
         {
             InitializeComponent();
+            var asm = this.GetType().Assembly;
+            var prefix = "DesignAndRun.Resources";
+            Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
         }
 
         private IScriptEdit ActiveEditor

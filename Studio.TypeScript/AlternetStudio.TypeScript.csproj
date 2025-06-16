@@ -4,7 +4,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net462;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <UseWindowsForms>true</UseWindowsForms>
@@ -17,9 +17,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <RootNamespace>AlternetStudio.Demo.TypeScript</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <OutputPath>..\..\bin\Release\Demos.Studio.TypeScript\</OutputPath>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
@@ -30,6 +27,7 @@
     <None Remove="Resources\Bookmark_HighDpi.png" />
     <None Remove="Resources\ClearBookmark.png" />
     <None Remove="Resources\ClearBookmark_HighDpi.png" />
+    <None Remove="Resources\CodeExplorerImages.png" />
     <None Remove="Resources\Copy.png" />
     <None Remove="Resources\Copy_HighDpi.png" />
     <None Remove="Resources\Cut.png" />
@@ -42,6 +40,7 @@
     <None Remove="Resources\Forwards_HighDpi.png" />
     <None Remove="Resources\GoToDefinition.png" />
     <None Remove="Resources\GoToDefinition_HighDpi.png" />
+    <None Remove="Resources\Icon.ico" />
     <None Remove="Resources\NewFile.png" />
     <None Remove="Resources\NewFile_HighDpi.png" />
     <None Remove="Resources\NextBookmark.png" />
@@ -50,12 +49,14 @@
     <None Remove="Resources\OpenFile_HighDpi.png" />
     <None Remove="Resources\Paste.png" />
     <None Remove="Resources\Paste_HighDpi.png" />
+    <None Remove="Resources\pictureBox1.Image.png" />
     <None Remove="Resources\PreviousBookmark.png" />
     <None Remove="Resources\PreviousBookmark_HighDpi.png" />
     <None Remove="Resources\Print.png" />
     <None Remove="Resources\PrintPreview.png" />
     <None Remove="Resources\PrintPreview_HighDpi.png" />
     <None Remove="Resources\Print_HighDpi.png" />
+    <None Remove="Resources\ProjectExplorerImages.png" />
     <None Remove="Resources\Redo.png" />
     <None Remove="Resources\Redo_HighDpi.png" />
     <None Remove="Resources\ReplaceInFiles.png" />
@@ -75,25 +76,22 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.ClearScript" Version="7.2.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="9.5.16" />
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="9.5.16" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="9.5.16" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.TypeScript.WindowsForms" Version="9.5.16" Condition="$(DefineConstants.Contains(';NETFRAMEWORK')) or $(DefineConstants.Contains(';NET6_0')) or $(DefineConstants.Contains(';NET7_0')) or $(DefineConstants.Contains(';NET8_0'))" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="9.5.16" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="9.5.16" />
-    <PackageReference Include="Alternet.Studio.Editor.TypeScript" Version="9.5.16" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="9.5.16" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="9.5.16" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="9.5.16" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="9.5.16" />
-    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="9.5.16" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="9.5.16" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="9.5.16" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="9.5.16" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="9.5.16" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.TypeScript.WindowsForms" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.TypeScript" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="10.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutBox.cs">
@@ -137,6 +135,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Backwards.png" />
     <EmbeddedResource Include="Resources\Backwards_HighDpi.png" />
+    <EmbeddedResource Include="Resources\CodeExplorerImages.png" />
     <EmbeddedResource Include="Resources\Copy.png" />
     <EmbeddedResource Include="Resources\Copy_HighDpi.png" />
     <EmbeddedResource Include="Resources\Cut.png" />
@@ -149,16 +148,19 @@
     <EmbeddedResource Include="Resources\Forwards_HighDpi.png" />
     <EmbeddedResource Include="Resources\GoToDefinition.png" />
     <EmbeddedResource Include="Resources\GoToDefinition_HighDpi.png" />
+    <EmbeddedResource Include="Resources\Icon.ico" />
     <EmbeddedResource Include="Resources\NewFile.png" />
     <EmbeddedResource Include="Resources\NewFile_HighDpi.png" />
     <EmbeddedResource Include="Resources\OpenFile.png" />
     <EmbeddedResource Include="Resources\OpenFile_HighDpi.png" />
     <EmbeddedResource Include="Resources\Paste.png" />
     <EmbeddedResource Include="Resources\Paste_HighDpi.png" />
+    <EmbeddedResource Include="Resources\pictureBox1.Image.png" />
     <EmbeddedResource Include="Resources\Print.png" />
     <EmbeddedResource Include="Resources\PrintPreview.png" />
     <EmbeddedResource Include="Resources\PrintPreview_HighDpi.png" />
     <EmbeddedResource Include="Resources\Print_HighDpi.png" />
+    <EmbeddedResource Include="Resources\ProjectExplorerImages.png" />
     <EmbeddedResource Include="Resources\Redo.png" />
     <EmbeddedResource Include="Resources\Redo_HighDpi.png" />
     <EmbeddedResource Include="Resources\ReplaceInFiles.png" />
