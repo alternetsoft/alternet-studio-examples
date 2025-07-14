@@ -72,7 +72,7 @@ namespace Alternet.CodeEditorSyntax.Demo
         private System.Windows.Forms.Timer updateTimer = new System.Windows.Forms.Timer();
         private bool updateControlsInProgress;
         private ImageList codeCompletionImageList = new ImageList();
-        private ImageList codeExplorerImageList = new ImageList();
+        private ImageList projectExplorerImageList = new ImageList();
 
         #endregion
 
@@ -131,10 +131,10 @@ namespace Alternet.CodeEditorSyntax.Demo
 
         private void InitImages()
         {
-            codeCompletionImageList = LoadImageList("CodeCompletionImages");
-            codeExplorerImageList = LoadImageList("CodeExplorerImages");
+            codeCompletionImageList = LoadImageList("CodeExplorerImages");
+            projectExplorerImageList = LoadImageList("ProjectExplorerImages");
             lvErrors.SmallImageList = codeCompletionImageList;
-            tvSyntax.ImageList = codeExplorerImageList;
+            tvSyntax.ImageList = projectExplorerImageList;
             newMenuItem.Image = LoadImage("NewFile");
             newStripSplitButton.Image = LoadImage("NewFile");
             openMenuItem.Image = LoadImage("OpenFile");
@@ -190,7 +190,7 @@ namespace Alternet.CodeEditorSyntax.Demo
             lvErrors.SmallImageList = DisplayImageScaling.CloneAndAutoScaleImageList(lvErrors.SmallImageList);
             tvSyntax.ImageList = DisplayImageScaling.CloneAndAutoScaleImageList(tvSyntax.ImageList);
             codeCompletionImageList = DisplayImageScaling.CloneAndAutoScaleImageList(codeCompletionImageList);
-            codeExplorerImageList = DisplayImageScaling.CloneAndAutoScaleImageList(codeExplorerImageList);
+            projectExplorerImageList = DisplayImageScaling.CloneAndAutoScaleImageList(projectExplorerImageList);
         }
 
 #region Files and Projects
@@ -1405,7 +1405,6 @@ namespace Alternet.CodeEditorSyntax.Demo
             if (edit != null)
             {
                 edit.Source.FormatText();
-                edit.CodeCompletionBox.SelectionChanged += new EventHandler(CodeCompletionBox_SelectionChanged);
             }
 
             UpdateButtons();
@@ -1718,11 +1717,6 @@ namespace Alternet.CodeEditorSyntax.Demo
                         OpenFile(codeFileName);
                 }
             }
-        }
-
-        private void CodeCompletionBox_SelectionChanged(object sender, EventArgs e)
-        {
-            string selectedItemName = ((ListBox)sender).SelectedItem != null ? ((ListBox)sender).SelectedItem.ToString() : string.Empty;
         }
 
         private void PageSetup_MenuItemClick(object sender, EventArgs e)

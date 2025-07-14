@@ -24,6 +24,7 @@ namespace LineStyles
         public MainWindow()
         {
             InitializeComponent();
+
             model = new ViewModel(syntaxEdit1);
             this.DataContext = model;
         }

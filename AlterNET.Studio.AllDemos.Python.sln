@@ -25,6 +25,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Parsers", "Parsers", "{DAF7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PythonParser", "Editor.Python\QuickStarts\Parsers\PythonParser\PythonParser.csproj", "{9619BEFB-B8E7-4E06-B274-64BA0026BAD3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2A16DEF1-B240-4172-8027-AAC551CF6C6F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Designer", "Designer", "{EE11706C-5455-4B80-BFB9-C549EFA3C6D9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demos", "Demos", "{09408A0B-C361-41B3-9673-01587D96B2C5}"

@@ -25,10 +25,10 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.TypeScript.WindowsForms" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.TypeScript.WindowsForms" Version="10.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">

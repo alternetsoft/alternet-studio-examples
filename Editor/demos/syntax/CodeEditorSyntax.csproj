@@ -45,6 +45,7 @@
     <None Remove="Resources\PrintPreview.png" />
     <None Remove="Resources\PrintPreview_HighDpi.png" />
     <None Remove="Resources\Print_HighDpi.png" />
+    <None Remove="Resources\ProjectExplorerImages.png" />
     <None Remove="Resources\Redo.png" />
     <None Remove="Resources\Redo_HighDpi.png" />
     <None Remove="Resources\ReplaceInFiles.png" />
@@ -65,13 +66,13 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="10.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutBox.cs">
@@ -130,6 +131,7 @@
     <EmbeddedResource Include="Resources\PrintPreview.png" />
     <EmbeddedResource Include="Resources\PrintPreview_HighDpi.png" />
     <EmbeddedResource Include="Resources\Print_HighDpi.png" />
+    <EmbeddedResource Include="Resources\ProjectExplorerImages.png" />
     <EmbeddedResource Include="Resources\Redo.png" />
     <EmbeddedResource Include="Resources\Redo_HighDpi.png" />
     <EmbeddedResource Include="Resources\ReplaceInFiles.png" />
@@ -168,7 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.0</Version>
+      <Version>10.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

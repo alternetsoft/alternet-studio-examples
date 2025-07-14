@@ -33,6 +33,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PythonParser", "Editor.Pyth
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FormDesigner.IronPython", "FormDesigner.IronPython\Demos\FormDesigner\FormDesigner.IronPython.csproj", "{87A13529-1F6F-4BD5-87FF-91DE1F779755}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2A16DEF1-B240-4172-8027-AAC551CF6C6F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Designer", "Designer", "{EE11706C-5455-4B80-BFB9-C549EFA3C6D9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesignAndRun", "FormDesigner.IronPython\QuickStarts\DesignAndRun\DesignAndRun.csproj", "{4619F151-EA3F-409D-81DD-C55CF33FCCB0}"

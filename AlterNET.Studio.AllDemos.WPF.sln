@@ -106,6 +106,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisualTheme", "Editor.Wpf\Q
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextMateParsing", "Editor.Wpf\QuickStarts\Parsers\TextMateParsing\TextMateParsing.csproj", "{C01E89A2-2F4A-44E7-8642-285713FB0938}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DF66C708-E5AB-4F2A-9932-2D49F974C20E}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PackageReference", "Scripter.Wpf\QuickStarts\PackageReference\PackageReference.csproj", "{1FCCDC49-83FE-4255-814B-723D24685817}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScriptHostObject", "Scripter.Wpf\QuickStarts\ScriptHostObject\ScriptHostObject.csproj", "{C1102F04-1129-46CE-AD7F-CDFBE6E7C589}"

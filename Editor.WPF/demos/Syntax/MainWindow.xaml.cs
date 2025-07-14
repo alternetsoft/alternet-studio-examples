@@ -1422,12 +1422,6 @@ namespace SyntaxEditor_Wpf
             // opening sample file
             NewSampleFile("C#");
 
-            TextEditor edit = GetActiveSyntaxEdit();
-            if (edit != null)
-            {
-                edit.CodeCompletionBox.SelectionChanged += new EventHandler(CodeCompletionBox_SelectionChanged);
-            }
-
             tvSyntax.ContextMenu = tvSyntax.Resources["SolutionContext"] as System.Windows.Controls.ContextMenu;
         }
 
@@ -1559,11 +1553,6 @@ namespace SyntaxEditor_Wpf
                     args.Result = typeof(int);
                 }
             }
-        }
-
-        private void CodeCompletionBox_SelectionChanged(object sender, EventArgs e)
-        {
-            string selectedItemName = (((ListBox)sender).SelectedItem != null) ? ((ListBox)sender).SelectedItem.ToString() : string.Empty;
         }
 
         private void UpdateTimer_Tick(object sender, EventArgs e)

@@ -21,10 +21,10 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

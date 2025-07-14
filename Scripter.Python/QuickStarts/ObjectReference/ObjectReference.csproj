@@ -32,15 +32,15 @@
     <EmbeddedResource Include="Resources\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python.Embedded" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python.Embedded" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.1" />
   </ItemGroup>
   <ItemGroup />
 </Project>

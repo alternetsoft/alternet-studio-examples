@@ -7,6 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QuickStarts", "QuickStarts"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Debugger", "Debugger", "{E061F368-6B65-4000-BAD5-7BB6D385B17D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2A16DEF1-B240-4172-8027-AAC551CF6C6F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmbeddedPythonDapDebugger", "Debugger.Dap\QuickStarts\EmbeddedPythonDapDebugger\EmbeddedPythonDapDebugger.csproj", "{BFA7B947-E416-4EA2-9072-5504AF8855D3}"
 EndProject
 Global

@@ -108,6 +108,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextMateParsing", "Editor\Q
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PackageReference", "Scripter\QuickStarts\PackageReference\PackageReference.csproj", "{DF5EEDEE-BE80-4141-A742-28578258FAF0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2A16DEF1-B240-4172-8027-AAC551CF6C6F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScriptHostObject", "Scripter\QuickStarts\ScriptHostObject\ScriptHostObject.csproj", "{ED51FA49-621A-47FD-B20C-9470F0430196}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerFXSyntaxParsing", "Editor\QuickStarts\Parsers\PowerFxSyntaxParsing\PowerFXSyntaxParsing.csproj", "{827785AC-88B0-4B26-B693-A816B59BFDED}"

@@ -21,13 +21,13 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Java.Embedded" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Java" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Java.Embedded" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Java" Version="10.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

@@ -27,6 +27,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeScriptParser", "Editor.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlternetStudio.TypeScript.Wpf", "Studio.TypeScript.Wpf\AlternetStudio.TypeScript.Wpf.csproj", "{D8FE1217-8EC5-4908-8306-EBF569A02E17}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2A16DEF1-B240-4172-8027-AAC551CF6C6F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DebuggerIntegration.TypeScript.Wpf", "Scripter.TypeScript.Wpf\QuickStarts\Debugger\DebuggerIntegration\DebuggerIntegration.TypeScript.Wpf.csproj", "{FB7E9749-1A76-48FD-AAB9-9A097CBF8104}"
 EndProject
 Global

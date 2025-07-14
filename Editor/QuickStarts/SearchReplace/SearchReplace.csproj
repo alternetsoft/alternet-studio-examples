@@ -21,11 +21,11 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Winforms" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Winforms" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dialogs\DlgSearchInFiles.cs" />
@@ -71,7 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.0</Version>
+      <Version>10.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

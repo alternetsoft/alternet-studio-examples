@@ -33,18 +33,18 @@
     <ProjectReference Include="..\Parsers\RoslynSyntaxParsing\RoslynSyntaxParsing.csproj" />
     <ProjectReference Include="..\Parsers\SQLDOMParser\SQLDOMParser.csproj" />
     <ProjectReference Include="..\Parsers\TextMateParsing\TextMateParsing.csproj" />
-    <ProjectReference Include="..\Parsers\XamlParsing\XamlParsing.csproj" />
+    <ProjectReference Include="..\Parsers\XAMLParsing\XamlParsing.csproj" />
     <ProjectReference Include="..\SearchReplace\SearchReplace.csproj" />
     <ProjectReference Include="..\Selection\Selection.csproj" />
     <ProjectReference Include="..\SyntaxHighlighting\SyntaxHighlighting.csproj" />
     <ProjectReference Include="..\UndoRedo\UndoRedo.csproj" />
     <ProjectReference Include="..\VisualTheme\VisualTheme.csproj" />
     <ProjectReference Include="..\WordWrap\WordWrap.csproj" />
-    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.1" />
     <PackageReference Include="Alternet.UI" Version="0.9.736-beta" />
   </ItemGroup>
 </Project>
