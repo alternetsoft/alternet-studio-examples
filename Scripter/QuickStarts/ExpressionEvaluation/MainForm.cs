@@ -12,6 +12,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 using Alternet.Common;
@@ -22,8 +23,9 @@ namespace ExpressionEvaluation
     public partial class MainForm : Form
     {
         private const string LanguageDescription = "Choose programming language";
-        private const string ExpressionCSharp = "(5+4)*2 - 9/3 + 10 + tbExpression.Text.Length";
-        private const string ExpressionVisualBasic = "(5+4)*2 - 9/3 + 10 + tbExpression.Text.Length";
+        private const string ExpressionCSharp = "(5+4)*2 - 9/3 + 10 + External.Text.Length";
+        private const string ExpressionVisualBasic = "(5+4)*2 - 9/3 + 10 + External.Text.Length";
+
 
         public MainForm()
         {
@@ -33,11 +35,16 @@ namespace ExpressionEvaluation
             Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
         }
 
+        public TextBox TextBoxExpression => tbExpression;
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            scriptRun.ScriptSource.WithDefaultReferences();
+            // Initialize to run as fast as possible.
+            scriptRun.ScriptSource.WithMinimalReferences();
+            scriptRun.ScriptSource.VisualBasicMyType = VisualBasicMyType.Empty;
+
             scriptRun.AssemblyKind = ScriptAssemblyKind.DynamicLibrary;
-            ScriptGlobalItem item = new ScriptGlobalItem("tbExpression", typeof(System.Windows.Forms.TextBox), tbExpression);
+            ScriptGlobalItem item = new ScriptGlobalItem("External", new ExternalClass(this));
             scriptRun.GlobalItems.Clear();
             scriptRun.GlobalItems.Add(item);
 
@@ -49,6 +56,12 @@ namespace ExpressionEvaluation
             object obj = scriptRun.EvaluateExpression(tbExpression.Text);
             if (obj != null)
                 MessageBox.Show(obj.ToString());
+            else
+            {
+                MessageBox.Show(string.Join(
+                    "\r\n",
+                    scriptRun.ScriptHost.CompilerErrors.Select(x => x.ToString()).ToArray()));
+            }
         }
 
         private void UpdateSource(int index)

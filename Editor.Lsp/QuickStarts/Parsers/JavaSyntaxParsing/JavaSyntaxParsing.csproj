@@ -19,12 +19,12 @@
     <None Remove="Resources\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Java" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Java.Embedded" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Java" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Java.Embedded" Version="10.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs" />

@@ -16,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -27,8 +28,8 @@ namespace ExpressionEvaluation
 {
     public class ViewModel
     {
-        private const string ExpressionCSharp = "(5+4)*2 - 9/3 + 10 + tbExpression.Text.Length";
-        private const string ExpressionVisualBasic = "(5+4)*2 - 9/3 + 10 + tbExpression.Text.Length";
+        private const string ExpressionCSharp = "(5+4)*2 - 9/3 + 10 + External.Text.Length";
+        private const string ExpressionVisualBasic = "(5+4)*2 - 9/3 + 10 + External.Text.Length";
         private ScriptRun scriptRun = new ScriptRun();
         private MainWindow window;
         private string dir = AppDomain.CurrentDomain.BaseDirectory + @"\";
@@ -40,16 +41,18 @@ namespace ExpressionEvaluation
             RunScript = new RelayCommand(RunScriptClick);
         }
 
+
         public ViewModel(MainWindow window)
             : this()
         {
             this.window = window;
 
-            scriptRun.ScriptSource.WithDefaultReferences();
+            scriptRun.ScriptSource.WithMinimalReferences();
+            scriptRun.ScriptSource.VisualBasicMyType = VisualBasicMyType.Empty;
             scriptRun.AssemblyKind = ScriptAssemblyKind.DynamicLibrary;
             if (window != null)
             {
-                ScriptGlobalItem item = new ScriptGlobalItem("tbExpression", typeof(System.Windows.Controls.TextBox), window.Expression);
+                ScriptGlobalItem item = new ScriptGlobalItem("External", new ExternalClass(this));
                 scriptRun.GlobalItems.Clear();
                 scriptRun.GlobalItems.Add(item);
             }
@@ -60,6 +63,8 @@ namespace ExpressionEvaluation
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public TextBox TextBoxExpression => window.Expression;
 
         public ObservableCollection<string> Languages
         {
@@ -98,6 +103,12 @@ namespace ExpressionEvaluation
                     object obj = scriptRun.EvaluateExpression(window.Expression.Text);
                     if (obj != null)
                         MessageBox.Show(obj.ToString());
+                    else
+                    {
+                        MessageBox.Show(string.Join(
+                            "\r\n",
+                            scriptRun.ScriptHost.CompilerErrors.Select(x => x.ToString()).ToArray()));
+                    }
                 }));
             }
         }

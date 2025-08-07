@@ -13,12 +13,12 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Sample.ico" />
-    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.2" />
     <PackageReference Include="Alternet.UI" Version="0.9.736-beta" />
   </ItemGroup>
   <ItemGroup>

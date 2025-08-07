@@ -22,6 +22,6 @@
                 <ComboBox Height="23" Name="cbLanguages" Grid.Column="3" Margin="0,0,4,0" Width="98" HorizontalAlignment="Right"  ItemsSource="{Binding Path=Languages}" SelectedItem="{Binding Language}" ToolTip="Choose programming language"/>
             </Grid>
         </DockPanel>
-        <TextBox Name="Expression" Grid.Row="1" Text="(5+4)*2 - 9/3 + 10 + tbExpression.Text.Length" Margin="10,10,10,0"/>
+        <TextBox Name="Expression" Grid.Row="1" Text="Expression will be here" Margin="10,10,10,0"/>
     </Grid>
 </Window>

@@ -25,17 +25,17 @@
     <NoWarn>NU1605</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Wpf" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.Wpf" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration.Wpf" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.1" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.1" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Wpf" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.Wpf" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration.Wpf" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.2" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -122,7 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.1</Version>
+      <Version>10.0.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

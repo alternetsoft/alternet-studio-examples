@@ -115,7 +115,7 @@
             this.tbExpression.Name = "tbExpression";
             this.tbExpression.Size = new System.Drawing.Size(330, 20);
             this.tbExpression.TabIndex = 0;
-            this.tbExpression.Text = "(5+4)*2 - 9/3 + 10 + tbExpression.Text.Length";
+            this.tbExpression.Text = "Expression will be here";
             // 
             // MainForm
             // 
