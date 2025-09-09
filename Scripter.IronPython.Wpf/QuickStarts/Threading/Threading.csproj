@@ -21,9 +21,9 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.3" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

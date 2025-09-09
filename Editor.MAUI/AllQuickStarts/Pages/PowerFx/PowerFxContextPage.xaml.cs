@@ -31,7 +31,7 @@ public partial class PowerFxContextPage : DisposableContentPage
 
     public PowerFxContextPage()
     {
-        DemoTitleView titleView = new("PowerFX Context", this);
+        DemoTitleView titleView = new("PowerFx Context", this);
         NavigationPage.SetTitleView(this, titleView);
         titleView.Label.HorizontalTextAlignment = TextAlignment.Center;
 

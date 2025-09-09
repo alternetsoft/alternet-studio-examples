@@ -1,10 +1,10 @@
 <Window xmlns="http://schemas.alternetsoft.com/ui/2021"
         xmlns:x="http://schemas.alternetsoft.com/ui/2021/uixml"
         xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
-        x:Class="PowerFXSyntaxParsing.Form1"
-        Title="Editor PowerFX-Based Parsing on Alternet.UI" StartLocation="CenterScreen"
+        x:Class="PowerFxSyntaxParsing.Form1"
+        Title="Editor PowerFx-Based Parsing on Alternet.UI" StartLocation="CenterScreen"
         MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="5"
-        Icon="embres:PowerFXSyntaxParsing.Sample.ico">
+        Icon="embres:PowerFxSyntaxParsing.Sample.ico">
 
   <Window.StatusBar>
     <StatusBar Name="statusBar">

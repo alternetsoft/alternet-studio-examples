@@ -22,17 +22,17 @@
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration.AlternetUI" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.AlternetUI" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.AlternetUI" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.AlternetUI" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="10.0.3" />
     <PackageReference Include="Alternet.UI" Version="0.9.736-beta" />
   </ItemGroup>
   <ItemGroup />

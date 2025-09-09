@@ -29,7 +29,7 @@
     <ProjectReference Include="..\Margin\Margin.csproj" />
     <ProjectReference Include="..\Miscellaneous\Miscellaneous.csproj" />
     <ProjectReference Include="..\Parsers\AdvancedSyntaxParsing\AdvancedSyntaxParsing.csproj" />
-    <ProjectReference Include="..\Parsers\PowerFXSyntaxParsing\PowerFXSyntaxParsing.csproj" />
+    <ProjectReference Include="..\Parsers\PowerFxSyntaxParsing\PowerFxSyntaxParsing.csproj" />
     <ProjectReference Include="..\Parsers\RoslynSyntaxParsing\RoslynSyntaxParsing.csproj" />
     <ProjectReference Include="..\Parsers\SQLDOMParser\SQLDOMParser.csproj" />
     <ProjectReference Include="..\Parsers\TextMateParsing\TextMateParsing.csproj" />
@@ -40,11 +40,11 @@
     <ProjectReference Include="..\UndoRedo\UndoRedo.csproj" />
     <ProjectReference Include="..\VisualTheme\VisualTheme.csproj" />
     <ProjectReference Include="..\WordWrap\WordWrap.csproj" />
-    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.3" />
     <PackageReference Include="Alternet.UI" Version="0.9.736-beta" />
   </ItemGroup>
 </Project>

@@ -1,12 +1,12 @@
-<Window x:Class="PowerFXSyntaxParsing.MainWindow"
+<Window x:Class="PowerFxSyntaxParsing.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PowerFXSyntaxParsing"
+        xmlns:local="clr-namespace:PowerFxSyntaxParsing"
         xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v10"
         mc:Ignorable="d"
-        Icon="/PowerFXSyntaxParsing.Wpf;component/Images/Icon.Ico"
+        Icon="/PowerFxSyntaxParsing.Wpf;component/Images/Icon.Ico"
         Title="PowerFx Parsing" Height="600" Width="800">
     <Grid>
         <Grid.RowDefinitions>

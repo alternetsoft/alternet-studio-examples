@@ -62,7 +62,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSnippets", "Editor.Alte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UndoRedo", "Editor.AlternetUI\UndoRedo\UndoRedo.csproj", "{E47B9608-6E69-4A54-9FF5-E9FF98EB105E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerFXSyntaxParsing", "Editor.AlternetUI\Parsers\PowerFXSyntaxParsing\PowerFXSyntaxParsing.csproj", "{BF366818-51E9-4256-885D-43BDD5BE56F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerFxSyntaxParsing", "Editor.AlternetUI\Parsers\PowerFxSyntaxParsing\PowerFxSyntaxParsing.csproj", "{BF366818-51E9-4256-885D-43BDD5BE56F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customize", "Editor.AlternetUI\Customize\Customize.csproj", "{030F69FE-45F3-4286-B4FA-2DF061CC79D5}"
 EndProject

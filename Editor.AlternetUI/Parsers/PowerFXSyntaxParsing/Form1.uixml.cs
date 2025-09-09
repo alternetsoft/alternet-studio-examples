@@ -18,9 +18,9 @@ using Alternet.UI;
 using Alternet.Editor;
 using Alternet.Editor.Common.AlternetUI;
 using Alternet.Syntax.Parsers.Advanced;
-using Alternet.Syntax.Parsers.PowerFX;
+using Alternet.Syntax.Parsers.PowerFx;
 
-namespace PowerFXSyntaxParsing
+namespace PowerFxSyntaxParsing
 {
     public partial class Form1 : Window
     {
@@ -135,7 +135,7 @@ namespace PowerFXSyntaxParsing
         private void EvaluateButton_Click(object? sender, EventArgs e)
         {
             var r = fxParser.Evaluator.Eval(syntaxEdit1.Text);
-            var s = PowerFXEvaluator.EvalResultToString(r);
+            var s = PowerFxEvaluator.EvalResultToString(r);
             MessageBox.Show(s, "Evaluation Result");
         }
     }

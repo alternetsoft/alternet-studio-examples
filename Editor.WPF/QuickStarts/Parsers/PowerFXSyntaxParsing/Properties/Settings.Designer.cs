@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PowerFXSyntaxParsing.Properties {
+namespace PowerFxSyntaxParsing.Properties {
 
 
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

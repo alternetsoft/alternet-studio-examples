@@ -140,8 +140,8 @@ namespace SearchReplace
 
                 if (Search != null)
                 {
-                    if ((Search.SearchOptions & SearchOptions.DisplayIncrementalSearchDiaog) != 0)
-                        result |= SearchOptions.DisplayIncrementalSearchDiaog;
+                    if ((Search.SearchOptions & SearchOptions.DisplayIncrementalSearchDialog) != 0)
+                        result |= SearchOptions.DisplayIncrementalSearchDialog;
                 }
                 else
                 {

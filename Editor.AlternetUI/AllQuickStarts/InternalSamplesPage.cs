@@ -120,7 +120,7 @@ namespace AllDemos
             });
 
             Add("PowerFx Parser", () => {
-                return new PowerFXSyntaxParsing.Form1();
+                return new PowerFxSyntaxParsing.Form1();
             });
 
             /* Section: Scripter */

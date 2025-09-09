@@ -12,7 +12,7 @@ namespace AllQuickStarts
             "This demo shows how to use the dedicated parsers for C# and VB.NET languages based on .NET Compiler Platform ('Roslyn'). These parsers support automatic code completion, code outlining, smart formatting, and syntax error underlining.";
         public const string AdvancedSyntaxParsing =
             "This demo shows how to link text edit controls to the advanced parsers for subset of programming languages such as C#, VB.NET, JavaScript, XML and others. These parsers support automatic code completion, code outlining, smart formatting and syntax error underlining.";
-        public const string PowerFXSyntaxParsing =
+        public const string PowerFxSyntaxParsing =
             "This demo shows how to parser PowerFx language based on Microsoft PowerFx project. This parser supports automatic code completion, code outlining and syntax error underlining.";
         public const string XamlSyntaxParsing =
             "This demo shows how to link text edit controls to the XAML parser for the XAML language. These parsers support automatic code completion, code outlining, smart formatting and syntax error underlining.";

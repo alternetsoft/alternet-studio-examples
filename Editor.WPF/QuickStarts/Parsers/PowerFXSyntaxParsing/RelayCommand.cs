@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace PowerFXSyntaxParsing
+namespace PowerFxSyntaxParsing
 {
     public class RelayCommand : ICommand
     {

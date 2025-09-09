@@ -21,10 +21,10 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Python.WindowsForms" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Python.WindowsForms" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="10.0.3" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">

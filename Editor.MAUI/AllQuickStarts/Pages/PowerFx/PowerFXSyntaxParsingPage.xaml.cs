@@ -13,14 +13,14 @@
 using AllQuickStarts.Pages;
 using Alternet.Editor;
 using Alternet.Editor.TextSource;
-using Alternet.Syntax.Parsers.PowerFX;
+using Alternet.Syntax.Parsers.PowerFx;
 
 using Alternet.UI;
 using Microsoft.Maui.Layouts;
 
 namespace AllQuickStarts;
 
-public partial class PowerFXSyntaxParsingPage : DemoPage
+public partial class PowerFxSyntaxParsingPage : DemoPage
 {
     private readonly PowerFxParser fxParser = new PowerFxParser();
     private TextSource? source = new TextSource();
@@ -28,11 +28,11 @@ public partial class PowerFXSyntaxParsingPage : DemoPage
 
     internal string NewFileNameNoExt = "embres:AllQuickStarts.Content.";
 
-    static PowerFXSyntaxParsingPage()
+    static PowerFxSyntaxParsingPage()
     {
     }
 
-    public PowerFXSyntaxParsingPage()
+    public PowerFxSyntaxParsingPage()
     {
         InitializeComponent();
         AbsoluteLayout.SetLayoutFlags(MainGrid, AbsoluteLayoutFlags.All);
@@ -66,7 +66,7 @@ public partial class PowerFXSyntaxParsingPage : DemoPage
 
     public override View? SettingsPanel => settingsPanel;
 
-    public override string DemoTitle => "PowerFX";
+    public override string DemoTitle => "PowerFx";
 
     private void EvaluateQuickInfo_CheckedChanged(object? sender, CheckedChangedEventArgs e)
     {
@@ -130,7 +130,7 @@ public partial class PowerFXSyntaxParsingPage : DemoPage
     private async void EvaluateButton_Clicked(object? sender, EventArgs e)
     {
         var r = fxParser.Evaluator.Eval(syntaxEdit1.Text);
-        var s = PowerFXEvaluator.EvalResultToString(r);
+        var s = PowerFxEvaluator.EvalResultToString(r);
         await DisplayAlert("Evaluation Result", s, "OK");
     }
 

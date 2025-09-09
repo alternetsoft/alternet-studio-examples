@@ -18,9 +18,9 @@ using System.Windows.Forms;
 using Alternet.Common;
 using Alternet.Editor.TextSource;
 using Alternet.Syntax.Parsers.Advanced;
-using Alternet.Syntax.Parsers.PowerFX;
+using Alternet.Syntax.Parsers.PowerFx;
 
-namespace PowerFXSyntaxParsing
+namespace PowerFxSyntaxParsing
 {
     public partial class Form1 : Form
     {
@@ -34,7 +34,7 @@ namespace PowerFXSyntaxParsing
         {
             InitializeComponent();
             var asm = this.GetType().Assembly;
-            var prefix = "PowerFXSyntaxParsing.Resources";
+            var prefix = "PowerFxSyntaxParsing.Resources";
             Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
         }
 
@@ -114,7 +114,7 @@ namespace PowerFXSyntaxParsing
         private void EvaluateButton_Click(object sender, EventArgs e)
         {
             var r = fxParser.Evaluator.Eval(syntaxEdit1.Text);
-            var s = PowerFXEvaluator.EvalResultToString(r);
+            var s = PowerFxEvaluator.EvalResultToString(r);
             MessageBox.Show(s, "Evaluation Result");
         }
     }

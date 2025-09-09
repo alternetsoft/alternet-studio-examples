@@ -14,7 +14,7 @@ using System;
 using System.IO;
 using System.Windows;
 
-namespace PowerFXSyntaxParsing
+namespace PowerFxSyntaxParsing
 {
     /// <summary>
     /// MainWindow.xaml

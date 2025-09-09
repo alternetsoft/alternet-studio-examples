@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "PowerFXSyntaxParsing": {
+    "PowerFxSyntaxParsing": {
       "commandName": "Project",
       "nativeDebugging": true
     }

@@ -12,7 +12,7 @@
 
 using System.Windows;
 
-namespace PowerFXSyntaxParsing
+namespace PowerFxSyntaxParsing
 {
     /// <summary>
     /// App.xaml

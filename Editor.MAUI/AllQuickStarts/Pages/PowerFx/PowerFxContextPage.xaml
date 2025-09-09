@@ -5,7 +5,7 @@
              xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
              xmlns:ui="http://schemas.alternetsoft.com/alternetui/2024"
              x:Class="AllQuickStarts.PowerFxContextPage"
-             Title="PowerFX Parsing">
+             Title="PowerFx Parsing">
     <AbsoluteLayout>
         <Grid x:Name="MainGrid" RowDefinitions="auto, auto, *" ColumnDefinitions="*" Margin="10,10,10,10">
             <Label Margin="10,10,10,10" HorizontalTextAlignment="Start" Grid.Row="0"

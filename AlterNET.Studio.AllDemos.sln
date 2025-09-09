@@ -115,7 +115,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScriptHostObject", "Scripter\QuickStarts\ScriptHostObject\ScriptHostObject.csproj", "{ED51FA49-621A-47FD-B20C-9470F0430196}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerFXSyntaxParsing", "Editor\QuickStarts\Parsers\PowerFxSyntaxParsing\PowerFXSyntaxParsing.csproj", "{827785AC-88B0-4B26-B693-A816B59BFDED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerFxSyntaxParsing", "Editor\QuickStarts\Parsers\PowerFxSyntaxParsing\PowerFxSyntaxParsing.csproj", "{827785AC-88B0-4B26-B693-A816B59BFDED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Syntax", "Syntax", "{D4C91F99-E406-46A8-B1FA-38114A386E53}"
 EndProject

@@ -23,25 +23,25 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.2</Version>
+      <Version>10.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="10.0.3" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

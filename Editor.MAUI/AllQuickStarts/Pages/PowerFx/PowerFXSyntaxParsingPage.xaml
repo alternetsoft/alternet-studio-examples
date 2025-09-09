@@ -5,8 +5,8 @@
              xmlns:alternet="http://schemas.alternetsoft.com/alternetui/2024"
              xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
              xmlns:ui="http://schemas.alternetsoft.com/alternetui/2024"
-             x:Class="AllQuickStarts.PowerFXSyntaxParsingPage"
-             Title="PowerFX Parsing">
+             x:Class="AllQuickStarts.PowerFxSyntaxParsingPage"
+             Title="PowerFx Parsing">
     <AbsoluteLayout>
         <Grid x:Name="MainGrid" RowDefinitions="*" ColumnDefinitions="*, auto">
             <editor:SyntaxEditView x:Name="syntaxEdit1" Grid.Column="0"

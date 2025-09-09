@@ -115,7 +115,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PackageReference", "Scripte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScriptHostObject", "Scripter.Wpf\QuickStarts\ScriptHostObject\ScriptHostObject.csproj", "{C1102F04-1129-46CE-AD7F-CDFBE6E7C589}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerFXSyntaxParsing", "Editor.Wpf\QuickStarts\Parsers\PowerFxSyntaxParsing\PowerFXSyntaxParsing.csproj", "{EDC52D41-E7E3-45BA-BFD5-DCB6F8152E19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerFxSyntaxParsing", "Editor.Wpf\QuickStarts\Parsers\PowerFxSyntaxParsing\PowerFxSyntaxParsing.csproj", "{EDC52D41-E7E3-45BA-BFD5-DCB6F8152E19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

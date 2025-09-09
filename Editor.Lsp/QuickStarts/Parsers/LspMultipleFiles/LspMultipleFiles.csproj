@@ -20,14 +20,14 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd.Embedded" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python" Version="10.0.2" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python.Embedded.Pyright" Version="10.0.2" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd.Embedded" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python.Embedded.Pyright" Version="10.0.3" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FindResultsControl.cs" />

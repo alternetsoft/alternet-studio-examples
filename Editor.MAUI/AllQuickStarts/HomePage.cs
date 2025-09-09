@@ -109,7 +109,7 @@ public partial class HomePage : ContentPage
         AddPage<MarginPage>("Margin", DemoDescriptions.Margin);
         AddPage<MiscellaneousPage>("Miscellaneous", DemoDescriptions.Miscellaneous);
         AddPage<VisualThemePage>("Visual Theme", DemoDescriptions.VisualTheme);
-        AddPage<PowerFXSyntaxParsingPage>("PowerFX Syntax", DemoDescriptions.PowerFXSyntaxParsing);
+        AddPage<PowerFxSyntaxParsingPage>("PowerFx Syntax", DemoDescriptions.PowerFxSyntaxParsing);
         AddPage<XamlSyntaxParsingPage>("Xaml Syntax", DemoDescriptions.XamlSyntaxParsing);
         AddPage<SqlDomSyntaxParsingPage>("SQL DOM Syntax", DemoDescriptions.SqlDomSyntaxParsing);
 

@@ -21,12 +21,12 @@ using System.Windows.Input;
 
 using Alternet.Editor.Wpf;
 using Alternet.Syntax.Parsers.Advanced;
-using Alternet.Syntax.Parsers.PowerFX;
+using Alternet.Syntax.Parsers.PowerFx;
 using Microsoft.Win32;
 
 #pragma warning disable VSTHRD101 // Avoid unsupported async delegates
 
-namespace PowerFXSyntaxParsing
+namespace PowerFxSyntaxParsing
 {
     public class ViewModel : INotifyPropertyChanged
     {
@@ -159,7 +159,7 @@ namespace PowerFXSyntaxParsing
         private void EvaluateClick()
         {
             var r = fxParser.Evaluator.Eval(syntaxEdit1.Text);
-            var s = PowerFXEvaluator.EvalResultToString(r);
+            var s = PowerFxEvaluator.EvalResultToString(r);
             MessageBox.Show(s, "Evaluation Result");
         }
 
