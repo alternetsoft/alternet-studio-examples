@@ -27,13 +27,13 @@
     <Reference Include="ExternalAssembly">
       <HintPath>.\ExternalAssembly.dll</HintPath>
     </Reference>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.4" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs">
@@ -74,7 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.3</Version>
+      <Version>10.0.4</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

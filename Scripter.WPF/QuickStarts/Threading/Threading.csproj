@@ -19,15 +19,15 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.3</Version>
+      <Version>10.0.4</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.4" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

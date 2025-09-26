@@ -81,13 +81,13 @@
     <PackageReference Include="OmniSharp.Extensions.LanguageClient" Version="0.19.9" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.R.Embedded" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.R" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.R.Embedded" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.R" Version="10.0.4" />
   </ItemGroup>
   <ItemGroup />
 </Project>

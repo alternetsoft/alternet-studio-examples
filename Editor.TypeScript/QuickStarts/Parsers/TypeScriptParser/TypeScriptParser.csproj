@@ -25,11 +25,11 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="10.0.4" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">

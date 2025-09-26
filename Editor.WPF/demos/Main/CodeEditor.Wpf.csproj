@@ -27,13 +27,13 @@
     <None Remove="ThemeSettingsUserControl.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TextMate" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TextMate" Version="10.0.4" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -237,7 +237,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.3</Version>
+      <Version>10.0.4</Version>
     </PackageReference>
     <PackageReference Include="WeCantSpell.Hunspell" Version="3.0.1" />
   </ItemGroup>

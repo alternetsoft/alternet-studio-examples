@@ -21,10 +21,10 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.3" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.3" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.4" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
