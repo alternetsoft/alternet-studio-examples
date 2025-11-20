@@ -27,13 +27,13 @@
     <None Remove="ThemeSettingsUserControl.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TextMate" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TextMate" Version="10.0.5" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -216,7 +216,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Resource Include="Images\logo.png" />
-    <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
+    <EmbeddedResource Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -237,11 +237,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.4</Version>
+      <Version>10.0.5</Version>
     </PackageReference>
     <PackageReference Include="WeCantSpell.Hunspell" Version="3.0.1" />
   </ItemGroup>
-  <ItemGroup Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))">
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
     <Reference Include="ReachFramework" />
     <Reference Include="System.Printing" />
   </ItemGroup>

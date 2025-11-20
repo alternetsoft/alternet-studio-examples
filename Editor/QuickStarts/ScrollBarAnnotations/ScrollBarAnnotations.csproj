@@ -21,10 +21,10 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.5" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs">
@@ -43,7 +43,7 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
+    <EmbeddedResource Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -69,7 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.4</Version>
+      <Version>10.0.5</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

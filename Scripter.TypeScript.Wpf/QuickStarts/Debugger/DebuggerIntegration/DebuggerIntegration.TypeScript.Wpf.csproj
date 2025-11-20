@@ -24,23 +24,23 @@
   <ItemGroup>
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
-  <ItemGroup Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))">
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
     <Reference Include="System.Runtime.Remoting" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Editor.TypeScript.Wpf" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Editor.TypeScript.Wpf" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="10.0.5" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -78,7 +78,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
+    <EmbeddedResource Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

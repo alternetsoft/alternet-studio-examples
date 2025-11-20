@@ -21,10 +21,10 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.5" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -60,7 +60,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
+    <EmbeddedResource Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

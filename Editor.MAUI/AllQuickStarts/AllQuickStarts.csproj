@@ -57,18 +57,18 @@
     <PackageReference Include="WeCantSpell.Hunspell" Version="3.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Editor.MAUI" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Generic" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.PowerFx" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TextMate" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Xaml" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Editor.MAUI" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Generic" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.PowerFx" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TextMate" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Xaml" Version="10.0.5" />
     <PackageReference Include="Alternet.UI.Maui" Version="0.9.736-beta" />
   </ItemGroup>
   <ItemGroup>

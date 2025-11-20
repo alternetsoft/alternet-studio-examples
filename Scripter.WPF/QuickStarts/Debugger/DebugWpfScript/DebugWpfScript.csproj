@@ -17,22 +17,22 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))"></PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'"></PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.4</Version>
+      <Version>10.0.5</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="10.0.5" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -67,7 +67,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
+    <EmbeddedResource Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -87,7 +87,7 @@
   <ItemGroup>
     <Resource Include="app.ico" />
   </ItemGroup>
-  <ItemGroup Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))">
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
     <Reference Include="System.Runtime.Remoting" />
   </ItemGroup>
   <ItemGroup />

@@ -432,23 +432,23 @@ return string.Empty;";
             return false;
         }
 
-        public override void StartParsing(string fileName, int first, int last)
+        public override void StartParsing(string fileName, IStringList lines, int first, int last)
         {
             if (last == int.MaxValue)
                 last = first + StartOffset + ParserConsts.LookAheadLinesAsync;
             else
                 last += StartOffset;
 
-            base.StartParsing(fileName, first, last);
+            base.StartParsing(fileName, lines, first, last);
         }
 
-        public override async Task ParseSyntaxAsync(Document document, int first, int last, CancellationToken cancellationToken)
+        public override async Task<IRange> ParseSyntaxAsync(Document document, int first, int last, CancellationToken cancellationToken)
         {
             if (last == int.MaxValue)
                 last = first + StartOffset + ParserConsts.LookAheadLinesAsync;
             else
                 last += StartOffset;
-            await base.ParseSyntaxAsync(document, first, last, cancellationToken);
+            return await base.ParseSyntaxAsync(document, first, last, cancellationToken);
         }
 
         public override int GetStructureGuideLines(IList<IRange> guideLines)
@@ -541,10 +541,21 @@ return string.Empty;";
                 this.parser = parser;
             }
 
-            public override void AddTokens(TokenList tokens, bool replace)
+            public override IRange ReplaceTokens(TokenList tokens)
             {
                 AdjustTokens(tokens);
-                base.AddTokens(tokens, replace);
+                return base.ReplaceTokens(tokens);
+            }
+
+            public override void AddTokens(TokenList tokens)
+            {
+                AdjustTokens(tokens);
+                base.AddTokens(tokens);
+            }
+
+            public override bool AlreadyParsed(int first, int last)
+            {
+                return base.AlreadyParsed(Math.Max(first - parser.StartOffset, 0), last != int.MaxValue ? Math.Max(last - parser.StartOffset, 0) : last);
             }
 
             public void AdjustTokens(TokenList tokens)

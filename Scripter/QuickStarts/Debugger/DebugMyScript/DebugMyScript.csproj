@@ -20,7 +20,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <UserSecretsId>76a6236e-7fac-44c4-ae96-d12832580454</UserSecretsId>
   </PropertyGroup>
-  <PropertyGroup Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))"></PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'"></PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
@@ -29,11 +29,11 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Winforms" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.4" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="10.0.4" />
+    <PackageReference Include="Alternet.Studio.Common.Winforms" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="10.0.5" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs">
@@ -50,7 +50,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))" Include="Properties\licenses.licx" />
+    <EmbeddedResource Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -77,11 +77,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.4</Version>
+      <Version>10.0.5</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup Condition="$(DefineConstants.Contains(';NETCOREAPP'))"></ItemGroup>
-  <ItemGroup Condition="$(DefineConstants.Contains(';NETFRAMEWORK'))">
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'"></ItemGroup>
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
     <Reference Include="System.Runtime.Remoting" />
   </ItemGroup>
   <ItemGroup />
