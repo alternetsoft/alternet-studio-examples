@@ -177,6 +177,9 @@ namespace AlternetStudio.Wpf.Demo
             UpdateBookmarks();
             UpdateCodeNavigation();
             edit.UpdateBreakpoints();
+
+            edit.Braces.BracesOptions |= BracesOptions.Highlight;
+
             return edit;
         }
 

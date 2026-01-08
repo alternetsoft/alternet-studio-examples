@@ -76,23 +76,23 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Python.WindowsForms" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Editor.Python" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Python" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python.Embedded" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Python.WindowsForms" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Editor.Python" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Python" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python.Embedded" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="10.0.6" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dialogs\AboutBox.cs" />

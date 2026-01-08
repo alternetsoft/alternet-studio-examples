@@ -18,7 +18,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.5</Version>
+      <Version>10.0.6</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -28,16 +28,16 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.WindowsForms" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.5" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.5" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.WindowsForms" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.6" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\TabControl\GdiMemoryContext.cs">

@@ -36,7 +36,7 @@ namespace Alternet.FormDesigner.Demo
             var asm = this.GetType().Assembly;
             var prefix = "FormDesigner.Resources";
             newFormToolStripButton.Image = ControlUtilities.LoadImageFromAssembly(asm, $"{prefix}.newFormToolStripButton.Image.png");
-            newFormToolStripButton.Image = ControlUtilities.LoadImageFromAssembly(asm, $"{prefix}.refreshToolStripButton.Image.png");
+            refreshToolStripButton.Image = ControlUtilities.LoadImageFromAssembly(asm, $"{prefix}.refreshToolStripButton.Image.png");
         }
 
         public event EventHandler NewFormButtonClick;

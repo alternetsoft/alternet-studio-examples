@@ -457,14 +457,15 @@ End Function";
             return false;
         }
 
-        public override void StartParsing(string fileName, IStringList lines, int first, int last)
+
+        public override void StartParsing(string fileName, IStringList lines, int first, int last, bool immediate)
         {
             if (last == int.MaxValue)
                 last = first + StartOffset + ParserConsts.LookAheadLinesAsync;
             else
                 last += StartOffset;
 
-            base.StartParsing(fileName, lines, first, last);
+            base.StartParsing(fileName, lines, first, last, immediate);
         }
 
         public override async Task<IRange> ParseSyntaxAsync(Document document, int first, int last, CancellationToken cancellationToken)
