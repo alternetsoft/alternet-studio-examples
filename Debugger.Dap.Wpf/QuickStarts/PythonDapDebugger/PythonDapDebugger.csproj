@@ -39,20 +39,20 @@
     <Page Include="MainWindow.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Python" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python.Embedded.Pyright" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Python" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python.Embedded.Pyright" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Python" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="10.0.7" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Icon.ico" />

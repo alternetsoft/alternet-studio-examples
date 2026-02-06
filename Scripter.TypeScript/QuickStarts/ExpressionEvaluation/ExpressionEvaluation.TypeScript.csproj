@@ -25,11 +25,11 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Winforms" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Common.Winforms" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.7" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs">

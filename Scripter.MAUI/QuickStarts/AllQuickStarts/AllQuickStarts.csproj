@@ -57,19 +57,19 @@
     <PackageReference Include="WeCantSpell.Hunspell" Version="3.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Editor.MAUI" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Editor.MAUI" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.7" />
     <PackageReference Include="Alternet.UI.Maui" Version="0.9.736-beta" />
   </ItemGroup>
   <ItemGroup>

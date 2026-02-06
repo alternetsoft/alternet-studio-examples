@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.6</Version>
+      <Version>10.0.7</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -49,18 +49,18 @@
     <EmbeddedResource Include="Resources\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="10.0.7" />
   </ItemGroup>
   <ItemGroup />
 </Project>

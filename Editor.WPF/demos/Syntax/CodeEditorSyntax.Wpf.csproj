@@ -67,14 +67,14 @@
     <NoWarn>NU1605</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.7" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -220,7 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.6</Version>
+      <Version>10.0.7</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

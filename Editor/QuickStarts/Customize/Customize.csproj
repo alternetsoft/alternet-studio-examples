@@ -22,11 +22,11 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.7" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dialogs\Classes\CustomVisualTheme.cs" />
@@ -91,7 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.6</Version>
+      <Version>10.0.7</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

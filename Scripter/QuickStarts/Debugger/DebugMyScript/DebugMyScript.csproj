@@ -29,11 +29,11 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Winforms" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Common.Winforms" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="10.0.7" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs">
@@ -77,7 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.6</Version>
+      <Version>10.0.7</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'"></ItemGroup>

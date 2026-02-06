@@ -26,11 +26,11 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.6" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="10.0.6" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="10.0.7" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
