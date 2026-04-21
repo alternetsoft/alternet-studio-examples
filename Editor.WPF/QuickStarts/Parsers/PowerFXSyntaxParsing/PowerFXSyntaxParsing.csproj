@@ -23,12 +23,12 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.7" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.7" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.7" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.7" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.7" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.PowerFx" Version="10.0.7" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.8" />
+    <PackageReference Include="Alternet.Studio.Common" Version="10.0.8" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.8" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.8" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.8" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.PowerFx" Version="10.0.8" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

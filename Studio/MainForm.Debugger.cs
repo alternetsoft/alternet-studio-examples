@@ -69,6 +69,13 @@ namespace AlternetStudio.Demo
                     callStackControl.FramesChanged += CallStack_StackFramesRetrieved;
 
                     debugger.EventsSyncAction = action => BeginInvoke(action);
+
+                    var baseDebugger = debugger as ScriptDebugger;
+
+                    baseDebugger.SuspendedCommandsChanged += (s, e) =>
+                    {
+                        UpdateDebugButtons();
+                    };
                 }
 
                 return debugger;
@@ -525,16 +532,22 @@ namespace AlternetStudio.Demo
         {
             Invoke((Action)(async () =>
             {
+                if (Debugger.IsStarted)
+                {
+                    await localsControl.CancelEvaluationAsync();
+                    await watchesControl.CancelEvaluationAsync();
+                }
+
+                /*
                 var selectedTab = bottomTabControl.SelectedTab;
                 if (selectedTab == localsTabPage)
                 {
-                    if (Debugger.IsStarted)
-                        await localsControl.CancelEvaluationAsync();
                 }
-                else if (selectedTab == watchesTabPage)
+                else
+                if (selectedTab == watchesTabPage)
                 {
-                    await watchesControl.CancelEvaluationAsync();
                 }
+                */
             }));
         }
 

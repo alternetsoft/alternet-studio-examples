@@ -89,6 +89,7 @@
                     </MenuItem.Icon>
                     <MenuItem x:Name="newFileMenuItem" Header="File..." Click="NewMenuItem_Click"/>
                     <MenuItem x:Name="newFormMenuItem" Header="Form..." Click="NewFormMenuItem_Click"/>
+                    <MenuItem x:Name="newUserControlMenuItem" Header="User Control..." Click="NewUserControlMenuItem_Click"/>
                     <MenuItem x:Name="newProjectMenuItem" Header="Project..." Click="NewProjectMenuItem_Click"/>
                 </MenuItem>
                 <MenuItem x:Name="openMenuItem" Header="_Open..." Click="OpenMenuItem_Click" InputGestureText="Ctrl+O">
@@ -234,6 +235,7 @@
                         <ContextMenu >
                             <MenuItem Name="newFile" Header="File..." Click="NewMenuItem_Click"/>
                             <MenuItem Name="newForm" Header="Form..." Click="NewFormMenuItem_Click"/>
+                            <MenuItem Name="newUserControl" Header="User Control..." Click="NewUserControlMenuItem_Click"/>
                             <MenuItem Name="newProject" Header="Project..." Click="NewProjectMenuItem_Click"/>
                         </ContextMenu>
                     </Button.ContextMenu>

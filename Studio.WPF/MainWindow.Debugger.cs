@@ -72,6 +72,13 @@ namespace AlternetStudio.Wpf.Demo
                     localsControl.AddToWatchClick += Locals_AddToWatchClick;
 
                     debugger.EventsSyncAction = action => Dispatcher.BeginInvoke(action);
+
+                    var baseDebugger = debugger as ScriptDebugger;
+
+                    baseDebugger.SuspendedCommandsChanged += (s, e) =>
+                    {
+                        UpdateDebugButtons();
+                    };
                 }
 
                 return debugger;

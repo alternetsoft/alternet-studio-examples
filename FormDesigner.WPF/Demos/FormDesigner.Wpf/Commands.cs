@@ -16,6 +16,7 @@ namespace FormDesigner.Wpf
 {
     public static class Commands
     {
+        private static RoutedCommand newUserControl = new RoutedCommand();
         private static RoutedCommand saveToolboxToFile = new RoutedCommand();
         private static RoutedCommand loadToolboxFromFile = new RoutedCommand();
         private static RoutedCommand resetToolbox = new RoutedCommand();
@@ -34,6 +35,19 @@ namespace FormDesigner.Wpf
         private static RoutedCommand stretchToSameWidth = new RoutedCommand();
         private static RoutedCommand rasterPlacement = new RoutedCommand();
         private static RoutedCommand snaplinePlacement = new RoutedCommand();
+
+        public static RoutedCommand NewUserControl
+        {
+            get
+            {
+                return newUserControl;
+            }
+
+            set
+            {
+                newUserControl = value;
+            }
+        }
 
         public static RoutedCommand ResetToolbox
         {

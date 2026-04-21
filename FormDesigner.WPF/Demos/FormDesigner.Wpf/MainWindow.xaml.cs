@@ -1100,12 +1100,22 @@ namespace FormDesigner.Wpf
             }
         }
 
+        private void NewUserControl_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            NewControl(userControl: true, "UserControl1.xaml.cs");
+        }
+
         private void New_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            NewControl(userControl: false, "Form1.xaml.cs");
+        }
+
+        private void NewControl(bool userControl, string fileName)
         {
             var saveFileDialog = new SaveFileDialog
             {
                 Filter = "C# Files|*.xaml.cs|VB.NET Files|*.xaml.vb|All Files|*.*",
-                FileName = "Form1.xaml.cs",
+                FileName = fileName,
                 InitialDirectory = GetTestFilesDirectoryPath(),
             };
 
@@ -1117,13 +1127,22 @@ namespace FormDesigner.Wpf
             var userCodeFileName = saveFileDialog.FileName;
             var xamlFileName = Path.ChangeExtension(userCodeFileName, string.Empty).TrimEnd('.');
             if (!xamlFileName.EndsWith(XamlExtension, StringComparison.OrdinalIgnoreCase))
-                MessageBox.Show("Form file name should have a .xaml.cs or .xaml.vb extension.");
+                MessageBox.Show("File name should have a .xaml.cs or .xaml.vb extension.");
 
             var source = new FormDesignerDataSource(
                 xamlFileName,
                 FormFilesUtility.DetectLanguageFromFileName(userCodeFileName));
 
-            FormFilesUtility.CreateFormFiles(source, new FormFilesUtility.CreateFormFilesOptions { GenerateMainMethod = true });
+            var options = new FormFilesUtility.CreateFormFilesOptions
+            {
+                GenerateMainMethod = true,
+                GenerateUserControl = userControl,
+                GenerateConstructor = false,
+                GenerateInitializeComponentCall = false,
+                StripHeaderComment = true,
+            };
+
+            FormFilesUtility.CreateFormFiles(source, options);
 
             OpenDesigner(source.XamlFileName);
             OpenXaml(source.XamlFileName);

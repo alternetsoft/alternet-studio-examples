@@ -159,6 +159,62 @@ namespace AlternetStudio.Wpf.Demo
             }
         }
 
+        private void NewUserControlMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            saveFileDialog.FilterIndex = 1;
+            saveFileDialog.FileName = FindUniqueName("UserControl.xaml", ".cs");
+
+            if (saveFileDialog.ShowDialog().Value != true)
+                return;
+
+            var userCodeFileName = saveFileDialog.FileName;
+
+            var language = FormFilesUtility.TryDetectLanguageFromFileName(userCodeFileName);
+            if (language == null)
+            {
+                MessageBox.Show(
+                    "The user code file name must have an extension \".xaml.cs\" or \".xaml.vb\". You provided: "
+                        + Path.GetFileName(userCodeFileName));
+                return;
+            }
+
+            string xamlFileName = GetXamlFileName(userCodeFileName);
+
+            if (!CheckUserCodeLanguageNonAmbiguous(xamlFileName, userCodeFileName))
+                return;
+
+            var project = GetProject((TreeViewItem)projectExplorerTreeView.SelectedItem);
+            if (project == null)
+                project = Project;
+            bool addToProject = project != null && project.HasProject;
+
+            var source = new FormDesignerDataSource(xamlFileName, language);
+            FormFilesUtility.CreateFormFiles(source, new FormFilesUtility.CreateFormFilesOptions { GenerateUserControl = true, GenerateMainMethod = !addToProject });
+
+            if (!addToProject)
+            {
+                OpenFile(source.UserCodeFileName);
+                OpenFile(source.XamlFileName);
+                OpenDesigner(source.XamlFileName);
+            }
+            else
+            {
+                project.BeginUpdate();
+                try
+                {
+                    project.AddFile(source.UserCodeFileName);
+                    project.AddFile(source.XamlFileName, BuildAction.Page);
+                    OpenFile(source.UserCodeFileName);
+                    OpenFile(source.XamlFileName);
+                    OpenDesigner(source.XamlFileName);
+                }
+                finally
+                {
+                    project.EndUpdate();
+                }
+            }
+        }
+
         private Tuple<IFormDesignerControl, TabItem> FindDesigner(string fileName)
         {
             if (!Path.IsPathRooted(fileName))

@@ -1,0 +1,139 @@
+<Window 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        Title="Sample Window"
+        Height="447" Width="779"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Padding="12" CornerRadius="8" Background="#F3F4F6" BorderBrush="#D1D5DB" BorderThickness="1">
+            <DockPanel LastChildFill="True">
+                <StackPanel DockPanel.Dock="Left">
+                    <TextBlock Text="Sample Window" FontSize="18" FontWeight="SemiBold"/>
+                    <TextBlock Text="A simple WPF layout with common controls." Foreground="#6B7280" Margin="0,4,0,0"/>
+                </StackPanel>
+
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Width="90" Margin="0,0,8,0" Content="Refresh"/>
+                    <Button Width="90" Content="Help"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- Content -->
+        <Grid Grid.Row="1" Margin="0,12,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left: form -->
+            <GroupBox Header="Settings" Grid.Column="0">
+                <Grid Margin="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Name:"/>
+                    <TextBox   Grid.Row="0" Grid.Column="2" Height="26" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,8,0,0" Text="Email:"/>
+                    <TextBox   Grid.Row="1" Grid.Column="2" Height="26" Margin="0,8,0,0"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,8,0,0" Text="Role:"/>
+                    <ComboBox  Grid.Row="2" Grid.Column="2" Height="26" Margin="0,8,0,0" SelectedIndex="0">
+                        <ComboBoxItem Content="User"/>
+                        <ComboBoxItem Content="Admin"/>
+                        <ComboBoxItem Content="Guest"/>
+                    </ComboBox>
+
+                    <CheckBox Grid.Row="3" Grid.Column="2" Margin="0,10,0,0" Content="Enable notifications" IsChecked="True"/>
+                    <CheckBox Grid.Row="4" Grid.Column="2" Margin="0,6,0,0" Content="Remember me"/>
+
+                    <TextBlock Grid.Row="5" Grid.ColumnSpan="3" Margin="0,12,0,0" Foreground="#6B7280"
+                               TextWrapping="Wrap"
+                               Text="Tip: This is just sample XAML. Wire up commands/events in code-behind or via MVVM."/>
+                </Grid>
+            </GroupBox>
+
+            <!-- Right: list + output -->
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <DockPanel Grid.Row="0" LastChildFill="True">
+                    <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center"
+                               FontWeight="SemiBold" Text="Items"/>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                        <Button Width="90" Margin="0,0,8,0" Content="Add"/>
+                        <Button Width="90" Content="Remove"/>
+                    </StackPanel>
+                </DockPanel>
+
+                <ListView Grid.Row="1" Margin="0,8,0,8">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Id" Width="60" DisplayMemberBinding="{Binding Id}"/>
+                            <GridViewColumn Header="Title" Width="240" DisplayMemberBinding="{Binding Title}"/>
+                            <GridViewColumn Header="Status" Width="120" DisplayMemberBinding="{Binding Status}"/>
+                        </GridView>
+                    </ListView.View>
+
+                    <!-- Sample items (static) -->
+                    <ListViewItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="60" Text="1"/>
+                            <TextBlock Width="240" Text="First item"/>
+                            <TextBlock Width="120" Text="Open"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="60" Text="2"/>
+                            <TextBlock Width="240" Text="Second item"/>
+                            <TextBlock Width="120" Text="Done"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+
+                <TextBox Grid.Row="2" Height="80"
+                         AcceptsReturn="True" TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"
+                         Text="Output / log text..." />
+            </Grid>
+        </Grid>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" Padding="10" CornerRadius="8" Background="#FAFAFA" BorderBrush="#E5E7EB" BorderThickness="1">
+            <DockPanel LastChildFill="False">
+                <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Foreground="#6B7280"
+                           Text="Status: Ready" />
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                    <Button Width="90" Margin="0,0,8,0" Content="OK" IsDefault="True"/>
+                    <Button Width="90" Content="Cancel" IsCancel="True"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+    </Grid>
+</Window>

@@ -15,6 +15,7 @@
         Title="Form Designer" Height="700" Width="1200">
     <Window.CommandBindings>
         <CommandBinding Command="New" Executed="New_Executed" />
+        <CommandBinding Command="local:Commands.NewUserControl" Executed="NewUserControl_Executed" />
         <CommandBinding Command="Open" Executed="Open_Executed" />
         <CommandBinding Command="Save" Executed="Save_Executed" />
         <CommandBinding Command="Close" Executed="Close_Executed" />
@@ -53,8 +54,11 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
                 <MenuItem Header="New Form..." Command="New" />
+                <MenuItem Header="New UserControl..." Command="local:Commands.NewUserControl" />
+                <Separator />
                 <MenuItem Header="Open..." Command="Open" />
                 <MenuItem Header="Save" Command="Save" />
+                <Separator />
                 <MenuItem Header="Close" Command="Close" />
             </MenuItem>
             <MenuItem Header="Edit">
