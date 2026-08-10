@@ -16,6 +16,7 @@ using System.IO;
 using Alternet.UI;
 
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 using Alternet.Syntax;
 using Alternet.Syntax.Parsers.Generic;
@@ -134,13 +135,13 @@ namespace SyntaxHighlighting
             }
 
             syntaxEdit1.Outlining.AllowOutlining = true;
-            Idle += Form1_Idle;
+            syntaxEdit1.Text ="Loading...";
+            lbDescription.WordWrap = true;
 
-            Form1_Load(this, EventArgs.Empty);
+            FormUtils.BindShown(this, Initialize);
 
             LogUtils.RegisterLogAction("Check Demo Files", CheckFiles);
 
-            Form1_Idle(this, EventArgs.Empty);
             ActiveControl = syntaxEdit1;
         }
 
@@ -155,20 +156,18 @@ namespace SyntaxHighlighting
             base.DisposeManaged();
         }
 
-        private void Form1_Idle(object? sender, EventArgs e)
+        private void Initialize()
         {
-            lbDescription.WrapToParent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            DirectoryInfo dirInfo = new(DemoUtils.ResourcesFolder + @"Editor/Schemes/");
+            DirectoryInfo dirInfo = new(DemoUtils.GetResourceFolderFullPath(@"Editor/Schemes/"));
 
             openFileDialog1.InitialDirectory = dirInfo.FullName;
             saveFileDialog1.InitialDirectory = dirInfo.FullName;
 
-            foreach (LanguageInfo info in langItems)
-                LanguagesListBox.Items.Add(info);
+            LanguagesListBox.DoInsideUpdate(() =>
+            {
+                foreach (LanguageInfo info in langItems)
+                    LanguagesListBox.Items.Add(info);
+            });
 
             string powerShellPath = Path.Combine(dirInfo.FullName, "powershell.xml");
             if (File.Exists(powerShellPath))
@@ -221,12 +220,12 @@ namespace SyntaxHighlighting
         private bool FindFile(LanguageInfo? info, out string fileName)
         {
             fileName = string.Empty;
-            DirectoryInfo dirInfo = new(DemoUtils.ResourcesFolder + @"Editor/Text");
+            DirectoryInfo dirInfo = new(DemoUtils.GetResourceFolderFullPath(@"Editor/Text"));
 
             if (dirInfo.Exists)
             {
                 if (info is not null)
-                    fileName = dirInfo.FullName + @"/" + info.FileType + ".txt";
+                    fileName = Path.Combine(dirInfo.FullName, info.FileType + ".txt");
             }
 
             return (fileName != string.Empty) && new FileInfo(fileName).Exists;

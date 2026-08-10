@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -206,8 +206,16 @@ namespace AlternetStudio.Wpf.Demo.RemoteControl
 
         private void AttachToControlledProcess(string[] myCodeModules)
         {
+            Task AttachToProcessAsync(int processId, StartDebuggingOptions options)
+            {
+                if (UseNewDebugger)
+                    return (Debugger as Alternet.Scripter.Debugger.Universal.IScriptDebugger).AttachToProcessAsync(processId, options);
+                else
+                    return (Debugger as Alternet.Scripter.Debugger.IScriptDebugger).AttachToProcessAsync(processId, options);
+            }
+
             Task.Run(() =>
-                Debugger.AttachToProcessAsync(
+                AttachToProcessAsync(
                     remoteControlParameters.ProcessId,
                     new StartDebuggingOptions
                     {

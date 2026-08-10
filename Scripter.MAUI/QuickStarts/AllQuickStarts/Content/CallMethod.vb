@@ -9,13 +9,13 @@ Namespace ScriptSpace
         Private Shared arenaBackgroundBrush As SolidBrush
         Private Shared dotBrush As SolidBrush
 
-        Private Shared currentAngle As Double
-        Private Shared radius As Double
-        Private Shared dotRadius As Double
+        Private Shared currentAngle As Single
+        Private Shared radius As Single
+        Private Shared dotRadius As Single
         Private Shared center As PointD
 
-        Private Shared Function DegreesToRadians(degrees As Double) As Double
-            Dim radians As Double = (Math.PI / 180) * degrees
+        Private Shared Function DegreesToRadians(degrees As Single) As Single
+            Dim radians As Single = (MathF.PI / 180) * degrees
             Return radians
         End Function
 
@@ -27,7 +27,7 @@ Namespace ScriptSpace
             arenaBackgroundBrush = New SolidBrush(Color.DarkBlue)
             dotBrush = New SolidBrush(Color.White)
 
-            Dim maxSide As Double = Math.Max(bounds.Width, bounds.Height)
+            Dim maxSide As Single = Math.Max(bounds.Width, bounds.Height)
             radius = (maxSide - (maxSide / 3)) / 2
             dotRadius = maxSide / 20
 
@@ -45,7 +45,7 @@ Namespace ScriptSpace
             arenaBounds.Inflate(-2, -2)
             g.FillEllipse(arenaBackgroundBrush, arenaBounds)
 
-            Dim radians As Double = DegreesToRadians(currentAngle)
+            Dim radians As Single = DegreesToRadians(currentAngle)
 
             Dim dotCenter As PointD = New PointD(
                 center.X + CInt(Math.Cos(radians) * radius),
@@ -55,11 +55,11 @@ Namespace ScriptSpace
                 dotBrush,
                 New RectD(
                     New PointD(dotCenter.X - dotRadius, dotCenter.Y - dotRadius),
-                    New SizeD(New PointD(dotRadius * 2, dotRadius * 2)))
+                    New SizeD(dotRadius * 2, dotRadius * 2))
                 )
         End Sub
 
-        Private Shared Function ConstrainAngle(x As Double) As Double
+        Private Shared Function ConstrainAngle(x As Single) As Single
             x = x Mod 360
             If x < 0 Then
                 x += 360

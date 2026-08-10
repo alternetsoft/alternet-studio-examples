@@ -1,0 +1,77 @@
+<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v11"
+    x:Class="PythonCopilotIntegration.MainWindow"
+    xmlns:local="clr-namespace:PythonCopilotIntegration"
+    Icon="/PythonCopilotIntegration.Wpf;component/Images/Icon.ico"
+    Title="Python TextEditor and Copilot LSP Integration" Height="900" Width="900">
+
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock x:Name="positionStatus" MinWidth="50"/>
+            </StatusBarItem>
+
+            <Separator />
+
+            <StatusBarItem>
+                <TextBlock x:Name="serverStatusBusy" MinWidth="50"/>
+            </StatusBarItem>
+
+            <Separator />
+
+            <StatusBarItem>
+                <TextBlock x:Name="serverStatusKind" MinWidth="50"/>
+            </StatusBarItem>
+
+            <Separator />
+
+            <StatusBarItem>
+                <TextBlock x:Name="serverStatusMessage"/>
+            </StatusBarItem>
+
+        </StatusBar>
+
+        <Grid Name="grid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="200" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="laDescription" Grid.Row="1" Grid.ColumnSpan="3">
+                <AccessText TextWrapping="Wrap"
+                        Text="This demo shows how to integrate Copilot LSP with our editor and Python language parser.&#10;Press Alt+Shift+/ or Alt+C when editor is focused to get suggestion from Copilot ." />
+            </Label>
+
+            <TabControl Grid.Row="4" Grid.Column="0" x:Name="editorTabControl"
+                    HorizontalAlignment="Stretch" Margin="0"
+                    VerticalAlignment="Stretch">
+            </TabControl>
+
+            <GridSplitter Grid.Row="5"
+                      Grid.Column="0"
+                      Height="5"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Center"
+                      Background="LightGray"
+                      ShowsPreview="True" />
+
+            <TabControl Grid.Row="6" Grid.Column="0" x:Name="bottomTabControl">
+                <TabItem Header="Messages" x:Name="messagesTab">
+                </TabItem>
+            </TabControl>
+        </Grid>
+
+    </DockPanel>
+
+</Window>

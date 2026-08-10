@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -31,10 +31,11 @@ namespace AlternetStudio.Demo
 {
     public partial class MainForm : IDebuggerUICommands
     {
-        private IScriptDebugger debugger;
+        private IScriptDebuggerBase debugger;
         private ExecutionPosition executionPosition;
         private StackFrame stackFrame;
         private bool switchToTopUserStackFrameNeeded;
+        private bool useNewDebugger = false;
 
         /// <summary>
         /// Gets or sets <see cref="StartDebuggingOptions"/> to use when
@@ -43,39 +44,31 @@ namespace AlternetStudio.Demo
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public StartDebuggingOptions StartDebuggingOptions { get; set; } = new DotNetStartDebuggingOptions();
 
-        protected IScriptDebugger Debugger
+        protected bool UseNewDebugger
+        {
+            get
+            {
+                return useNewDebugger;
+            }
+
+            set
+            {
+                if (useNewDebugger != value)
+                {
+                    FinalizeDebugger();
+                    useNewDebugger = value;
+                    InitializeDebugger();
+                }
+            }
+        }
+
+        protected IScriptDebuggerBase Debugger
         {
             get
             {
                 if (debugger == null)
                 {
-                    debugger = new ScriptDebugger { ScriptRun = scriptRun };
-                    debugger.DebuggingStarted += Debugger_DebuggingStarted;
-                    debugger.DebuggingStopped += Debugger_DebuggingStopped;
-                    debugger.DebuggerErrorOccurred += Debugger_DebuggerErrorOccurred;
-                    debugger.ExecutionResumed += Debugger_ExecutionResumed;
-                    debugger.ExecutionStopped += Debugger_ExecutionStopped;
-                    debugger.StackFrameSwitched += Debugger_StackFrameSwitched;
-                    debugger.ActiveThreadChanged += Debugger_ActiveThreadChanged;
-
-                    breakpointsControl.Debugger = debugger;
-                    callStackControl.Debugger = debugger;
-                    outputControl.Debugger = debugger;
-                    localsControl.Debugger = debugger;
-                    watchesControl.Debugger = debugger;
-                    errorsControl.Debugger = debugger;
-                    threadsControl.Debugger = debugger;
-
-                    callStackControl.FramesChanged += CallStack_StackFramesRetrieved;
-
-                    debugger.EventsSyncAction = action => BeginInvoke(action);
-
-                    var baseDebugger = debugger as ScriptDebugger;
-
-                    baseDebugger.SuspendedCommandsChanged += (s, e) =>
-                    {
-                        UpdateDebugButtons();
-                    };
+                    InitializeDebugger();
                 }
 
                 return debugger;
@@ -184,12 +177,35 @@ namespace AlternetStudio.Demo
             return true;
         }
 
+        bool IDebuggerUICommands.AttachToProcess()
+        {
+            using (var dialog = new AttachToProcessDialog())
+            {
+                if (dialog.ShowDialog(this) == DialogResult.Cancel)
+                    return false;
+
+                Task.Run(() =>
+                    debugger.AttachToProcessAsync(
+                        dialog.SelectedProcess.Id,
+                        new DotNetStartDebuggingOptions
+                        {
+                            DisableJustMyCode = true,
+                        })).Wait();
+
+                return true;
+            }
+        }
+
         protected virtual void StartDebugCore(bool breakOnStart)
         {
-            Debugger.GeneratedModulesPath =
-                Project.HasProject && !string.IsNullOrEmpty(Project.UserSettings.StartProgram) && Project.UserSettings.StartExternalProgram ?
+            var path = Project.HasProject && !string.IsNullOrEmpty(Project.UserSettings.StartProgram) && Project.UserSettings.StartExternalProgram ?
                 Path.GetDirectoryName(Project.UserSettings.StartProgram) :
                 null;
+
+            if (UseNewDebugger)
+                (debugger as Alternet.Scripter.Debugger.Universal.IScriptDebugger).GeneratedModulesPath = path;
+            else
+                (debugger as Alternet.Scripter.Debugger.IScriptDebugger).GeneratedModulesPath = path;
 
             StartDebuggingOptions.BreakOnStart = breakOnStart;
             StartDebuggingOptions.HostApplication = Project.HasProject && Project.UserSettings.StartExternalProgram ? Project.UserSettings.StartProgram : null;
@@ -231,6 +247,14 @@ namespace AlternetStudio.Demo
             Debugger.StopDebuggingAsync();
         }
 
+        private bool ChangeDebuggerMode(bool useUnivesal)
+        {
+            if (!TryResetDebuggerOnProjectChange())
+                return false;
+            UseNewDebugger = useUnivesal;
+            return true;
+        }
+
         private bool TryResetDebuggerOnProjectChange()
         {
             if (debugger != null && debugger.IsStarted)
@@ -258,10 +282,96 @@ namespace AlternetStudio.Demo
 
         private void InitializeDebugger()
         {
-            debuggerControlToolbar.Debugger = Debugger;
-            debugMenu.Debugger = Debugger;
+            if (UseNewDebugger)
+                debugger = new Alternet.Scripter.Debugger.Universal.ScriptDebugger { ScriptRun = scriptRun };
+            else
+                debugger = new Alternet.Scripter.Debugger.ScriptDebugger { ScriptRun = scriptRun };
+
+            var myPlatform = Consts.IsNetFramework ? ".NET Framework" : ".NET Core";
+
+            if (UseNewDebugger)
+            {
+                LogToOutput($"Using universal debugger on {myPlatform} platform");
+            }
+            else
+            {
+                LogToOutput($"Using legacy debugger on {myPlatform} platform");
+            }
+
+            debugger.DebuggingStarted += Debugger_DebuggingStarted;
+            debugger.DebuggingStopped += Debugger_DebuggingStopped;
+            debugger.DebuggerErrorOccurred += Debugger_DebuggerErrorOccurred;
+            debugger.ExecutionResumed += Debugger_ExecutionResumed;
+            debugger.ExecutionStopped += Debugger_ExecutionStopped;
+            debugger.StackFrameSwitched += Debugger_StackFrameSwitched;
+            debugger.ActiveThreadChanged += Debugger_ActiveThreadChanged;
+
+            breakpointsControl.Debugger = debugger;
+            callStackControl.Debugger = debugger;
+            outputControl.Debugger = debugger;
+            localsControl.Debugger = debugger;
+            watchesControl.Debugger = debugger;
+            errorsControl.Debugger = debugger;
+            threadsControl.Debugger = debugger;
+            debuggerControlToolbar.Debugger = debugger;
+            debugMenu.Debugger = debugger;
+
+            foreach (TabPage tabPage in editorsTabControl.TabPages)
+            {
+                var edit = GetEditor(tabPage) as IDebugEdit;
+                if (edit != null)
+                    edit.Debugger = debugger;
+            }
+
+            callStackControl.FramesChanged += CallStack_StackFramesRetrieved;
+
+            debugger.EventsSyncAction = action => BeginInvoke(action);
+
+            var baseDebugger = debugger as ScriptDebuggerBase;
+
+            baseDebugger.SuspendedCommandsChanged += (s, e) =>
+            {
+                UpdateDebugButtons();
+            };
+        }
+
+        private void FinalizeDebugger()
+        {
+            if (debugger == null)
+                return;
+            debugger.DebuggingStarted -= Debugger_DebuggingStarted;
+            debugger.DebuggingStopped -= Debugger_DebuggingStopped;
+            debugger.DebuggerErrorOccurred -= Debugger_DebuggerErrorOccurred;
+            debugger.ExecutionResumed -= Debugger_ExecutionResumed;
+            debugger.ExecutionStopped -= Debugger_ExecutionStopped;
+            debugger.StackFrameSwitched -= Debugger_StackFrameSwitched;
+            debugger.ActiveThreadChanged -= Debugger_ActiveThreadChanged;
+
+            breakpointsControl.Debugger = null;
+            callStackControl.Debugger = null;
+            outputControl.Debugger = null;
+            localsControl.Debugger = null;
+            watchesControl.Debugger = null;
+            errorsControl.Debugger = null;
+            threadsControl.Debugger = null;
+            debuggerControlToolbar.Debugger = null;
+            debugMenu.Debugger = null;
+
+            foreach (TabPage tabPage in editorsTabControl.TabPages)
+            {
+                var edit = GetEditor(tabPage) as IDebugEdit;
+                if (edit != null)
+                    edit.Debugger = null;
+            }
+
+            (debugger as IDisposable)?.Dispose();
+            debugger = null;
+        }
+
+        private void InitializeDebugControls()
+        {
             debugMenu.CommandsListener = debuggerControlToolbar.CommandsListener = this;
-            debugMenu.AllowedDebuggerCommands |= AllowedDebuggerCommands.RunToCursor;
+            debugMenu.AllowedDebuggerCommands |= AllowedDebuggerCommands.RunToCursor | AllowedDebuggerCommands.AttachToProcess;
         }
 
         private void ActivateWatchesTab()
@@ -283,9 +393,15 @@ namespace AlternetStudio.Demo
             if (solution.IsEmpty)
                 return null;
 
+            string path;
+            if (UseNewDebugger)
+                path = (debugger as Alternet.Scripter.Debugger.Universal.IScriptDebugger).GeneratedModulesPath;
+            else
+                path = (debugger as Alternet.Scripter.Debugger.IScriptDebugger).GeneratedModulesPath;
+
             IList<string> result = new List<string>();
             foreach (Project project in solution.Projects)
-                result.Add(Path.Combine(Debugger.GeneratedModulesPath, project.ProjectName));
+                result.Add(Path.Combine(path, project.ProjectName));
 
             return result.ToArray();
         }
@@ -332,7 +448,6 @@ namespace AlternetStudio.Demo
             var isDebuggingStarted = Debugger.IsStarted;
             var isDebugging = isDebuggingStarted || state == DebuggerState.Startup;
 
-            attachToProcessMenuItem.Enabled = !isDebugging;
             startWithoutDebugMenuItem.Enabled = !isEmpty && !isDebugging;
             tsbStartWithoutDebug.Enabled = !isEmpty && !isDebugging;
             runParametersMenuItem.Enabled = !isEmpty & !isDebugging && hasProject;
@@ -402,6 +517,11 @@ namespace AlternetStudio.Demo
         private void Debugger_DebuggerErrorOccurred(object sender, DebuggerErrorOccurredEventArgs e)
         {
             MessageBox.Show(this, e.Exception.ToString(), "Debugger Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            if (Consts.IsDebugDefinedAndAttached)
+            {
+                DebugUtilities.Rethrow(e.Exception);
+            }
         }
 
         private void Debugger_DebuggingStopped(object sender, DebuggingStoppedEventArgs e)
@@ -633,23 +753,6 @@ namespace AlternetStudio.Demo
             {
                 watchesControl.AddWatch(e.Expression, true, true);
                 ActivateWatchesTab();
-            }
-        }
-
-        private void AttachToProcessMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var dialog = new AttachToProcessDialog())
-            {
-                if (dialog.ShowDialog(this) == DialogResult.Cancel)
-                    return;
-
-                Task.Run(() =>
-                    Debugger.AttachToProcessAsync(
-                        dialog.SelectedProcess.Id,
-                        new DotNetStartDebuggingOptions
-                        {
-                            DisableJustMyCode = true,
-                        })).Wait();
             }
         }
     }

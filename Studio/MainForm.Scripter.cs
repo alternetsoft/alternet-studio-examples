@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -234,22 +234,26 @@ namespace AlternetStudio.Demo
             scriptRun.ScriptSource.FromScriptProject(project.ProjectFileName);
             scriptRun.ScriptSource.SearchPaths.Clear();
 
+            var projectModulePath = Path.GetDirectoryName(scriptRun.ScriptHost.ExecutableModulePath);
             if (project.ProjectReferences.Count > 0)
             {
                 foreach (var reference in project.ProjectReferences)
                 {
-                    if (!string.IsNullOrEmpty(reference.ProjectName))
-                        scriptRun.ScriptSource.References.Add(reference.ProjectName);
-                    else
-                    if (!string.IsNullOrEmpty(reference.ProjectPath))
+                    // ideally we need to load assemblyname from the project
+                    var path = reference.ProjectName;
+                    if (string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(reference.ProjectPath))
+                        path = Path.GetFileNameWithoutExtension(reference.ProjectPath);
+
+                    if (!string.IsNullOrEmpty(path))
                     {
-                        // ideally we need to load assemblyname from the project
-                        scriptRun.ScriptSource.References.Add(Path.GetFileNameWithoutExtension(reference.ProjectPath));
+                        scriptRun.ScriptSource.References.Add(path);
+                        var modulepath = Path.Combine(Path.GetDirectoryName(projectModulePath), path);
+                        scriptRun.ScriptSource.SearchPaths.Add(modulepath);
                     }
                 }
-
-                scriptRun.ScriptSource.SearchPaths.Add(Path.GetDirectoryName(scriptRun.ScriptHost.ExecutableModulePath));
             }
+
+            scriptRun.ScriptSource.SearchPaths.Add(projectModulePath);
         }
 
         private void RunScript()
@@ -327,20 +331,20 @@ namespace AlternetStudio.Demo
             return result;
         }
     }
+}
 
-    internal class OutputWriter : StringWriter
+internal class OutputWriter : StringWriter
+{
+    private Output output;
+
+    public OutputWriter(Output output)
     {
-        private Output output;
+        this.output = output;
+    }
 
-        public OutputWriter(Output output)
-        {
-            this.output = output;
-        }
-
-        public override void WriteLine(string line)
-        {
-            base.WriteLine(line);
-            output.CustomLog(line);
-        }
+    public override void WriteLine(string line)
+    {
+        base.WriteLine(line);
+        output.CustomLog(line);
     }
 }

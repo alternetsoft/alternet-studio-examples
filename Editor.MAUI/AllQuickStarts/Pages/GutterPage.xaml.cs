@@ -11,10 +11,13 @@
 #endregion Copyright (c) 2016-2024 Alternet Software
 
 using Alternet.Editor;
+using Alternet.Editor.TextSource.AlternetUI;
+using Alternet.Editor.Maui;
+using Alternet.Editor.AlternetUI;
 using Alternet.Syntax.Parsers.Roslyn;
 
-using Alternet.UI;
 using Alternet.Maui;
+
 using Microsoft.Maui.Layouts;
 
 namespace AllQuickStarts.Pages;
@@ -23,13 +26,14 @@ public partial class GutterPage : DemoPage
 {
     private CsParser? csParser1 = new();
 
-    private System.Drawing.Color gradientBeginColor = System.Drawing.Color.Blue;
-    private System.Drawing.Color gradientEndColor = System.Drawing.Color.White;
-    
+    private Alternet.Drawing.Color gradientBeginColor = Alternet.Drawing.Color.Blue;
+    private Alternet.Drawing.Color gradientEndColor = Alternet.Drawing.Color.White;
+    private Alternet.Drawing.Color defaultGutterColor;
+
     internal string NewFileNameNoExt = "embres:AllQuickStarts.Content.newfile";
 
     public GutterPage()
-	{
+    {
         InitializeComponent();
         AbsoluteLayout.SetLayoutFlags(MainGrid, AbsoluteLayoutFlags.All);
         AbsoluteLayout.SetLayoutBounds(MainGrid, new Rect(0, 0, 1, 1));
@@ -45,8 +49,10 @@ public partial class GutterPage : DemoPage
         GutterWidthStepper.Maximum = (int)syntaxEdit1.Width;
         GutterWidthStepper.Value = (int)syntaxEdit1.Gutter.Width;
         GutterWidthValue.Text = syntaxEdit1.Gutter.Width.ToString();
-        
-        GutterColorPicker.EnsureAddedAndSelect(syntaxEdit1.Gutter.BrushColor);
+
+        defaultGutterColor = syntaxEdit1.Gutter.BrushColor;
+
+        GutterColorPicker.EnsureAddedAndSelect(defaultGutterColor);
         LineColorPicker.EnsureAddedAndSelect(syntaxEdit1.Gutter.PenColor);
         StartColorPicker.EnsureAddedAndSelect(gradientBeginColor);
         EndColorPicker.EnsureAddedAndSelect(gradientEndColor);
@@ -67,7 +73,7 @@ public partial class GutterPage : DemoPage
         StartStepper.Maximum = 10000;
         StartStepper.Value = (int)syntaxEdit1.Gutter.LineNumbersStart;
         StartValue.Text = syntaxEdit1.Gutter.LineNumbersStart.ToString();
-        
+
         ForeColorPicker.EnsureAddedAndSelect(syntaxEdit1.Gutter.LineNumbersForeColor);
         BackColorPicker.EnsureAddedAndSelect(syntaxEdit1.Gutter.LineNumbersBackColor);
 
@@ -76,6 +82,31 @@ public partial class GutterPage : DemoPage
 
         chbDisplayLineNumbers.CheckedChanged += DisplayLineNumbers_CheckedChanged;
         chbLinesOnGutter.CheckedChanged += LinesOnGutter_CheckedChanged;
+
+        syntaxEdit1.SizeChanged += SyntaxEdit1_SizeChanged;
+    }
+
+    private void SyntaxEdit1_SizeChanged(object? sender, EventArgs e)
+    {
+        UpdateGutterBrush();
+    }
+
+    private void UpdateGutterBrush()
+    {
+        if (chbUseGradient.IsChecked)
+        {
+            var gradientBrush = new Alternet.Drawing.LinearGradientBrush(
+                    syntaxEdit1.Gutter.Rect.Location,
+                    syntaxEdit1.Gutter.Rect.RightBottom(),
+                    gradientBeginColor,
+                    gradientEndColor);
+            syntaxEdit1.Gutter.Brush = gradientBrush;
+        }
+        else
+        {
+            syntaxEdit1.Gutter.Brush = GutterColorPicker.SelectedColor?.AsBrush ?? defaultGutterColor.AsBrush;
+        }
+        syntaxEdit1.Invalidate();
     }
 
     public override SyntaxEditView? SyntaxEdit => syntaxEdit1;
@@ -85,7 +116,7 @@ public partial class GutterPage : DemoPage
     public override string DemoTitle => "Gutter";
 
 #pragma warning disable
-    public void LoadFile(Alternet.Editor.TextSource.ITextSource source, string url)
+    public void LoadFile(ITextSource source, string url)
 #pragma warning restore
     {
         source.Text = string.Empty;
@@ -116,8 +147,7 @@ public partial class GutterPage : DemoPage
 
     private void GradientGutterCheckBox_CheckedChanged(object? sender, EventArgs e)
     {
-        syntaxEdit1.Transparent = chbUseGradient.IsChecked;
-        syntaxEdit1.Invalidate();
+        UpdateGutterBrush();
     }
 
     private void LinesOnGutter_CheckedChanged(object? sender, EventArgs e)
@@ -133,7 +163,7 @@ public partial class GutterPage : DemoPage
     }
 
     private void GutterColorPicker_SelectedIndexChanged(object? sender, EventArgs e)
-	{
+    {
         syntaxEdit1.Gutter.BrushColor = GutterColorPicker.SelectedColor;
     }
 
@@ -148,7 +178,7 @@ public partial class GutterPage : DemoPage
             return;
         gradientBeginColor = StartColorPicker.SelectedColor;
         if (chbUseGradient.IsChecked)
-            syntaxEdit1.Invalidate();
+            UpdateGutterBrush();
     }
 
     private void EndColorPicker_SelectedIndexChanged(object? sender, EventArgs e)
@@ -157,7 +187,7 @@ public partial class GutterPage : DemoPage
             return;
         gradientEndColor = EndColorPicker.SelectedColor;
         if (chbUseGradient.IsChecked)
-            syntaxEdit1.Invalidate();
+            UpdateGutterBrush();
     }
 
     private void ForeColorPicker_SelectedIndexChanged(object? sender, EventArgs e)
@@ -172,19 +202,19 @@ public partial class GutterPage : DemoPage
 
     private void GutterWidthValueChanged(object sender, ValueChangedEventArgs e)
     {
-        syntaxEdit1.Gutter.Width = GutterWidthStepper.Value;
+        syntaxEdit1.Gutter.Width = (float)GutterWidthStepper.Value;
         GutterWidthValue.Text = syntaxEdit1.Gutter.Width.ToString();
     }
 
     private void LeftIndentValueChanged(object sender, ValueChangedEventArgs e)
     {
-        syntaxEdit1.Gutter.LineNumbersLeftIndent = LeftIndentStepper.Value;
+        syntaxEdit1.Gutter.LineNumbersLeftIndent = (float)LeftIndentStepper.Value;
         LeftIndentValue.Text = syntaxEdit1.Gutter.LineNumbersLeftIndent.ToString();
     }
 
     private void RightIndentValueChanged(object sender, ValueChangedEventArgs e)
     {
-        syntaxEdit1.Gutter.LineNumbersRightIndent = RightIndentStepper.Value;
+        syntaxEdit1.Gutter.LineNumbersRightIndent = (float)RightIndentStepper.Value;
         RightIndentValue.Text = syntaxEdit1.Gutter.LineNumbersRightIndent.ToString();
 
     }

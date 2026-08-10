@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 #pragma warning disable VSTHRD101 // Avoid unsupported async delegates
 
@@ -29,8 +29,11 @@ namespace PythonSyntaxParsing
         private const string LoadDesc = "Load code file";
         private string dir = Application.StartupPath + @"\..\";
 
+        private PythonParserEmbedded pythonParser;
+
         public Form1()
         {
+            pythonParser = new PythonParserEmbedded();
             DeployServer();
             InitializeComponent();
             var asm = this.GetType().Assembly;

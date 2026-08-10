@@ -1,0 +1,1 @@
+dotnet run --framework net8.0 -c Release /p:WarningsAsErrors=false /p:NoWarn=all /p:NoWarn=SA1000 -v:quiet /p:NoWarn=CS1591 /p:GenerateDocumentationFile=false

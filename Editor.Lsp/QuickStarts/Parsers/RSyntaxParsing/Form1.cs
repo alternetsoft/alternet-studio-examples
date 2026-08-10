@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 #pragma warning disable VSTHRD101 // Avoid unsupported async delegates
 
@@ -18,6 +18,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Alternet.Common;
+using Alternet.Editor;
 using Alternet.Syntax;
 using Alternet.Syntax.Parsers.Lsp.R;
 using Alternet.Syntax.Parsers.Lsp.R.Embedded;
@@ -29,8 +30,15 @@ namespace RSyntaxParsing
         private const string LoadDesc = "Load code file";
         private string dir = Application.StartupPath + @"\..\";
 
+        private RParserEmbedded rParserEmbedded;
+
+        static Form1()
+        {
+        }
+
         public Form1()
         {
+            rParserEmbedded = new RParserEmbedded();
             DeployServer();
             InitializeComponent();
             var asm = this.GetType().Assembly;

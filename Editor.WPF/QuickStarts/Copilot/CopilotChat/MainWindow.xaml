@@ -1,0 +1,47 @@
+<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Wpf="clr-namespace:Alternet.Editor.Wpf;assembly=Alternet.Editor.Wpf.v11"
+    x:Class="CopilotChat.MainWindow"
+    xmlns:local="clr-namespace:CopilotChat"
+    Icon="/CopilotChat.Wpf;component/Images/Icon.ico"
+    Title="TextEditor and Copilot Chat Integration" Height="800" Width="900" Loaded="Window_Loaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="400" />
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="laDescription" Grid.Row="0" Grid.ColumnSpan="3">
+            <AccessText TextWrapping="Wrap"
+                        Text="This demo shows how to integrate Copilot Chat with our editor and C# language parser." />
+        </Label>
+
+        <TabControl Grid.Row="3" Grid.Column="0" x:Name="editorTabControl"
+                    HorizontalAlignment="Stretch" Margin="0"
+                    VerticalAlignment="Stretch">
+        </TabControl>
+
+        <GridSplitter Grid.Row="3"
+                      Grid.Column="1"
+                      Width="5"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Stretch"
+                      Background="LightGray"
+                      ShowsPreview="True" />
+
+        <TabControl Grid.Row="3" Grid.Column="2" x:Name="aiProviderTabControl">
+            <TabItem Header="Chat" x:Name="aiProviderTab">
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

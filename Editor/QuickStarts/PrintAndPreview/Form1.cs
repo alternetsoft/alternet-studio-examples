@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.IO;
@@ -31,12 +31,18 @@ namespace PrintAndPreview
         public Form1()
         {
             InitializeComponent();
+
             var asm = this.GetType().Assembly;
             var prefix = "PrintAndPreview.Resources";
             Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
+            syntaxEdit1.BorderStyle = EditBorderStyle.None;
+
+            ControlUtilities.BindFormInitializer(this, InitializeForm);
+
+            syntaxEdit1.Text = "Loading...";
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void InitializeForm()
         {
             DirectoryInfo dirInfo = new DirectoryInfo(Path.GetFullPath(dir) + @"Resources\Editor\text");
             if (!dirInfo.Exists)
@@ -52,6 +58,10 @@ namespace PrintAndPreview
             }
 
             syntaxEdit1.Lexer = csParser1;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
         }
 
         private void PrintButton_Click(object sender, EventArgs e)

@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections;
@@ -786,15 +786,15 @@ namespace SearchReplace
 
         private void SetImageList()
         {
-            Func<string, System.Windows.Forms.ImageList> load = suffix =>
+            Func<string, AlphaImageList> load = suffix =>
             {
                 string name = $"Alternet.Editor.Wpf.SearchDialogImages{ImagesResourceNameSuffix}";
-                return ImageListHelper.LoadImageListFromStrip(
+                return AlphaImageListHelper.LoadImageListFromStrip(
                     typeof(TextEditor),
                     string.Format("{0}{1}.png", name, suffix));
             };
 
-            System.Windows.Forms.ImageList list = new DisplayScaledImages(() => load(string.Empty), () => load("HighDpi")).Images;
+            AlphaImageList list = new DisplayScaledAlphaImages(() => load(string.Empty), () => load("HighDpi")).Images;
             if (list.Images.Count > 1)
             {
                 SetImage(list.Images[0], FindImage, FindGrid);

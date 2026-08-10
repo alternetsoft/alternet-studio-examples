@@ -16,6 +16,8 @@ using System.IO;
 using Alternet.UI;
 
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 using Alternet.Syntax;
 using Alternet.Syntax.Parsers.Roslyn;
@@ -25,8 +27,8 @@ namespace RoslynSyntaxParsing
 {
     public partial class Form1 : Window
     {
-        private readonly Alternet.Editor.TextSource.TextSource cSharpSource = new();
-        private readonly Alternet.Editor.TextSource.TextSource vbSource = new();
+        private readonly TextSource cSharpSource = new();
+        private readonly TextSource vbSource = new();
         private readonly OpenFileDialog openFileDialog1 = new();
 
         private readonly CsParser csParser1 = new(new CsSolution());
@@ -47,11 +49,13 @@ namespace RoslynSyntaxParsing
             if (CommandLineArgs.ParseAndGetIsDark())
                 syntaxEdit1.VisualThemeType = VisualThemeType.Dark;
 
-            cbLanguages.Items.AddRange([
+            cbLanguages.AddRange(new []
+            {
                 "C#",
-                "Visual Basic"]);
+                "Visual Basic"
+            });
 
-            cbLanguages.SelectedIndexChanged += LanguagesComboBox_SelectedIndexChanged;
+            cbLanguages.ValueChanged += LanguagesComboBox_SelectedIndexChanged;
             btLoad.Click += LoadButton_Click;
 
             syntaxEdit1.Source = cSharpSource;
@@ -62,32 +66,27 @@ namespace RoslynSyntaxParsing
 
             Form1_Load(this, EventArgs.Empty);
 
-            cbLanguages.SelectedIndex = 0;
+            cbLanguages.Value = "C#";
 
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
+            lbDescription.WordWrap = true;
             ActiveControl = syntaxEdit1;
         }
+
         protected override void DisposeManaged()
         {
             base.DisposeManaged();
         }
 
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             openFileDialog1.Filter = "C# files (*.cs)|*.cs|VB files (*.vb)|*.vb";
-            DirectoryInfo dirInfo = new(DemoUtils.ResourcesFolder + @"Editor/Text/");
+            DirectoryInfo dirInfo = new(DemoUtils.GetResourceFolderFullPath(@"Editor/Text/"));
 
-            FileInfo fileInfo = new(dirInfo.FullName + @"c#.cs");
+            FileInfo fileInfo = new(Path.Combine(dirInfo.FullName, "c#.cs"));
             if (fileInfo.Exists)
                 syntaxEdit1.LoadFile(fileInfo.FullName);
 
-            fileInfo = new FileInfo(dirInfo.FullName + @"vb_net.txt");
+            fileInfo = new FileInfo(Path.Combine(dirInfo.FullName, "vb_net.txt"));
             if (fileInfo.Exists)
                 vbSource.LoadFile(fileInfo.FullName);
 
@@ -101,17 +100,17 @@ namespace RoslynSyntaxParsing
 
         private void LanguagesComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            syntaxEdit1.Source = cbLanguages.SelectedIndex switch
+            syntaxEdit1.Source = cbLanguages.Value switch
             {
-                0 => cSharpSource,
-                1 => vbSource,
+                "C#" => cSharpSource,
+                "Visual Basic" => vbSource,
                 _ => cSharpSource,
             };
         }
 
         private void LoadButton_Click(object? sender, EventArgs e)
         {
-            openFileDialog1.FilterIndex = cbLanguages.SelectedIndexAsInt;
+            openFileDialog1.FilterIndex = cbLanguages.Value?.ToString() == "C#" ? 0 : 1;
 
             openFileDialog1.ShowAsync(() =>
             {

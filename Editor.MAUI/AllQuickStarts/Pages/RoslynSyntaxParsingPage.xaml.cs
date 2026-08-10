@@ -10,22 +10,31 @@
 */
 #endregion Copyright (c) 2016-2024 Alternet Software
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
 using AllQuickStarts.Pages;
 using Alternet.Editor;
+using Alternet.Editor.Maui;
 using Alternet.Editor.TextSource;
+using Alternet.Editor.AlternetUI;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Syntax.Parsers.Roslyn;
 using Alternet.Syntax.Parsers.Roslyn.CodeCompletion;
 
 using Alternet.UI;
 using Alternet.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Layouts;
 
 namespace AllQuickStarts;
 
 public partial class RoslynSyntaxParsingPage : DemoPage
 {
-    private Alternet.Editor.TextSource.TextSource? csharpSource = new();
-    private Alternet.Editor.TextSource.TextSource? vbSource = new();
+    private TextSource? csharpSource = new();
+    private TextSource? vbSource = new();
     private CsParser? csParser1 = new(new CsSolution());
     private VbParser? vbParser1 = new(new VbSolution());
 
@@ -98,7 +107,7 @@ public partial class RoslynSyntaxParsingPage : DemoPage
         syntaxEdit1.Gutter.Options &= ~GutterOptions.PaintCodeActionsOnGutter;
     }
 
-    public static void LoadFile(Alternet.Editor.TextSource.TextSource? source, string url)
+    public static void LoadFile(TextSource? source, string url)
     {
         if (source is null)
             return;

@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "CodeSnippets": {
+      "commandName": "Project"
+    },
+    "Dark": {
+      "commandName": "Project",
+      "commandLineArgs": "-IsDark=true"
+    }
+  }
+}

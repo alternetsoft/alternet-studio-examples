@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 using AllQuickStarts.Pages;
 
 using Alternet.Editor;
+using Alternet.Editor.Maui;
+
+using Alternet.Maui.Extensions;
+
+using Microsoft.Maui.Controls.Handlers.Items;
+
 
 namespace AllQuickStarts
 {
@@ -15,36 +21,62 @@ namespace AllQuickStarts
         private readonly DemoTitleView titleView;
         private Button? showLogsButton;
 
+        static DemoPage()
+        {
+
+            CollectionViewHandler.Mapper.AppendToMapping("NoBlueSelection", (handler, view) =>
+            {
+#if WINDOWS
+                var nativeListView = handler.PlatformView;
+                if (nativeListView == null) return;
+
+                // Apply empty style to remove blue pill
+                var style = new Microsoft.UI.Xaml.Style(typeof(Microsoft.UI.Xaml.Controls.ListViewItem));
+                nativeListView.ItemContainerStyle = style;
+#endif
+            });
+        }
+
         public DemoPage()
         {
             titleView = new(DemoTitle, this);
+            titleView.BackButton.IsVisible = true;
             titleView.SettingsButton.IsVisible = true;
             NavigationPage.SetTitleView(this, titleView);
+
+            if (Alternet.Common.Consts.IsWindows)
+            {
+                NavigationPage.SetHasBackButton(this, false);
+            }
 
             this.Loaded += (s, e) =>
             {
                 if (Alternet.UI.App.IsDesktopDevice)
                 {
                     if (SettingsPanel is not null)
+                    {
                         SettingsPanel.IsVisible = true;
+                    }
                 }
                 else
                 {
                     titleView.KeyboardButton.IsVisible = true;
                     if (SettingsPanel is not null)
+                    {
                         SettingsPanel.IsVisible = false;
+                    }
                 }
 
                 if (SyntaxEdit is not null)
                 {
                     if (!Alternet.UI.App.IsDesktopDevice)
                     {
-                        SyntaxEdit.Interior.HasBorder = false;
+                        SyntaxEdit.Editor.HasBorder = false;
                         SyntaxEdit.Margin = new(0);
                     }
                     else
                     {
-                        SyntaxEdit.Interior.HasBorder = true;
+                        SyntaxEdit.Editor.HasBorder = true;
                         SyntaxEdit.Margin = new(10);
                     }
 

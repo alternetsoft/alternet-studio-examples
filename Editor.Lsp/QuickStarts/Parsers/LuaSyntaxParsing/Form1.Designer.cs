@@ -41,7 +41,6 @@
             this.source = new Alternet.Editor.TextSource.TextSource(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.luaParser = new Alternet.Syntax.Parsers.Lsp.Lua.Embedded.LuaParserEmbedded(this.components);
             this.pnSettings.SuspendLayout();
             this.pnDescription.SuspendLayout();
             this.SuspendLayout();
@@ -135,6 +134,5 @@
         private Alternet.Editor.TextSource.TextSource source;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolTip toolTip1;
-        private Alternet.Syntax.Parsers.Lsp.Lua.Embedded.LuaParserEmbedded luaParser;
     }
 }

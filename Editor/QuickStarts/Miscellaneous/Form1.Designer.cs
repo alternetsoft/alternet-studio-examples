@@ -418,7 +418,7 @@
             this.laDescription.Name = "laDescription";
             this.laDescription.Size = new System.Drawing.Size(657, 67);
             this.laDescription.TabIndex = 1;
-            this.laDescription.Text = @"Code Editor can display watermarks or background image. Can display white-space symbolx such as spalces, tabs, end-of-line and the end-of-file markers. Supports highlighting of the matching braces. Spell-as-you-type spellchecker intergation with thirt-party spelling engines is supported.";
+            this.laDescription.Text = @"Code Editor can display watermarks or background image. Can display white-space symbols such as spaces, tabs, end-of-line and the end-of-file markers. Supports highlighting of the matching braces. Spell-as-you-type spellchecker integration with third-party spelling engines is supported.";
             this.laDescription.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // syntaxEdit1

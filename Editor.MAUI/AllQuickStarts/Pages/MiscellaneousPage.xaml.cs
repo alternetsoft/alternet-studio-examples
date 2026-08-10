@@ -12,9 +12,12 @@
 
 using Alternet.Drawing;
 using Alternet.Editor;
+using Alternet.Editor.Maui;
+using Alternet.Editor.AlternetUI;
 using Alternet.Syntax.Parsers.Roslyn;
 using WeCantSpell.Hunspell;
 using Alternet.Editor.TextSource;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Syntax.Lexer;
 
 using Alternet.UI;
@@ -108,7 +111,7 @@ public partial class MiscellaneousPage : DemoPage
     public override string DemoTitle => "Miscellaneous";
 
 #pragma warning disable
-    public void LoadFile(Alternet.Editor.TextSource.ITextSource source, string url)
+    public void LoadFile(ITextSource source, string url)
 #pragma warning restore
     {
         source.Text = string.Empty;
@@ -194,7 +197,7 @@ public partial class MiscellaneousPage : DemoPage
                 var gradientBrush =
                     new Alternet.Drawing.LinearGradientBrush(
                         new PointD(0, 0),
-                        new PointD(0, syntaxEdit1.ClientHeight),
+                        new PointD(0, (float)syntaxEdit1.ClientHeight),
                         gradientStops);
 
                 syntaxEdit1.Editor.Background = gradientBrush;

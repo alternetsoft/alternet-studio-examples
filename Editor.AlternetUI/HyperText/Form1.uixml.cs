@@ -17,7 +17,9 @@ using Alternet.UI;
 
 using Alternet.Drawing;
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.TextSource;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 using Alternet.Syntax.Parsers.Roslyn;
 using Alternet.Syntax.Parsers.Roslyn.CodeCompletion;
@@ -46,27 +48,29 @@ namespace HyperText
             var textSource = new TextSource();
             syntaxEdit1.Source = textSource;
 
-            DirectoryInfo dirInfo = new(DemoUtils.ResourcesFolder + @"Editor/Text/");
+            FileInfo fileInfo = new(DemoUtils.GetResourceFileFullPath(@"Editor/Text/c#.cs"));
 
-            if (textSource.LoadOrAddNotFound(dirInfo.FullName + @"c#.cs"))
+            if (textSource.LoadOrAddNotFound(fileInfo.FullName))
             {
                 textSource.Lexer = csParser1;
             }
 
             chbHighlightUrls.IsChecked = syntaxEdit1.HyperText.HighlightHyperText;
-            cbUrlColor.Value = syntaxEdit1.HyperText.UrlColor;
-            cbFontStyle.AddEnumValues<FontStyle>(syntaxEdit1.HyperText.UrlStyle);
+
+            cbUrlColor.Select(syntaxEdit1.HyperText.UrlColor);
+            cbFontStyle.EnumType = typeof(FontStyle);
+            cbFontStyle.ExcludeValues = new object[] { FontStyle.Strikeout, FontStyle.Underline };
+            cbFontStyle.Value = syntaxEdit1.HyperText.UrlStyle;
             chbHighlightUrls.CheckedChanged += HighlightUrlsCheckBox_CheckedChanged;
             chbCustomHypertext.CheckedChanged += CustomHypertextCheckBox_CheckedChanged;
-            cbUrlColor.SelectedIndexChanged += UrlColorComboBox_SelectedIndexChanged;
+            cbUrlColor.ValueChanged += UrlColorComboBox_SelectedIndexChanged;
             syntaxEdit1.JumpToUrl += SyntaxEdit1_JumpToUrl;
             syntaxEdit1.CheckHyperText += SyntaxEdit1_CheckHyperText;
-            cbFontStyle.SelectedIndexChanged += CbFontStyle_SelectedIndexChanged;
+            cbFontStyle.ValueChanged += CbFontStyle_SelectedIndexChanged;
 
             chbHighlightUrls.IsChecked = true;
 
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
+            lbDescription.WordWrap = true;
             ActiveControl = syntaxEdit1;
 
             syntaxEdit1.UrlDisplayText += SyntaxEdit1_UrlDisplayText;
@@ -99,14 +103,9 @@ namespace HyperText
             base.DisposeManaged();
         }
 
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
-        }
-
         private void CbFontStyle_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            if(cbFontStyle.SelectedItem is FontStyle fontStyle)
+            if(cbFontStyle.Value is FontStyle fontStyle)
                 syntaxEdit1.HyperText.UrlStyle = fontStyle;
         }
 
@@ -153,7 +152,7 @@ namespace HyperText
                 e.Handled = true;
                 RunWhenIdle(() =>
                 {
-                    statusBar.Text = $"Url '{e.Text}' clicked {clickCounter++} times";
+                    Title = $"Url '{e.Text}' clicked {clickCounter++} times";
                 });
             }
         }

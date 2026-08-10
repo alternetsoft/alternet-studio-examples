@@ -1,16 +1,16 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -20,11 +20,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+
 using Alternet.Common;
 using Alternet.Common.Projects.DotNet;
 using Alternet.Editor.Common.Wpf;
 using Alternet.Editor.Roslyn.Wpf;
-using Microsoft.Win32;
+using Alternet.FormDesigner.Wpf;
 
 namespace AlternetStudio.Wpf.Demo
 {
@@ -92,6 +93,89 @@ namespace AlternetStudio.Wpf.Demo
 
             codeExplorer.ExplorerTree = codeExplorerTreeView;
             codeExplorer.NavigateToNodeRequested += CodeExplorer_NavigateToNodeRequested;
+            projectExplorerTreeView.KeyDown += ProjectExplorerTreeView_KeyDown;
+        }
+
+        private string GetCodeFileName()
+        {
+            var node = (TreeViewItem)projectExplorerTreeView.SelectedItem;
+            if (node == null)
+                return string.Empty;
+
+            var tag = node.Tag;
+            var formNodeData = tag as FormNodeData;
+
+            string codeFileName;
+            if (formNodeData != null)
+            {
+                codeFileName = formNodeData.FileName;
+                if (codeFileName.EndsWith(".xaml", StringComparison.OrdinalIgnoreCase))
+                {
+                    var source = GetDesignerSource(codeFileName);
+                    if (source != null)
+                        codeFileName = source.UserCodeFileName;
+                }
+            }
+            else
+                codeFileName = tag as string;
+
+            return codeFileName;
+        }
+
+        private void ProjectExplorerTreeView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F7)
+            {
+                var node = (TreeViewItem)projectExplorerTreeView.SelectedItem;
+                if (node == null)
+                    return;
+
+                var codeFileName = GetCodeFileName();
+
+                if (!IsReferenceNode(node) && !string.IsNullOrEmpty(codeFileName) && new FileInfo(codeFileName).Exists)
+                    OpenFile(codeFileName);
+            }
+        }
+
+        private void ViewCodeExplorerMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var node = (TreeViewItem)projectExplorerTreeView.SelectedItem;
+            if (node == null)
+                return;
+
+            var codeFileName = GetCodeFileName();
+
+            if (!IsReferenceNode(node) && !string.IsNullOrEmpty(codeFileName) && new FileInfo(codeFileName).Exists)
+                OpenFile(codeFileName);
+        }
+
+        private void ViewDesignerExplorerMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var node = (TreeViewItem)projectExplorerTreeView.SelectedItem;
+            if (node == null)
+                return;
+
+            var tag = node.Tag;
+            var formNodeData = tag as FormNodeData;
+
+            string xamlFileName;
+            if (formNodeData != null)
+            {
+                xamlFileName = formNodeData.FileName;
+            }
+            else
+                xamlFileName = tag as string;
+            string formId;
+            if (FormFilesUtility.IsXamlFile(xamlFileName, out formId))
+            {
+                if ((xamlFileName != null) && File.Exists(xamlFileName))
+                    OpenDesigner(xamlFileName);
+            }
+        }
+
+        private void OpenProjectCodeFileMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            OpenProjectFile(projectExplorerTreeView.SelectedItem as TreeViewItem);
         }
 
         private void RemoveFolder(DotNetProject project, TreeViewItem item)
@@ -236,7 +320,8 @@ namespace AlternetStudio.Wpf.Demo
                 e.Handled = true;
                 if ((projectExplorerTreeView.SelectedItem != null) && (projectExplorerTreeView.SelectedItem is TreeViewItem))
                 {
-                    var tag = ((TreeViewItem)projectExplorerTreeView.SelectedItem).Tag;
+                    var item = (TreeViewItem)projectExplorerTreeView.SelectedItem;
+                    var tag = item.Tag;
 
                     string codeFileName = null;
 
@@ -257,6 +342,11 @@ namespace AlternetStudio.Wpf.Demo
 
                     if (!IsReferenceNode((TreeViewItem)projectExplorerTreeView.SelectedItem) && !string.IsNullOrEmpty(codeFileName) && new FileInfo(codeFileName).Exists)
                         OpenFile(codeFileName);
+                    else
+                        if (ProjectExplorer.IsProjectNode(item))
+                        {
+                            OpenProjectFile(item);
+                        }
                 }
             }
         }
@@ -297,11 +387,26 @@ namespace AlternetStudio.Wpf.Demo
                 ContextMenu popMenu = projectExplorerTreeView.ContextMenu;
                 bool enabledRef = project != null && project.HasProject && (item != null) && IsReferenceNode(item);
                 bool enabledFile = project != null && project.HasProject && (item != null) && IsFileNode(item);
+                bool isDesigner = IsDesignerNode();
+                bool isProject = IsProjectNode();
+                string fileName = item != null ? ProjectExplorer.GetFileNameFromNode(item) : string.Empty;
+                bool viewCode = !string.IsNullOrEmpty(fileName) && (string.Compare(fileName, StringConsts.FolderNode) != 0);
 
                 if (popMenu != null)
                 {
                     for (int i = popMenu.Items.Count - 1; i >= 0; i--)
                     {
+                        if (popMenu.Items[i] is Separator)
+                        {
+                            Separator separator = (Separator)popMenu.Items[i];
+                            switch (separator.Name)
+                            {
+                                case "viewSeparator":
+                                    separator.Visibility = viewCode || isDesigner || IsProjectNode() ? Visibility.Visible : Visibility.Collapsed;
+                                    break;
+                            }
+                        }
+
                         if (popMenu.Items[i] is MenuItem)
                         {
                             MenuItem menuItem = (MenuItem)popMenu.Items[i];
@@ -323,11 +428,46 @@ namespace AlternetStudio.Wpf.Demo
                                     menuItem.Visibility = !solution.IsEmpty && project != null && project.HasProject && project != Project ? Visibility.Visible : Visibility.Collapsed;
                                     menuItem.IsEnabled = project != null && project.HasProject;
                                     break;
+                                case "viewCodeExplorerMenuItem":
+                                    menuItem.Visibility = viewCode ? Visibility.Visible : Visibility.Collapsed;
+                                    break;
+                                case "viewDesignerExplorerMenuItem":
+                                    menuItem.Visibility = isDesigner ? Visibility.Visible : Visibility.Collapsed;
+                                    break;
+                                case "openProjectFileMenuItem":
+                                    menuItem.Visibility = isProject ? Visibility.Visible : Visibility.Collapsed;
+                                    break;
                             }
                         }
                     }
                 }
             }
+        }
+
+        private bool IsProjectNode()
+        {
+            var node = (TreeViewItem)projectExplorerTreeView.SelectedItem;
+            if (node == null)
+                return false;
+
+            return ProjectExplorer.IsProjectNode(node);
+        }
+
+        private bool IsDesignerNode()
+        {
+            var node = (TreeViewItem)projectExplorerTreeView.SelectedItem;
+            if (node == null)
+                return false;
+
+            var tag = node.Tag;
+            var formNodeData = tag as FormNodeData;
+
+            if (formNodeData != null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private bool IsValidNodeToRemove(DotNetProject project, TreeViewItem node)
@@ -458,13 +598,13 @@ namespace AlternetStudio.Wpf.Demo
             if (IsProjectFolderNode((TreeViewItem)projectExplorerTreeView.SelectedItem))
                 RemoveProjectFolder(project);
             else
-            if (IsReferenceNode((TreeViewItem)projectExplorerTreeView.SelectedItem))
-                RemoveReference(project);
-            else
-            if (IsFileNode((TreeViewItem)projectExplorerTreeView.SelectedItem))
-                RemoveFile(project);
-            else
-                RemoveProject(project);
+                if (IsReferenceNode((TreeViewItem)projectExplorerTreeView.SelectedItem))
+                    RemoveReference(project);
+                else
+                    if (IsFileNode((TreeViewItem)projectExplorerTreeView.SelectedItem))
+                        RemoveFile(project);
+                    else
+                        RemoveProject(project);
         }
 
         private void SetDefaultProjectContextMenuItem_Click(object sender, RoutedEventArgs e)

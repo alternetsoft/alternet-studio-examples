@@ -7,7 +7,7 @@ arenaBackgroundBrush = Alternet.Drawing.Color.DarkBlue.AsBrush
 dotBrush = Alternet.Drawing.Color.White.AsBrush
 
 def DegreesToRadians(degrees):
-  radians = (Math.PI / 180) * degrees 
+  radians = (MathF.PI / 180) * degrees 
   return radians
 
 def OnPaint(g, bounds, currentAngle):

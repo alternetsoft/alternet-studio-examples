@@ -9,7 +9,7 @@ namespace DebuggerTest
         [STAThread]
         public static void Main(string[] args)
         {
-            C.fi = 14;
+			C.fi = 14;
 
             ChildrenVisibilityTestClassBase childrenVisibilityTestClass
                 = new ChildrenVisibilityTestClass();

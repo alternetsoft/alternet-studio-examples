@@ -1,0 +1,41 @@
+Imports System
+
+Class Person
+    Private myName As String = "N/A"
+    Private myAge As Integer = 0
+
+    Public Property Name As String
+        Get
+            Return myName
+        End Get
+        Set(ByVal value As String)
+            myName = value
+        End Set
+    End Property
+
+    Public Property Age As Integer
+        Get
+            Return myAge
+        End Get
+        Set(ByVal value As Integer)
+            myAge = value
+        End Set
+    End Property
+
+    Public Overrides Function ToString() As String
+        Return "Name = " & Name & ", Age = " & Age
+    End Function
+
+    Public Shared Sub Main()
+        Console.WriteLine("Simple Properties")
+        Dim person As Person = New Person()
+        Console.WriteLine("Person details - {0}", person)
+        person.Name = "Joe"
+        person.Age = 99
+        Console.WriteLine("Person details - {0}", person)
+        person.Age += 1
+        Console.WriteLine("Person details - {0}", person)
+        Console.DoSomething("Name: {0}, Age: {1}", p.name, p.age)
+        Dim i As Integer
+    End Sub
+End Class

@@ -57,7 +57,7 @@ namespace ControlRunner
                 return;
             }
 
-            SimpleFormDesignerWindow window = new SimpleFormDesignerWindow();
+            SimpleFormDesignerWindow window = new ();
             var s = GetControlXamlPath();
             window.OpenAllFormFiles(s);
             window.Show();

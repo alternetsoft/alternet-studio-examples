@@ -6,23 +6,22 @@
         MinimumSize="600, 400" Size="900,700" Layout="Vertical"
         Icon="embres:AdvancedSyntaxParsing.Sample.ico" Padding="5">
 
-  <Window.StatusBar>
-    <StatusBar Name="statusBar">
-      <StatusBarPanel/>
-    </StatusBar>
-  </Window.StatusBar>
-
   <Panel Name="pnSettings" Layout="Vertical" Padding = "5">
     <Panel Name="pnDescription" Layout="Vertical" Padding = "5">
       <Label Name="lbDescription"
              Text="This demo shows how to link text edit controls to the advanced parsers for subset of programming languages such as C#, VB.NET, JavaScript, XML and others. These parsers support automatic code completion, code outlining, smart formatting, and syntax error underlining."/>
     </Panel>
 
-    <Panel Name="pnLanguages" Layout="Horizontal" Padding = "5">
+    <Panel Name="pnLanguages" Layout="Horizontal" MinChildMargin="5">
+      
       <Label Name="lbLanguages" Text="Language:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+      <ListPicker Name="cbLanguages"  VerticalAlignment="Center"
+          ToolTip = "Choose programming language"/>
 
-      <ComboBox Name="cbLanguages"  VerticalAlignment="Center"
-          ToolTip = "Choose programming language" DropDownStyle = "DropDownList"/>
+      <Label Text="Theme:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+      <EnumPicker Name="cbTheme"  VerticalAlignment="Center"
+          ToolTip = "Choose color theme"/>
+
       <Button Name="btLoad" Text = "Load" HorizontalAlignment = "Right"
           ToolTip = "Load code file"/>
     </Panel>

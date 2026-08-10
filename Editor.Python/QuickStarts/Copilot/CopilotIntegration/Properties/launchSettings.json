@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "PythonCopilotIntegration": {
+      "commandName": "Project"
+    },
+    "IsDark": {
+      "commandName": "Project",
+      "commandLineArgs": "-IsDark=true"
+    }
+  }
+}

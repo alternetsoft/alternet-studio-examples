@@ -17,6 +17,7 @@ using Alternet.UI;
 
 using Alternet.Syntax.Parsers.XAML;
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 
 namespace XAMLParsing
@@ -40,8 +41,7 @@ namespace XAMLParsing
 
             Form1_Load(this, EventArgs.Empty);
 
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
+            lbDescription.WordWrap = true;
         }
 
         protected override void DisposeManaged()
@@ -49,16 +49,11 @@ namespace XAMLParsing
             base.DisposeManaged();
         }
 
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
-        }
-
         private void Form1_Load(object? sender, EventArgs e)
         {
-            DirectoryInfo dirInfo = new(DemoUtils.ResourcesFolder + @"Editor/Text");
+            FileInfo fileInfo = new(DemoUtils.GetResourceFileFullPath(@"Editor/Text/xaml.xaml"));
 
-            string path = Path.Combine(dirInfo.FullName, "xaml.xaml");
+            string path = fileInfo.FullName;
             if (File.Exists(path))
             {
                 syntaxEdit1.Source.FileName = path;

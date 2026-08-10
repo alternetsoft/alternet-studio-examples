@@ -12,7 +12,10 @@
 
 using AllQuickStarts.Pages;
 using Alternet.Editor;
+using Alternet.Editor.Maui;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.TextSource;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Syntax.Parsers.Roslyn;
 using Alternet.Syntax.Parsers.Roslyn.CodeCompletion;
 
@@ -24,7 +27,7 @@ namespace AllQuickStarts;
 
 public partial class VisualThemePage : DemoPage
 {
-    private Alternet.Editor.TextSource.TextSource? csharpSource = new();
+    private TextSource? csharpSource = new();
     private CsParser? csParser1 = new(new CsSolution());
     private IList<string> themeList = new List<string>();
 
@@ -79,7 +82,7 @@ public partial class VisualThemePage : DemoPage
         syntaxEdit1.Gutter.Options &= ~GutterOptions.PaintCodeActionsOnGutter;
     }
 
-    public static void LoadFile(Alternet.Editor.TextSource.TextSource? source, string url)
+    public static void LoadFile(TextSource? source, string url)
     {
         if (source is null)
             return;

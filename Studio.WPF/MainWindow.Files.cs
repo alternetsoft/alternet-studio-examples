@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,6 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-
 using Alternet.Common;
 using Alternet.Common.Projects.DotNet;
 using Alternet.Editor.Common.Wpf;
@@ -27,6 +26,7 @@ using Alternet.Editor.Wpf;
 using Alternet.FormDesigner.Integration.Wpf;
 using Alternet.FormDesigner.Wpf;
 using Alternet.Scripter.Integration.Wpf;
+using Alternet.Syntax;
 
 namespace AlternetStudio.Wpf.Demo
 {
@@ -188,6 +188,32 @@ namespace AlternetStudio.Wpf.Demo
             return OpenFile(fileName, false);
         }
 
+        protected virtual IScriptEdit NewProjectFile(string fileName)
+        {
+            TabItem page = new TabItem();
+            page.Header = new TextBlock { Text = Path.GetFileName(fileName), ToolTip = fileName };
+
+            editorsTabControl.Items.Add(page);
+            editorsTabControl.SelectedItem = page;
+
+            var edit = new ScriptCodeEdit();
+            edit.ReadOnly = true;
+            editors.Add(page, edit);
+
+            if (File.Exists(fileName))
+                edit.LoadFile(fileName);
+
+            edit.Lexer = new XmlParser();
+
+            page.Content = edit;
+            edit.HighlightReferences = true;
+            editorsTabControl.SelectedItem = page;
+
+            edit.HighlightReferences = true;
+            edit.Braces.BracesOptions |= BracesOptions.Highlight;
+            return edit;
+        }
+
         protected virtual void InitEditorsContextMenu()
         {
             miCloseEditor = new MenuItem();
@@ -306,10 +332,10 @@ namespace AlternetStudio.Wpf.Demo
                         GetDisplayFilesForProject(result, proj, newFiles);
                 }
                 else
-                if (Project.HasProject)
-                {
-                    GetDisplayFilesForProject(result, Project, newFiles);
-                }
+                    if (Project.HasProject)
+                    {
+                        GetDisplayFilesForProject(result, Project, newFiles);
+                    }
             }
 
             foreach (var file in newFiles)
@@ -418,11 +444,11 @@ namespace AlternetStudio.Wpf.Demo
                 }
             }
             else
-            if (Project.HasProject && Project.IsModified)
-            {
-                if (ContainsFile(files, Project.ProjectFileName))
-                    AddFiles(result, Project.ProjectFileName);
-            }
+                if (Project.HasProject && Project.IsModified)
+                {
+                    if (ContainsFile(files, Project.ProjectFileName))
+                        AddFiles(result, Project.ProjectFileName);
+                }
 
             return result;
         }
@@ -534,11 +560,11 @@ namespace AlternetStudio.Wpf.Demo
                     SaveBookmarks(GetBookmarkFile(solution));
                 }
                 else
-                if ((Project != null) && Project.HasProject && FileBelongsToProject(Project, edit.FileName))
-                {
-                    SaveBreakpoints(GetBreakpointFile(Project));
-                    SaveBookmarks(GetBookmarkFile(Project));
-                }
+                    if ((Project != null) && Project.HasProject && FileBelongsToProject(Project, edit.FileName))
+                    {
+                        SaveBreakpoints(GetBreakpointFile(Project));
+                        SaveBookmarks(GetBookmarkFile(Project));
+                    }
             }
             else
             {
@@ -564,11 +590,11 @@ namespace AlternetStudio.Wpf.Demo
                 SaveBookmarks(GetBookmarkFile(solution));
             }
             else
-            if ((Project != null) && Project.HasProject)
-            {
-                SaveBreakpoints(GetBreakpointFile(Project));
-                SaveBookmarks(GetBookmarkFile(Project));
-            }
+                if ((Project != null) && Project.HasProject)
+                {
+                    SaveBreakpoints(GetBreakpointFile(Project));
+                    SaveBookmarks(GetBookmarkFile(Project));
+                }
         }
 
         private string GetBreakpointFile(DotNetProject project)
@@ -738,7 +764,10 @@ namespace AlternetStudio.Wpf.Demo
             {
                 var edit = FindFile(fileName);
                 if (edit != null)
+                {
+                    editorsTabControl.SelectedItem = (TabItem)edit.Parent;
                     return edit as TextEditor;
+                }
             }
 
             if (Project != null && Project.HasProject)
@@ -865,6 +894,44 @@ namespace AlternetStudio.Wpf.Demo
             }
         }
 
+        private void OpenProjectFile(TreeViewItem node)
+        {
+            if (node == null)
+                return;
+
+            if (!ProjectExplorer.IsProjectNode(node, out var project))
+                return;
+
+            OpenProjectFile(project.ProjectFileName, false);
+        }
+
+        private IScriptEdit OpenProjectFile(string fileName, bool forceReopen)
+        {
+            var edit = FindFile(fileName);
+            if ((edit != null) && (edit.Parent is TabItem))
+            {
+                if (forceReopen)
+                {
+                    if (edit.Modified && !ConfirmSaveBeforeClosing(edit.FileName))
+                        return edit;
+                    CloseFile(edit.FileName);
+                }
+                else
+                {
+                    editorsTabControl.SelectedItem = (TabItem)edit.Parent;
+                    return edit;
+                }
+            }
+
+            edit = NewProjectFile(fileName);
+
+            UpdateControls();
+            if (!recentFiles.Contains(fileName))
+                recentFiles.Insert(0, fileName);
+            AutoSaveRecentFiles();
+            return edit;
+        }
+
         private void SetActiveEdit(IScriptEdit edit)
         {
             if (edit != null && edit.Parent is TabItem)
@@ -890,8 +957,6 @@ namespace AlternetStudio.Wpf.Demo
         private void CloseFile(IScriptEdit edit)
         {
             var fileName = edit.FileName;
-
-            CodeEditExtensions.UnregisterCode(Path.GetExtension(fileName), new string[] { fileName });
             if (!HasProject())
                 RemoveDesignFileForParsing(fileName);
 
@@ -905,8 +970,7 @@ namespace AlternetStudio.Wpf.Demo
                 }
             }
 
-            if (!FileBelongsToProject(fileName))
-                edit.FileName = string.Empty;
+            edit.FileName = string.Empty;
         }
 
         private void UpdatePage(TabItem page, string fileName, bool isModified = false)

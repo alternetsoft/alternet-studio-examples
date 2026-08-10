@@ -17,10 +17,22 @@ namespace Alternet.Scripter.Integration.AlternetUI
     {
         private readonly DebugCodeEditContainer codeEditContainer;
 
+        private readonly Spacer spacerAfterToolBar = new()
+        {
+            Dock = DockStyle.Top,
+            Height = 10,
+        };
+
+        private readonly Spacer spacerBeforeToolBar = new()
+        {
+            Dock = DockStyle.Top,
+            Height = 10,
+        };
+
         private readonly DebuggerControlToolbar toolbar = new()
         {
-            Margin = (0, 0, 0, Alternet.UI.ToolBar.DefaultDistanceToContent),
-            Padding = 1,
+            Padding = (0, 4, 0, 4),
+            Dock = DockStyle.Top,
         };
 
         private readonly DebugMenu debugMenu = new()
@@ -29,25 +41,19 @@ namespace Alternet.Scripter.Integration.AlternetUI
 
         private readonly TabControl editorsTabControl = new()
         {
-            VerticalAlignment = VerticalAlignment.Fill,
+            Dock = DockStyle.Fill,
         };
 
         private readonly DebuggerPanelsTabControl debuggerPanelsTabControl = new()
         {
-            VerticalAlignment = VerticalAlignment.Fill,
+            Dock = DockStyle.Bottom,
             TabAlignment = TabAlignment.Bottom,
-        };
-
-        private readonly SplittedPanel panel = new()
-        {
-            TopVisible = false,
-            BottomVisible = true,
-            LeftVisible = false,
-            RightVisible = false,
+            IsVisible = true,
         };
 
         private readonly IScriptRunBase scriptRun;
         private readonly DebuggerUIController uiController;
+        private readonly Splitter splitter = new();
 
         private DebuggerController? controller;
         private DotNetProject? project;
@@ -61,7 +67,7 @@ namespace Alternet.Scripter.Integration.AlternetUI
         public BaseDebuggerIntegrationPanel()
         {
             controller = new();
-            Layout = LayoutStyle.Vertical;
+            Layout = LayoutStyle.Dock;
             DebugCodeEdit.CreateParserFunc = DoCreateParser;
 
             controller.DebuggerStateChanged += (s, e) =>
@@ -80,7 +86,6 @@ namespace Alternet.Scripter.Integration.AlternetUI
 
             toolbar.Controller = controller;
             debugMenu.Controller = controller;
-            toolbar.SetVisibleBorders(false, false, false, true);
 
             codeEditContainer = new DebugCodeEditContainer(editorsTabControl);
 
@@ -89,13 +94,18 @@ namespace Alternet.Scripter.Integration.AlternetUI
                 DebuggerPanels = debuggerPanelsTabControl,
             };
 
+            toolbar.Dock = DockStyle.Top;
+            Margin = (10, 0, 10, 10);
+
+            splitter.Dock = DockStyle.Bottom;
+
+            editorsTabControl.Parent = this;
+            splitter.Parent = this;
+            debuggerPanelsTabControl.Parent = this;
+            debuggerPanelsTabControl.MinHeight = 200;
+            spacerBeforeToolBar.Parent = this;
             toolbar.Parent = this;
-            panel.Margin = 10;
-            panel.Parent = this;
-            panel.BottomPanel.MinHeight = 200;
-            panel.VerticalAlignment = VerticalAlignment.Fill;
-            editorsTabControl.Parent = panel.FillPanel;
-            debuggerPanelsTabControl.Parent = panel.BottomPanel;
+            spacerAfterToolBar.Parent = this;
 
             void LogMessage(LogMessageEventArgs e)
             {

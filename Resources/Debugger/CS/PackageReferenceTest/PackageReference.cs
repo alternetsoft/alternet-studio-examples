@@ -1,4 +1,7 @@
+using System;
 using System.Windows.Forms;
+using System.Diagnostics;
+
 using Newtonsoft.Json;
 
 public class ScriptClass
@@ -10,10 +13,16 @@ public class ScriptClass
               name: ""Bill Smith"",
               isTall: true
             }";
-        dynamic obj = JsonConvert.DeserializeObject(data);
+        dynamic? obj = JsonConvert.DeserializeObject(data);
         if (obj != null)
         {
-            MessageBox.Show(string.Format("Object name: {0}", obj.name));
+            string vl = $"Object name: {obj.name}";
+            MessageBox.Show(vl);
         }
+        else
+        {
+            MessageBox.Show("Error in JsonConvert.DeserializeObject");
+        }
+      
     }
 }

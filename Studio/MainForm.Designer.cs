@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+
 namespace AlternetStudio.Demo
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.OrderingRules", "SA1201:ElementsMustAppearInTheCorrectOrder", Justification = "Implementing interface method in the separate region")]
@@ -34,12 +36,16 @@ namespace AlternetStudio.Demo
             this.addProjectFolderMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeProjectItemMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setDefaultProjectMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewCodeExplorerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openProjectFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewDesignerExplorerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.fileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recentFilesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recentProjectsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newFormMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newUserControlMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newProjectMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.openMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,7 +88,7 @@ namespace AlternetStudio.Demo
             this.gotoDefinitionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findReferencesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findImplementationsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.attachToProcessMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.useUniversalDebuggerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runnerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scriptRunMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -112,6 +118,7 @@ namespace AlternetStudio.Demo
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
+            this.viewSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.toggleBookmarkToolButton = new System.Windows.Forms.ToolStripButton();
             this.prevBookmarkToolButton = new System.Windows.Forms.ToolStripButton();
             this.nextBookmarkToolButton = new System.Windows.Forms.ToolStripButton();
@@ -223,15 +230,21 @@ this.panelProperties = new System.Windows.Forms.Panel();
             // referencesContextMenu
             // 
             this.referencesContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openProjectFileMenuItem,
+            this.viewCodeExplorerMenuItem,
+            this.viewDesignerExplorerMenuItem,
+            this.viewSeparator,
             this.addProjectMenuItem,
             this.addSolutionFolderMenuItem,
-            this.renameSolutionFolderMenuItem,
             this.addFileMenuItem,
             this.addProjectFolderMenuItem,
             this.addReferenceMenuItem,
+            this.renameSolutionFolderMenuItem,
             this.removeProjectItemMenuItem,
             this.setDefaultProjectMenuItem,
-            this.filePropertiesMenuItem});
+            new System.Windows.Forms.ToolStripSeparator(),
+            this.filePropertiesMenuItem,
+            });
             this.referencesContextMenu.Name = "cmReferences";
             this.referencesContextMenu.Size = new System.Drawing.Size(173, 158);
             this.referencesContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ReferencesContextMenu_Opening);
@@ -301,6 +314,29 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.setDefaultProjectMenuItem.Size = new System.Drawing.Size(172, 22);
             this.setDefaultProjectMenuItem.Text = "Set Default Project";
             this.setDefaultProjectMenuItem.Click += new System.EventHandler(this.SetDefaultProjectMenuItem_Click);
+            // 
+            // viewCodeExplorerMenuItem
+            // 
+            this.viewCodeExplorerMenuItem.Name = "viewCodeExplorerMenuItem";
+            this.viewCodeExplorerMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.viewCodeExplorerMenuItem.Text = "View &Code";
+            this.viewCodeExplorerMenuItem.ShortcutKeys = Keys.F7;
+            this.viewCodeExplorerMenuItem.Click += new System.EventHandler(this.ViewCodeExplorerMenuItem_Click);
+            // 
+            // viewDesignerExplorerMenuItem
+            // 
+            this.viewDesignerExplorerMenuItem.Name = "viewDesignerExplorerMenuItem";
+            this.viewDesignerExplorerMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.viewDesignerExplorerMenuItem.Text = "View &Designer";
+            this.viewDesignerExplorerMenuItem.ShortcutKeys = ((Keys)((Keys.Shift | Keys.F7)));
+            this.viewDesignerExplorerMenuItem.Click += new System.EventHandler(this.ViewDesignerExplorerMenuItem_Click);
+            // 
+            // openProjectFileMenuItem
+            // 
+            this.openProjectFileMenuItem.Name = "openProjectFileMenuItem";
+            this.openProjectFileMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.openProjectFileMenuItem.Text = "Open Project File";
+            this.openProjectFileMenuItem.Click += new System.EventHandler(this.OpenProjectCodeFileMenuItem_Click);
             // 
             // mainMenu
             // 
@@ -375,6 +411,12 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.newFormMenuItem.Name = "newFormMenuItem";
             this.newFormMenuItem.Size = new System.Drawing.Size(187, 22);
             this.newFormMenuItem.Text = "New Form...";
+            // 
+            // newUserControl
+            // 
+            this.newUserControl.Name = "newUserControl";
+            this.newUserControl.Size = new System.Drawing.Size(187, 22);
+            this.newUserControl.Text = "User Control...";
             // 
             // newProjectMenuItem
             // 
@@ -654,7 +696,8 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.debugMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator17,
             this.runParametersMenuItem,
-            this.attachToProcessMenuItem});
+            this.toolStripSeparator17,
+            this.useUniversalDebuggerMenuItem});
             this.debugMenu.Name = "debugMenu";
             this.debugMenu.Size = new System.Drawing.Size(54, 20);
             this.debugMenu.Text = "Debug";
@@ -700,14 +743,13 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.findImplementationsMenuItem.Text = "Go To Implementation";
             this.findImplementationsMenuItem.Click += new System.EventHandler(this.DebugEdit_FindAllImplementations);
             // 
-            // attachToProcessMenuItem
+            // useUniversalDebuggerMenuItem
             // 
-            this.attachToProcessMenuItem.Name = "attachToProcessMenuItem";
-            this.attachToProcessMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt)
-            | System.Windows.Forms.Keys.P)));
-            this.attachToProcessMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.attachToProcessMenuItem.Text = "Attach to Process...";
-            this.attachToProcessMenuItem.Click += new System.EventHandler(this.AttachToProcessMenuItem_Click);
+            this.useUniversalDebuggerMenuItem.Name = "useUniversalDebuggerMenuItem";
+            this.useUniversalDebuggerMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.useUniversalDebuggerMenuItem.Text = "Use Universal Debugger";
+            this.useUniversalDebuggerMenuItem.Checked = false;
+            this.useUniversalDebuggerMenuItem.Click += new System.EventHandler(this.UseUniversalDebuggerMenuItem_Click);
             // 
             // runnerMenuItem
             // 
@@ -962,6 +1004,11 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.toolStripSeparator17.Name = "toolStripSeparator17";
             this.toolStripSeparator17.Size = new System.Drawing.Size(6, 25);
             // 
+            // viewSeparator
+            // 
+            this.viewSeparator.Name = "viewSeparator";
+            this.viewSeparator.Size = new System.Drawing.Size(6, 25);
+            // 
             // toggleBookmarkToolButton
             // 
             this.toggleBookmarkToolButton.Name = "toggleBookmarkToolButton";
@@ -1092,7 +1139,7 @@ this.panelProperties = new System.Windows.Forms.Panel();
             this.ProjectFrameworksComboBox.FormattingEnabled = true;
             this.ProjectFrameworksComboBox.Location = new System.Drawing.Point(0, 0);
             this.ProjectFrameworksComboBox.Name = "ProjectFrameworksComboBox";
-            this.ProjectFrameworksComboBox.Size = new System.Drawing.Size(120, 24);
+            this.ProjectFrameworksComboBox.Size = new System.Drawing.Size(180, 24);
             this.ProjectFrameworksComboBox.Sorted = false;
             this.ProjectFrameworksComboBox.TabIndex = 0;
             this.ProjectFrameworksComboBox.Margin = new System.Windows.Forms.Padding(3,0,3,8);
@@ -1542,6 +1589,7 @@ this.panelProperties = new System.Windows.Forms.Panel();
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
+        private System.Windows.Forms.ToolStripSeparator viewSeparator;
         private System.Windows.Forms.ToolStripButton toggleBookmarkToolButton;
         private System.Windows.Forms.ToolStripButton prevBookmarkToolButton;
         private System.Windows.Forms.ToolStripButton nextBookmarkToolButton;
@@ -1589,6 +1637,9 @@ this.panelProperties = new System.Windows.Forms.Panel();
         private System.Windows.Forms.ToolStripMenuItem addFileMenuItem;
         private System.Windows.Forms.ToolStripMenuItem filePropertiesMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setDefaultProjectMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewCodeExplorerMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openProjectFileMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewDesignerExplorerMenuItem;
         private System.Windows.Forms.ToolStripButton tsbStartWithoutDebug;
         private System.Windows.Forms.TabPage breakpointsTabPage;
         private System.Windows.Forms.TabPage outputTabPage;
@@ -1618,7 +1669,9 @@ this.panelProperties = new System.Windows.Forms.Panel();
         private System.Windows.Forms.ToolStripMenuItem gotoDefinitionMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findReferencesMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findImplementationsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem useUniversalDebuggerMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newFormMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newUserControlMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newProjectMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem viewMenuItem;
@@ -1628,7 +1681,6 @@ this.panelProperties = new System.Windows.Forms.Panel();
         private System.Windows.Forms.TreeView codeExplorerTreeView;
         private System.Windows.Forms.TabPage outlineTabPage;
         private Alternet.Scripter.Debugger.UI.DebugMenu debugMenu;
-        private System.Windows.Forms.ToolStripMenuItem attachToProcessMenuItem;
         private System.Windows.Forms.PropertyGrid propertyGrid;
         private System.Windows.Forms.Panel panelProperties;
         private System.Windows.Forms.Label labelProperties;

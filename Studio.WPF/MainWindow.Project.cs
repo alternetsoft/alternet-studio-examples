@@ -1,18 +1,19 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -33,6 +34,11 @@ namespace AlternetStudio.Wpf.Demo
 {
     public partial class MainWindow
     {
+        private readonly Dictionary<string, FileSystemWatcher> watchers = new(StringComparer.OrdinalIgnoreCase);
+        private ConcurrentDictionary<string, bool> projectList = new();
+
+        private bool projectSaving = false;
+
         private bool projectIsClosing;
 
         private DotNetSolution solution = new DotNetSolution();
@@ -81,6 +87,47 @@ namespace AlternetStudio.Wpf.Demo
         {
             string ext = Path.GetExtension(fileName);
             return string.Compare(ext, ".csproj", true) == 0 || string.Compare(ext, ".vbproj", true) == 0;
+        }
+
+        protected void AddWatcher(string filePath)
+        {
+            filePath = Path.GetFullPath(filePath);
+
+            if (watchers.ContainsKey(filePath))
+                return;
+
+            var watcher = new FileSystemWatcher
+            {
+                Path = Path.GetDirectoryName(filePath)!,
+                Filter = Path.GetFileName(filePath),
+                NotifyFilter =
+                    NotifyFilters.LastWrite |
+                    NotifyFilters.FileName |
+                    NotifyFilters.Size,
+                EnableRaisingEvents = true,
+            };
+
+            watcher.Changed += OnFileChanged;
+            watcher.Renamed += OnFileRenamed;
+            watcher.Deleted += OnFileDeleted;
+
+            watchers.Add(filePath, watcher);
+        }
+
+        protected void RemoveWatcher(string filePath)
+        {
+            filePath = Path.GetFullPath(filePath);
+
+            if (!watchers.TryGetValue(filePath, out var watcher))
+                return;
+
+            watcher.EnableRaisingEvents = false;
+            watcher.Changed -= OnFileChanged;
+            watcher.Renamed -= OnFileRenamed;
+            watcher.Deleted -= OnFileDeleted;
+            watcher.Dispose();
+
+            watchers.Remove(filePath);
         }
 
         protected void OpenProject(string fileName)
@@ -235,11 +282,19 @@ namespace AlternetStudio.Wpf.Demo
 
         private void SaveProject(DotNetProject proj)
         {
-            if (proj.HasProject && proj.IsModified)
+            projectSaving = true;
+            try
             {
-                proj.Save();
-                if (proj == Project)
-                    UpdateScriptProject(Project);
+                if (proj.HasProject && proj.IsModified)
+                {
+                    proj.Save();
+                    if (proj == Project)
+                        UpdateScriptProject(Project);
+                }
+            }
+            finally
+            {
+                projectSaving = false;
             }
         }
 
@@ -376,6 +431,7 @@ namespace AlternetStudio.Wpf.Demo
 
         private void OpenProject(DotNetProject project)
         {
+            AddWatcher(project.ProjectFileName);
             CodeEditExtensions.OpenProject(project, GetSourceFiles(project, project.Files, project.ProjectExtension, true));
         }
 
@@ -401,6 +457,103 @@ namespace AlternetStudio.Wpf.Demo
             }
         }
 
+        private void ProcessModifiedProjects()
+        {
+            foreach (string key in projectList.Where(x => x.Value).Select(x => x.Key).ToList())
+            {
+                projectList[key] = false;
+                MessageBoxResult result = MessageBox.Show(
+                    $"The file '{key}' has been modified.\r\nReload the project?",
+                    "File Changed",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    if (!TryResetDebuggerOnProjectChange())
+                        return;
+                    if (!CloseProject(key))
+                        return;
+                    OpenProject(key);
+                }
+            }
+
+            projectList.Clear();
+        }
+
+        private string GetProjectPath(string oldPath, string newPath)
+        {
+            bool CheckProject(Project proj, out string path)
+            {
+                path = string.Empty;
+                if (proj.HasProject)
+                {
+                    if (string.Compare(proj.ProjectFileName, oldPath) == 0)
+                    {
+                        path = oldPath;
+                        return true;
+                    }
+
+                    if (string.Compare(proj.ProjectFileName, newPath) == 0)
+                    {
+                        path = newPath;
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            string result = string.Empty;
+
+            if (CheckProject(Project, out result))
+                return result;
+
+            if (solution.HasProjects)
+            {
+                foreach (Project project in solution.Projects)
+                {
+                    if (CheckProject(project, out result))
+                    {
+                        return result;
+                    }
+                }
+            }
+
+            return string.Empty;
+        }
+
+        private void ProjectModified(string oldPath, string reason, string newPath)
+        {
+            var path = GetProjectPath(oldPath, newPath);
+            if (!string.IsNullOrEmpty(path))
+                projectList[path] = true;
+        }
+
+        private void OnFileChanged(object sender, FileSystemEventArgs e)
+        {
+            if (projectSaving)
+                return;
+            ProjectModified(e.FullPath, "modified", e.FullPath);
+        }
+
+        private void OnFileDeleted(object sender, FileSystemEventArgs e)
+        {
+            if (projectSaving)
+                return;
+
+            ProjectModified(e.FullPath, "deleted", e.FullPath);
+        }
+
+        private void OnFileRenamed(object sender, RenamedEventArgs e)
+        {
+            if (projectSaving)
+                return;
+
+            if (e.FullPath.EndsWith(".TMP"))
+                return;
+            ProjectModified(e.OldFullPath, "renamed to " + e.FullPath, e.FullPath);
+        }
+
         private void ProjectModified(object sender, EventArgs e)
         {
             UpdateProjectExplorer();
@@ -423,6 +576,8 @@ namespace AlternetStudio.Wpf.Demo
 
         private void CloseProject(DotNetProject project)
         {
+            RemoveWatcher(project.ProjectFileName);
+
             foreach (string fileName in project.Files)
             {
                 RemoveDesigner(FindDesigner(fileName));
@@ -433,6 +588,8 @@ namespace AlternetStudio.Wpf.Demo
             {
                 CloseFile(fileName);
             }
+
+            CloseFile(project.ProjectFileName);
 
             var extension = string.Format(".{0}", project.DefaultExtension);
 
@@ -476,6 +633,30 @@ namespace AlternetStudio.Wpf.Demo
 
             UpdateProjectExplorer();
             navigationHistory.ClearHistory(backwardMenu.ContextMenu.Items, historyBackwardToolButton, backwardMenu, historyForwardToolButton, Backward_ItemClick);
+            return true;
+        }
+
+        private bool CloseProject(string path)
+        {
+            var project = FindProject(path);
+            if (project != null)
+            {
+                if (!ConfirmSaveProjectBeforeClosing(project))
+                    return false;
+
+                projectIsClosing = true;
+
+                try
+                {
+                    CloseProject(project);
+                    project?.Reset();
+                }
+                finally
+                {
+                    projectIsClosing = false;
+                }
+            }
+
             return true;
         }
 
@@ -530,6 +711,12 @@ namespace AlternetStudio.Wpf.Demo
         private bool ConfirmSaveProjectBeforeClosing()
         {
             IList<string> list = GetModifiedFiles(!solution.IsEmpty ? solution.AllFiles(true) : Project.AllFiles(true));
+            return ConfirmSaveBeforeClosing(list, true);
+        }
+
+        private bool ConfirmSaveProjectBeforeClosing(Project project)
+        {
+            IList<string> list = GetModifiedFiles(project.AllFiles(true));
             return ConfirmSaveBeforeClosing(list, true);
         }
 

@@ -4,6 +4,10 @@ using CommunityToolkit.Maui;
 
 using Alternet.UI;
 using Alternet.Editor;
+using Alternet.Editor.Maui;
+
+using Microsoft.Maui.Hosting;
+using Microsoft.Maui.Controls.Hosting;
 
 namespace AllQuickStarts.Scripter;
 

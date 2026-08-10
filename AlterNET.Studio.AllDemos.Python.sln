@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.3.32819.101
+# Visual Studio Version 18
+VisualStudioVersion = 18.6.11819.183
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QuickStarts", "QuickStarts", "{4F38AF26-C3CB-4999-8EC9-46F23C30720E}"
 EndProject
@@ -47,6 +47,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threading", "Scripter.Python\QuickStarts\Threading\Threading.csproj", "{D684D4F3-4319-4250-9A58-1693E6E175BD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemplateParser", "Editor.Python\QuickStarts\Parsers\TemplateParser\TemplateParser.csproj", "{005808CB-EECB-41C2-B667-6473FD6E242B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PythonCopilotIntegration", "Editor.Python\QuickStarts\Copilot\CopilotIntegration\PythonCopilotIntegration.csproj", "{9E20B099-5EE1-B6C7-30F4-50B48765B134}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PythonCopilotChat", "Editor.Python\QuickStarts\Copilot\CopilotChat\PythonCopilotChat.csproj", "{6ABCE7A3-A3BC-142A-7A2B-C65900B48C8B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Copilot", "Copilot", "{ED51FF5A-C289-4A51-84D0-7126DA87D019}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -160,6 +166,22 @@ Global
 		{005808CB-EECB-41C2-B667-6473FD6E242B}.Runtime|Any CPU.Build.0 = Release|Any CPU
 		{005808CB-EECB-41C2-B667-6473FD6E242B}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
 		{005808CB-EECB-41C2-B667-6473FD6E242B}.Trial|Any CPU.Build.0 = Debug|Any CPU
+		{9E20B099-5EE1-B6C7-30F4-50B48765B134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E20B099-5EE1-B6C7-30F4-50B48765B134}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E20B099-5EE1-B6C7-30F4-50B48765B134}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E20B099-5EE1-B6C7-30F4-50B48765B134}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E20B099-5EE1-B6C7-30F4-50B48765B134}.Runtime|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E20B099-5EE1-B6C7-30F4-50B48765B134}.Runtime|Any CPU.Build.0 = Debug|Any CPU
+		{9E20B099-5EE1-B6C7-30F4-50B48765B134}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E20B099-5EE1-B6C7-30F4-50B48765B134}.Trial|Any CPU.Build.0 = Debug|Any CPU
+		{6ABCE7A3-A3BC-142A-7A2B-C65900B48C8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ABCE7A3-A3BC-142A-7A2B-C65900B48C8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ABCE7A3-A3BC-142A-7A2B-C65900B48C8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ABCE7A3-A3BC-142A-7A2B-C65900B48C8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ABCE7A3-A3BC-142A-7A2B-C65900B48C8B}.Runtime|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ABCE7A3-A3BC-142A-7A2B-C65900B48C8B}.Runtime|Any CPU.Build.0 = Debug|Any CPU
+		{6ABCE7A3-A3BC-142A-7A2B-C65900B48C8B}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ABCE7A3-A3BC-142A-7A2B-C65900B48C8B}.Trial|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -183,6 +205,9 @@ Global
 		{43864404-A96B-435C-85C9-E68B96817EF6} = {EE11706C-5455-4B80-BFB9-C549EFA3C6D9}
 		{D684D4F3-4319-4250-9A58-1693E6E175BD} = {FF9044DD-98D8-4E04-BAD2-B66FF733CF26}
 		{005808CB-EECB-41C2-B667-6473FD6E242B} = {DAF7C2E7-7E84-4AA0-BFC5-ED5B6AD3F5F0}
+		{9E20B099-5EE1-B6C7-30F4-50B48765B134} = {ED51FF5A-C289-4A51-84D0-7126DA87D019}
+		{6ABCE7A3-A3BC-142A-7A2B-C65900B48C8B} = {ED51FF5A-C289-4A51-84D0-7126DA87D019}
+		{ED51FF5A-C289-4A51-84D0-7126DA87D019} = {B14BCEBA-086D-4CC7-ABE7-10AC048BB933}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F273BD5C-AD6F-4106-A530-507C5A115BBC}

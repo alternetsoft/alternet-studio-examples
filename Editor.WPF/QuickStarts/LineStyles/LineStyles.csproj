@@ -4,9 +4,10 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows;net10.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
+    <LangVersion>12.0</LangVersion>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <OutputType>WinExe</OutputType>
@@ -19,13 +20,17 @@
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Resources\gear16green.png" />
+    <None Remove="Resources\gear16white.png" />
+    <None Remove="Resources\gear32green.png" />
+    <None Remove="Resources\ScrollBar.xaml" />
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.8" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="11.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -72,11 +77,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\gear16green.png" />
+    <EmbeddedResource Include="Resources\gear16white.png" />
+    <EmbeddedResource Include="Resources\gear32green.png" />
+    <EmbeddedResource Include="Themes\ScrollBar.xaml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -87,8 +95,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Breakpoint.png" />
-    <None Include="Resources\CurrentLineArrow.png" />
+    <EmbeddedResource Include="Resources\Breakpoint.png" />
+    <EmbeddedResource Include="Resources\CurrentLineArrow.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Icon.png" />

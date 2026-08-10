@@ -1,0 +1,40 @@
+<Window xmlns="http://schemas.alternetsoft.com/ui/2021"
+        xmlns:x="http://schemas.alternetsoft.com/ui/2021/uixml"
+        xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+        x:Class="Threading.Form1"
+        Title="Threading on Alternet.UI" StartLocation="CenterScreen"
+        MinimumSize="600, 650" Size="900,700" Layout="Vertical" Padding="10"
+        Icon="embres:Threading.Sample.ico">
+
+	<Panel Name="pnSettings" Layout="Vertical" Padding = "5">
+		<Panel Name="pnDescription" Layout="Vertical" Padding = "5">
+			<Label Name="lbDescription"
+				   Text="This demo shows how to script methods asynchronously."/>
+		</Panel>
+
+		<Panel Name="pnLanguages" Layout="Horizontal" Padding = "5">
+          <Label Name="lbLanguages" Text="Language:" VerticalAlignment="Center" Margin="5"/>
+			<ListPicker Name="cbLanguages" Margin="5" VerticalAlignment="Center"
+				ToolTip = "Choose programming language" UseContextMenuAsPopup="true"/>
+		</Panel>
+
+		<Panel Name="SortPanel" Margin="5">
+			<Grid RowCount="2" ColumnCount="3" MinChildMargin="5">
+				<Label Name="lbBabbleSort" Margin="5" RowColumn="0,0" Text="Bubble Sort"/>
+				<Label Name="lbSelectionSort" Margin="5" RowColumn="0,1" Text="Selection Sort"/>
+				<Label Name="lbQuickSort" Margin="5" RowColumn="0,2" Text="Quick Sort"/>
+
+				<Panel Name="BabblePanel" RowColumn="1,0" Margin="5"/>
+				<Panel Name="SelectionPanel" RowColumn="1,1" Margin="5"/>
+				<Panel Name="QuickPanel" RowColumn="1,2" Margin="5"/>
+			</Grid>
+		</Panel>
+
+		<Panel Name="pnButtons" Layout="Horizontal" Padding = "5">
+			<Button Name="SortButton" Text="Start Sorting"
+					HorizontalAlignment = "Left" VerticalAlignment="Center"/>
+			<Button Name="CancelButton" Text="Cancel"
+					HorizontalAlignment = "Left" VerticalAlignment="Center"/>
+		</Panel>
+	</Panel>
+</Window>

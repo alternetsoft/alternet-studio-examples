@@ -16,7 +16,9 @@ using System.IO;
 using Alternet.UI;
 
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.TextSource;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 using Alternet.Syntax;
 using Alternet.Syntax.Parsers.Roslyn;
@@ -30,26 +32,27 @@ namespace CodeOutlining
 {
     public partial class Form1 : Window
     {
-        private TextSource? csharpSource = new();
+        private TextSource? cSharpSource = new();
         private TextSource? textSource2 = new();
         private CsParser? csParser1 = new(new CsSolution());
         private Parser? parser1 = new();
         private Timer? timer = new();
 
+        public enum OutlineMode
+        { 
+            Automatic,
+            Custom
+        }
+
         public Form1()
         {
             InitializeComponent();
-            cbAutomatics.Items.AddRange(
-                [
-                    "Automatic",
-                    "Custom"
-                ]
-            );
+            cbAutomatics.EnumType = typeof(OutlineMode);
 
-            syntaxEdit1.Source = csharpSource;
+            syntaxEdit1.Source = cSharpSource;
             syntaxEdit1.Outlining.AllowOutlining = true;
 
-            csharpSource.OptimizedForMemory = false;
+            cSharpSource.OptimizedForMemory = false;
             textSource2.OptimizedForMemory = false;
 
             if (CommandLineArgs.ParseAndGetIsDark())
@@ -57,8 +60,7 @@ namespace CodeOutlining
 
             Form1_Load(this, EventArgs.Empty);
 
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
+            lbDescription.WordWrap = true;
             ActiveControl = syntaxEdit1;
         }
 
@@ -66,11 +68,11 @@ namespace CodeOutlining
         {
             SafeDispose(ref timer);
             syntaxEdit1.Source = null;
-            if (csharpSource is not null)
-                csharpSource.Lexer = null;
+            if (cSharpSource is not null)
+                cSharpSource.Lexer = null;
             if(textSource2 is not null)
                 textSource2.Lexer = null;
-            SafeDispose(ref csharpSource);
+            SafeDispose(ref cSharpSource);
             SafeDispose(ref textSource2);
             SafeDispose(ref csParser1);
             SafeDispose(ref parser1);
@@ -78,17 +80,12 @@ namespace CodeOutlining
             base.DisposeManaged();
         }
 
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            DirectoryInfo dirInfo = new(DemoUtils.ResourcesFolder + @"Editor/");
+            DirectoryInfo dirInfo = new(DemoUtils.GetResourceFolderFullPath(@"Editor/"));
 
             var cSharpLoaded
-                = csharpSource?.LoadOrAddNotFound(dirInfo.FullName + @"Text/c#.cs") ?? false;
+                = cSharpSource?.LoadOrAddNotFound(dirInfo.FullName + @"Text/c#.cs") ?? false;
 
             var customLoaded
                 = textSource2?.LoadOrAddNotFound(dirInfo.FullName + @"Text/customOutlining.txt")
@@ -102,19 +99,19 @@ namespace CodeOutlining
                 parser1.Scheme.MakeForeColorLighterLighterIfDark(syntaxEdit1);
             }
 
-            if (csharpSource is not null)
+            if (cSharpSource is not null)
             {
-                csharpSource.Lexer = csParser1;
-                csharpSource.HighlightReferences = true;
+                cSharpSource.Lexer = csParser1;
+                cSharpSource.HighlightReferences = true;
             }
 
             if (textSource2 is not null && customLoaded)
                 textSource2.Lexer = parser1;
 
             if(cSharpLoaded)
-                syntaxEdit1.Source = csharpSource;
+                syntaxEdit1.Source = cSharpSource;
 
-            cbAutomatics.SelectedIndex = 0;
+            cbAutomatics.Value = OutlineMode.Automatic;
             chbAllowOutlining.IsChecked = syntaxEdit1.Outlining.AllowOutlining;
             chbDrawOnGutter.IsChecked
                 = (OutlineOptions.DrawOnGutter & syntaxEdit1.Outlining.OutlineOptions) != 0;
@@ -130,7 +127,7 @@ namespace CodeOutlining
             chbDrawLines.CheckedChanged += DrawLinesCheckBox_CheckedChanged;
             chbDrawButtons.CheckedChanged += DrawButtonsCheckBox_CheckedChanged;
             chbShowHints.CheckedChanged += ShowHintsCheckBox_CheckedChanged;
-            cbAutomatics.SelectedIndexChanged += AutomaticComboBox_SelectedIndexChanged;
+            cbAutomatics.ValueChanged += AutomaticComboBox_SelectedIndexChanged;
             syntaxEdit1.SourceStateChanged += SyntaxEdit1_SourceStateChanged;
 
             if(timer is not null)
@@ -150,9 +147,17 @@ namespace CodeOutlining
             }
         }
 
+        public bool IsAutomatic
+        {
+            get
+            {
+                return cbAutomatics.ValueAs<OutlineMode>() == OutlineMode.Automatic;
+            }
+        }
+
         private void AutomaticComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            UpdateOutlining(cbAutomatics.SelectedIndex == 0);
+            UpdateOutlining(IsAutomatic);
         }
 
         private void ShowHintsCheckBox_CheckedChanged(object? sender, EventArgs e)
@@ -186,7 +191,7 @@ namespace CodeOutlining
         private void AllowOutliningCheckBox_CheckedChanged(object? sender, EventArgs e)
         {
             syntaxEdit1.Outlining.AllowOutlining = chbAllowOutlining.IsChecked;
-            if (chbAllowOutlining.IsChecked && (cbAutomatics.SelectedIndex != 0))
+            if (chbAllowOutlining.IsChecked && (!IsAutomatic))
                 DoCustomOutlining();
         }
 
@@ -256,7 +261,7 @@ namespace CodeOutlining
 
         private void UpdateOutlining(bool automatic)
         {
-            syntaxEdit1.Source = automatic ? csharpSource : textSource2;
+            syntaxEdit1.Source = automatic ? cSharpSource : textSource2;
             if (!automatic)
                 DoCustomOutlining();
         }

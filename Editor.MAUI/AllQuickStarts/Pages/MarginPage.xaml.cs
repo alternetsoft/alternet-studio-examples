@@ -11,7 +11,10 @@
 #endregion Copyright (c) 2016-2024 Alternet Software
 
 using Alternet.Editor;
+using Alternet.Editor.Maui;
 using Alternet.Editor.TextSource;
+using Alternet.Editor.AlternetUI;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Syntax.Parsers.Roslyn;
 
 using Alternet.UI;

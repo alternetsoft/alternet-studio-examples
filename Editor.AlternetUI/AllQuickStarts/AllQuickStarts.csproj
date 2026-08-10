@@ -2,9 +2,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">net462;net471;net8.0;net9.0</TargetFrameworks>
-    <TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('windows'))">net8.0;net9.0</TargetFrameworks>
-    <LangVersion>latest</LangVersion>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <LangVersion>12.0</LangVersion>
     <Nullable>enable</Nullable>
     <Platforms>AnyCPU;x64</Platforms>
     <ApplicationIcon>Sample.ico</ApplicationIcon>
@@ -13,11 +12,26 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\CallMethod.Python\CallMethod.Python.csproj" />
+    <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\CallMethod.TypeScript\CallMethod.TypeScript.csproj" />
     <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\CallMethod\CallMethod.csproj" />
+    <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\CustomAssembly.Python\CustomAssembly.Python.csproj" />
+    <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\CustomAssembly\CustomAssembly.csproj" />
+    <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\CustomAssembly\ExternalAssembly\ExternalAssembly\ExternalAssembly.csproj" />
     <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\Debugger\DebuggerIntegration.Python\DebuggerIntegration.Python.csproj" />
     <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\Debugger\DebuggerIntegration\DebuggerIntegration.csproj" />
+    <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\ExpressionEvaluation.Python\ExpressionEvaluation.Python.csproj" />
+    <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\ExpressionEvaluation\ExpressionEvaluation.csproj" />
+    <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\IsolatedScript\IsolatedScript.csproj" />
+    <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\MemoryAssembly.Python\MemoryAssembly.Python.csproj" />
+    <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\MemoryAssembly\MemoryAssembly.csproj" />
+    <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\Mini.TypeScript\Mini.TypeScript.csproj" />
     <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\ObjectReference.Python\ObjectReference.Python.csproj" />
+    <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\ObjectReference.TypeScript\ObjectReference.TypeScript.csproj" />
     <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\ObjectReference\ObjectReference.csproj" />
+    <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\PackageReference\PackageReference.csproj" />
+    <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\ScriptHostObject\ScriptHostObject.csproj" />
+    <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\Threading.Python\Threading.Python.csproj" />
+    <ProjectReference Include="..\..\Scripter.AlternetUI\QuickStarts\Threading\Threading.csproj" />
     <ProjectReference Include="..\Bookmarks\Bookmarks.csproj" />
     <ProjectReference Include="..\CodeCompletion\CodeCompletion.csproj" />
     <ProjectReference Include="..\CodeOutlining\CodeOutlining.csproj" />
@@ -33,18 +47,32 @@
     <ProjectReference Include="..\Parsers\RoslynSyntaxParsing\RoslynSyntaxParsing.csproj" />
     <ProjectReference Include="..\Parsers\SQLDOMParser\SQLDOMParser.csproj" />
     <ProjectReference Include="..\Parsers\TextMateParsing\TextMateParsing.csproj" />
+    <ProjectReference Include="..\Parsers\TypeScriptParsing\TypeScriptParsing.csproj" />
     <ProjectReference Include="..\Parsers\XAMLParsing\XamlParsing.csproj" />
     <ProjectReference Include="..\SearchReplace\SearchReplace.csproj" />
+    <ProjectReference Include="..\SelectionAnchors\SelectionAnchors.csproj" />
     <ProjectReference Include="..\Selection\Selection.csproj" />
     <ProjectReference Include="..\SyntaxHighlighting\SyntaxHighlighting.csproj" />
     <ProjectReference Include="..\UndoRedo\UndoRedo.csproj" />
     <ProjectReference Include="..\VisualTheme\VisualTheme.csproj" />
     <ProjectReference Include="..\WordWrap\WordWrap.csproj" />
-    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.8" />
-    <PackageReference Include="Alternet.UI" Version="0.9.736-beta" />
+    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="11.0.0" />
+    <PackageReference Include="Alternet.UI" Version="1.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Alternet.Demo.Run.Dark.bat" />
+    <None Remove="Alternet.Demo.Run.sh" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Alternet.Demo.Run.sh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Alternet.Demo.Run.Dark.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

@@ -3,24 +3,22 @@
         xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
         x:Class="VisualTheme.Form1"
         Title="Visual Theme on Alternet.UI" StartLocation="CenterScreen"
-        MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
+        MinimumSize="600, 400" Size="900,700"  Padding="10"
         Icon="embres:VisualTheme.Sample.ico">
 
-  <Window.StatusBar>
-    <StatusBar Name="statusBar">
-      <StatusBarPanel/>
-    </StatusBar>
-  </Window.StatusBar>
-	  <Label Name="lbDescription" Margin="5"
-	   Text="Code Editor allows to automatically wrap words to the beginning of the next line when necessary."/>
-	  <Panel Name="pnVisualTheme" Margin="0,5,0,5"  Layout="Horizontal">
-    	  <Label Name="lbVisualTheme" Margin="5" Text="Visual Theme:"
-                 VerticalAlignment="Center"/>
-		  <ComboBox Name="visualThemes" Margin="5" DropDownStyle = "DropDownList"
-                    ToolTip="Choose Visual Theme" VerticalAlignment="Center"/>
-	  </Panel>
-	<Border VerticalAlignment="Fill" Margin="5">
-		<editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>
-	</Border>
+  <Panel Layout="Vertical">
+    <Label Name="lbDescription" Margin="5"
+     Text="Code Editor allows to automatically wrap words to the beginning of the next line when necessary."/>
+    <Panel Name="pnVisualTheme" Margin="0,5,0,5"  Layout="Horizontal">
+      <Label Name="lbVisualTheme" Margin="5" Text="Visual Theme:"
+             VerticalAlignment="Center"/>
+      <EnumPicker Name="visualThemes" Margin="5"
+                ToolTip="Choose Visual Theme" VerticalAlignment="Center"/>
+    </Panel>
+    <Border VerticalAlignment="Fill" Margin="5">
+      <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>
+    </Border>
+  </Panel>
+
 </Window>
 

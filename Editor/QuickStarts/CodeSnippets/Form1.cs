@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.IO;
@@ -54,6 +54,16 @@ namespace CodeSnippets
             vbSource.Lexer = vbParser1;
 
             UpdateSnippets();
+
+            syntaxEdit1.KeyList.AddNormal(Keys.Alt | Keys.Oem2, () =>
+            {
+                syntaxEdit1.ShowInsertableHint("This is insertable text");
+            });
+
+            syntaxEdit1.KeyList.AddNormal(Keys.Alt | Keys.Shift | Keys.Oem2, () =>
+            {
+                syntaxEdit1.ShowErrorHint("This is error text");
+            });
         }
 
         private void UpdateSnippets()

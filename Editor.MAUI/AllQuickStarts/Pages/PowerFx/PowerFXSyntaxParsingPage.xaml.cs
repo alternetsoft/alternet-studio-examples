@@ -12,7 +12,10 @@
 
 using AllQuickStarts.Pages;
 using Alternet.Editor;
+using Alternet.Editor.Maui;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.TextSource;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Syntax.Parsers.PowerFx;
 
 using Alternet.UI;
@@ -104,7 +107,7 @@ public partial class PowerFxSyntaxParsingPage : DemoPage
         syntaxEdit1.Outlining.AllowOutlining = true;
     }
 
-    public static void LoadFile(Alternet.Editor.TextSource.ITextSource? source, string url)
+    public static void LoadFile(ITextSource? source, string url)
     {
         if (source is null)
             return;
@@ -131,7 +134,7 @@ public partial class PowerFxSyntaxParsingPage : DemoPage
     {
         var r = fxParser.Evaluator.Eval(syntaxEdit1.Text);
         var s = PowerFxEvaluator.EvalResultToString(r);
-        await DisplayAlert("Evaluation Result", s, "OK");
+        await DisplayAlertAsync("Evaluation Result", s, "OK");
     }
 
     private async void EditContextButton_Clicked(object? sender, EventArgs e)

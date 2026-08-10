@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -58,16 +58,9 @@ namespace AlternetStudio.Demo
             }
         }
 
-        protected override void OnClosing(CancelEventArgs e)
+        protected virtual NewFormDialog CreateNewFormDialog(string location, string fileName, string caption, string[] supportedLanguages, int langIndex)
         {
-            AutoSaveToolbox();
-            AutoSaveRecentFiles();
-            base.OnClosing(e);
-        }
-
-        protected virtual NewFormDialog CreateNewFormDialog(string location, string fileName, string[] supportedLanguages, int langIndex)
-        {
-            return new NewFormDialog(location, fileName, supportedLanguages, langIndex);
+            return new NewFormDialog(location, fileName, caption, supportedLanguages, langIndex);
         }
 
         private static void EnsureDotNetCoreReferencesAdded(IList<string> references, TargetFramework targetFramework)
@@ -111,6 +104,8 @@ namespace AlternetStudio.Demo
             outlineControl = new OutlineControl();
             newFormMenuItem.Visible = true;
             newFormMenuItem.Click += new System.EventHandler(NewFormMenuItem_Click);
+            newUserControlMenuItem.Visible = true;
+            newUserControlMenuItem.Click += new System.EventHandler(NewUserControlMenuItem_Click);
             viewCodeMenuItem.Visible = true;
             viewCodeMenuItem.Click += new EventHandler(ViewCodeMenuItem_Click);
             viewDesignerMenuItem.Visible = true;
@@ -137,6 +132,13 @@ namespace AlternetStudio.Demo
             propertiesTabPage.Controls.Add(propertyGridControl);
             outlineTabPage.Controls.Add(outlineControl);
             toolboxTabPage.Controls.Add(toolboxControl);
+
+            if (IsDark)
+            {
+            }
+
+            outlineControl.TreeView.BorderStyle = BorderStyle.None;
+            propertyGridControl.FilterTextBox.BorderStyle = BorderStyle.None;
         }
 
         private void AutoSaveToolbox()
@@ -201,7 +203,7 @@ namespace AlternetStudio.Demo
                 project = Project;
             bool addToProject = project != null && project.HasProject;
 
-            using (var dlg = CreateNewFormDialog(location, FindUniqueName(location, "Form", extension), new string[] { "C#", "Visual Basic" }, langIndex))
+            using (var dlg = CreateNewFormDialog(location, FindUniqueName(location, "Form", extension), "Add new Form", new string[] { "C#", "Visual Basic" }, langIndex))
             {
                 DialogResult result = dlg.ShowDialog();
                 if (result == DialogResult.OK)
@@ -250,9 +252,88 @@ namespace AlternetStudio.Demo
             }
         }
 
+        private void NewUserControl()
+        {
+            string location = projectCreationData.ProjectLocation;
+
+            if (string.IsNullOrEmpty(location))
+                location = Project.HasProject ? Path.GetDirectoryName(Project.ProjectFileName) : DefaultProjectSubPath;
+
+            int langIndex = 0;
+            var extension = !solution.IsEmpty ? solution.DefaultProject.DefaultExtension : Project.HasProject ? Project.DefaultExtension : "cs";
+            switch (extension)
+            {
+                case "cs":
+                    langIndex = 0;
+                    break;
+
+                case "vb":
+                    langIndex = 1;
+                    break;
+            }
+
+            var project = GetProject(projectExplorerTreeView.SelectedNode);
+            if (project == null)
+                project = Project;
+            bool addToProject = project != null && project.HasProject;
+
+            using (var dlg = CreateNewFormDialog(location, FindUniqueName(location, "UserControl", extension), "Add new User Control", new string[] { "C#", "Visual Basic" }, langIndex))
+            {
+                DialogResult result = dlg.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    var userCodeFileName = dlg.FileLocation;
+                    if (!string.IsNullOrEmpty(userCodeFileName))
+                    {
+                        extension = Path.GetExtension(userCodeFileName);
+                        var namespaceName = dlg.NamespaceName;
+                        var imports = dlg.Imports;
+                        var designedClassName = dlg.DesignedClassName;
+
+                        var directory = Path.GetDirectoryName(userCodeFileName);
+                        if (!Directory.Exists(directory))
+                            Directory.CreateDirectory(directory);
+
+                        var source = new FormDesignerDataSource(userCodeFileName, namespaceName, designedClassName);
+
+                        FormFilesUtility.CreateUserControlFiles(source, new FormFilesUtility.CreateFormFilesOptions { BaseType = "System.Windows.Forms.UserControl", GenerateMainMethod = !addToProject, Imports = imports.ToArray() });
+
+                        if (!addToProject)
+                        {
+                            OpenFile(source.UserCodeFileName);
+                            OpenFile(source.DesignerFileName);
+                            OpenDesigner(source.UserCodeFileName);
+                        }
+                        else
+                        {
+                            project.BeginUpdate();
+                            try
+                            {
+                                project.AddFile(source.UserCodeFileName);
+                                project.AddFile(source.DesignerFileName);
+                                project.AddFile(source.DefaultResourceFileName);
+                                OpenFile(source.UserCodeFileName);
+                                OpenFile(source.DesignerFileName);
+                                OpenDesigner(source.UserCodeFileName);
+                            }
+                            finally
+                            {
+                                project.EndUpdate();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void NewFormMenuItem_Click(object sender, EventArgs e)
         {
             NewForm();
+        }
+
+        private void NewUserControlMenuItem_Click(object sender, EventArgs e)
+        {
+            NewUserControl();
         }
 
         private void Designer_PropertyWindowOpening(object sender, EventArgs e)

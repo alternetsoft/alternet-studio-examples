@@ -1,4 +1,6 @@
-﻿namespace DebuggerIntegration
+﻿using Microsoft.Maui.Controls;
+
+namespace DebuggerIntegration
 {
     public partial class AppShell : Shell
     {

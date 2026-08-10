@@ -1,28 +1,24 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
-using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Threading;
 
 using Alternet.Editor.Common.Wpf;
 using Alternet.Editor.Roslyn.Wpf;
@@ -34,8 +30,8 @@ namespace DebugRemoteScript.Wpf
 {
     public class ViewModel
     {
-        private ScriptRun scriptRun = new ScriptRun();
-        private ScriptDebugger scriptDebugger;
+        private IScriptRun scriptRun = new ScriptRun();
+        private IScriptDebuggerBase scriptDebugger;
         private MainWindow window;
         private IScriptEdit edit;
         private IScriptAPI scriptAPI;

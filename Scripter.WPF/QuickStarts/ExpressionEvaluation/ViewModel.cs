@@ -1,27 +1,22 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
-using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Threading;
 using Alternet.Scripter;
 
 namespace ExpressionEvaluation
@@ -41,7 +36,6 @@ namespace ExpressionEvaluation
             RunScript = new RelayCommand(RunScriptClick);
         }
 
-
         public ViewModel(MainWindow window)
             : this()
         {
@@ -49,6 +43,7 @@ namespace ExpressionEvaluation
 
             scriptRun.ScriptSource.WithMinimalReferences();
             scriptRun.ScriptSource.VisualBasicMyType = VisualBasicMyType.Empty;
+
             scriptRun.AssemblyKind = ScriptAssemblyKind.DynamicLibrary;
             if (window != null)
             {

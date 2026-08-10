@@ -6,12 +6,6 @@
         MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="5"
         Icon="embres:PowerFxSyntaxParsing.Sample.ico">
 
-  <Window.StatusBar>
-    <StatusBar Name="statusBar">
-      <StatusBarPanel/>
-    </StatusBar>
-  </Window.StatusBar>
-
   <Panel Name="pnSettings" Layout="Vertical" Padding = "5">
     <Panel Name="pnDescription" Layout="Vertical" Padding = "5">
       <Label Name="lbDescription"

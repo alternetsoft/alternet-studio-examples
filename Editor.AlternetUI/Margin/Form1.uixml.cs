@@ -17,8 +17,10 @@ using Alternet.UI;
 
 using Alternet.Drawing;
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 using Alternet.Editor.TextSource;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Syntax.Parsers.Roslyn;
 using Alternet.Syntax.Parsers.Roslyn.CodeCompletion;
 
@@ -42,8 +44,7 @@ namespace Margin
             syntaxEdit1.Outlining.AllowOutlining = true;
 
             Form1_Load(this, EventArgs.Empty);
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
+            lbDescription.WordWrap = true;
             ActiveControl = syntaxEdit1;
         }
 
@@ -52,19 +53,14 @@ namespace Margin
             base.DisposeManaged();
         }
 
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
-        }
-
         private void Form1_Load(object? sender, EventArgs e)
         {
             var textSource = new TextSource();
             syntaxEdit1.Source = textSource;
 
-            DirectoryInfo dirInfo = new(DemoUtils.ResourcesFolder + @"Editor/Text/");
+            FileInfo fileInfo = new(DemoUtils.GetResourceFileFullPath(@"Editor/Text/c#.cs"));
 
-            if (textSource.LoadOrAddNotFound(dirInfo.FullName + @"c#.cs"))
+            if (textSource.LoadOrAddNotFound(fileInfo.FullName))
             {
                 textSource.Lexer = csParser1;
             }
@@ -83,27 +79,32 @@ namespace Margin
             nudUserMarginWidth.Maximum = (int)syntaxEdit1.Width;
             nudUserMarginWidth.Value = syntaxEdit1.Gutter.UserMarginWidth;
             tbUserMarginText.Text = syntaxEdit1.Gutter.UserMarginText;
-            cbUserMarginForeColor.Value = Color.Black;
-            cbUserMarginBkColor.Value = Color.White;
+
+            EditConsts.DefaultUserMarginForeColor = IsDarkBackground ? Color.White : Color.Black;
+            syntaxEdit1.Gutter.UserMarginForeColor = EditConsts.DefaultUserMarginForeColor;
+
+            cbUserMarginForeColor.Select(syntaxEdit1.Gutter.UserMarginForeColor);
+            cbUserMarginBkColor.Select(syntaxEdit1.Gutter.UserMarginBackColor);
+            cbMarginColor.Select(syntaxEdit1.EditMargin.PenColor);
+            cbColumnColor.Select(syntaxEdit1.EditMargin.ColumnPenColor);
+
             chbDisplayMargin.IsChecked = syntaxEdit1.EditMargin.Visible;
             nudMarginPositon.Maximum = 1000;
             nudMarginPositon.Value = syntaxEdit1.EditMargin.Position;
-            cbMarginColor.Value = syntaxEdit1.EditMargin.PenColor;
             chbDisplayColumns.IsChecked = syntaxEdit1.EditMargin.ColumnsVisible;
-            cbColumnColor.Value = syntaxEdit1.EditMargin.ColumnPenColor;
 
             chbDisplayUserMargin.CheckedChanged += PaintUserMarginCheckBox_CheckedChanged;
             nudUserMarginWidth.ValueChanged += UserMarginWidthNumeric_ValueChanged;
             tbUserMarginText.KeyDown += UserMarginTextTextBox_KeyDown;
             tbUserMarginText.MouseLeave += UserMarginText_MouseLeave;
-            cbUserMarginForeColor.SelectedItemChanged
+            cbUserMarginForeColor.ValueChanged
                 += UserMarginForeColorComboBox_SelectedIndexChanged;
-            cbUserMarginBkColor.SelectedIndexChanged += UserMarginBkColorComboBox_SelectedIndexChanged;
+            cbUserMarginBkColor.ValueChanged += UserMarginBkColorComboBox_SelectedIndexChanged;
             chbDisplayMargin.CheckedChanged += ShowMarginCheckBox_CheckedChanged;
             chbDisplayColumns.CheckedChanged += ColumnsVisibleCheckBox_CheckedChanged;
             nudMarginPositon.ValueChanged += MarginPosNumeric_ValueChanged;
-            cbMarginColor.SelectedIndexChanged += MarginColorComboBox_SelectedIndexChanged;
-            cbColumnColor.SelectedIndexChanged += ColumnsPenColorComboBox_SelectedIndexChanged;
+            cbMarginColor.ValueChanged += MarginColorComboBox_SelectedIndexChanged;
+            cbColumnColor.ValueChanged += ColumnsPenColorComboBox_SelectedIndexChanged;
         }
 
         private void UserMarginText_MouseLeave(object? sender, EventArgs e)

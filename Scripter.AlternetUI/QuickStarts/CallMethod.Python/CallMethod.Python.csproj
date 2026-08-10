@@ -2,9 +2,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">net462;net471;net8.0;net9.0</TargetFrameworks>
-    <TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('windows'))">net8.0;net9.0</TargetFrameworks>
-    <LangVersion>latest</LangVersion>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <LangVersion>12.0</LangVersion>
     <Nullable>enable</Nullable>
     <Platforms>AnyCPU;x64</Platforms>
     <ApplicationIcon>Sample.ico</ApplicationIcon>
@@ -13,16 +12,16 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Sample.ico" />
-    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python.Embedded" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.8" />
-    <PackageReference Include="Alternet.UI" Version="0.9.736-beta" />
+    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python.Embedded" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.UI" Version="1.1.0" />
   </ItemGroup>
 </Project>

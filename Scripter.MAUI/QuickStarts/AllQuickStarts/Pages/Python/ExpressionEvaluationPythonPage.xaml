@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Controls:DemoPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+             xmlns:Controls="clr-namespace:AllQuickStarts.Scripter"  
+             xmlns:alternet="http://schemas.alternetsoft.com/alternetui/2024"
+             x:Class="AllQuickStarts.Scripter.Pages.ExpressionEvaluationPythonPage"
+             Title="Expression Evaluation">
+    <AbsoluteLayout Padding="0" Margin="0">
+        <Grid x:Name="MainGrid" RowDefinitions="*" ColumnDefinitions="*, 200">
+            <Entry x:Name="Expression" MaximumHeightRequest="100" VerticalOptions="Start"
+                   Text="(5+4)*2 - 9/3 + 10 + tbExpression.Text.Length" Grid.Row="1" Grid.Column="0"
+                               Margin="10"/>
+            <ScrollView Grid.Column="1" x:Name="settingsPanel" Grid.RowSpan="2" >
+                <StackLayout Orientation="Vertical" Margin="10,10,10,10" x:Name="settingsInnerPanel"
+                             >
+                    <Button Margin="10,10,10,10" HorizontalOptions="Start"
+                        x:Name="ScriptButton" Text="Evaluate" />
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </AbsoluteLayout>
+</Controls:DemoPage>

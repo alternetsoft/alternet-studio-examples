@@ -3,17 +3,13 @@
         xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
         x:Class="UndoRedo.Form1"
         Title="Undo Redo on Alternet.UI" StartLocation="CenterScreen"
-        MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
+        MinimumSize="800, 600" Size="900,800" Layout="Vertical" Padding="10"
         Icon="embres:UndoRedo.Sample.ico">
 
-  <Window.StatusBar>
-    <StatusBar Name="statusBar">
-      <StatusBarPanel/>
-    </StatusBar>
-  </Window.StatusBar>
-
-  <Label Name="lbDescription" Margin="5"
-   Text="This demo shows how to use the undo/redo history."/>
+  <Panel>
+    <Label Name="lbDescription" Margin="5"
+     Text="This demo shows how to use the undo/redo history."/>
+  </Panel>
 
   <Panel Name="gbUndoRedo" Padding="5" Margin="5" Layout ="Vertical">
 
@@ -47,22 +43,22 @@
     <HorizontalStackPanel>
       <Label Name="ChangedLinesLabel" RowColumn="0,1" VerticalAlignment="Center"
              Margin="5" Text="Changed Lines:"/>
-      <ColorComboBox Name="cbChangedLineColor" RowColumn="0,2"
+      <ColorPicker Name="cbChangedLineColor" RowColumn="0,2"
                      Margin="5" VerticalAlignment="Center"
                      ToolTip="Color of the line modificators in the modified state"/>
 
       <Label Name="SavedLinesLabel" RowColumn="1,1" VerticalAlignment="Center"
              Margin="5" Text="Saved Lines:"/>
-      <ColorComboBox Name="cbSavedLineColor" RowColumn="1,2"
+      <ColorPicker Name="cbSavedLineColor" RowColumn="1,2"
                      Margin="5" VerticalAlignment="Center"
                      ToolTip="Color of the line modificators in the saved state"/>
     </HorizontalStackPanel>
   </Panel>
   <Panel Name="pnEditor" VerticalAlignment="Fill" Layout="Horizontal">
-    <Border HorizontalAlignment="Fill" MinimumSize="500,500" Margin="5">
+    <Border HorizontalAlignment="Fill" Margin="5">
       <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>
     </Border>
-    <ListBox Name="UndoOperationsListBox" HorizontalAlignment="Right" VerticalAlignment="Fill" MinWidth="250" MinHeight="500" Margin="5"/>
+    <StdListBox Name="UndoOperationsListBox" HorizontalAlignment="Right" VerticalAlignment="Fill" MinWidth="250" MinHeight="350" Margin="5"/>
   </Panel>
 </Window>
 

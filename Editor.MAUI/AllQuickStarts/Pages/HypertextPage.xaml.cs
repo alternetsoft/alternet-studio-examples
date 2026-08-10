@@ -11,12 +11,15 @@
 #endregion Copyright (c) 2016-2024 Alternet Software
 
 using Alternet.Editor;
+using Alternet.Editor.Maui;
 using Alternet.Editor.TextSource;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Syntax.Parsers.Roslyn;
 
 using Alternet.UI;
 using Alternet.Maui;
 using Microsoft.Maui.Layouts;
+using Alternet.Editor.AlternetUI;
 
 namespace AllQuickStarts.Pages;
 
@@ -67,7 +70,7 @@ public partial class HypertextPage : DemoPage
 
     public override string DemoTitle => "Hypertext";
 
-    public void LoadFile(Alternet.Editor.TextSource.ITextSource source, string url)
+    public void LoadFile(ITextSource source, string url)
     {
         source.Text = string.Empty;
         source.BookMarks.Clear();

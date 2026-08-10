@@ -1,0 +1,10 @@
+﻿Imports System.Windows.Forms
+Imports System
+Imports Microsoft.VisualBasic
+
+'SomeValue = 15
+
+MessageBox.Show("Hello from WinForms!")
+
+MsgBox("Hello again!")
+

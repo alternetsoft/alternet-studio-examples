@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ord:Order xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cust="http://example.com/customer"
+       xmlns:prod="http://example.com/product"
+       xmlns:ord="http://example.com/order"
+      xsi:schemaLocation="http://example.com/customer customer.xsd
+         http://example.com/order order.xsd
+         http://example.com/product product.xsd">
+
+    <!-- Using elements from the Customer schema -->
+    <cust:Customer>
+        <cust:Name>Jane Doe</cust:Name>
+        <cust:Email>jane.doe@example.com</cust:Email>
+    </cust:Customer>
+
+    <!-- Using elements from the Product schema -->
+    <prod:Product>
+        <prod:ID>98765</prod:ID>
+        <prod:Price>49.99</prod:Price>
+    </prod:Product>
+</ord:Order>

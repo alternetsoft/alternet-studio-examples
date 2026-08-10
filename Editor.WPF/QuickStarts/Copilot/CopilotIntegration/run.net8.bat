@@ -1,0 +1,1 @@
+dotnet run CopilotIntegration.Wpf.csproj --framework net8.0-windows

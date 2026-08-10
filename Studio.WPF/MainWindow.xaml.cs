@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections;
@@ -55,9 +55,24 @@ namespace AlternetStudio.Wpf.Demo
 
         static MainWindow()
         {
+            bool wordWrap = false;
+
             Utilities.DoApplicationEvents += (s, e) =>
             {
                 DoEvents();
+            };
+
+            TextEditor.InstanceCreated += (s, e) =>
+            {
+                if (s is TextEditor editor)
+                {
+                    editor.Braces.BracesOptions |= BracesOptions.Highlight;
+
+                    if (wordWrap)
+                    {
+                        editor.WordWrap = wordWrap;
+                    }
+                }
             };
         }
 
@@ -348,6 +363,11 @@ namespace AlternetStudio.Wpf.Demo
             aboutBox.ShowDialog();
         }
 
+        private void MainWindow_Activated(object sender, EventArgs e)
+        {
+            this.Dispatcher.BeginInvoke((Action)(() => ProcessModifiedProjects()));
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             InitializeCodeSearch();
@@ -357,7 +377,9 @@ namespace AlternetStudio.Wpf.Demo
             LoadStartupFile();
             UpdateControls();
             InitializeNavigationHistory();
-            InitializeDebugger();
+            InitializeDebugControls();
+            ActiveSyntaxEdit?.Focus();
+            this.Activated += MainWindow_Activated;
         }
 
         private void Window_Closed(object sender, EventArgs e)

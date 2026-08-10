@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<?xml-model href="books.xsd"?>
 <bookstore xmlns="http://www.contoso.com/books">
     <book genre1="autobiography" publicationdate="1981-03-22" ISBN="1-861003-11-0">
         <title>The Autobiography of Benjamin Franklin</title>

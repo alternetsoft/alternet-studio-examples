@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Drawing;
@@ -23,14 +23,28 @@ namespace AlternetStudio.Demo
         public AboutDialog()
         {
             InitializeComponent();
+
+            laAdress.ForeColor = Consts.GetUrlNormalColor(MainForm.IsDark);
+            laMailTo.ForeColor = Consts.GetUrlNormalColor(MainForm.IsDark);
+
+            var asm = this.GetType().Assembly;
+            var prefix = "AlternetStudio.Demo.Resources";
+            var imagePath = $"{prefix}.pictureBox1.Image.png";
+
+            if (MainForm.IsDark)
+                imagePath = $"{prefix}.pictureBox1.Image.Dark.png";
+
+            var image = ControlUtilities.LoadImageFromAssembly(asm, imagePath);
+
+            pictureBox1.Image = DisplayImageScaling.CloneAndAutoScaleImage(image);
         }
 
-        private void AdressLabel_Click(object sender, EventArgs e)
+        private void AddressLabel_Click(object sender, EventArgs e)
         {
-            laAdress.ForeColor = Color.Purple;
+            laAdress.ForeColor = Consts.GetUrlVisitedColor(MainForm.IsDark);
             try
             {
-                System.Diagnostics.Process.Start(laAdress.Text);
+                ShellUtilities.OpenUrl(laAdress.Text);
             }
             catch
             {
@@ -39,8 +53,14 @@ namespace AlternetStudio.Demo
 
         private void MailToLabel_Click(object sender, EventArgs e)
         {
-            laMailTo.ForeColor = Color.Purple;
-            System.Diagnostics.Process.Start("mailto:contact@alternetsoft.com");
+            laMailTo.ForeColor = Consts.GetUrlVisitedColor(MainForm.IsDark);
+            try
+            {
+                ShellUtilities.OpenMailTo("contact@alternetsoft.com");
+            }
+            catch
+            {
+            }
         }
 
         private void CloseButton_Click(object sender, EventArgs e)
@@ -50,12 +70,6 @@ namespace AlternetStudio.Demo
 
         private void CompanyInfo_Load(object sender, EventArgs e)
         {
-            pictureBox1.Image = DisplayImageScaling.CloneAndAutoScaleImage(pictureBox1.Image);
-
-            if (pictureBox1.Image is Bitmap)
-            {
-                ((Bitmap)pictureBox1.Image).MakeTransparent(Color.White);
-            }
         }
     }
 }

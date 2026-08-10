@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Diagnostics;
@@ -19,7 +19,7 @@ using System.Runtime.Remoting;
 using System.Windows.Forms;
 using Alternet.Common;
 using Alternet.Scripter;
-using Alternet.Scripter.Debugger;
+using Alternet.Scripter.Communication;
 
 namespace DebugMyScript
 {
@@ -284,6 +284,13 @@ namespace DebugMyScript
 
         private void StartDebuggerButton_Click(object sender, EventArgs e)
         {
+            if (Debugger.IsAttached)
+            {
+                MessageBox.Show(
+                    "Debugger is already attached. You need to run this demo without attaching another debugger.");
+                return;
+            }
+
             const string ExeName = "AlternetStudio.exe";
             var pathToDebugDemo = Path.Combine(Application.StartupPath, ExeName);
             if (!new FileInfo(pathToDebugDemo).Exists)

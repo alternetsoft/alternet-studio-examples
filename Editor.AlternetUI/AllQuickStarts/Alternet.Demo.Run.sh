@@ -1,0 +1,1 @@
+dotnet AllQuickStarts.AlternetUI.dll

@@ -1,4 +1,4 @@
-﻿#region Copyright (c) 2016-2024 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
@@ -8,7 +8,7 @@
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2024 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using Alternet.Maui;
 

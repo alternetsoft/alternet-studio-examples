@@ -4,11 +4,11 @@
         xmlns:local="clr-namespace:AlternetStudio.Wpf.Demo"
         TextOptions.TextFormattingMode="Display"
         UseLayoutRounding="True"
-        xmlns:outline="clr-namespace:Alternet.FormDesigner.Wpf.Outline;assembly=Alternet.FormDesigner.Wpf.v10"
-        xmlns:CUI="clr-namespace:Alternet.Editor.Common.Wpf;assembly=Alternet.Editor.Common.Wpf.v10"
-        xmlns:UI="clr-namespace:Alternet.Scripter.Debugger.UI.Wpf;assembly=Alternet.Scripter.Debugger.UI.Wpf.v10"
-        xmlns:Design="clr-namespace:Alternet.FormDesigner.Wpf.PropertyGrid;assembly=Alternet.FormDesigner.Wpf.v10"
-        xmlns:toolbox="clr-namespace:Alternet.FormDesigner.Wpf.Toolbox;assembly=Alternet.FormDesigner.Wpf.v10"
+        xmlns:outline="clr-namespace:Alternet.FormDesigner.Wpf.Outline;assembly=Alternet.FormDesigner.Wpf.v11"
+        xmlns:CUI="clr-namespace:Alternet.Editor.Common.Wpf;assembly=Alternet.Editor.Common.Wpf.v11"
+        xmlns:UI="clr-namespace:Alternet.Scripter.Debugger.UI.Wpf;assembly=Alternet.Scripter.Debugger.UI.Wpf.v11"
+        xmlns:Design="clr-namespace:Alternet.FormDesigner.Wpf.PropertyGrid;assembly=Alternet.FormDesigner.Wpf.v11"
+        xmlns:toolbox="clr-namespace:Alternet.FormDesigner.Wpf.Toolbox;assembly=Alternet.FormDesigner.Wpf.v11"
         Title="AlterNET Studio" Height="564" Width="808" WindowState="Maximized" Loaded="Window_Loaded"
         Icon="/AlternetStudio.Wpf;component/Images/Icon.ico" Closing="Window_Closing" Closed="Window_Closed" KeyDown="Window_KeyDown">
     <Window.Resources>
@@ -215,7 +215,7 @@
             <UI:DebugMenu Name="debugMenu">
                 <Separator/>
                 <MenuItem x:Name="runParametersMenuItem" Header="Run parameters..." Click="RunParametersMenuItem_Click"/>
-                <MenuItem x:Name="attachToProcessMenuItem" Header="Attach to Process..." Click="AttachToProcessMenuItem_Click"/>
+                <MenuItem x:Name="useUniversalDebuggerMenuItem" IsChecked="False" Header="Use Universal Debugger" Click="UseUniversalDebuggerMenuItem_Click"/>
             </UI:DebugMenu>
             <MenuItem x:Name="helpMenuItem" Header="_Help">
                 <MenuItem x:Name="aboutMenuItem" Header="_About AlterNET Studio" Click="AboutMenuItem_Click">
@@ -421,6 +421,10 @@
                         <TreeView HorizontalAlignment="Stretch" Name="projectExplorerTreeView" VerticalAlignment="Stretch" Height="Auto" ContextMenuOpening="ProjectExplorerTreeView_ContextMenuOpening">
                             <TreeView.Resources>
                                 <ContextMenu x:Key ="SolutionContext" StaysOpen="true">
+                                    <MenuItem x:Name="openProjectFileMenuItem" Header="Open Project File" Click="OpenProjectCodeFileMenuItem_Click"/>
+                                    <MenuItem x:Name="viewCodeExplorerMenuItem" Header="View Code" InputGestureText="F7" Click="ViewCodeExplorerMenuItem_Click"/>
+                                    <MenuItem x:Name="viewDesignerExplorerMenuItem" Header="View Designer" InputGestureText="Shift+F7" Click="ViewDesignerExplorerMenuItem_Click"/>
+                                    <Separator x:Name="viewSeparator" />
                                     <MenuItem x:Name="addProjectContextMenuItem" Header="Add Project" Click="AddProject_Click"/>
                                     <MenuItem x:Name="addFileContextMenuItem" Header="Add File" Click="AddFile_Click"/>
                                     <MenuItem x:Name="addReferenceContextMenuItem" Header="Add Reference" Click="AddReference_Click"/>

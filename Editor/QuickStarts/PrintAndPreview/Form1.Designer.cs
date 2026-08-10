@@ -74,49 +74,41 @@
             // 
             // btPrintOptions
             // 
-            this.btPrintOptions.BackColor = System.Drawing.SystemColors.Control;
             this.btPrintOptions.Location = new System.Drawing.Point(272, 19);
             this.btPrintOptions.Name = "btPrintOptions";
             this.btPrintOptions.Size = new System.Drawing.Size(80, 23);
             this.btPrintOptions.TabIndex = 3;
             this.btPrintOptions.Text = "Print Options";
-            this.btPrintOptions.UseVisualStyleBackColor = false;
             this.btPrintOptions.Click += new System.EventHandler(this.PrintOptionsButton_Click);
             this.btPrintOptions.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PrintOptionsButton_MouseMove);
             // 
             // btPageSetup
             // 
-            this.btPageSetup.BackColor = System.Drawing.SystemColors.Control;
             this.btPageSetup.Location = new System.Drawing.Point(184, 19);
             this.btPageSetup.Name = "btPageSetup";
             this.btPageSetup.Size = new System.Drawing.Size(80, 23);
             this.btPageSetup.TabIndex = 2;
             this.btPageSetup.Text = "Page Setup";
-            this.btPageSetup.UseVisualStyleBackColor = false;
             this.btPageSetup.Click += new System.EventHandler(this.PageSetupButton_Click);
             this.btPageSetup.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PageSetupButton_MouseMove);
             // 
             // btPrint
             // 
-            this.btPrint.BackColor = System.Drawing.SystemColors.Control;
             this.btPrint.Location = new System.Drawing.Point(8, 19);
             this.btPrint.Name = "btPrint";
             this.btPrint.Size = new System.Drawing.Size(80, 23);
             this.btPrint.TabIndex = 0;
             this.btPrint.Text = "Print";
-            this.btPrint.UseVisualStyleBackColor = false;
             this.btPrint.Click += new System.EventHandler(this.PrintButton_Click);
             this.btPrint.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PrintButton_MouseMove);
             // 
             // btPrintPreview
             // 
-            this.btPrintPreview.BackColor = System.Drawing.SystemColors.Control;
             this.btPrintPreview.Location = new System.Drawing.Point(96, 19);
             this.btPrintPreview.Name = "btPrintPreview";
             this.btPrintPreview.Size = new System.Drawing.Size(80, 23);
             this.btPrintPreview.TabIndex = 1;
             this.btPrintPreview.Text = "Print Preview";
-            this.btPrintPreview.UseVisualStyleBackColor = false;
             this.btPrintPreview.Click += new System.EventHandler(this.PrintPreviewButton_Click);
             this.btPrintPreview.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PrintPreviewButton_MouseMove);
             // 
@@ -141,7 +133,6 @@
             // 
             // syntaxEdit1
             // 
-            this.syntaxEdit1.BackColor = System.Drawing.SystemColors.Window;
             this.syntaxEdit1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.syntaxEdit1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.syntaxEdit1.Location = new System.Drawing.Point(0, 102);

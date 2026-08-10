@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.IO;
@@ -30,7 +30,7 @@ namespace DebugRemoteScript
         private const string UseRemoteAPIDescription = "Allows to call API directly when executing script, and through .NET remoting wrapper when debugging.";
         private IScriptEdit edit;
         private IScriptAPI scriptAPI;
-        private ScriptDebugger scriptDebugger;
+        private IScriptDebuggerBase scriptDebugger;
         private ExecutionPosition executionPosition;
         private string ipcPortName = null;
         private string ipcObjectUri = null;

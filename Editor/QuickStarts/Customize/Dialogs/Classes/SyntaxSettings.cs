@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -59,8 +59,8 @@ namespace Customize.Dialogs
         private int marginPos = EditConsts.DefaultMarginPosition;
         private int[] tabStops = { EditConsts.DefaultTabStop };
         private string[] eventNames = new string[] { };
-        private KeyList keyList = null;
-        private int ccolorStyles = -1;
+        private IKeyList keyList = null;
+        private int colorStyles = -1;
 
         #endregion
 
@@ -80,7 +80,7 @@ namespace Customize.Dialogs
             visualThemes.Add(darkTheme);
             visualThemes.Add(customTheme);
             visualThemes.Add(visualStudioTheme);
-            ccolorStyles = lightTheme.LexStyles.Count;
+            colorStyles = lightTheme.LexStyles.Count;
             visualThemes.ActiveThemeIndex = 0;
         }
 
@@ -578,7 +578,7 @@ namespace Customize.Dialogs
         /// <summary>
         /// Represents the SyntaxEdit object's KeyList property.
         /// </summary>
-        public KeyList KeyList
+        public IKeyList KeyList
         {
             get
             {
@@ -681,7 +681,7 @@ namespace Customize.Dialogs
             PageType = edit.Pages.PageType;
             EventNames = edit.KeyList.Handlers.EventNames;
             LoadEventData(edit.KeyList.EventData);
-            KeyList = (KeyList)edit.KeyList;
+            KeyList = edit.KeyList;
 
             Font = edit.Font;
             var theme = visualThemes.ActiveTheme;
@@ -768,7 +768,7 @@ namespace Customize.Dialogs
         /// <returns>True if font style is enabled; otherwise false.</returns>
         public virtual bool IsFontStyleEnabled(int index)
         {
-            return (index >= 0) && (index < ccolorStyles);
+            return (index >= 0) && (index < colorStyles);
         }
 
         /// <summary>
@@ -942,10 +942,10 @@ namespace Customize.Dialogs
             }
         }
 
-        protected virtual void LoadEventData(IKeyData[] keyDates)
+        protected virtual void LoadEventData(IEnumerable<IKeyData> keyData)
         {
             eventDataList.Clear();
-            foreach (var data in keyDates)
+            foreach (var data in keyData)
                 eventDataList.Add(data);
         }
 

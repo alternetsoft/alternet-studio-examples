@@ -13,6 +13,7 @@ namespace AllDemos
         public static bool AddBuildNumber = false;
 
         private readonly InternalSamplesPage samplesPage = new();
+        private readonly Panel panel = new();
 
         public MainWindowSimple()
         {
@@ -26,9 +27,13 @@ namespace AllDemos
             MinimumSize = (600, 600);
             StartLocation = WindowStartLocation.CenterScreen;
 
-            samplesPage.Parent = this;
+            panel.Parent = this;
 
-            SetSizeToContent(WindowSizeToContentMode.GrowWidthAndHeight);
+            FormUtils.BindShown(this, () =>
+            {
+                samplesPage.Parent = panel;
+                SetSizeToContent(WindowSizeToContentMode.GrowWidthAndHeight);
+            });
         }
     }
 }

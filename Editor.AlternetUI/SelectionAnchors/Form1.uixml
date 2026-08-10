@@ -1,0 +1,31 @@
+<Window xmlns="http://schemas.alternetsoft.com/ui/2021"
+        xmlns:x="http://schemas.alternetsoft.com/ui/2021/uixml"
+        xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+        x:Class="SelectionAnchors.Form1"
+        Title="Selection Anchors on Alternet.UI" StartLocation="CenterScreen"
+        MinimumSize="600, 400" Size="900,700" Padding="10"
+        Icon="embres:SelectionAnchors.Sample.ico">
+
+  <Panel Layout="Vertical">
+
+    <Label Name="lbDescription" Margin="5" 
+     Text="SyntaxEdit allows selection anchors to be displayed and used to modify the selection. This feature is particularly useful on tablets and mobile devices. The editor starts in scrolling mode; in this mode, users can scroll the document by dragging the text without changing the selection. To switch to selection mode, users can double-click the text. After that, they can drag the selection anchors to adjust the selection."/>
+
+    <Panel Layout="Horizontal">
+      <CheckBox Name="chbWordWrap" Text="Word Wrap"
+              ToolTip = "Automatically wraps words to the beginning of the next line when necessary"
+              Margin="5"/>
+
+      <CheckBox Name="chbWrapAtMargin" Text="Wrap at Margin"
+                ToolTip = "Automatically wraps words at margin position" Margin="5"/>
+    </Panel>
+
+    <Border VerticalAlignment="Fill" MarginTop="5">
+      <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>
+    </Border>
+    <Splitter Dock="Bottom"/>
+    <LogListBox Name="logListBox" Dock="Bottom" Height="200"/>
+  </Panel>
+
+</Window>
+

@@ -18,14 +18,16 @@ using Alternet.UI;
 using Alternet.Syntax.Parsers.Roslyn;
 using Alternet.Syntax.Parsers.Roslyn.CodeCompletion;
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 
 namespace CodeSnippets
 {
     public partial class Form1 : Window
     {
-        private readonly Alternet.Editor.TextSource.TextSource csharpSource = new();
-        private readonly Alternet.Editor.TextSource.TextSource vbSource = new();
+        private readonly TextSource csharpSource = new();
+        private readonly TextSource vbSource = new();
         private readonly CsParser csParser1 = new(new CsSolution());
         private readonly VbParser vbParser1 = new(new VbSolution());
 
@@ -46,8 +48,7 @@ namespace CodeSnippets
 
             Form1_Load(this, EventArgs.Empty);
 
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
+            lbDescription.WordWrap = true;
             ActiveControl = syntaxEdit1;
         }
 
@@ -56,14 +57,9 @@ namespace CodeSnippets
             base.DisposeManaged();
         }
 
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            DirectoryInfo dirInfo = new(DemoUtils.ResourcesFolder + @"Editor/Text/");
+            DirectoryInfo dirInfo = new(DemoUtils.GetResourceFolderFullPath(@"Editor/Text/"));
 
             if(csharpSource.LoadOrAddNotFound(dirInfo.FullName + @"c#.cs"))
             {

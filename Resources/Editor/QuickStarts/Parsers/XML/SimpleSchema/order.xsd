@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:prod="http://example.com/product" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cust="http://example.com/customer" attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="customer.xsd" namespace="http://example.com/customer" />
+  <xs:import schemaLocation="product.xsd" namespace="http://example.com/product" />
+  <xs:element name="Order">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="cust:Customer" />
+        <xs:element ref="prod:Product" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

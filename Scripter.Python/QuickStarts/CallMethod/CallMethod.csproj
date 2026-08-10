@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
+    <LangVersion>12.0</LangVersion>
     <OutputType>WinExe</OutputType>
     <UseWindowsForms>true</UseWindowsForms>
     <AssemblyName>CallMethod.Python</AssemblyName>
@@ -13,7 +14,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows;net10.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net462|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -29,19 +30,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx" />
-    <EmbeddedResource Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Resources\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python.Embedded" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.8" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python.Embedded" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.0" />
   </ItemGroup>
   <ItemGroup />
 </Project>

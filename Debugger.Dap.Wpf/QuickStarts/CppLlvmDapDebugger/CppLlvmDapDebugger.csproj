@@ -2,6 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
+    <LangVersion>12.0</LangVersion>
     <UseWPF>true</UseWPF>
     <AssemblyName>CppLlvmDapDebugger.Wpf</AssemblyName>
     <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
@@ -15,7 +16,7 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net471;net8.0-windows;net9.0-windows</TargetFrameworks>
+    <TargetFrameworks>net471;net8.0-windows;net9.0-windows;net10.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,26 +34,23 @@
     <Compile Include="MainWindow.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\licenses.licx" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="MainWindow.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Cpp.Lldb.Embedded" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Cpp.Lldb" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd.Embedded" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="10.0.8" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Cpp.Lldb.Embedded" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Cpp.Lldb" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd.Embedded" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="11.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Icon.ico" />

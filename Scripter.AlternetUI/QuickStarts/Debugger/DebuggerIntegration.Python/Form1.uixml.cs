@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.IO;
@@ -33,11 +33,14 @@ using Alternet.Scripter.Integration.AlternetUI;
 using System.Diagnostics;
 using Python.Runtime;
 using Alternet.Scripter;
+using Alternet.UI.Localization;
 
 namespace DebuggerIntegration.Python
 {
     public partial class Form1 : Window
     {
+        public int DefaultSideBarWidth = 400;
+
         private static readonly bool ExceptionsLogger = false;
 
         protected PythonProject Project { get; private set; } = new PythonProject();
@@ -50,10 +53,22 @@ namespace DebuggerIntegration.Python
         private readonly ScriptRun scriptRun;
         private readonly Alternet.UI.MenuItem testMenuItemToolStripMenuItem = new();
 
-        private readonly DebuggerControlToolbar? toolbar = new()
+        private readonly Spacer spacerAfterToolBar = new()
         {
-            Margin = (0, 0, 0, ToolBar.DefaultDistanceToContent),
-            Padding = 1,
+            Dock = DockStyle.Top,
+            Height = 10,
+        };
+
+        private readonly Spacer spacerBeforeToolBar = new()
+        {
+            Dock = DockStyle.Top,
+            Height = 10,
+        };
+
+        private readonly DebuggerControlToolbar toolbar = new()
+        {
+            Padding = (0, 4, 0, 4),
+            Dock = DockStyle.Top,
         };
 
         private readonly DebugMenu? debugMenu = new()
@@ -62,27 +77,26 @@ namespace DebuggerIntegration.Python
 
         private readonly TabControl EditorsTabControl = new()
         {
-            VerticalAlignment = VerticalAlignment.Fill,
+            Dock = DockStyle.Fill,
+            Visible = false,
         };
 
         private readonly DebuggerPanelsTabControl debuggerPanels = new()
         {
-            VerticalAlignment = VerticalAlignment.Fill,
+            Dock = DockStyle.Bottom,
             TabAlignment = TabAlignment.Bottom,
         };
 
-        private readonly SplittedPanel panel = new()
+        private readonly Splitter splitter = new()
         {
-            TopVisible = false,
-            BottomVisible = true,
-            LeftVisible = false,
-            RightVisible = false,
+            Dock = DockStyle.Bottom,
         };
 
         private DebuggerController? controller = new();
 
         static Form1()
         {
+            Alternet.Editor.AlternetUI.GlobalEditorInitializer.Bind();
             KnownAssemblies.PreloadReferenced();
             Alternet.Scripter.Python.PythonDemoUtils.Initialize();
 
@@ -98,6 +112,54 @@ namespace DebuggerIntegration.Python
             }
         }
 
+        public void OnFileListBoxCreate(FileListBox f)
+        {
+            bool FileFilterPredicate(string item)
+            {
+                var extension = PathUtils.GetExtensionLower(item);
+
+                if (extension == "pyproj")
+                    return true;
+                if (extension == "py")
+                    return true;
+                return false;
+            }
+
+            f.HasBorder = false;
+
+            f.FileFilterPredicate = FileFilterPredicate;
+
+            if (Project.HasProject)
+            {
+                f.SelectFolderIfExists(Project.ProjectFileName);
+            }
+            else
+            {
+                f.SelectInitialFolder();
+            }
+
+            f.ListBox.DoubleClick += (s, e) =>
+            {
+                Post(() =>
+                {
+                    if (f.SelectedItemIsFile)
+                    {
+                        var item = f.SelectedItem;
+                        if (item!.ExtensionLower == "pyproj")
+                        {
+                            OpenProject(item.Path);
+                        }
+                        else
+                            if (item!.ExtensionLower == "py")
+                            {
+                                codeEditContainer?.TryActivateEditor(item.Path);
+                                UpdateToolbar();
+                            }
+                    }
+                });
+            };
+        }
+
         public Form1()
         {
             // PythonDemoUtils.SetVirtualEnvironment(@"e:\py1");
@@ -107,34 +169,26 @@ namespace DebuggerIntegration.Python
             InitializeComponent();
 
             debugger = new Alternet.Scripter.Debugger.Python.ScriptDebugger();
-            debugger.EventsSyncAction = (action) => Alternet.UI.App.Invoke(action);
+            debugger.EventsSyncAction = (action) =>
+            {
+                Alternet.UI.App.Invoke((Action)action);
+            };
             scriptRun = new ScriptRun();
             debugger.ScriptRun = scriptRun;
 
             controller.DebuggerPreStartup += OnDebuggerPreStartup;
             controller.Debugger = debugger;
-            
+
             toolbar.Controller = controller;
             debugMenu.Controller = controller;
 
             testMenuItemToolStripMenuItem.Text = "Test Menu Item";
-            toolbar.SetVisibleBorders(false, false, false, true);
 
             DebugCodeEdit.Parsers[".py"] = typeof(PythonNETParser);
             DebugCodeEdit.CreateParserFunc = DoCreateParser;
 
             codeEditContainer = new DebugCodeEditContainer(EditorsTabControl);
             codeEditContainer.EditorRequested += EditorContainer_EditorRequested;
-
-            try
-            {
-                OpenProject(FindProjectFile());
-            }
-            catch(Exception e)
-            {
-                App.LogError(e);
-                throw;        
-            }
 
             scriptRun.GlobalItems.Add(
                 new ScriptGlobalItem(
@@ -192,14 +246,20 @@ namespace DebuggerIntegration.Python
             ExitMenuItem.Click += ExitMenuItem_Click;
             FileMenu.Opened += FileMenu_Opened;
 
+            MainMenu.Add(debugMenu);
+
+            toolbar.Dock = DockStyle.Top;
+            Padding = (10, 0, 10, 10);
+
+            splitter.Dock = DockStyle.Bottom;
+
+            EditorsTabControl.Parent = this;
+            splitter.Parent = this;
+            debuggerPanels.Parent = this;
+            debuggerPanels.MinHeight = 200;
+            spacerBeforeToolBar.Parent = this;
             toolbar.Parent = this;
-            MainMenu.Items.Add(debugMenu);
-            panel.Margin = 10;
-            panel.Parent = this;
-            panel.BottomPanel.MinHeight = 200;
-            panel.VerticalAlignment = VerticalAlignment.Fill;
-            EditorsTabControl.Parent = panel.FillPanel;
-            debuggerPanels.Parent = panel.BottomPanel;
+            spacerAfterToolBar.Parent = this;
 
             UpdateToolbar();
 
@@ -219,7 +279,7 @@ namespace DebuggerIntegration.Python
 
             // PythonPathScheme.LogToFile(@"e:\result.txt");
 
-            debuggerPanels.AddDeveloperToolsToContextMenu();
+            debuggerPanels.AddDebugToolsToContextMenu();
 
             App.AddIdleTask(() =>
             {
@@ -228,6 +288,26 @@ namespace DebuggerIntegration.Python
             App.Log("Used Python version: " + ScriptEngine.PythonVersion.ToString());
 
             /*MethodBinderEvents.CoerceBind = ScriptEngine.CoerceBindHandler;*/
+
+            PostAndBusyCursor(() =>
+            {
+                try
+                {
+                    try
+                    {
+                        OpenProject(FindProjectFile());
+                    }
+                    catch (Exception e)
+                    {
+                        App.LogError(e);
+                        throw;
+                    }
+                }
+                finally
+                {
+                    EditorsTabControl.Visible = true;
+                }
+            });
         }
 
         [Conditional("DEBUG")]
@@ -253,12 +333,16 @@ namespace DebuggerIntegration.Python
 
         private static string? FindProjectFile()
         {
-            return Path.Combine(DemoUtils.ResourcesFolder, StartupProjectFileSubPath);
+            return DemoUtils.GetResourceFileFullPath(StartupProjectFileSubPath);
         }
 
         private static string? FindDefaultProjectDirectory()
         {
-            return Path.GetDirectoryName(FindProjectFile());
+            var projectFile = FindProjectFile();
+            if (projectFile is null)
+                return null;
+
+            return Path.GetDirectoryName(projectFile);
         }
 
         private void OnDebuggerPreStartup(object? sender, System.EventArgs e)
@@ -291,7 +375,11 @@ namespace DebuggerIntegration.Python
                 return;
 
             if (Project != null && Project.HasProject)
+            {
+                if (Project.ProjectFileName == projectFilePath)
+                    return;
                 CloseProject(Project);
+            }
 
             Project!.Load(projectFilePath);
             scriptRun.ScriptSource.FromScriptProject(Project.ProjectFileName);
@@ -343,10 +431,14 @@ namespace DebuggerIntegration.Python
                 CodeEnvironment = scriptRun.CodeEnvironment,
             };
 
-            var edit = new DebugCodeEdit();
+            var edit = new DebugCodeEdit
+            {
+                DebugIdentifier = "PythonDebugEdit",
+            };
+
             edit.LoadFile(e.FileName);
             edit.Lexer = parser;
-            edit.AllowedActions &= ~AllowedActions.SetNextStatement;
+            edit.AllowedActions &= ~DebugEditAllowedActions.SetNextStatement;
 
             e.DebugEdit = edit;
         }

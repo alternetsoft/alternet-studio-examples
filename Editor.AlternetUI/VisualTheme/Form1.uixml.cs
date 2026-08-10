@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2024 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2024 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2024 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.IO;
@@ -16,20 +16,25 @@ using System.IO;
 using Alternet.UI;
 
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
-using Alternet.Editor.TextSource;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Syntax.Parsers.Roslyn;
 using Alternet.Syntax.Parsers.Roslyn.CodeCompletion;
+using Alternet.Drawing;
 
 namespace VisualTheme
 {
     public partial class Form1 : Window
     {
         private CsParser csParser1 = new CsParser(new CsSolution());
+        private CustomVisualTheme customTheme = new ();
 
         public Form1()
         {
             InitializeComponent();
+
+            syntaxEdit1.VisualTheme = customTheme;
 
             if (CommandLineArgs.ParseAndGetIsDark())
             {
@@ -41,19 +46,13 @@ namespace VisualTheme
 
             Form1_Load(this, EventArgs.Empty);
 
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
+            lbDescription.WordWrap = true;
             ActiveControl = syntaxEdit1;
         }
 
         protected override void DisposeManaged()
         {
             base.DisposeManaged();
-        }
-
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
         }
 
         private void InitEdit()
@@ -66,39 +65,39 @@ namespace VisualTheme
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            DirectoryInfo dirInfo = new(DemoUtils.ResourcesFolder + @"Editor/Text/");
+            FileInfo fileInfo = new(DemoUtils.GetResourceFileFullPath(@"Editor/Text/c#.cs"));
 
             var textSource = new TextSource();
             syntaxEdit1.Source = textSource;
 
-            if (textSource.LoadOrAddNotFound(dirInfo.FullName + @"c#.cs"))
+            if (textSource.LoadOrAddNotFound(fileInfo.FullName))
             {
                 textSource.Lexer = csParser1;
             }
 
             syntaxEdit1.HighlightReferences = true;
-            InitializeVisualThemeComboBox();
 
-            visualThemes.SelectedIndex = (int)syntaxEdit1.VisualThemeType;
-            visualThemes.SelectedIndexChanged += VisualThemeComboBox_SelectedIndexChanged;
-        }
+            visualThemes.EnumType = typeof(VisualThemeType);
 
-        private void InitializeVisualThemeComboBox()
-        {
-            foreach (VisualThemeType value in Enum.GetValues(typeof(VisualThemeType)))
-                visualThemes.Add(value.ToString());
+            visualThemes.ExcludeValues = new object[]
+            {
+                VisualThemeType.None,
+            };
+
+            visualThemes.Value = syntaxEdit1.VisualThemeType;
+            visualThemes.ValueChanged += VisualThemeComboBox_SelectedIndexChanged;
         }
 
         private void VisualThemeComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            syntaxEdit1.VisualThemeType = (VisualThemeType?)visualThemes.SelectedIndex
-                ?? VisualThemeType.None;
+            syntaxEdit1.VisualThemeType
+                = (VisualThemeType?)visualThemes.Value ?? VisualThemeType.Auto;
         }
     }
 
-#pragma warning disable SA1402 // File may only contain a single type
+#pragma warning disable
     public class CustomVisualTheme : StandardVisualTheme
-#pragma warning restore SA1402 // File may only contain a single type
+#pragma warning restore
     {
         public CustomVisualTheme()
             : base("MyCustomTheme")
@@ -108,7 +107,7 @@ namespace VisualTheme
         protected override VisualThemeColors GetColors()
         {
             var colors = DarkVisualTheme.Instance.Colors.Clone();
-            colors.Reswords = System.Drawing.Color.Red;
+            colors.Reswords = LightDarkColors.Red.Dark;
             colors.WindowBackground = System.Drawing.Color.FromArgb(40, 40, 40);
             return colors;
         }

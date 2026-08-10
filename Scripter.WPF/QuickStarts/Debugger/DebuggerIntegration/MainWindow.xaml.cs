@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+
 using Alternet.Common;
 using Alternet.Common.Projects.DotNet;
 using Alternet.Editor.Roslyn.Wpf;
@@ -11,6 +12,7 @@ using Alternet.FormDesigner.Integration.Wpf;
 using Alternet.FormDesigner.Wpf;
 using Alternet.Scripter;
 using Alternet.Scripter.Debugger;
+using Alternet.Scripter.Debugger.UI.Wpf;
 using Alternet.Scripter.Integration.Wpf;
 using Microsoft.Win32;
 
@@ -18,13 +20,12 @@ namespace DebuggerIntegration.Wpf
 {
     public partial class MainWindow : Window
     {
-        private static readonly string[] ProjectSearchDirectories = new[] { ".", @"..\..\..\..\..\..\..\" };
-        private static readonly string StartupProjectFileSubPath = @"Resources\Debugger\CS\HelloWorld.Wpf\HelloWorld.Wpf.csproj";
-        private ScriptDebugger debugger;
+        private IScriptDebuggerBase debugger;
 
         private DebugCodeEditContainer codeEditContainer;
-
-        private ScriptRun scriptRun;
+        private DebuggerUIController controller;
+        private IScriptRun scriptRun;
+        private bool useNewDebugger = false;
 
         public MainWindow()
         {
@@ -34,33 +35,60 @@ namespace DebuggerIntegration.Wpf
 
             codeEditContainer = new DebugCodeEditContainer(EditorsTabControl);
             codeEditContainer.EditorRequested += EditorContainer_EditorRequested;
-
-            OpenProject(FindProjectFile());
-
-            debugger = new ScriptDebugger
-            {
-                ScriptRun = scriptRun,
-            };
-
-            DebuggerControlToolbar.Debugger = debugger;
-            DebuggerControlToolbar.DebuggerPreStartup += OnDebuggerPreStartup;
-
-            DebugMenu.Debugger = debugger;
-            DebugMenu.DebuggerPreStartup += OnDebuggerPreStartup;
-
-            DebuggerPanelsTabControl.Debugger = debugger;
-
-            var controller = new DebuggerUIController(Dispatcher, codeEditContainer);
-            controller.Debugger = debugger;
+            controller = new DebuggerUIController(Dispatcher, codeEditContainer);
             controller.DebuggerPanels = DebuggerPanelsTabControl;
-            codeEditContainer.Debugger = debugger;
+
+            DebuggerControlToolbar.DebuggerPreStartup += OnDebuggerPreStartup;
+            DebugMenu.DebuggerPreStartup += OnDebuggerPreStartup;
 
             DebugMenu.InstallKeyboardShortcuts(CommandBindings);
             FileMenu.SubmenuOpened += FileMenu_SubmenuOpened;
             UpdateDebugControls();
+
+            OpenProject(FindProjectFile());
         }
 
-        protected DotNetProject Project { get; private set; } = new DotNetProject();
+        public static string[] ProjectSearchDirectories { get; set; } = new[] { ".", @"..\..\..\..\..\..\..\" };
+
+        public static string StartupProjectFileSubPath { get; set; } = @"Resources\Debugger\CS\HelloWorld.Wpf\HelloWorld.Wpf.csproj";
+
+        public DebugCodeEditContainer CodeEditContainer => codeEditContainer;
+
+        public DotNetProject Project { get; private set; } = new DotNetProject();
+
+        public bool UseNewDebugger
+        {
+            get
+            {
+                return useNewDebugger;
+            }
+
+            set
+            {
+                if (useNewDebugger != value)
+                {
+                    FinalizeDebugger();
+                    useNewDebugger = value;
+                    InitializeDebugger();
+                    UpdateDebugControls();
+                }
+            }
+        }
+
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        [System.ComponentModel.Browsable(false)]
+        public IScriptDebuggerBase Debugger
+        {
+            get
+            {
+                if (debugger == null)
+                {
+                    InitializeDebugger();
+                }
+
+                return debugger;
+            }
+        }
 
         public void SaveAllModifiedFiles()
         {
@@ -92,6 +120,54 @@ namespace DebuggerIntegration.Wpf
             return result;
         }
 
+        private void Debugger_ExecutionStopped(object sender, ExecutionStoppedEventArgs e)
+        {
+            if (e.StopReason == ExecutionStopReason.Exception || e.StopReason == ExecutionStopReason.UnhandledException)
+                DisplayDebuggerException(e);
+        }
+
+        private void DisplayDebuggerException(ExecutionStoppedEventArgs e)
+        {
+            var str = $"{e.Exception.ExceptionType}\n{e.Exception.Message}";
+            using (var dlg = new DebuggerException(debugger, str))
+            {
+                dlg.Title = e.StopReason == ExecutionStopReason.UnhandledException ? StringConsts.UnhandledException : StringConsts.DebuggerException;
+                dlg.ExceptionEvaluationExpression = e.Exception.ExceptionEvaluationExpression;
+                dlg.OnEvaluate += Dlg_OnEvaluate;
+                dlg.ShowDialog();
+            }
+        }
+
+        private void Dlg_OnEvaluate(object sender, EventArgs e)
+        {
+            EvaluateExpression(true);
+        }
+
+        private void EvaluateExpression(bool evaluateCurrentException = false)
+        {
+            var edit = codeEditContainer.ActiveEditor;
+            var symbol = edit != null ? edit.GetSymbolAtCursor() : string.Empty;
+            var dialog = new EvaluateDialog(
+                EvaluateDialog.CodeCompletionOptions.Custom((s, d, tb) => new EditorCodeCompletionController(s, d, tb)))
+            {
+                Debugger = debugger,
+                EvaluateCurrentException = evaluateCurrentException,
+                Expression = symbol,
+            };
+            {
+                var watchesControl = DebuggerPanelsTabControl.Watches;
+
+                dialog.WatchAdded += (o, e) => watchesControl.AddWatch(e.Expression);
+                dialog.WatchAdded += (o, e) => ActivateWatchesTab();
+                dialog.ShowDialog();
+            }
+        }
+
+        private void ActivateWatchesTab()
+        {
+            DebuggerPanelsTabControl.FocusPanel(DebuggerPanelKinds.Watches);
+        }
+
         private void OnDebuggerPreStartup(object sender, System.EventArgs e)
         {
             SaveAllModifiedFiles();
@@ -118,6 +194,9 @@ namespace DebuggerIntegration.Wpf
 
         private void OpenProject(string projectFilePath)
         {
+            if (!TryResetDebuggerOnProjectChange())
+                return;
+
             if (Project != null && Project.HasProject)
                 CloseProject(Project);
 
@@ -155,6 +234,20 @@ namespace DebuggerIntegration.Wpf
 
             DebuggerPanelsTabControl.Errors.Clear();
             UpdateDebugControls();
+        }
+
+        private bool TryResetDebuggerOnProjectChange()
+        {
+            if (Debugger != null && Debugger.IsStarted)
+            {
+                MessageBox.Show("Please stop debugging session first");
+                return false;
+            }
+
+            if (Debugger != null)
+                Debugger.Breakpoints.Clear();
+
+            return true;
         }
 
         private void UpdateDebugControls()
@@ -208,6 +301,78 @@ namespace DebuggerIntegration.Wpf
             edit.SetFileNameAndProject(e.FileName, projectName);
             edit.LoadFile(e.FileName);
             e.DebugEdit = edit;
+        }
+
+        private void UseUniversalDebuggerMenuItem_Click(object sender, System.EventArgs e)
+        {
+            if (ChangeDebuggerMode(!useUniversalDebuggerMenuItem.IsChecked))
+                useUniversalDebuggerMenuItem.IsChecked = UseNewDebugger;
+        }
+
+        private bool ChangeDebuggerMode(bool useUnivesal)
+        {
+            if (!TryResetDebuggerOnProjectChange())
+                return false;
+            UseNewDebugger = useUnivesal;
+            return true;
+        }
+
+        private void InitializeDebugger()
+        {
+            if (UseNewDebugger)
+                debugger = new Alternet.Scripter.Debugger.Universal.ScriptDebugger { ScriptRun = scriptRun };
+            else
+                debugger = new Alternet.Scripter.Debugger.ScriptDebugger { ScriptRun = scriptRun };
+
+            var myPlatform = Consts.IsNetFramework ? ".NET Framework" : ".NET Core";
+
+            if (UseNewDebugger)
+            {
+                LogToOutput($"Using universal debugger on {myPlatform} platform");
+            }
+            else
+            {
+                LogToOutput($"Using legacy debugger on {myPlatform} platform");
+            }
+
+            debugger.ExecutionStopped += Debugger_ExecutionStopped;
+
+            controller.Debugger = debugger;
+            codeEditContainer.Debugger = debugger;
+
+            DebuggerPanelsTabControl.Breakpoints.Debugger = debugger;
+            DebuggerPanelsTabControl.CallStack.Debugger = debugger;
+            DebuggerPanelsTabControl.Output.Debugger = debugger;
+            DebuggerPanelsTabControl.Locals.Debugger = debugger;
+            DebuggerPanelsTabControl.Watches.Debugger = debugger;
+            DebuggerPanelsTabControl.Errors.Debugger = debugger;
+            DebuggerPanelsTabControl.Threads.Debugger = debugger;
+        }
+
+        private void LogToOutput(string s)
+        {
+            DebuggerPanelsTabControl.Output?.CustomLog(s + Environment.NewLine);
+        }
+
+        private void FinalizeDebugger()
+        {
+            if (debugger == null)
+                return;
+            debugger.ExecutionStopped -= Debugger_ExecutionStopped;
+            controller.Debugger = null;
+            codeEditContainer.Debugger = null;
+            DebuggerPanelsTabControl.Breakpoints.Debugger = null;
+            DebuggerPanelsTabControl.CallStack.Debugger = null;
+            DebuggerPanelsTabControl.Output.Debugger = null;
+            DebuggerPanelsTabControl.Locals.Debugger = null;
+            DebuggerPanelsTabControl.Watches.Debugger = null;
+            DebuggerPanelsTabControl.Errors.Debugger = null;
+            DebuggerPanelsTabControl.Threads.Debugger = null;
+            DebuggerControlToolbar.Debugger = null;
+            DebugMenu.Debugger = null;
+
+            (debugger as IDisposable)?.Dispose();
+            debugger = null;
         }
 
         private void OpenProjectMenuItem_Click(object sender, RoutedEventArgs e)

@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2024 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 /*
-    AlterNET Code Editor Library
+    AlterNET Studio
 
-    Copyright (c) 2016-2024 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2024 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.IO;
@@ -19,6 +19,7 @@ using Alternet.Syntax;
 using Alternet.Syntax.CodeCompletion;
 using Alternet.Common;
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 using Alternet.Syntax.Parsers.Roslyn;
 using Alternet.Scripter;
@@ -50,12 +51,10 @@ namespace ObjectReference
                 syntaxEdit1.VisualThemeType = VisualThemeType.Dark;
             }
 
-            cbLanguages.Items.Add("C#");
+            cbLanguages.Add("C#");
+            cbLanguages.Add("Visual Basic");
 
-            if (Consts.IsWindows)
-                cbLanguages.Items.Add("Visual Basic");
-
-            cbLanguages.SelectedIndexChanged += LanguagesComboBox_SelectedIndexChanged;
+            cbLanguages.ValueChanged += LanguagesComboBox_SelectedIndexChanged;
 
             syntaxEdit1.Outlining.AllowOutlining = true;
 
@@ -74,13 +73,12 @@ namespace ObjectReference
 
             scriptRun.ScriptHost.GenerateModulesOnDisk = false;
 
-            cbLanguages.SelectedIndex = 0;
+            cbLanguages.Value = "C#";
             ScriptButton.Click += RunScriptButton_Click;
             TestButton.Click += TestButton_Click;
             UpdateButtons();
 
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
+            lbDescription.WordWrap = true;
         }
 
         protected override void DisposeManaged()
@@ -89,11 +87,6 @@ namespace ObjectReference
             scriptRunning = false;
 
             base.DisposeManaged();
-        }
-
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
         }
 
         public void StartScript()
@@ -106,7 +99,9 @@ namespace ObjectReference
                 {
                     if (!scriptRun.Compile())
                     {
-                        MessageBox.Show(string.Join("\r\n", scriptRun.ScriptHost.CompilerErrors.Select(x => x.ToString()).ToArray()));
+                        var errors = scriptRun.ScriptHost.CompilerErrors
+                        .Select(x => x.ToString()).ToArray();
+                        MessageBox.Show(string.Join("\r\n", errors));
                         return;
                     }
                 }
@@ -152,13 +147,17 @@ namespace ObjectReference
         }
 
 
-        private void GetSourceParametersForCSharp(out string sourceFileSubPath, out ScriptLanguage language)
+        private void GetSourceParametersForCSharp(
+            out string sourceFileSubPath,
+            out ScriptLanguage language)
         {
             sourceFileSubPath = "ObjectReference.cs";
             language = ScriptLanguage.CSharp;
         }
 
-        private void GetSourceParametersForVisualBasic(out string sourceFileSubPath, out ScriptLanguage language)
+        private void GetSourceParametersForVisualBasic(
+            out string sourceFileSubPath,
+            out ScriptLanguage language)
         {
             sourceFileSubPath = "ObjectReference.vb";
             language = ScriptLanguage.VisualBasic;
@@ -167,7 +166,7 @@ namespace ObjectReference
         private string GetSourceFileFullPath(string sourceFileSubPath)
         {
             const string ResourcesFolderName = @"Scripter.AlternetUI";
-            var path = Path.Combine(DemoUtils.ResourcesFolder, ResourcesFolderName, sourceFileSubPath);
+            var path = DemoUtils.GetResourceFileFullPath(ResourcesFolderName, sourceFileSubPath);
             return path;
         }
 
@@ -213,11 +212,13 @@ namespace ObjectReference
 
         private void LanguagesComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            if (cbLanguages.SelectedIndex is null)
+            var index = cbLanguages.IndexOfValue;
+
+            if (index is null)
                 return;
 
             StopScript();
-            UpdateSource(cbLanguages.SelectedIndex.Value);
+            UpdateSource(index.Value);
         }
 
         private void AddScriptItem()

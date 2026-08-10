@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -27,6 +27,7 @@ namespace AlternetStudio.Demo
         private ToolStripButton newFile = new ToolStripButton("File...");
         private ToolStripButton newProject = new ToolStripButton("Project...");
         private ToolStripButton newForm = new ToolStripButton("Form...");
+        private ToolStripButton newUserControl = new ToolStripButton("UserControl...");
         private IList<string> recentFiles = new List<string>();
         private IList<string> recentProjects = new List<string>();
 
@@ -34,6 +35,7 @@ namespace AlternetStudio.Demo
         {
             filesMenuStrip.Items.Add(newFile);
             filesMenuStrip.Items.Add(newForm);
+            filesMenuStrip.Items.Add(newUserControl);
             filesMenuStrip.Items.Add(newProject);
             fileMenuItem.DropDownOpening += FileMenuItem_DropDownOpening;
             LoadRecentFiles();
@@ -44,6 +46,9 @@ namespace AlternetStudio.Demo
             newForm.Click += new System.EventHandler(this.NewFormMenuItem_Click);
             newForm.ImageScaling = ToolStripItemImageScaling.None;
             newForm.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            newUserControl.Click += new System.EventHandler(this.NewUserControlMenuItem_Click);
+            newUserControl.ImageScaling = ToolStripItemImageScaling.None;
+            newUserControl.DisplayStyle = ToolStripItemDisplayStyle.Text;
             newProject.Click += new System.EventHandler(this.NewProjectMenuItem_Click);
             newProject.ImageScaling = ToolStripItemImageScaling.None;
             newProject.DisplayStyle = ToolStripItemDisplayStyle.Text;
@@ -80,9 +85,18 @@ namespace AlternetStudio.Demo
         {
             var edit = ActiveSyntaxEdit;
             var status = edit?.Status;
-            positionStatusLabel.Text = status?.Position ?? string.Empty;
-            modifiedStatusLabel.Text = status?.Modified ?? string.Empty;
-            overwriteStatusLabel.Text = status?.Overwrite ?? " ";
+
+            var positionText = status?.Position ?? string.Empty;
+            var modifiedText = status?.Modified ?? string.Empty;
+            var overwriteText = status?.Overwrite ?? " ";
+
+            positionStatusLabel.Text = positionText;
+            modifiedStatusLabel.Text = modifiedText;
+            overwriteStatusLabel.Text = overwriteText;
+
+            positionStatusLabel.Visible = positionText != string.Empty;
+            modifiedStatusLabel.Visible = modifiedText != string.Empty;
+            overwriteStatusLabel.Visible = overwriteText != string.Empty && overwriteText != " ";
         }
 
         private void StandardToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)

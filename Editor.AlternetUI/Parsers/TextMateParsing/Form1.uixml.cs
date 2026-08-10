@@ -18,6 +18,7 @@ using System.Linq;
 using Alternet.UI;
 
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 using Alternet.Syntax;
 using Alternet.Syntax.Parsers.TextMate;
@@ -34,9 +35,6 @@ namespace TextMateParsing
             = "^(\\t|[ ])*[ ]\\*[^/]*\\*/\\s*$|^(\\t|[ ])*[ ]\\*/\\s*$|^(\\t|[ ])*[ ]\\*([ ]([^\\*]|\\*(?!/))*)?$";
 
         private readonly TextMateParser parser = new TextMateParser();
-        private readonly ObservableCollection<string> languages = new();
-        private readonly ObservableCollection<string> themeNames = new();
-        private readonly ObservableCollection<string> visualThemes = new();
 
         private static LanguageInfo pythonLanguageInfo = new LanguageInfo(".py", "*.py", "Python");
 
@@ -102,12 +100,6 @@ namespace TextMateParsing
         {
             InitializeComponent();
 
-            if (!IsNet471OrGreater)
-            {
-                syntaxEdit1.Lines.Add("This demo requires .Net 4.71 or greater");
-                return;
-            }
-
             bool isDark = IsDarkBackground;
 
             if (CommandLineArgs.ParseAndGetIsDark())
@@ -120,23 +112,14 @@ namespace TextMateParsing
             {
                 foreach (LanguageInfo lang in langItems)
                 {
-                    languages.Add(lang.Description);
+                    cbLanguages.Add(new ListControlItem(lang.Description, lang));
                 }
 
-                cbLanguages.Items.AddRange(languages.ToArray());
+                cbLanguages.ValueChanged += LanguagesComboBox_SelectedIndexChanged;
 
-                cbLanguages.SelectedIndexChanged += LanguagesComboBox_SelectedIndexChanged;
+                cbColors.EnumType = typeof(ThemeName);
 
-                foreach (var themeName in Enum.GetValues(typeof(ThemeName)))
-                {
-                    var s = themeName.ToString();
-                    if (s is not null)
-                        themeNames.Add(s);
-                }
-
-                cbColors.Items.AddRange(themeNames);
-
-                DirectoryInfo dirInfo = new(DemoUtils.ResourcesFolder + @"Editor/TextMate");
+                DirectoryInfo dirInfo = new(DemoUtils.GetResourceFolderFullPath(@"Editor/TextMate"));
 
                 if (dirInfo.Exists)
                 {
@@ -153,29 +136,31 @@ namespace TextMateParsing
                 syntaxEdit1.Lexer = parser;
                 InitializeThemes();
                 int index = FindLangByExt(".py");
-                cbLanguages.SelectedIndex = index >= 0 ? index : 0;
+                if(index < 0)
+                    index = 0;
+
+                cbLanguages.Value = langItems[index];
                 syntaxEdit1.VisualTheme = new TextMateTheme(parser.LanguageDefinition.ThemeColors);
 
-                cbColors.SelectedIndexChanged += ThemesComboBox_SelectedIndexChanged;
+                cbColors.ValueChanged += ThemesComboBox_SelectedIndexChanged;
 
                 cbVisualThemes.IsEnabled = false;
 
                 if (isDark)
                 {
                     syntaxEdit1.VisualThemeType = VisualThemeType.Custom;
-                    cbVisualThemes.SelectedIndex = (int)VisualThemeType.Custom;
-                    cbColors.SelectedIndex = (int)ThemeName.DarkPlus;
+                    cbVisualThemes.Value = VisualThemeType.Custom;
+                    cbColors.Value = ThemeName.DarkPlus;
                 }
                 else
                 {
                     syntaxEdit1.VisualThemeType = VisualThemeType.Custom;
-                    cbVisualThemes.SelectedIndex = (int)VisualThemeType.Custom;
-                    cbColors.SelectedIndex = (int)ThemeName.LightPlus;
+                    cbVisualThemes.Value = VisualThemeType.Custom;
+                    cbColors.Value = ThemeName.LightPlus;
                 }
 
-                Idle += Form1_Idle;
-                Form1_Idle(this, EventArgs.Empty);
-                cbVisualThemes.SelectedIndexChanged += VisualThemesComboBox_SelectedIndexChanged;
+                lbDescription.WordWrap = true;
+                cbVisualThemes.ValueChanged += VisualThemesComboBox_SelectedIndexChanged;
 
                 App.AddIdleTask(() =>
                 {
@@ -190,28 +175,9 @@ namespace TextMateParsing
             SetSizeToContent();
         }
 
-        public bool IsNet471OrGreater
-        {
-            get
-            {
-                if (!Consts.IsWindows || !Consts.IsNetFramework)
-                    return true;
-#if NET471_OR_GREATER
-                return true;
-#else
-                    return false;
-#endif
-            }
-        }
-
         protected override void DisposeManaged()
         {
             base.DisposeManaged();
-        }
-
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
         }
 
         private void SetCurrentItem(LanguageInfo info)
@@ -225,7 +191,7 @@ namespace TextMateParsing
                     syntaxEdit1.Text = $"Error loading file: {fileName}";
                 }
                 syntaxEdit1.Source.FileName = fileName;
-                ReparseText();
+                syntaxEdit1.ReparseAllText();
             }
 
             var brackets = parser.LanguageDefinition?.Brackets;
@@ -253,51 +219,27 @@ namespace TextMateParsing
 
         private void LanguagesComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            if (cbLanguages.SelectedIndex >= 0)
+            if (cbLanguages.Value is LanguageInfo langInfo)
             {
-                SetCurrentItem(langItems[cbLanguages.SelectedIndexAsInt]);
+                SetCurrentItem(langInfo);
             }
         }
 
         #region Private Methods
 
-        private void ReparseText()
-        {
-            UpdateParsed(0, int.MaxValue);
-            syntaxEdit1.Source.ParseToString(int.MaxValue);
-            syntaxEdit1.Invalidate();
-        }
-
-        private void UpdateParsed(int fromIndex, int toIndex)
-        {
-            IStringItem item;
-
-            for (int i = fromIndex; i <= Math.Min(toIndex, syntaxEdit1.Source.Lines.Count - 1); i++)
-            {
-                item = syntaxEdit1.Source.Lines.GetItem(i);
-                item.State = item.State & ~ItemState.Parsed;
-            }
-
-            syntaxEdit1.Source.SetLastParsed(0);
-        }
-
         private void InitializeThemes()
         {
-            foreach (string item in Enum.GetNames(typeof(VisualThemeType)))
-            {
-                visualThemes.Add(string.Compare(item, "Custom", true) == 0 ? "TextMate" : item);
-            }
-
-            cbVisualThemes.Items.AddRange(visualThemes);
+            cbVisualThemes.EnumType = typeof(VisualThemeType);
+            cbVisualThemes.SetDisplayText(VisualThemeType.Custom, "TextMate");
         }
 
         private void ThemesComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            parser.ThemeName = (ThemeName?)cbColors.SelectedIndex ?? ThemeName.Custom;
+            parser.ThemeName = cbColors.Value as ThemeName? ?? ThemeName.Custom;
             if (parser.ThemeName == ThemeName.Custom)
             {
                 parser.LanguageDefinition.LoadThemeFromPath(
-                    Path.Combine(DemoUtils.ResourcesFolder, @"Editor/TextMate/custom_theme.json"));
+                    DemoUtils.GetResourceFileFullPath(@"Editor/TextMate/custom_theme.json"));
             }
 
             var theme = syntaxEdit1.VisualTheme as TextMateTheme;
@@ -307,14 +249,14 @@ namespace TextMateParsing
                 syntaxEdit1.ApplyTheme(theme);
             }
 
-            ReparseText();
+            syntaxEdit1.ReparseAllText();
         }
 
         private void VisualThemesComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            if (cbVisualThemes.SelectedIndex is null)
+            if (cbVisualThemes.Value is not VisualThemeType theme)
                 return;
-            syntaxEdit1.VisualThemeType = (VisualThemeType)cbVisualThemes.SelectedIndex;
+            syntaxEdit1.VisualThemeType = theme;
         }
 
         internal int FindLangByDesc(string desc)
@@ -342,7 +284,7 @@ namespace TextMateParsing
         #endregion
 
 
-        private struct LanguageInfo
+        private class LanguageInfo
         {
             public string FileType;
             public string FileExt;
@@ -363,6 +305,11 @@ namespace TextMateParsing
                 IndentBraces = indentBraces;
                 FileName = string.Empty;
                 SchemeName = string.Empty;
+            }
+
+            public override string ToString()
+            {
+                return Description;
             }
         }
     }

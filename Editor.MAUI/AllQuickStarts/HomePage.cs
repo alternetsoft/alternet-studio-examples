@@ -15,7 +15,7 @@ namespace AllQuickStarts;
 
 public partial class HomePage : ContentPage
 {
-    private readonly VerticalStackLayout stackLayout = new();
+    private readonly VerticalStackLayout stackLayout = [];
     private readonly ScrollView scrollView = new();
 
     private Page? currentPage;
@@ -23,6 +23,9 @@ public partial class HomePage : ContentPage
 
     static HomePage()
     {
+        Alternet.Editor.AlternetUI.EditorOnMobileHelper.BindToInstanceIfDebug = false;
+        Alternet.Editor.AlternetUI.EditorOnMobileHelper.BindToInstanceCreated();
+
         LogContentPage.BindApplicationLog();
         Alternet.UI.App.Log("Application started...");
         Alternet.UI.KnownAssemblies.PreloadReferenced();
@@ -32,6 +35,22 @@ public partial class HomePage : ContentPage
 
         if (ShowLogButton)
         {
+        }
+
+        var visibilityService = Alternet.UI.Keyboard.Handler.VisibilityService;
+        if (visibilityService != null)
+        {
+            visibilityService.KeyboardVisibleChanged += (s, e) =>
+            {
+                if (e.IsVisible)
+                {
+                    Alternet.UI.App.Log($"Keyboard shown, height: {e.Height}");
+                }
+                else
+                {
+                    Alternet.UI.App.Log("Keyboard hidden");
+                }
+            };
         }
     }
 
@@ -63,7 +82,7 @@ public partial class HomePage : ContentPage
             }
 #endif
 
-            if(e is XmlException)
+            if (e is XmlException)
             {
                 return;
             }
@@ -78,12 +97,17 @@ public partial class HomePage : ContentPage
                 return;
             }
 
-            if(e is TargetInvocationException)
+            if (e is TargetInvocationException)
             {
                 if (e.InnerException is ReflectionTypeLoadException)
                 {
                     return;
                 }
+            }
+
+            if (e is OperationCanceledException)
+            {
+                return;
             }
 
             Nop();
@@ -113,9 +137,13 @@ public partial class HomePage : ContentPage
         AddPage<XamlSyntaxParsingPage>("Xaml Syntax", DemoDescriptions.XamlSyntaxParsing);
         AddPage<SqlDomSyntaxParsingPage>("SQL DOM Syntax", DemoDescriptions.SqlDomSyntaxParsing);
 
+        AddPage<TypeScriptParsingPage>("TypeScript Syntax", DemoDescriptions.TypeScriptSyntaxParsing);
+
         if (true)
         {
+/* Removed as it hangs application on macOs
             AddPage<TextMateParsingPage>("TextMate", DemoDescriptions.TextMateSyntaxParsing);
+*/
         }
 
         if (ShowLogButton)

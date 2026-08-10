@@ -1,18 +1,19 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 using Alternet.Common;
@@ -25,6 +26,31 @@ namespace VisualTheme
     {
         private CsParser csParser1 = new CsParser();
         private string dir = Application.StartupPath + @"\";
+
+        static Form1()
+        {
+        }
+
+        public static void SetSearchResultsHighlightColors3()
+        {
+            var style = DarkVisualTheme.Instance.LexStyles.FindLexStyle(StringConsts.SearchResultInternalName);
+
+            if (style != null)
+            {
+                style.BackColor = Color.Red;
+                style.ForeColor = Color.Yellow;
+            }
+        }
+
+        public static void SetSearchResultsHighlightColors1()
+        {
+            var c = DarkVisualTheme.Instance.Colors;
+
+            c.SearchResultsHighlightBackground = Color.Red;
+            c.SearchResultsHighlightForeground = Color.Yellow;
+
+            DarkVisualTheme.Instance.ResetStyles();
+        }
 
         public Form1()
         {

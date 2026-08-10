@@ -8,4 +8,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="pictureBox1.Image.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="pictureBox1.Image.png" />
+  </ItemGroup>
+
 </Project>

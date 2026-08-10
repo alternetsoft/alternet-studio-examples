@@ -254,7 +254,7 @@
             this.csParser1.XmlScheme = @"<?xml version=""1.0"" encoding=""utf-16""?>
 <LexScheme xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
   <Author>AlterNET Software</Author>
-  <Copyright>Copyright (c) 2016-2025 Alternet Software</Copyright>
+  <Copyright>Copyright (c) 2016-2026 Alternet Software</Copyright>
   <FileType>c#</FileType>
   <Version>1.5</Version>
   <Styles>

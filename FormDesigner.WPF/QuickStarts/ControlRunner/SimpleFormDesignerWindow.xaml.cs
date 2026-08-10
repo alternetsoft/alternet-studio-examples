@@ -56,7 +56,7 @@ namespace Alternet.FormDesigner.Wpf
             private SimpleFormDesignerWindow window;
             private Dictionary<string, TabItem> codeOrXamlTabPages = new Dictionary<string, TabItem>();
             private Dictionary<string, TabItem> designerTabPages = new Dictionary<string, TabItem>();
-            private Dictionary<string, EditorFormDesignerDataSource> sourcesByFormId = new Dictionary<string, EditorFormDesignerDataSource>();
+            private Dictionary<string, EditorFormDesignerDataSource> sourcesByFormId = new ();
             private HashSet<string> editedXamlFiles = new HashSet<string>();
 
             #endregion

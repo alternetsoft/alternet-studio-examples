@@ -2,7 +2,7 @@
 /*
 	AlterNET Code Editor Library
 
-	Copyright (c) 2016-2024 Alternet Software
+	Copyright (c) 2016-2026 Alternet Software
 	ALL RIGHTS RESERVED
 
 	http://www.alternetsoft.com

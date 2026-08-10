@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Gutter": {
+      "commandName": "Project"
+    },
+    "Dark": {
+      "commandName": "Project",
+      "commandLineArgs": "-IsDark=true"
+    }
+  }
+}

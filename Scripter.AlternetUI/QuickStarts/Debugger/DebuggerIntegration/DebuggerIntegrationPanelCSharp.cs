@@ -159,17 +159,9 @@ namespace Alternet.Scripter.Integration.AlternetUI
 
         public override IScriptDebuggerBase CreateDebugger()
         {
-            RoslynScriptProvider.PortablePdb = !UseOldDebugger || !App.IsWindowsOS;
-
-            var result = DebuggerUtils.CreateDebugger(UseOldDebugger)!;
-            result.EventsSyncAction = (action) => Alternet.UI.App.Invoke(action);
-
-            /*
-            var success = AssemblyUtils.TrySetMemberValue(
-                result,
-                "GeneratedModulesPath",
-                DebuggerUtils.GenModulesDirectoryPath());
-            */
+            var d = new Alternet.Scripter.Debugger.Universal.ScriptDebugger();
+            var result = d;
+            result.EventsSyncAction = (action) => Alternet.UI.App.Invoke((Action)action);
             return result;
         }
 
@@ -177,9 +169,6 @@ namespace Alternet.Scripter.Integration.AlternetUI
         {
             var result = new ScriptRun();
             result.ScriptHost.GenerateModulesOnDisk = true;
-            /*
-            result.ScriptHost.ModulesDirectoryPath = DebuggerUtils.GenModulesDirectoryPath();
-            */
             return result;            
         }
 
@@ -397,8 +386,11 @@ namespace Alternet.Scripter.Integration.AlternetUI
 
         protected virtual void OnEditorEditorRequested(object? sender, DebugEditRequestedEventArgs e)
         {
-            var edit = new DebugCodeEdit();
-            /*var projectName = GetProjectName(e.FileName);*/
+            var edit = new DebugCodeEdit
+            {
+                DebugIdentifier = "CsDebugEdit",
+            };
+
             edit.LoadFile(e.FileName);
             e.DebugEdit = edit;
         }
@@ -407,8 +399,6 @@ namespace Alternet.Scripter.Integration.AlternetUI
         {
             SaveAllModifiedFiles();
             SetScriptSource();
-
-            /*var s = (Debugger?.ScriptRun as IScriptRun)?.ScriptHost.ExecutableModulePath;*/
         }
     }
 }

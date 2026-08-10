@@ -6,14 +6,10 @@
         MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
         Icon="embres:Selection.Sample.ico">
 
-  <Window.StatusBar>
-    <StatusBar Name="statusBar">
-      <StatusBarPanel/>
-    </StatusBar>
-  </Window.StatusBar>
-
-  <Label Name="lbDescription" Margin="5"
-   Text="This demo shows how to customize appearance and behavior of selected text in the editor"/>
+  <Panel>
+    <Label Name="lbDescription" Margin="5"
+     Text="This demo shows how to customize appearance and behavior of selected text in the editor"/>
+  </Panel>
 
   <TabControl Margin="5" ContentPadding="5" Name="tabControl">
 
@@ -57,13 +53,13 @@
       <Label Name="bBorderColor" RowColumn="2,0" VerticalAlignment="Center"
              Margin="5" Text="Border:"/>
 
-      <ColorComboBox Name="cbSelectionForeColor" RowColumn="0,1" Margin="5"
+      <ColorPicker Name="cbSelectionForeColor" RowColumn="0,1" Margin="5"
             VerticalAlignment="Center"
             ToolTip="Foreground color of the selected text when owner control has input focus"/>
-      <ColorComboBox Name="cbSelectionBackColor" RowColumn="1,1" Margin="5"
+      <ColorPicker Name="cbSelectionBackColor" RowColumn="1,1" Margin="5"
               VerticalAlignment="Center"
               ToolTip="Background color of the selected text when owner control has input focus"/>
-      <ColorComboBox Name="cbSelectionBorderColor" RowColumn="2,1" Margin="5"
+      <ColorPicker Name="cbSelectionBorderColor" RowColumn="2,1" Margin="5"
               VerticalAlignment="Center"
               ToolTip="Color of the selection border"/>
     </Grid>

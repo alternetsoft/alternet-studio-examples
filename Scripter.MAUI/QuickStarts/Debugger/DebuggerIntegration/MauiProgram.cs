@@ -1,11 +1,18 @@
-﻿using Microsoft.Extensions.Logging;
-using CommunityToolkit.Maui;
-using SkiaSharp.Views.Maui.Controls.Hosting;
-using Alternet.Editor;
-using Alternet.UI;
+﻿using Alternet.Editor;
+using Alternet.Editor.Maui;
 using Alternet.Maui;
+using Alternet.UI;
+
+using CommunityToolkit.Maui;
+
+using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Controls.Hosting;
+using Microsoft.Maui.Hosting;
+
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace DebuggerIntegration;
+
 public static class MauiProgram
 {
     static MauiProgram()

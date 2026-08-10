@@ -12,7 +12,10 @@
 
 using AllQuickStarts.Pages;
 using Alternet.Editor;
+using Alternet.Editor.Maui;
 using Alternet.Editor.TextSource;
+using Alternet.Editor.AlternetUI;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Syntax.Parsers.Roslyn;
 using Alternet.Syntax.Parsers.Roslyn.CodeCompletion;
 
@@ -72,7 +75,7 @@ public partial class XamlSyntaxParsingPage : DemoPage
         syntaxEdit1.Gutter.Options &= ~GutterOptions.PaintCodeActionsOnGutter;
     }
 
-    public static void LoadFile(Alternet.Editor.TextSource.ITextSource? source, string url)
+    public static void LoadFile(ITextSource? source, string url)
     {
         if (source is null)
             return;

@@ -1,5 +1,9 @@
 ﻿using Foundation;
 
+using Microsoft.Maui.Controls;
+using Microsoft.Maui;
+using Microsoft.Maui.Hosting;
+
 namespace DebuggerIntegration;
 
 [Register("AppDelegate")]

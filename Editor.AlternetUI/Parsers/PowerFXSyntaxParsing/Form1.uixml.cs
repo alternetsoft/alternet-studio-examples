@@ -16,6 +16,8 @@ using System.IO;
 using Alternet.UI;
 
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 using Alternet.Syntax.Parsers.Advanced;
 using Alternet.Syntax.Parsers.PowerFx;
@@ -24,8 +26,8 @@ namespace PowerFxSyntaxParsing
 {
     public partial class Form1 : Window
     {
-        private readonly Alternet.Editor.TextSource.TextSource jsonSource = new();
-        private readonly Alternet.Editor.TextSource.TextSource fxSource = new();
+        private readonly TextSource jsonSource = new();
+        private readonly TextSource fxSource = new();
         private readonly JSONParser jsonParser = new();
         private readonly PowerFxParser fxParser = new();
 
@@ -57,8 +59,7 @@ namespace PowerFxSyntaxParsing
             fxParser.EvaluateQuickInfo = chbEvaluateQuickInfo.Checked;
             Form1_Load(this, EventArgs.Empty);
 
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
+            lbDescription.WordWrap = true;
             ActiveControl = syntaxEdit1;
         }
 
@@ -67,21 +68,16 @@ namespace PowerFxSyntaxParsing
             base.DisposeManaged();
         }
 
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             openFileDialog1.Filter = "PowerFx files (*.fx)|*.fx|All files (*.*)|*.*";
             DirectoryInfo dirInfo
-                = new DirectoryInfo(DemoUtils.ResourcesFolder + @"Editor/Text/");
+                = new DirectoryInfo(DemoUtils.GetResourceFolderFullPath(@"Editor/Text/"));
 
-            FileInfo fileInfo = new FileInfo(dirInfo.FullName + @"Record.fx");
+            FileInfo fileInfo = new FileInfo(Path.Combine(dirInfo.FullName, "Record.fx"));
             if (fileInfo.Exists)
                 fxSource.LoadFile(fileInfo.FullName);
-            fileInfo = new FileInfo(dirInfo.FullName + @"Record.fx.json");
+            fileInfo = new FileInfo(Path.Combine(dirInfo.FullName, "Record.fx.json"));
 
             if (fileInfo.Exists && syntaxEdit2.LoadFile(fileInfo.FullName))
             {

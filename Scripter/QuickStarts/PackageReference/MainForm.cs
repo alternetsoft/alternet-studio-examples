@@ -1,17 +1,18 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -26,10 +27,17 @@ namespace PackageReference
 {
     public partial class MainForm : Form
     {
+        internal static bool UseConsoleScript => false;
+
         protected DotNetProject Project { get; private set; } = new DotNetProject();
 
         private static readonly string[] ProjectSearchDirectories = new[] { ".", @"..\..\..\..\..\..\" };
-        private static readonly string StartupProjectFileSubPath = @"Resources\Debugger\CS\PackageReferenceTest\PackageReferenceTest.csproj";
+
+        private static readonly string StartupProjectFileSubPath
+            = @"Resources\Debugger\CS\PackageReferenceTest\PackageReferenceTest.csproj";
+
+        private static readonly string StartupProjectFileSubPathConsole
+            = @"Resources\Debugger\CS\PackageReferenceTestConsole\PackageReferenceTest.csproj";
 
         private ISyntaxEdit edit;
 
@@ -41,8 +49,12 @@ namespace PackageReference
             Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
         }
 
-        private static string FindProjectFile() =>
-           ProjectSearchDirectories.Select(x => Path.GetFullPath(Path.Combine(Application.StartupPath, x, StartupProjectFileSubPath))).FirstOrDefault(File.Exists);
+        private static string FindProjectFile()
+        {
+            var subPath = UseConsoleScript ? StartupProjectFileSubPathConsole : StartupProjectFileSubPath;
+
+            return ProjectSearchDirectories.Select(x => Path.GetFullPath(Path.Combine(Application.StartupPath, x, subPath))).FirstOrDefault(File.Exists);
+        }
 
         private ISyntaxEdit CreateEditor(string fileName, Control parent)
         {

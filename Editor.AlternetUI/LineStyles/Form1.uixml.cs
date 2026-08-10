@@ -17,8 +17,10 @@ using Alternet.UI;
 
 using Alternet.Drawing;
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 using Alternet.Editor.TextSource;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Syntax.Parsers.Roslyn;
 using Alternet.Syntax.Parsers.Roslyn.CodeCompletion;
 
@@ -26,19 +28,17 @@ namespace LineStyles
 {
     public partial class Form1 : Window
     {
+
         private readonly CsParser csParser1 = new(new CsSolution());
+
+        private int traceLineStyleIndex;
+        private int breakPointStyleIndex;
+        private int customStyleIndex;
 
         private bool startDebug;
         private int startLine = 44;
         private int endLine = 0;
         private int index;
-
-        private enum KnownImageIndex
-        {
-            Breakpoint = 11,
-
-            TraceLine,
-        }
 
         public Form1()
         {
@@ -50,31 +50,26 @@ namespace LineStyles
             }
 
             syntaxEdit1.Outlining.AllowOutlining = true;
-            Form1_Load(this, EventArgs.Empty);
-        
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
-            ActiveControl = syntaxEdit1;
-        }
+            syntaxEdit1.Gutter.Options |= GutterOptions.PaintLineNumbers;
 
-        protected override void DisposeManaged()
-        {
-            base.DisposeManaged();
-        }
+            var images = syntaxEdit1.Gutter.AlphaImages;
+            var imagesHighDpi = syntaxEdit1.Gutter.AlphaImagesHighDpi;
 
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
-        }
+            var isDark = syntaxEdit1.Gutter.BrushColor.IsDark();
+            var image = KnownSvgImages.ImgGear.AsNormalImage(images.ImageSize.Height, isDark);
+            var highDpiImage
+                = KnownSvgImages.ImgGear.AsNormalImage(imagesHighDpi.ImageSize.Height, isDark);
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
+            var gearImageIndex = syntaxEdit1.Gutter.AddImage(image, highDpiImage);
+
+            syntaxEdit1.Gutter.Options &= ~GutterOptions.PaintCodeActionsOnGutter;
+
             var textSource = new TextSource();
             syntaxEdit1.Source = textSource;
 
-            DirectoryInfo dirInfo = new(DemoUtils.ResourcesFolder + @"Editor/Text/");
+            FileInfo fileInfo = new(DemoUtils.GetResourceFileFullPath(@"Editor/Text/c#.cs"));
 
-            if (textSource.LoadOrAddNotFound(dirInfo.FullName + @"c#.cs"))
+            if (textSource.LoadOrAddNotFound(fileInfo.FullName))
             {
                 textSource.Lexer = csParser1;
             }
@@ -85,33 +80,68 @@ namespace LineStyles
                 startLine = syntaxEdit1.Position.Y + 2;
             }
 
-            IEditLineStyle lineStyle = new EditLineStyle();
-            lineStyle.BackColor = Color.Black;
-            lineStyle.ForeColor = Color.Yellow;
-            lineStyle.Options = LineStyleOptions.BeyondEol | LineStyleOptions.InvertColors;
-
-            lineStyle.ImageIndex = (int)KnownImageIndex.TraceLine;
-            chbLineStyleBeyondEol.IsChecked = (LineStyleOptions.BeyondEol & lineStyle.Options) != 0;
-            cbLineStyleColor.Value = lineStyle.ForeColor;
-            syntaxEdit1.LineStyles.Add(lineStyle);
-
-            // breakpoint style
-            syntaxEdit1.LineStyles.Add(new EditLineStyle()
+            IEditLineStyle traceLineStyle = new EditLineStyle
             {
+                Name = "Trace Line",
+                BackColor = Color.Black,
+                ForeColor = LightDarkColors.Yellow,
+                Options = LineStyleOptions.BeyondEol | LineStyleOptions.InvertColors,
+                ImageIndex = (int)KnownGutterImageIndex.TraceLine,
+            };
+
+            syntaxEdit1.LineStyles.Add(traceLineStyle);
+            traceLineStyleIndex = syntaxEdit1.LineStyles.Count - 1;
+
+            chbLineStyleBeyondEol.IsChecked = (LineStyleOptions.BeyondEol & traceLineStyle.Options) != 0;
+            cbLineStyleColor.Value = traceLineStyle.ForeColor;
+
+            var breakpointStyle = new EditLineStyle()
+            {
+                Name = "Breakpoint",
                 BackColor = Color.White,
                 ForeColor = Color.FromArgb(171, 97, 107),
                 Options = LineStyleOptions.BeyondEol | LineStyleOptions.InvertColors,
-                ImageIndex = (int)KnownImageIndex.Breakpoint,
-            });
+                ImageIndex = (int)KnownGutterImageIndex.Breakpoint,
+            };
+            syntaxEdit1.LineStyles.Add(breakpointStyle);
+            breakPointStyleIndex = syntaxEdit1.LineStyles.Count - 1;
 
             endLine = syntaxEdit1.Lines.Count - 2;
 
             syntaxEdit1.GutterClick += SyntaxEdit1_GutterClick;
-            cbLineStyleColor.SelectedItemChanged += LineStyleColorComboBox_SelectedIndexChanged;
+            cbLineStyleColor.ValueChanged += LineStyleColorComboBox_SelectedIndexChanged;
             chbLineStyleBeyondEol.CheckedChanged += LineStyleBeyondEolCheckBox_CheckedChanged;
             btSetBreakpoint.Click += SetBreakpointTextBoxButton_Click;
             btStepOver.Click += StepOverButton_Click;
             btStart.Click += StartButton_Click;
+
+            var customLineStyle = new EditLineStyle
+            {
+                Name = "Custom Line Style",
+                BackColor = Color.DarkOliveGreen,
+                ForeColor = Color.White,
+                Options = LineStyleOptions.BeyondEol,
+                ImageIndex = gearImageIndex,
+            };
+
+            syntaxEdit1.LineStyles.Add(customLineStyle);
+            customStyleIndex = syntaxEdit1.LineStyles.Count - 1;
+
+            btSetCustom.Click += (s, e) =>
+            {
+                syntaxEdit1.Source.LineStyles.ToggleLineStyle(
+                    syntaxEdit1.Position.Y,
+                    0,
+                    customStyleIndex);
+            };
+
+            lbDescription.WordWrap = true;
+            ActiveControl = syntaxEdit1;
+        }
+
+        protected override void DisposeManaged()
+        {
+            base.DisposeManaged();
         }
 
         private void SyntaxEdit1_GutterClick(object? sender, EventArgs e)
@@ -128,7 +158,10 @@ namespace LineStyles
 
         private void Start()
         {
-            syntaxEdit1.Source.LineStyles.ToggleLineStyle(startLine + index, 1, 0);
+            syntaxEdit1.Source.LineStyles.ToggleLineStyle(
+                startLine + index,
+                1,
+                traceLineStyleIndex);
             syntaxEdit1.MakeVisible(new System.Drawing.Point(0, startLine + index));
             Debug();
             startDebug = !startDebug;
@@ -139,18 +172,30 @@ namespace LineStyles
             if (index < (endLine - startLine))
             {
                 if (syntaxEdit1.Source.LineStyles.GetLineStyle(startLine + index) >= 0)
-                    syntaxEdit1.Source.LineStyles.ToggleLineStyle(startLine + index, 1, 0);
+                {
+                    syntaxEdit1.Source.LineStyles.ToggleLineStyle(
+                        startLine + index,
+                        1,
+                        traceLineStyleIndex);
+                }
+
                 index++;
                 while ((index < (endLine - startLine))
                     && (syntaxEdit1.Source.Lines[startLine + index].Trim() == string.Empty))
                     index++;
 
-                syntaxEdit1.Source.LineStyles.ToggleLineStyle(startLine + index, 1, 0);
+                syntaxEdit1.Source.LineStyles.ToggleLineStyle(
+                    startLine + index,
+                    1,
+                    traceLineStyleIndex);
                 syntaxEdit1.MakeVisible(new System.Drawing.Point(0, startLine + index));
             }
             else
             {
-                syntaxEdit1.Source.LineStyles.ToggleLineStyle(startLine + index, 1, 0);
+                syntaxEdit1.Source.LineStyles.ToggleLineStyle(
+                    startLine + index,
+                    1,
+                    style: traceLineStyleIndex);
                 Debug();
                 startDebug = !startDebug;
             }
@@ -158,7 +203,10 @@ namespace LineStyles
 
         private void SetBreakpoint()
         {
-            syntaxEdit1.Source.LineStyles.ToggleLineStyle(syntaxEdit1.Position.Y, 0, 1);
+            syntaxEdit1.Source.LineStyles.ToggleLineStyle(
+                syntaxEdit1.Position.Y,
+                0,
+                breakPointStyleIndex);
         }
 
         private void StartButton_Click(object? sender, EventArgs e)
@@ -195,7 +243,7 @@ namespace LineStyles
         {
             if (syntaxEdit1.LineStyles.Count > 0)
             {
-                IEditLineStyle lineStyle = syntaxEdit1.LineStyles[0];
+                IEditLineStyle lineStyle = syntaxEdit1.LineStyles[traceLineStyleIndex];
                 lineStyle.ForeColor = cbLineStyleColor.Value;
                 syntaxEdit1.Invalidate();
             }

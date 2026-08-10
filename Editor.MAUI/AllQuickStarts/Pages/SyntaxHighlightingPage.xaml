@@ -15,13 +15,11 @@
                 <StackLayout Orientation="Vertical" Margin="10,10,10,10" x:Name="settingsInnerPanel">
                     <Label Margin="10,10,10,10" HorizontalTextAlignment="Start" 
                        Text="Language:"  VerticalTextAlignment="Center"/>
-                    <ListView x:Name="LanguagesListView"
+                    <CollectionView x:Name="LanguagesListView"
                     MinimumWidthRequest="150"
                     ToolTipProperties.Text="Choose programming language"
-                    Margin="10,10,10,10"
-                    ItemSelected="LanguagesListView_ItemSelected"
-                    >
-                    </ListView>
+                    Margin="10,10,10,10"/>
+
                     <Button Margin="10,10,10,10" HorizontalOptions="Start"
                         x:Name="loadButton" Text="Load Custom Scheme" 
                         Clicked="LoadButton_Clicked" 

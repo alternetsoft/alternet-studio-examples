@@ -20,8 +20,10 @@ using System.Threading;
 using Alternet.UI;
 
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 using Alternet.Editor.TextSource;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Syntax.Parsers.Roslyn;
 using System.Collections.Generic;
 using Alternet.Common;
@@ -39,15 +41,15 @@ namespace SearchReplace
         public Form1()
         {
             InitializeComponent();
-            cbLanguages.Items.AddRange([
+            cbLanguages.AddRange(new string[] {
                 "Default",
                 "English",
                 "French",
                 "German",
                 "Spanish",
                 "Russian",
-                "Ukrainian"]);
-            cbLanguages.SelectedIndex = 0;
+                "Ukrainian" });
+            cbLanguages.Value = "Default";
 
             Form1_Load(this, EventArgs.Empty);
 
@@ -60,17 +62,16 @@ namespace SearchReplace
             ReplaceButton.Click += ReplaceButton_Click;
             FindInFiles.Click += FindInFiles_Click;
             GotoButton.Click += GotoButton_Click;
-            cbLanguages.SelectedIndexChanged += LanguagesComboBox_SelectedIndexChanged;
+            cbLanguages.ValueChanged += LanguagesComboBox_SelectedIndexChanged;
             chbSearchMultiDoc.CheckedChanged += SearchMultiDocCheckBox_CheckedChanged;
-            SearchManager.SharedSearch.InitSearch += new InitSearchEvent(DoInitSearch);
-            SearchManager.SharedSearch.GetSearch += new GetSearchEvent(DoGetSearch);
-            SearchManager.SharedSearch.TextFound += new TextFoundEvent(DoTextFound);
+            SearchManager.SharedSearch.InitSearch += DoInitSearch;
+            SearchManager.SharedSearch.GetSearch += DoGetSearch;
+            SearchManager.SharedSearch.TextFound += DoTextFound;
             SearchManager.SharedSearch.SearchResultsAvailable += SearchManager_SearchResultsAvailable;
             SearchManager.SharedSearch.Shared = searchMulti;
             OpenProject();
 
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
+            lbDescription.WordWrap = true;
 
             RunWhenIdle(() =>
             {
@@ -91,11 +92,6 @@ namespace SearchReplace
         protected override void DisposeManaged()
         {
             base.DisposeManaged();
-        }
-
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
         }
 
         private void FindInFiles_Click(object? sender, EventArgs e)
@@ -130,11 +126,11 @@ namespace SearchReplace
 
         private void OpenProject()
         {
-            DirectoryInfo dirInfo = new(DemoUtils.ResourcesFolder + @"Editor/Text/");
+            DirectoryInfo dirInfo = new(DemoUtils.GetResourceFolderFullPath(@"Editor/Text/"));
 
-            NewFile(dirInfo.FullName + @"child1.cs");
-            NewFile(dirInfo.FullName + @"child2.cs");
-            NewFile(dirInfo.FullName + @"main.cs");
+            NewFile(Path.Combine(dirInfo.FullName, "child1.cs"));
+            NewFile(Path.Combine(dirInfo.FullName, "child2.cs"));
+            NewFile(Path.Combine(dirInfo.FullName, "main.cs"));
         }
 
         private void NewFile(string fileName)
@@ -208,7 +204,7 @@ namespace SearchReplace
             return null;
         }
 
-        private void DoTextFound(object? sender, Alternet.Editor.TextFoundEventArgs e)
+        private void DoTextFound(object? sender, TextFoundEventArgs e)
         {
             if (e.Search != null)
                 return;
@@ -238,7 +234,7 @@ namespace SearchReplace
             }
         }
 
-        private void DoGetSearch(object? sender, Alternet.Editor.GetSearchEventArgs e)
+        private void DoGetSearch(object? sender, GetSearchEventArgs e)
         {
             foreach (var page in editors.Keys)
             {
@@ -253,7 +249,7 @@ namespace SearchReplace
             }
         }
 
-        private void DoInitSearch(object sender, Alternet.Editor.InitSearchEventArgs e)
+        private void DoInitSearch(object sender, InitSearchEventArgs e)
         {
             bool FitsOneOfMultipleMasks(string fileName, string fileMasks)
             {
@@ -363,83 +359,29 @@ namespace SearchReplace
 
         private void LanguagesComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            CultureInfo oldcInfo = Thread.CurrentThread.CurrentUICulture;
-            switch (cbLanguages.SelectedIndex)
+            switch (cbLanguages.Value)
             {
-                case 0:
+                case "Default":
+                default:
                     StringConsts.Localize();
                     break;
-                case 1:
-                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
-                    try
-                    {
-                        StringConsts.Localize();
-                    }
-                    finally
-                    {
-                        Thread.CurrentThread.CurrentUICulture = oldcInfo;
-                    }
-
+                case "English":
+                    StringConsts.Localize("en");
                     break;
-                case 2:
-                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr");
-                    try
-                    {
-                        StringConsts.Localize();
-                    }
-                    finally
-                    {
-                        Thread.CurrentThread.CurrentUICulture = oldcInfo;
-                    }
-
+                case "French":
+                    StringConsts.Localize("fr");
                     break;
-                case 3:
-                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("de");
-                    try
-                    {
-                        StringConsts.Localize();
-                    }
-                    finally
-                    {
-                        Thread.CurrentThread.CurrentUICulture = oldcInfo;
-                    }
-
+                case "German":
+                    StringConsts.Localize("de");
                     break;
-                case 4:
-                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("es");
-                    try
-                    {
-                        StringConsts.Localize();
-                    }
-                    finally
-                    {
-                        Thread.CurrentThread.CurrentUICulture = oldcInfo;
-                    }
-
+                case "Spanish":
+                    StringConsts.Localize("es");
                     break;
-                case 5:
-                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("ru");
-                    try
-                    {
-                        StringConsts.Localize();
-                    }
-                    finally
-                    {
-                        Thread.CurrentThread.CurrentUICulture = oldcInfo;
-                    }
-
+                case "Russian":
+                    StringConsts.Localize("ru");
                     break;
-                case 6:
-                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("uk");
-                    try
-                    {
-                        StringConsts.Localize();
-                    }
-                    finally
-                    {
-                        Thread.CurrentThread.CurrentUICulture = oldcInfo;
-                    }
-
+                case "Ukrainian":
+                    StringConsts.Localize("uk");
                     break;
             }
         }

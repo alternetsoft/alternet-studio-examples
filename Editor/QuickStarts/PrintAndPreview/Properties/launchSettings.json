@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "PrintAndPreview": {
+      "commandName": "Project"
+    },
+    "IsDark": {
+      "commandName": "Project",
+      "commandLineArgs": "-IsDark=true"
+    }
+  }
+}

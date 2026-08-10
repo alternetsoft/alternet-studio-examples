@@ -6,19 +6,13 @@
         MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
         Icon="embres:ObjectReference.Python.Sample.ico">
 
-  <Window.StatusBar>
-    <StatusBar Name="statusBar">
-      <StatusBarPanel/>
-    </StatusBar>
-  </Window.StatusBar>
-
   <Panel Name="pnSettings" Layout="Vertical" Padding = "5" VerticalAlignment="Fill">
     <Panel Name="pnDescription" Layout="Vertical" Padding = "5">
       <Label Name="lbDescription"
              Text="This demo shows how to access application objects from script."/>
     </Panel>
 
-    <Button Name="ScriptButton" Text="Run Script" HorizontalAlignment = "Left" VerticalAlignment="Center"/>
+    <Button Name="ScriptButton" Text="Run Script" HorizontalAlignment = "Left" VerticalAlignment="Center" Margin="5"/>
 
     <Border VerticalAlignment="Fill">
       <Button Name="TestButton" Text="Test Button" HorizontalAlignment="Center" VerticalAlignment="Center"/>

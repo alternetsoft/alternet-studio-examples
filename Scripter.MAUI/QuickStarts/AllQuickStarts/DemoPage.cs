@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 using AllQuickStarts.Scripter.Pages;
 
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
+using Alternet.Editor.Maui;
+
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
+using Microsoft.Maui.Devices;
+
+using Alternet.Maui.Extensions;
 
 namespace AllQuickStarts.Scripter
 {
@@ -18,37 +26,57 @@ namespace AllQuickStarts.Scripter
         public DemoPage()
         {
             titleView = new(DemoTitle, this);
+            titleView.BackButton.IsVisible = true;
             titleView.SettingsButton.IsVisible = true;
             NavigationPage.SetTitleView(this, titleView);
+
+            if (Alternet.Common.Consts.IsWindows)
+            {
+                NavigationPage.SetHasBackButton(this, false);
+            }
 
             this.Loaded += (s, e) =>
             {
                 if (Alternet.UI.App.IsDesktopDevice)
                 {
-                    if (SettingsPanel is not null)
-                        SettingsPanel.IsVisible = true;
+                    SettingsPanel?.SetVisible(true);
                 }
                 else
                 {
                     titleView.KeyboardButton.IsVisible = true;
-                    if (SettingsPanel is not null)
-                        SettingsPanel.IsVisible = false;
+                    SettingsPanel?.SetVisible(false);
                 }
 
                 if (SyntaxEdit is not null)
                 {
                     if (!Alternet.UI.App.IsDesktopDevice)
                     {
-                        SyntaxEdit.Interior.HasBorder = false;
+                        SyntaxEdit.Editor.HasBorder = false;
                         SyntaxEdit.Margin = new(0);
                     }
                     else
                     {
-                        SyntaxEdit.Interior.HasBorder = true;
+                        SyntaxEdit.Editor.HasBorder = true;
                         SyntaxEdit.Margin = new(10);
                     }
 
                     SyntaxEdit.IsVisible = true;
+                }
+
+                if (SyntaxEditExt is not null)
+                {
+                    if (!Alternet.UI.App.IsDesktopDevice)
+                    {
+                        SyntaxEditExt.Editor.HasBorder = false;
+                        SyntaxEditExt.Margin = new(0);
+                    }
+                    else
+                    {
+                        SyntaxEditExt.Editor.HasBorder = true;
+                        SyntaxEditExt.Margin = new(10);
+                    }
+
+                    SyntaxEditExt.IsVisible = true;
                 }
 
                 this.ForceLayout();
@@ -57,6 +85,12 @@ namespace AllQuickStarts.Scripter
                 {
                     SyntaxEdit.Source.MoveTo(0, 0);
                     SyntaxEdit.Scrolling.DoHorizontalScroll(Alternet.UI.ScrollEventType.First, 0);
+                }
+
+                if (SyntaxEditExt is not null)
+                {
+                    SyntaxEditExt.Source.MoveTo(0, 0);
+                    SyntaxEditExt.Scrolling.DoHorizontalScroll(Alternet.UI.ScrollEventType.First, 0);
                 }
             };
 
@@ -81,6 +115,8 @@ namespace AllQuickStarts.Scripter
         public DemoTitleView TitleView => titleView;
 
         public abstract SyntaxEditView? SyntaxEdit { get; }
+
+        public virtual SyntaxEditView? SyntaxEditExt { get; }
 
         public abstract string DemoTitle { get; }
 

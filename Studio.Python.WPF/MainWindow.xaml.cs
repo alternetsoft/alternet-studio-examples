@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -259,6 +259,7 @@ namespace AlternetStudio.Python.Wpf.Demo
             UpdateControls();
             InitializeNavigationHistory();
             InitializeDebugger();
+            ActiveSyntaxEdit?.Focus();
         }
 
         private void Window_Closed(object sender, EventArgs e)

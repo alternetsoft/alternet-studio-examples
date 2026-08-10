@@ -12,6 +12,9 @@
 
 using AllQuickStarts.Pages;
 using Alternet.Editor;
+using Alternet.Editor.Maui;
+using Alternet.Editor.TextSource.AlternetUI;
+using Alternet.Editor.AlternetUI;
 using Alternet.Syntax.Parsers.Advanced;
 
 using Alternet.UI;
@@ -96,7 +99,7 @@ public partial class PowerFxContextPage : DisposableContentPage
         syntaxEdit2.Lexer = jsonParser;
     }
 
-    public static void LoadFile(Alternet.Editor.TextSource.ITextSource? source, string url)
+    public static void LoadFile(ITextSource? source, string url)
     {
         if (source is null)
             return;

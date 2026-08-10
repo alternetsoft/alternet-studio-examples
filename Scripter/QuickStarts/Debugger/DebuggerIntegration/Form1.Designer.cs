@@ -45,6 +45,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.useUniversalDebuggerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.debugMenu1 = new Alternet.Scripter.Debugger.UI.DebugMenu();
             this.editorsTabControl = new System.Windows.Forms.TabControl();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
@@ -150,8 +151,19 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
+            // useUniversalDebuggerMenuItem
+            // 
+            this.useUniversalDebuggerMenuItem.Name = "useUniversalDebuggerMenuItem";
+            this.useUniversalDebuggerMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.useUniversalDebuggerMenuItem.Text = "Use Universal Debugger";
+            this.useUniversalDebuggerMenuItem.Checked = false;
+            this.useUniversalDebuggerMenuItem.Click += new System.EventHandler(this.UseUniversalDebuggerMenuItem_Click);
+            // 
             // debugMenu1
             // 
+            this.debugMenu1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripSeparator2,
+            this.useUniversalDebuggerMenuItem});
             this.debugMenu1.Name = "miDebug";
             this.debugMenu1.Size = new System.Drawing.Size(54, 20);
             this.debugMenu1.Text = "Debug";
@@ -233,7 +245,7 @@
         #endregion
 
         private Alternet.Scripter.Debugger.UI.DebuggerControlToolbar debuggerControlToolbar1;
-        private Alternet.Scripter.ScriptRun scriptRun1;
+        //private Alternet.Scripter.ScriptRun scriptRun1;
         private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.Panel panel1;
         private Alternet.Scripter.Debugger.UI.DebugMenu debugMenu1;
@@ -249,6 +261,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem useUniversalDebuggerMenuItem;
         private System.Windows.Forms.Label label1;
     }
 }

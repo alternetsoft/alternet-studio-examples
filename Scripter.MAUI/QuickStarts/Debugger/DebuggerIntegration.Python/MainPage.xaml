@@ -3,23 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:alternet="http://schemas.alternetsoft.com/alternetui/2024"
              x:Class="DebuggerIntegration.MainPage">
-    <alternet:DisposableContentPage.MenuBarItems>
-        <MenuBarItem x:Name="FileMenu" Text="File">
-            <MenuFlyoutItem x:Name="OpenProjectMenuItem" Text="Open Project..."/>
-            <MenuFlyoutItem x:Name="CloseProjectMenuItem" Text="Close Project"/>
-            <MenuFlyoutItem x:Name="OpenMenuItem" Text="Open..."/>
-            <MenuFlyoutItem x:Name="SaveMenuItem" Text="Save"/>
-            <MenuFlyoutItem x:Name="CloseMenuItem" Text="Close File"/>
-            <MenuFlyoutItem x:Name="ExitMenuItem" Text="Exit"/>
-        </MenuBarItem>
-    </alternet:DisposableContentPage.MenuBarItems>
-    <AbsoluteLayout>
+    <AbsoluteLayout x:Name="mainAbsoluteLayout">
         <Grid x:Name="MainGrid" RowDefinitions="auto, *" ColumnDefinitions="*">
-            <Label Grid.Row="1" Grid.Column="0"
-               Text="This demo shows how to embed debugger into your application." Margin="5"
-                           HorizontalTextAlignment="Start"
-               VerticalTextAlignment="Center"/>
-            <Grid x:Name="panel" Grid.Row="2" Grid.Column="0" RowDefinitions="*, 200">
+            <Grid x:Name="panel" Grid.Row="1" Grid.Column="0" RowDefinitions="*, Auto">
 
             </Grid>
         </Grid>

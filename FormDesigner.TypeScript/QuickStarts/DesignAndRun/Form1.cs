@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 
 /*
     AlterNET Form Designer Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -78,7 +78,9 @@ namespace DesignAndRun
 
         private void InitDefaultHostAssemblies()
         {
-            scriptRun.ScriptHost.HostItemsConfiguration.AddSystemAssemblies(options: HostItemOptions.GlobalMembers | HostItemOptions.GenerateDescriptions);
+            scriptRun.ScriptHost.HostItemsConfiguration.AddSystemAssemblies(
+                TechnologyEnvironment.WindowsForms,
+                options: HostItemOptions.GlobalMembers | HostItemOptions.GenerateDescriptions);
         }
 
         private void Form1_Load(object sender, EventArgs e)

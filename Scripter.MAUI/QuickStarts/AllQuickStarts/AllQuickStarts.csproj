@@ -1,19 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.30" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.71" />
   </ItemGroup>
   <PropertyGroup>
-    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">net9.0-windows10.0.19041.0</TargetFrameworks>
-    <TargetFrameworks>$(TargetFrameworks);net9.0-maccatalyst;net9.0-ios;net9.0-android</TargetFrameworks>
-    <!-- Uncomment to also build the tizen app. You will need to install tizen
-      by following this: https://github.com/Samsung/Tizen.NET -->
-    <!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
+    <LangVersion>12.0</LangVersion>
+    <IsWindowsX64 Condition="$([MSBuild]::IsOsPlatform('Windows')) And $(OSARCH) == X64">true</IsWindowsX64>
+    <TargetFrameworks>net10.0-android;net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
     <!-- Note for MacCatalyst:
-		The default runtime is maccatalyst-x64, except in Release config, in which case
-        the default is maccatalyst-x64;maccatalyst-arm64.
-		When specifying both architectures, use the plural <RuntimeIdentifiers> instead
-        of the singular <RuntimeIdentifer>.
+		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
+		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
 		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
 		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
     <!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
@@ -22,7 +19,6 @@
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">28.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
     <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
     <OutputType>Exe</OutputType>
     <RootNamespace>AllQuickStarts.Scripter</RootNamespace>
     <UseMaui>true</UseMaui>
@@ -31,6 +27,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AssemblyName>AllQuickStarts.Scripter.MAUI</AssemblyName>
+    <OutputName>$(AssemblyName)</OutputName>
     <!-- Display name -->
     <ApplicationTitle>All quick starts</ApplicationTitle>
     <!-- App Identifier -->
@@ -39,6 +36,18 @@
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
   </PropertyGroup>
+  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+    <PackageReference Include="Microsoft.ClearScript.V8.Native.win-x64" Version="7.5.1" />
+    <PackageReference Include="Microsoft.ClearScript.Windows" Version="7.5.1">
+      <!-- Prevent package from adding compile & runtime & native & build assets -->
+      <ExcludeAssets>compile;runtime;native;contentFiles;analyzers;build;buildTransitive</ExcludeAssets>
+    </PackageReference>
+    <None Include="$(NuGetPackageRoot)microsoft.clearscript.v8.native.win-x64\7.5.1\runtimes\win-x64\native\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <TargetPath>runtimes\win-x64\native\%(Filename)%(Extension)</TargetPath>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <!-- App Icon -->
     <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -53,43 +62,79 @@
     <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.10" />
     <PackageReference Include="WeCantSpell.Hunspell" Version="3.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.MAUI" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.8" />
-    <PackageReference Include="Alternet.UI.Maui" Version="0.9.736-beta" />
+    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.MAUI" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.UI.Maui" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Content\CallIsolatedMethod.cs" />
     <Compile Remove="Content\CallMethod.cs" />
+    <Compile Remove="Content\CustomAssemblyTest.cs" />
+    <Compile Remove="Content\CustomClass.cs" />
     <Compile Remove="Content\newfile.cs" />
     <Compile Remove="Content\ObjectReference.cs" />
+    <Compile Remove="Content\PackageReferenceTest\PackageReference.cs" />
+    <Compile Remove="Content\ThreadScript.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Content\CallIsolatedMethod.vb" />
+    <None Remove="Content\CallMethod.js" />
     <None Remove="Content\CallMethod.py" />
+    <None Remove="Content\CallMethod.ts" />
     <None Remove="Content\CallMethod.vb" />
+    <None Remove="Content\CustomAssemblyTest.vb" />
+    <None Remove="Content\CustomClass.vb" />
+    <None Remove="Content\ExternalAssembly.dll" />
+    <None Remove="Content\ObjectReference.js" />
     <None Remove="Content\ObjectReference.py" />
+    <None Remove="Content\ObjectReference.ts" />
     <None Remove="Content\ObjectReference.vb" />
+    <None Remove="Content\ScriptHostObject.csx" />
+    <None Remove="ExternalAssembly.dll" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Content\CallIsolatedMethod.cs" />
+    <EmbeddedResource Include="Content\CallIsolatedMethod.vb" />
     <EmbeddedResource Include="Content\CallMethod.cs" />
+    <EmbeddedResource Include="Content\CallMethod.js" />
     <EmbeddedResource Include="Content\CallMethod.py" />
+    <EmbeddedResource Include="Content\CallMethod.ts" />
     <EmbeddedResource Include="Content\CallMethod.vb" />
+    <EmbeddedResource Include="Content\CustomAssemblyTest.cs" />
+    <EmbeddedResource Include="Content\CustomAssemblyTest.vb" />
+    <EmbeddedResource Include="Content\CustomClass.cs" />
+    <EmbeddedResource Include="Content\CustomClass.vb" />
     <EmbeddedResource Include="Content\ObjectReference.cs" />
+    <EmbeddedResource Include="Content\ObjectReference.js" />
     <EmbeddedResource Include="Content\ObjectReference.py" />
+    <EmbeddedResource Include="Content\ObjectReference.ts" />
     <EmbeddedResource Include="Content\ObjectReference.vb" />
+    <EmbeddedResource Include="Content\PackageReferenceTest\PackageReference.cs" />
+    <EmbeddedResource Include="Content\ScriptHostObject.csx" />
+    <EmbeddedResource Include="ExternalAssembly.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\PackageReferenceTest\PackageReferenceTest.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Pages\PowerFx\PowerFxContextPage.xaml.cs">

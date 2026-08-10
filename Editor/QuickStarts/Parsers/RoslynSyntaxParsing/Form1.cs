@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Drawing;
@@ -16,6 +16,7 @@ using System.IO;
 using System.Windows.Forms;
 
 using Alternet.Common;
+using Alternet.Common.DotNet.DefaultAssemblies.DotNetCore;
 using Alternet.Syntax.Parsers.Roslyn;
 
 namespace RoslynSyntaxParsing
@@ -28,6 +29,11 @@ namespace RoslynSyntaxParsing
         private VbParser vbParser1 = new VbParser();
         private string dir = Application.StartupPath + @"\";
 
+        static Form1()
+        {
+            FrameworkAssemblyListProvider.IgnoreSystemWideSDK = false;
+        }
+
         public Form1()
         {
             InitializeComponent();
@@ -35,28 +41,40 @@ namespace RoslynSyntaxParsing
             var prefix = "RoslynSyntaxParsing.Resources";
             Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
             cbLanguages.SelectedIndex = 0;
+
+            syntaxEdit1.Text = "Loading text...";
+
+            ControlUtilities.BindFormInitializer(this, () =>
+            {
+                openFileDialog1.Filter = "C # files (*.cs)|*.cs|VB files (*.vb)|*.vb";
+                DirectoryInfo dirInfo = new DirectoryInfo(Path.GetFullPath(dir) + @"Resources\Editor\text");
+                if (!dirInfo.Exists)
+                {
+                    dir = Application.StartupPath + @"\..\..\..\..\..\..\..\";
+                }
+
+                FileInfo fileInfo = new FileInfo(dir + @"Resources\Editor\text\c#.cs");
+                if (fileInfo.Exists)
+                {
+                    csharpSource.LoadFile(fileInfo.FullName);
+                }
+
+                fileInfo = new FileInfo(dir + @"Resources\Editor\text\vb_net.txt");
+                if (fileInfo.Exists)
+                {
+                    vbSource.LoadFile(fileInfo.FullName);
+                }
+
+                openFileDialog1.InitialDirectory = Path.GetFullPath(dir) + @"Resources\Editor\text\";
+                csharpSource.Lexer = csParser1;
+                vbSource.Lexer = vbParser1;
+                csharpSource.HighlightReferences = true;
+                vbSource.HighlightReferences = true;
+            });
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            openFileDialog1.Filter = "C # files (*.cs)|*.cs|VB files (*.vb)|*.vb";
-            DirectoryInfo dirInfo = new DirectoryInfo(Path.GetFullPath(dir) + @"Resources\Editor\text");
-            if (!dirInfo.Exists)
-            {
-                dir = Application.StartupPath + @"\..\..\..\..\..\..\..\";
-            }
-
-            FileInfo fileInfo = new FileInfo(dir + @"Resources\Editor\text\c#.cs");
-            if (fileInfo.Exists)
-                csharpSource.LoadFile(fileInfo.FullName);
-            fileInfo = new FileInfo(dir + @"Resources\Editor\text\vb_net.txt");
-            if (fileInfo.Exists)
-                vbSource.LoadFile(fileInfo.FullName);
-            openFileDialog1.InitialDirectory = Path.GetFullPath(dir) + @"Resources\Editor\text\";
-            csharpSource.Lexer = csParser1;
-            vbSource.Lexer = vbParser1;
-            csharpSource.HighlightReferences = true;
-            vbSource.HighlightReferences = true;
         }
 
         private void LanguagesComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -81,6 +99,7 @@ namespace RoslynSyntaxParsing
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 syntaxEdit1.Source.LoadFile(openFileDialog1.FileName);
+                syntaxEdit1.Source.FileName = openFileDialog1.FileName;
             }
         }
 

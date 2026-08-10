@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "TypeScriptParsing": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    },
+    "IsDark": {
+      "commandName": "Project",
+      "commandLineArgs": "-IsDark=true",
+      "nativeDebugging": true
+    }
+  }
+}

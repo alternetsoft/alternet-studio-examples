@@ -37,7 +37,6 @@
             this.pnDescription = new System.Windows.Forms.Panel();
             this.laDescription = new System.Windows.Forms.Label();
             this.syntaxEdit1 = new Alternet.Editor.SyntaxEdit();
-            this.powerShellParser1 = new Alternet.Syntax.Parsers.Lsp.PowerShell.Embedded.PowerShellParserEmbedded(this.components);
             this.pnSettings.SuspendLayout();
             this.pnDescription.SuspendLayout();
             this.SuspendLayout();
@@ -107,7 +106,6 @@
 
         private System.Windows.Forms.Panel pnSettings;
         private Alternet.Editor.SyntaxEdit syntaxEdit1;
-        private Alternet.Syntax.Parsers.Lsp.PowerShell.Embedded.PowerShellParserEmbedded powerShellParser1;
         private System.Windows.Forms.Panel pnDescription;
         private System.Windows.Forms.Label laDescription;
     }

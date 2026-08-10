@@ -1,0 +1,22 @@
+<Window xmlns="http://schemas.alternetsoft.com/ui/2021"
+        xmlns:x="http://schemas.alternetsoft.com/ui/2021/uixml"
+        xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+        x:Class="ExpressionEvaluation.Python.Form1"
+        Title="Expression Evaluation on Alternet.UI" StartLocation="CenterScreen"
+        MinimumSize="600, 250" Size="600,400" Layout="Vertical" Padding="10"
+        Icon="embres:ExpressionEvaluation.Python.Sample.ico">
+
+	<Panel Name="pnSettings" Layout="Vertical" Padding = "5">
+		<Panel Name="pnDescription" Layout="Vertical" Padding = "5">
+			<Label Name="lbDescription"
+				   Text="This demo shows how to execute script expressions."/>
+			<Button Name="ScriptButton" Text="Run Script"
+					HorizontalAlignment = "Left" VerticalAlignment="Center"/>
+		</Panel>
+	</Panel>
+
+	<Border VerticalAlignment="Fill" Margin="5">
+		<MultilineTextBox Name="Expression" Grid.Row="1" 
+                          Text="(5+4)*2 - 9/3 + 10 + tbExpression.Text.Length" Margin="10"/>
+	</Border>
+</Window>

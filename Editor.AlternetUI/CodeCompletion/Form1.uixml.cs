@@ -21,14 +21,16 @@ using Alternet.Syntax.Parsers.Roslyn;
 using Alternet.Common;
 using Alternet.Syntax.Parsers.Roslyn.CodeCompletion;
 using Alternet.Editor;
+using Alternet.Editor.TextSource.AlternetUI;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 
 namespace CodeCompletion
 {
     public partial class Form1 : Window
     {
-        private readonly Alternet.Editor.TextSource.TextSource csharpSource = new();
-        private readonly Alternet.Editor.TextSource.TextSource vbSource = new();
+        private readonly TextSource csharpSource = new();
+        private readonly TextSource vbSource = new();
         private readonly CsParser csParser1 = new(new CsSolution());
         private readonly VbParser vbParser1 = new(new VbSolution());
 
@@ -41,11 +43,11 @@ namespace CodeCompletion
                 syntaxEdit1.VisualThemeType = VisualThemeType.Dark;
             }
 
-            cbLanguages.Items.AddRange(new object[] {
+            cbLanguages.AddRange(new object[] {
                 "C#",
                 "Visual Basic"});
 
-            cbLanguages.SelectedIndexChanged += LanguagesComboBox_SelectedIndexChanged;
+            cbLanguages.ValueChanged += LanguagesComboBox_SelectedIndexChanged;
 
             syntaxEdit1.Source = csharpSource;
             syntaxEdit1.Outlining.AllowOutlining = true;
@@ -54,11 +56,22 @@ namespace CodeCompletion
             vbSource.OptimizedForMemory = false;
 
             Form1_Load(this, EventArgs.Empty);
-            cbLanguages.SelectedIndex = 0;
+            cbLanguages.Value = "C#";
 
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
+            lbDescription.WordWrap = true;
             ActiveControl = syntaxEdit1;
+        }
+
+        protected virtual void UpdateQuickInfoText(IQuickInfoItem item)
+        {
+            int startPos = item.Text.IndexOf('(');
+            int endPos = item.Text.IndexOf(')');
+
+            if ((startPos >= 0) && (endPos > startPos))
+            {
+                item.Text = item.Text.Insert(endPos, "</b></i>");
+                item.Text = item.Text.Insert(startPos, "<b><i>");
+            }
         }
 
         protected override void DisposeManaged()
@@ -66,22 +79,17 @@ namespace CodeCompletion
             base.DisposeManaged();
         }
 
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            DirectoryInfo dirInfo = new(DemoUtils.ResourcesFolder + @"Editor/Text/");
+            DirectoryInfo dirInfo = new(DemoUtils.GetResourceFolderFullPath(@"Editor/"));
 
-            FileInfo fileInfo = new(dirInfo.FullName + @"c#.cs");
+            FileInfo fileInfo = new(DemoUtils.GetResourceFileFullPath(@"Editor/Text/c#.cs"));
             if (fileInfo.Exists)
                 syntaxEdit1.LoadFile(fileInfo.FullName);
             else
                 syntaxEdit1.Lines.Add($"File not found: {fileInfo.FullName}");
 
-            fileInfo = new FileInfo(dirInfo.FullName + @"vb_net.txt");
+            fileInfo = new FileInfo(dirInfo.FullName + @"Text/vb_net.txt");
             if (fileInfo.Exists)
                 vbSource.LoadFile(fileInfo.FullName);
 
@@ -101,10 +109,10 @@ namespace CodeCompletion
 
         private void LanguagesComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            syntaxEdit1.Source = cbLanguages.SelectedIndex switch
+            syntaxEdit1.Source = cbLanguages.Value switch
             {
-                0 => csharpSource,
-                1 => vbSource,
+                "C#" => csharpSource,
+                "Visual Basic" => vbSource,
                 _ => csharpSource,
             };
         }
@@ -117,13 +125,13 @@ namespace CodeCompletion
             if ((e.CompletionType == CodeCompletionType.ListMembers) || (e.CompletionType == CodeCompletionType.CompleteWord) ||
                 ((e.CompletionType == CodeCompletionType.None) && (e.KeyChar == '.')))
             {
-                if ((e.Provider != null) && (e.Provider is IListMembers))
+                if ((e.Provider != null) && (e.Provider is IListMembers listMembers))
                 {
                     var selItem = e.SelIndex >= 0 ? e.Provider[e.SelIndex] : null;
 
                     e.Provider.Sort();
 
-                    IListMembers p = (IListMembers)e.Provider;
+                    IListMembers p = listMembers;
                     p.ShowDescriptions = true;
                     p.ShowResults = false;
                     p.ShowQualifiers = false;
@@ -151,10 +159,13 @@ namespace CodeCompletion
                 }
             }
             else
-                if ((e.CompletionType == CodeCompletionType.ParameterInfo) && (e.Provider != null) && (e.Provider is ParameterInfo))
+            if ((e.CompletionType == CodeCompletionType.ParameterInfo) && (e.Provider != null) && (e.Provider is ParameterInfo))
             {
-                foreach (IListMember member in e.Provider)
+                foreach (var item in e.Provider)
                 {
+                    if (item is not IListMember member)
+                        continue;
+
                     member.Name = "<b>" + member.Name + "</b>";
                     for (int i = 0; i < member.Parameters.Count; i++)
                     {
@@ -163,35 +174,27 @@ namespace CodeCompletion
                 }
             }
             else
-                    if ((e.CompletionType == CodeCompletionType.QuickInfo) && (e.Provider != null) && (e.Provider is QuickInfo))
+            if ((e.CompletionType == CodeCompletionType.QuickInfo) && (e.Provider != null) && (e.Provider is QuickInfo))
             {
-                foreach (IQuickInfoItem item in e.Provider)
-                    UpdateQuickInfoText(item);
+                foreach (var item in e.Provider)
+                {
+                    if(item is not IQuickInfoItem quickInfoItem)
+                        continue;
+                    UpdateQuickInfoText(quickInfoItem);
+                }
             }
             else
                 e.Provider = null;
         }
 
-        private void UpdateQuickInfoText(IQuickInfoItem item)
-        {
-            int startPos = item.Text.IndexOf('(');
-            int endPos = item.Text.IndexOf(')');
-
-            if ((startPos >= 0) && (endPos > startPos))
-            {
-                item.Text = item.Text.Insert(endPos, "</b></i>");
-                item.Text = item.Text.Insert(startPos, "<b><i>");
-            }
-        }
-
-        private void UpdateParamText(IParameterMember param, int index, bool current)
+        private static void UpdateParamText(IParameterMember param, int index, bool current)
         {
             param.Text = JoinWithSpace(new string[] { param.Qualifier, param.DataType, string.Format("param{0}", index + 1) });
             if (current)
                 param.Text = "<b><i>" + param.Text + "</i></b>";
         }
 
-        private string JoinWithSpace(string[] arr)
+        private static string JoinWithSpace(string[] arr)
         {
             string result = string.Empty;
             foreach (string s in arr)

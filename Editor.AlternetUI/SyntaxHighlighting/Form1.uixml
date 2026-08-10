@@ -3,28 +3,23 @@
         xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
         x:Class="SyntaxHighlighting.Form1"
         Title="Syntax Highlighting on Alternet.UI" StartLocation="CenterScreen"
-        MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
+        MinimumSize="600, 400" Size="900,700" Padding="10"
         Icon="embres:SyntaxHighlighting.Sample.ico">
 
-  <Window.StatusBar>
-    <StatusBar Name="statusBar">
-      <StatusBarPanel/>
-    </StatusBar>
-  </Window.StatusBar>
+  <Panel Layout="Vertical" >
+    <Label Name="lbDescription"
+     Text="This demo shows how to use predefined syntax highlighting schemes for various languages"/>
 
-  <Label Name="lbDescription"
-   Text="This demo shows how to use predefined syntax highlighting schemes for various languages"/>
+    <LayoutPanel Name="pnMain" VerticalAlignment="Fill" MarginTop="10">
+      <Border Dock="Fill" Margin="5">
+        <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>
+      </Border>
+      <Splitter Dock="Right"/>
+      <StdListBox Name="LanguagesListBox" Dock="Right" MinWidth="250" Margin="5"/>
+    </LayoutPanel>
 
-  <LayoutPanel Name="pnMain" VerticalAlignment="Fill" MarginTop="10">
-    <Border Dock="Fill" Margin="5">
-      <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>
-    </Border>
-    <Splitter Dock="Right"/>
-    <ListBox Name="LanguagesListBox" Dock="Right" MinWidth="250" Margin="5"/>
-  </LayoutPanel>
-
-  <Button Name="btLoadScheme" HorizontalAlignment="Left"
-            Text="Load Custom Scheme" ToolTip = "Load parser scheme from the file" Margin="5"/>
-
+    <Button Name="btLoadScheme" HorizontalAlignment="Left"
+              Text="Load Custom Scheme" ToolTip = "Load parser scheme from the file" Margin="5"/>
+  </Panel>
 </Window>
 

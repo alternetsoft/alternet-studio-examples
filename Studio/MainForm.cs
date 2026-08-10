@@ -1,22 +1,25 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using Alternet.Common;
+using Alternet.Editor;
 using Alternet.Editor.Roslyn;
 using Alternet.Editor.TextSource;
 
@@ -26,6 +29,17 @@ namespace AlternetStudio.Demo
     {
         static MainForm()
         {
+            SyntaxEdit.InstanceCreated += (s, e) =>
+            {
+                if (s is not SyntaxEdit editor)
+                    return;
+
+                bool searchInSeparateWindow = false;
+
+                if (searchInSeparateWindow)
+                    editor.SearchDialogAppearance = SearchDialogAppearance.SeparateWindow;
+            };
+
             Utilities.DoApplicationEvents += (s, e) =>
             {
                 Application.DoEvents();
@@ -37,6 +51,13 @@ namespace AlternetStudio.Demo
             InitializeScripter();
             InitializeEditors();
             InitializeComponent();
+
+            positionStatusLabel.Visible = false;
+            modifiedStatusLabel.Visible = false;
+            overwriteStatusLabel.Visible = false;
+
+            ActivateDarkTheme();
+
             var asm = this.GetType().Assembly;
             var prefix = "AlternetStudio.Demo.Resources";
             Icon = ControlUtilities.LoadIconFromAssembly(asm, $"{prefix}.Icon.ico");
@@ -54,6 +75,22 @@ namespace AlternetStudio.Demo
             {
                 KeyPreview = true;
             }
+
+            ControlUtilities.BindFormInitializer(this, () =>
+            {
+                using var tempItem = ControlUtilities.ShowTempStatus(statusStrip, "Loading...");
+                InitializeCodeSearch();
+                InitializeExplorerTrees();
+                InitializeToolbar();
+                LocateStartupDirectory();
+                LoadStartupFile();
+                UpdateControls();
+                InitializeNavigationHistory();
+                InitializeDebugControls();
+                InitializeFileProperties();
+                ActiveSyntaxEdit?.Focus();
+            });
+            this.Activated += MainForm_Activated;
         }
 
         public static void ShowLicenseDialog()
@@ -62,10 +99,19 @@ namespace AlternetStudio.Demo
             dialog.Show();
         }
 
-        protected override void OnClosed(System.EventArgs e)
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
             FinalizeCodeSearch();
-            base.OnClosed(e);
+            AutoSaveToolbox();
+            AutoSaveRecentFiles();
+            base.OnFormClosing(e);
+        }
+
+        private static ImageList LoadImageList(string resource)
+        {
+            string resName;
+            resName = string.Format("AlternetStudio.Demo.Resources.{0}.png", resource);
+            return ImageListHelper.LoadImageListFromStrip(typeof(MainForm).Assembly, resName);
         }
 
         private static Image LoadImage(string imageName)
@@ -74,33 +120,132 @@ namespace AlternetStudio.Demo
                 typeof(MainForm).Assembly.GetManifestResourceStream(
                     string.Format("AlternetStudio.Demo.Resources.{0}.png", name)));
 
-            return new DisplayScaledImage(
+            var result = new DisplayScaledImage(
                     () => getImage(imageName),
                     () => getImage(imageName + "_HighDpi")).Image;
+
+            var isDarkMode = SyntaxEdit.IsDarkModeEnabled();
+
+            if (isDarkMode && result is Bitmap bitmap)
+            {
+                var darkImage = ImageRecolorUtils.DefaultRecolorIcon(bitmap);
+                return darkImage;
+            }
+
+            return result;
+        }
+
+        private static void SetTabPageColor(TabPage tp, Color color)
+        {
+            tp.UseVisualStyleBackColor = false;
+            tp.BackColor = color;
+        }
+
+        private void MainForm_Activated(object sender, EventArgs e)
+        {
+            this.BeginInvoke((Action)(() => ProcessModifiedProjects()));
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            InitializeCodeSearch();
-            InitializeExplorerTrees();
-            InitializeToolbar();
-            LocateStartupDirectory();
-            LoadStartupFile();
-            UpdateControls();
-            InitializeNavigationHistory();
-            InitializeDebugger();
-            InitializeFileProperties();
         }
 
-        private ImageList LoadImageList(string resource)
+        private void SetTabPageColor(TabPage tp)
         {
-            return ImageListHelper.LoadImageListFromStrip(typeof(MainForm).Assembly, string.Format("AlternetStudio.Demo.Resources.{0}.png", resource));
+            SetTabPageColor(tp, BackColor);
+        }
+
+        private void ActivateDarkTheme()
+        {
+            if (IsDark)
+            {
+                Color bc = BackColor;
+
+                SetTabPageColor(breakpointsTabPage, bc);
+                SetTabPageColor(outputTabPage, bc);
+                SetTabPageColor(findResultsTabPage, bc);
+                SetTabPageColor(callStackTabPage, bc);
+                SetTabPageColor(localsTabPage, bc);
+                SetTabPageColor(watchesTabPage, bc);
+                SetTabPageColor(errorsTabPage, bc);
+                SetTabPageColor(threadsTabPage, bc);
+                SetTabPageColor(projectExplorerTabPage, bc);
+                SetTabPageColor(propertiesTabPage, bc);
+                SetTabPageColor(toolboxTabPage, bc);
+                SetTabPageColor(projectExplorerTabPage, bc);
+                SetTabPageColor(codeExplorerTabPage, bc);
+                SetTabPageColor(outlineTabPage, bc);
+
+                callStackControl.lvCallStack.GridLines = false;
+                errorsControl.lvErrorList.GridLines = false;
+                threadsControl.lvThreads.GridLines = false;
+                breakpointsControl.lvBreakpoints.GridLines = false;
+                callStackControl.lvCallStack.GridLines = false;
+                errorsControl.lvErrorList.GridLines = false;
+                findResultsControl.lvFindResults.GridLines = false;
+            }
+            else
+            {
+            }
+
+            findResultsControl.lvFindResults.BorderStyle = BorderStyle.None;
+            threadsControl.lvThreads.BorderStyle = BorderStyle.None;
+            breakpointsControl.lvBreakpoints.BorderStyle = BorderStyle.None;
+            callStackControl.lvCallStack.BorderStyle = BorderStyle.None;
+            errorsControl.lvErrorList.BorderStyle = BorderStyle.None;
+            localsControl.localsTreeView.BorderStyle = BorderStyle.None;
+            watchesControl.watchesTreeView.BorderStyle = BorderStyle.None;
+
+            projectExplorerTreeView.BorderStyle = BorderStyle.None;
+            codeExplorerTreeView.BorderStyle = BorderStyle.None;
+        }
+
+        private void InitImageLists()
+        {
+            const string ProjectExplorerSmallDarkImages = "ProjectExplorerImages.16.Dark";
+            const string ProjectExplorerSmallLightImages = "ProjectExplorerImages.16";
+            const string ProjectExplorerLargeDarkImages = "ProjectExplorerImages.32.Dark";
+            const string ProjectExplorerLargeLightImages = "ProjectExplorerImages.32";
+
+            const string CodeExplorerSmallDarkImages = "CodeExplorerImages.16.Dark";
+            const string CodeExplorerSmallLightImages = "CodeExplorerImages.16";
+            const string CodeExplorerLargeDarkImages = "CodeExplorerImages.32.Dark";
+            const string CodeExplorerLargeLightImages = "CodeExplorerImages.32";
+
+            bool largeImages = DisplayScaling.NeedImageScaling;
+
+            if (IsDark)
+            {
+                if (largeImages)
+                {
+                    projectExplorerTreeView.ImageList = LoadImageList(ProjectExplorerLargeDarkImages);
+                    codeExplorerTreeView.ImageList = LoadImageList(CodeExplorerLargeDarkImages);
+                }
+                else
+                {
+                    projectExplorerTreeView.ImageList = LoadImageList(ProjectExplorerSmallDarkImages);
+                    codeExplorerTreeView.ImageList = LoadImageList(CodeExplorerSmallDarkImages);
+                }
+            }
+            else
+            {
+                if (largeImages)
+                {
+                    projectExplorerTreeView.ImageList = LoadImageList(ProjectExplorerLargeLightImages);
+                    codeExplorerTreeView.ImageList = LoadImageList(CodeExplorerLargeLightImages);
+                }
+                else
+                {
+                    projectExplorerTreeView.ImageList = LoadImageList(ProjectExplorerSmallLightImages);
+                    codeExplorerTreeView.ImageList = LoadImageList(CodeExplorerSmallLightImages);
+                }
+            }
         }
 
         private void InitImages()
         {
-            projectExplorerTreeView.ImageList = LoadImageList("ProjectExplorerImages");
-            codeExplorerTreeView.ImageList = LoadImageList("CodeExplorerImages");
+            InitImageLists();
+
             newMenuItem.Image = LoadImage("NewFile");
             newStripSplitButton.Image = LoadImage("NewFile");
             openMenuItem.Image = LoadImage("OpenFile");
@@ -151,8 +296,6 @@ namespace AlternetStudio.Demo
 
             referencesContextMenu.ShowCheckMargin = true;
 
-            codeExplorerTreeView.ImageList = DisplayImageScaling.CloneAndAutoScaleImageList(codeExplorerTreeView.ImageList);
-            projectExplorerTreeView.ImageList = DisplayImageScaling.CloneAndAutoScaleImageList(projectExplorerTreeView.ImageList);
             codeNavigationBarPanel.Height = methodsComboBox.Height + 2;
         }
 

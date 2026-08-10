@@ -1,16 +1,21 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
@@ -19,7 +24,10 @@ using System.Xml;
 using Alternet.Common;
 using Alternet.Common.DotNet.DefaultAssemblies;
 using Alternet.Common.Projects.DotNet;
+
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Maui;
+using Alternet.Maui.Extensions;
 using Alternet.Scripter;
 using Alternet.Scripter.Debugger;
 using Alternet.Scripter.Debugger.UI.MAUI;
@@ -29,7 +37,15 @@ using Alternet.Syntax.Lexer;
 using Alternet.Syntax.Parsers.Roslyn;
 using Alternet.Syntax.Parsers.Roslyn.CodeCompletion;
 
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Devices;
+using Microsoft.Maui.Dispatching;
+using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Layouts;
+using Microsoft.Maui.Storage;
+
+#if WINDOWS
+#endif
 
 namespace DebuggerIntegration
 {
@@ -37,6 +53,20 @@ namespace DebuggerIntegration
         : Alternet.UI.DisposableContentPage, Alternet.UI.IProcessRunnerNotification,
         Alternet.UI.IRaiseSystemColorsChanged
     {
+        public const string LoremIpsumSmall =
+            "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit. " +
+            "Suspendisse tincidunt orci vitae arcu congue commodo. " +
+            "Proin fermentum rhoncus dictum.\n";
+
+        public static double DefaultDebuggerPanelHeight { get; set; } = 200;
+
+        public static bool? IgnoreHoveredState { get; set; }
+
+        // If set to true, the code editor will be initialized in a way suitable
+        // for mobile devices when the debugger is attached.
+        // This can be useful for testing the mobile experience on desktop during development.
+        public static bool InitForMobileIfDebug { get; set; } = false;
+
         private static readonly bool ExceptionsLogger = true;
 
         private static readonly bool DefaultWordWrap;
@@ -51,17 +81,36 @@ namespace DebuggerIntegration
 
         private readonly DebuggerPanelsTabControlView debuggerPanelsTabControl = new();
         private readonly SimpleTabControlView editorsTabControl = new();
-        private readonly DebugMenu debugMenu = new();
+        private readonly Alternet.Scripter.Debugger.UI.AlternetUI.DebugMenu debugMenu;
+
+        private readonly Alternet.Scripter.Debugger.UI.AlternetUI.DebuggerController
+            debugController = new();
+
         private readonly DebuggerControlToolBarView debuggerControlToolBar = new();
+        private readonly Alternet.UI.ContextMenu mainMenu = new();
 
         private readonly DebugCodeEditContainer codeEditContainer;
         private readonly ScriptRun scriptRun;
 
+        private readonly IScriptDebuggerBase debugger;
+        private readonly MenuBarItem? fileMenuBar;
+        private readonly MenuBarItem? debugMenuBar;
+
         private DotNetProject project = new();
-        private IScriptDebuggerBase debugger;
 
         static MainPage()
         {
+            Alternet.Editor.Maui.SyntaxEditView.UseDefaultSearchDialog = false;
+
+            TestComplexToolTips();
+
+#if MACCATALYST
+            Alternet.Editor.AlternetUI.EditConsts.DefaultFontSizeIncrement = 1;
+#endif
+
+            if (IgnoreHoveredState.HasValue)
+                Alternet.UI.PlessMouse.IgnoreHoveredState = IgnoreHoveredState.Value;
+
             Alternet.UI.MauiUtils.SuppressMenuBarFocus();
 
             DefaultWordWrap = !Consts.IsWindows;
@@ -76,13 +125,47 @@ namespace DebuggerIntegration
             {
                 Alternet.UI.DebugUtils.RegisterExceptionsLoggerIfDebug((e) =>
                 {
+#if ANDROID
+                    if (e is Java.Lang.IllegalArgumentException)
+                    {
+                        return;
+                    }
+#endif
+
+                    if (e is XmlException)
+                    {
+                        return;
+                    }
+
+                    if (e is FileNotFoundException)
+                    {
+                        return;
+                    }
+
+                    if (e is ReflectionTypeLoadException)
+                    {
+                        return;
+                    }
+
+                    if (e is TargetInvocationException)
+                    {
+                        if (e.InnerException is ReflectionTypeLoadException)
+                        {
+                            return;
+                        }
+                    }
+
+                    if (e is OperationCanceledException)
+                    {
+                        return;
+                    }
+
                     if (e is System.Runtime.InteropServices.COMException)
                         return;
-                    if (e is XmlException)
-                        return;
-                    if (e is OperationCanceledException)
-                        return;
+
                     Nop();
+
+                    Debug.WriteLine($"Exception: {e}");
                 });
                 ExceptionsLogger = false;
             }
@@ -90,37 +173,46 @@ namespace DebuggerIntegration
 
         public MainPage()
         {
-            OpenProjectCommand = new Command(
+            Alternet.Scripter.Debugger.UI.AlternetUI.DebugMenu.ImageSize
+                = (int)(Alternet.UI.Display.MaxScaleFactor * 16);
+
+            debugMenu = new Alternet.Scripter.Debugger.UI.AlternetUI.DebugMenu();
+
+            var canOpen = Alternet.UI.App.IsWindowsOS;
+
+            OpenProjectCommand = new Alternet.UI.Command(
                 execute: () =>
                 {
                     OpenProjectDialog();
                 },
                 canExecute: () =>
                 {
-                    return Alternet.UI.App.IsWindowsOS;
+                    return canOpen;
                 });
 
-            OpenCommand = new Command(
+            OpenCommand = new Alternet.UI.Command(
                 execute: () =>
                 {
                     OpenFileDialog();
                 },
                 canExecute: () =>
                 {
-                    return Alternet.UI.App.IsWindowsOS;
+                    return canOpen;
                 });
 
-            CloseProjectCommand = new Command(
+            CloseProjectCommand = new Alternet.UI.Command(
                 execute: () =>
                 {
                     CloseProject(Project);
+                    GetEditorOrEmptyPanel();
                 },
                 canExecute: () =>
                 {
-                    return Project != null && Project.HasProject;
+                    var canExecute = Project != null && Project.HasProject && canOpen;
+                    return canExecute;
                 });
 
-            CloseCommand = new Command(
+            CloseCommand = new Alternet.UI.Command(
                 execute: () =>
                 {
                     if (codeEditContainer is null || scriptRun is null)
@@ -140,13 +232,14 @@ namespace DebuggerIntegration
                     }
 
                     UpdateToolbar();
+                    GetEditorOrEmptyPanel();
                 },
                 canExecute: () =>
                 {
-                    return codeEditContainer?.ActiveEditor != null;
+                    return codeEditContainer?.ActiveEditor != null && canOpen;
                 });
 
-            SaveCommand = new Command(
+            SaveCommand = new Alternet.UI.Command(
               execute: () =>
               {
                   if (codeEditContainer is null)
@@ -163,43 +256,59 @@ namespace DebuggerIntegration
 
             InitializeComponent();
 
-            var fileMenu = new MenuBarItem
+            Loaded += (_, __) =>
+            {
+#if WINDOWS
+                var xamlWindow = App.Current?.Windows[0].Handler.PlatformView as Microsoft.UI.Xaml.Window;
+#endif
+            };
+
+
+#if ANDROID || IOS || MACCATALYST
+            Shell.SetNavBarIsVisible(this, false);
+#endif
+
+            var tabFontSize = Alternet.Editor.AlternetUI.EditConsts.DefaultFont.Size * 1.333;
+            editorsTabControl.SetTabFont(null, tabFontSize);
+            debuggerPanelsTabControl.SetTabFont(null, tabFontSize);
+
+            var fileMenu = new Alternet.UI.MenuItem
             {
                 Text = "File",
             };
 
             // Creating menu items
-            var openProjectMenuItem = new MenuFlyoutItem
+            var openProjectMenuItem = new Alternet.UI.MenuItem
             {
                 Text = "Open Project...",
                 AutomationId = "OpenProjectMenuItem",
             };
 
-            var closeProjectMenuItem = new MenuFlyoutItem
+            var closeProjectMenuItem = new Alternet.UI.MenuItem
             {
                 Text = "Close Project",
                 AutomationId = "CloseProjectMenuItem",
             };
 
-            var openMenuItem = new MenuFlyoutItem
+            var openMenuItem = new Alternet.UI.MenuItem
             {
                 Text = "Open...",
                 AutomationId = "OpenMenuItem",
             };
 
-            var saveMenuItem = new MenuFlyoutItem
+            var saveMenuItem = new Alternet.UI.MenuItem
             {
                 Text = "Save",
                 AutomationId = "SaveMenuItem",
             };
 
-            var closeMenuItem = new MenuFlyoutItem
+            var closeMenuItem = new Alternet.UI.MenuItem
             {
                 Text = "Close File",
                 AutomationId = "CloseMenuItem",
             };
 
-            var exitMenuItem = new MenuFlyoutItem
+            var exitMenuItem = new Alternet.UI.MenuItem
             {
                 Text = "Exit",
                 AutomationId = "ExitMenuItem",
@@ -208,18 +317,35 @@ namespace DebuggerIntegration
             // Adding items to the menu
             fileMenu.Add(openProjectMenuItem);
             fileMenu.Add(closeProjectMenuItem);
+            fileMenu.AddSeparator();
             fileMenu.Add(openMenuItem);
             fileMenu.Add(saveMenuItem);
             fileMenu.Add(closeMenuItem);
+            fileMenu.AddSeparator();
             fileMenu.Add(exitMenuItem);
 
-            MenuBarItems.Add(fileMenu);
+            bool addSampleItems = Alternet.UI.DebugUtils.IsDebugOnWindows && false;
 
-            if (Consts.IsMacOs)
-                fileMenu.Remove(exitMenuItem);
+            if (addSampleItems)
+            {
+                var sampleSubMenu = fileMenu.Add("Sample SubMenu");
+                sampleSubMenu.Add("Item 1");
+                sampleSubMenu.Add("Item 2");
+                sampleSubMenu.Add("Item 3");
 
-            AbsoluteLayout.SetLayoutFlags(MainGrid, AbsoluteLayoutFlags.All);
-            AbsoluteLayout.SetLayoutBounds(MainGrid, new Rect(0, 0, 1, 1));
+                var sampleSubMenu2 = fileMenu.Add("Sample SubMenu 2");
+                sampleSubMenu2.Add("Item 1 1");
+                sampleSubMenu2.Add("Item 2 1");
+                sampleSubMenu2.Add("Item 3 1");
+                sampleSubMenu2.Add("Item 3 4").Add("AAAAAAAAAAAAAAA").Add("BBB");
+            }
+
+            mainMenu.ItemsTitle = "Application Menu";
+            fileMenu.ItemsTitle = "File";
+
+            mainMenu.Add(fileMenu);
+
+            Alternet.UI.MauiUtils.FillAbsoluteLayout(MainGrid);
 
             MainGrid.Insert(0, debuggerControlToolBar);
             debuggerControlToolBar.IsBottomBorderVisible = true;
@@ -232,14 +358,26 @@ namespace DebuggerIntegration
             debuggerPanelsTabControl.Header.StickyStyle = tabStyle;
             editorsTabControl.Header.StickyStyle = tabStyle;
 
+            SimpleToolBarView.AddNextAndPreviousTabButtonsFlags options =
+                SimpleToolBarView.AddNextAndPreviousTabButtonsFlags.MakeSticky;
+
+            debuggerPanelsTabControl.Header.AddNextAndPreviousTabButtons(options);
+            editorsTabControl.Header.AddNextAndPreviousTabButtons(options);
+            debuggerPanelsTabControl.MakeSelectedTabFirst = true;
+            editorsTabControl.MakeSelectedTabFirst = true;
+
+            if (Alternet.UI.App.IsTabletOrPhoneDevice)
+            {
+            }
+
             panel.Add(editorsTabControl);
 
             editorsTabControl.Header.IsBottomBorderVisible = true;
             debuggerPanelsTabControl.Header.IsBottomBorderVisible = true;
 
             panel.Add(debuggerPanelsTabControl, 0, 1);
-            debuggerPanelsTabControl.MinimumHeightRequest = 200;
-            debuggerPanelsTabControl.MaximumHeightRequest = 200;
+            debuggerPanelsTabControl.MinimumHeightRequest = DefaultDebuggerPanelHeight;
+            debuggerPanelsTabControl.MaximumHeightRequest = DefaultDebuggerPanelHeight;
 
             Alternet.Scripter.Integration.AlternetUI.DebugCodeEdit.Parsers[".cs"] = typeof(CsParser);
             Alternet.Scripter.Integration.AlternetUI.DebugCodeEdit.Parsers[".vb"] = typeof(VbParser);
@@ -247,7 +385,7 @@ namespace DebuggerIntegration
             scriptRun = new ScriptRun();
 
             codeEditContainer = new DebugCodeEditContainer(editorsTabControl);
-            codeEditContainer.EditorRequested += EditorContainer_EditorRequested;
+            codeEditContainer.EditorRequested += OnEditorRequested;
 
             string[] projectFiles =
                 [
@@ -263,24 +401,25 @@ namespace DebuggerIntegration
                 projectFiles,
                 destFolder);
 
-            OpenProject(destFolder, "DebuggerTest.csproj");
-            var useOldDebugger = true;
+            bool openDefaultProject = true;
 
-            if (Alternet.UI.CommandLineArgs.ParseAndHasArgument("-NewDebugger"))
-                useOldDebugger = false;
+            if (openDefaultProject)
+            {
+                OpenProject(destFolder, "DebuggerTest.csproj");
+            }
 
-            debugger = Alternet.Scripter.Debugger.UI.AlternetUI.DebuggerUtils
-                .CreateDebugger(useOldDebugger)!;
-            debugger.EventsSyncAction = (action) => Alternet.UI.App.Invoke(action);
-            Alternet.UI.AssemblyUtils.TrySetMemberValue(debugger, "ScriptRun", scriptRun);
-            Alternet.Scripter.Roslyn.RoslynScriptProvider.PortablePdb
-                = !useOldDebugger || !Alternet.UI.App.IsWindowsOS;
+            var d = new Alternet.Scripter.Debugger.Universal.ScriptDebugger();
+            debugger = d;
+            debugger.EventsSyncAction = (action) => Alternet.UI.App.Invoke((Action)action);
+            d.ScriptRun = scriptRun;
 
             debuggerControlToolBar.Debugger = debugger;
             debuggerControlToolBar.DebuggerPreStartup += OnDebuggerPreStartup;
 
-            debugMenu.Debugger = debugger;
-            debugMenu.DebuggerPreStartup += OnDebuggerPreStartup;
+            debugController.Debugger = debugger;
+            debugController.DebuggerPreStartup += OnDebuggerPreStartup;
+            debugController.DebuggerStateChanged += OnDebuggerStateChanged;
+            debugMenu.Controller = debugController;
             debuggerPanelsTabControl.Debugger = debugger;
 
             var controller = new Alternet.Scripter.Integration.AlternetUI
@@ -292,7 +431,8 @@ namespace DebuggerIntegration
 
             codeEditContainer.Debugger = debugger;
 
-            MenuBarItems.Add(debugMenu);
+            debugMenu.ItemsTitle = "Debug";
+            mainMenu.Add(debugMenu);
 
             if (Alternet.UI.App.IsWindowsOS)
             {
@@ -314,7 +454,7 @@ namespace DebuggerIntegration
 
             Alternet.UI.ProcessRunnerWithNotification.Bind(this);
 
-            var window = Application.Current?.Windows.FirstOrDefault();
+            var window = Alternet.UI.MauiUtils.FirstWindow;
             if (window is not null)
             {
                 window.Stopped += (s, e) =>
@@ -332,23 +472,108 @@ namespace DebuggerIntegration
 
             editorsTabControl.SelectedTabChanged += (s, e) =>
             {
+                Alternet.UI.MauiUtils.HideContextMenus(editorsTabControl);
                 codeEditContainer.ActiveEditor?.SetFocusIfPossible();
             };
 
             RaiseSystemColorsChanged();
+
+            void CreateMenuButton()
+            {
+                var button = debuggerControlToolBar.InsertButton(
+                    0,
+                    text: null,
+                    toolTip: "Show Application Menu",
+                    image: Alternet.UI.KnownSvgImages.ImgBars);
+                button.ClickedAction = () =>
+                {
+                    var uiControl = GetEditorOrEmptyPanelView();
+                    Alternet.UI.HVDropDownAlignment alignment;
+                    alignment = new((float)0, (float)-editorsTabControl.Header.Height);
+
+                    Alternet.UI.MauiUtils.ContextMenuDisplayOptions options = new()
+                    {
+                    };
+
+                    Alternet.UI.MauiUtils.ShowContextMenu(mainMenu, uiControl, alignment, options);
+                };
+            }
+
+            if (Alternet.UI.App.IsWindowsOS)
+            {
+                fileMenuBar = fileMenu.ToMenuBarItem();
+                debugMenuBar = debugMenu.ToMenuBarItem();
+
+                MenuBarItems.Add(fileMenuBar);
+                MenuBarItems.Add(debugMenuBar);
+
+                if (Alternet.UI.App.IsDebuggerAttached)
+                {
+                    CreateMenuButton();
+                }
+            }
+            else
+            {
+                CreateMenuButton();
+            }
+
+            debuggerPanelsTabControl.SelectedTabClickedAgain += (s, e) =>
+            {
+                debuggerPanelsTabControl.ToggleContentVisibility(DefaultDebuggerPanelHeight);
+            };
+
+            var showTestActions = true && Alternet.UI.DebugUtils.IsDebugOnWindows;
+
+            if (showTestActions)
+            {
+                var menu = debuggerPanelsTabControl.FindResultsView.MainContextMenu;
+
+                menu?.Add("Add Test Items", () =>
+                {
+                    var panel = debuggerPanelsTabControl.FindResultsView.MainPanel;
+                    Alternet.Scripter.Debugger.UI.AlternetUI.ScriptDebuggerUtils.FindResultsPanelAddBadItems(panel);
+                    Alternet.Scripter.Integration.AlternetUI.DebugCodeEditUtils
+                        .FindResultsPanelAddItems(panel, codeEditContainer);
+                });
+            }
+
+            var notification = new Alternet.UI.ControlSubscriber();
+
+            notification.BeforeControlKeyDown += (s, e) =>
+            {
+                if (e.Key == Alternet.UI.Key.Escape && !e.HasModifiers)
+                {
+                    var uiControl = GetEditorOrEmptyPanelView();
+                    var popupWasClosed = Alternet.UI.MauiUtils.HideContextMenus(uiControl);
+                    e.Handled = popupWasClosed;
+                }
+            };
+
+            Alternet.UI.AbstractControl.AddGlobalNotification(notification);
         }
 
-        public ICommand OpenProjectCommand { get; set; }
+        private void OnDebuggerStateChanged(object? sender, DebuggerStateChangedEventArgs e)
+        {
+            if (e.NewState == DebuggerState.Stopped)
+            {
+                Alternet.UI.BaseObject.Post(() =>
+                {
+                    Alternet.UI.MauiUtils.BrintToFront(this.Window);
+                });
+            }
+        }
 
-        public ICommand CloseProjectCommand { get; set; }
+        public Alternet.UI.ICommand OpenProjectCommand { get; set; }
 
-        public ICommand OpenCommand { get; set; }
+        public Alternet.UI.ICommand CloseProjectCommand { get; set; }
 
-        public ICommand CloseCommand { get; set; }
+        public Alternet.UI.ICommand OpenCommand { get; set; }
 
-        public ICommand SaveCommand { get; set; }
+        public Alternet.UI.ICommand CloseCommand { get; set; }
 
-        public ICommand ExitCommand { get; set; }
+        public Alternet.UI.ICommand SaveCommand { get; set; }
+
+        public Alternet.UI.ICommand ExitCommand { get; set; }
 
         Alternet.UI.ObjectUniqueId Alternet.UI.IProcessRunnerNotification.UniqueId { get; } = new();
 
@@ -362,33 +587,15 @@ namespace DebuggerIntegration
         {
         }
 
-        public static void LoadFile(Alternet.Editor.TextSource.ITextSource? source, string url)
-        {
-            if (source is null)
-                return;
-
-            source.Text = string.Empty;
-            source.BookMarks.Clear();
-            source.LineStyles.Clear();
-
-            var stream = Alternet.UI.ResourceLoader.StreamFromUrlOrDefault(url);
-
-            if (stream is null || !source.LoadStream(stream))
-            {
-                source.Text = $"Error loading text: {url}";
-                return;
-            }
-        }
-
         public static string GetFirstFile(IList<string> files, string langExt)
         {
             string result = files.Count > 0 ? files[0] : string.Empty;
 
             foreach (string file in files)
             {
-                if (file.ToLower().Contains("program.cs"))
+                if (file.Contains("program.cs", StringComparison.CurrentCultureIgnoreCase))
                     return file;
-                if (file.ToLower().Contains("main") && file.EndsWith(langExt))
+                if (file.Contains("main", StringComparison.CurrentCultureIgnoreCase) && file.EndsWith(langExt))
                     return file;
             }
 
@@ -417,17 +624,7 @@ namespace DebuggerIntegration
 
         public void RaiseSystemColorsChanged()
         {
-            Color? headerColor;
-
-            if (Alternet.UI.SystemSettings.AppearanceIsDark)
-            {
-                headerColor = Color.FromRgb(37, 37, 38);
-            }
-            else
-            {
-                headerColor = Color.FromRgb(245, 245, 245);
-            }
-
+            var headerColor = SimpleTabControlView.AltHeaderBackColor;
             editorsTabControl.Header.BackgroundColor = headerColor;
             debuggerPanelsTabControl.Header.BackgroundColor = headerColor;
         }
@@ -441,16 +638,43 @@ namespace DebuggerIntegration
             }
         }
 
+        protected async Task TrySetFocusToEditor()
+        {
+            var editor = codeEditContainer.FirstOrDefault();
+            if (editor is null)
+                return;
+            await editor.TrySetFocusWithTimeout();
+        }
+
+        protected override void OnAppearingOnce()
+        {
+            try
+            {
+                Alternet.UI.App.Log("Application is ready...");
+            }
+            finally
+            {
+                editorsTabControl.IsVisible = true;
+            }
+
+            var visibilityService = Alternet.UI.MauiUtils.BindToKeyboardVisibility((e) =>
+            {
+                debuggerPanelsTabControl.SetContentVisibility(!e.IsVisible, DefaultDebuggerPanelHeight);
+
+                if (e.IsVisible)
+                {
+                }
+                else
+                {
+                }
+            });
+        }
+
         protected async override void OnAppearing()
         {
             base.OnAppearing();
 
-            var editor = codeEditContainer.FirstOrDefault();
-
-            if (editor is null)
-                return;
-
-            await editor.TrySetFocusWithTimeout();
+            await TrySetFocusToEditor();
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string? propertyName = null)
@@ -459,6 +683,15 @@ namespace DebuggerIntegration
             if (propertyName == "Window" || propertyName == "Parent")
             {
             }
+        }
+
+        protected View? GetEditorOrEmptyPanelView()
+        {
+            View? uiControl = codeEditContainer.ActiveEditorView;
+
+            uiControl ??= editorsTabControl.EmptyPanel;
+
+            return uiControl;
         }
 
         protected override void DisposeResources()
@@ -491,18 +724,124 @@ namespace DebuggerIntegration
             return false;
         }
 
-        private void EditorContainer_EditorRequested(
+        private void OnEditorRequested(
             object? sender,
             Alternet.Scripter.Integration.AlternetUI.DebugEditRequestedEventArgs e)
         {
-            var edit = new DebugCodeEditView();
-            edit.WordWrap = DefaultWordWrap;
+            var edit = new DebugCodeEditView
+            {
+                WordWrap = DefaultWordWrap
+            };
+
+            edit.Editor.ContextMenuStrip = edit.Editor.DefaultMenu;
+
+            edit.Editor.CodeCompletionBoxCreated += (s, e) =>
+            {
+                if (edit.Editor.CodeCompletionBox
+                is not Alternet.Editor.AlternetUI.ICategorizedCodeCompletionBox codeCompletion)
+                    return;
+                var menu = new Alternet.UI.ContextMenuStrip();
+                codeCompletion.CategoriesContextMenu = menu;
+                codeCompletion.ItemsContextMenu = menu;
+                menu.Add("Clear Categories Filter", () =>
+                {
+                    codeCompletion.CategoriesIncludedInFilter = [];
+                });
+                var itemOptions = menu.Add("Additional Options");
+
+                itemOptions.Add("Set Option 1", () =>
+                {
+                    Alternet.UI.App.Log("Set Option 1 Clicked");
+                });
+
+                itemOptions.Add("Set Option 2", () =>
+                {
+                    Alternet.UI.App.Log("Set Option 2 Clicked");
+                });
+
+                var itemActions = menu.Add("Additional Actions");
+
+                itemActions.Add("Additional Action 1", () =>
+                {
+                    Alternet.UI.App.Log("Additional Action 1 Clicked");
+                });
+
+                itemActions.Add("Additional Action 2", () =>
+                {
+                    Alternet.UI.App.Log("Additional Action 2 Clicked");
+                });
+
+                menu.AddSeparator();
+                menu.Add("Close", () =>
+                {
+                    edit.Editor.CodeCompletionBox.Close(false);
+                });
+            };
+
             edit.SetBorderWidth(0, 1, 0, 1);
 
-            LoadFile(edit.Editor.Source, e.FileName);
-            edit.Editor.FileName = e.FileName;
+            if (Alternet.UI.DebugUtils.IsDebugDefinedAndAttached && InitForMobileIfDebug)
+            {
+                Alternet.Editor.AlternetUI.EditorOnMobileHelper.IsMobileDeviceOverride = () => true;
+            }
+
+            Alternet.Editor.AlternetUI.EditorOnMobileHelper.InitializeOnMobile(edit.Editor);
+
+            var debugCodeEdit = edit.Editor as Alternet.Scripter.Integration.AlternetUI.DebugCodeEdit;
+
+            var projectName = GetProjectName(e.FileName);
+            SetFileNameAndProject(debugCodeEdit, e.FileName, projectName);
+
+            edit.Editor.LoadFileOrShowErrorInText(e.FileName);
             e.DebugEdit = edit.Editor;
             UpdateCommands();
+        }
+
+        public virtual string? GetProjectName(string fileName)
+        {
+            if (Project.HasProject)
+            {
+                if (Project.Files.Contains(fileName, StringComparer.OrdinalIgnoreCase))
+                    return Project.ProjectName;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Updates name of the file and project and reparses editor's text.
+        /// </summary>
+        /// <param name="edit">IScriptEdit that contains source code to process.</param>
+        /// <param name="fileName">New file name.</param>
+        /// <param name="projectName">Optional project name.</param>
+        public static void SetFileNameAndProject(
+            Alternet.Scripter.Integration.AlternetUI.DebugCodeEdit edit,
+            string fileName,
+            string? projectName)
+        {
+            edit.FileName = fileName;
+            var parser = edit.Lexer as RoslynParser;
+
+            if (parser != null)
+            {
+                parser.ProjectName = projectName;
+
+                var solution = parser.Repository.Solution;
+                if (solution != null)
+                {
+                    switch (Path.GetExtension(fileName).ToLower())
+                    {
+                        case ".csx":
+                            solution.ScriptSearchPaths = new string[] { Path.GetDirectoryName(fileName) ?? string.Empty };
+                            break;
+                        case ".vbx":
+                            solution.ScriptSearchPaths = new string[] { Path.GetDirectoryName(fileName) ?? string.Empty };
+                            break;
+                    }
+                }
+
+                parser.ReparseText();
+            }
         }
 
         private void OpenProject(string? projectPathUrl, string projectName)
@@ -565,7 +904,7 @@ namespace DebuggerIntegration
             {
                 RegisterCode(
                     extension,
-                    project.Files.Where(x => x.EndsWith(project.ProjectExtension)).ToArray(),
+                    [.. project.Files.Where(x => x.EndsWith(project.ProjectExtension))],
                     project.ProjectName);
             }
 
@@ -581,7 +920,7 @@ namespace DebuggerIntegration
 
             RegisterAssemblies(
                 extension,
-                project.TryResolveAbsolutePaths(references).ToArray(),
+                [.. project.TryResolveAbsolutePaths(references)],
                 projectName: project.ProjectName,
                 targetFramework: project.TargetFramework);
         }
@@ -601,13 +940,10 @@ namespace DebuggerIntegration
             if (solution == null)
                 return;
             var project = !string.IsNullOrEmpty(projectName) ? solution.GetProject(projectName) : null;
-            var projectId = project != null ? project.Id : null;
+            var projectId = project?.Id;
 
-            if (technology == null)
-                technology = DetectTechnologyEnvironmentFromReferences(references);
-
-            if (targetFramework == null)
-                targetFramework = DetectTargetFrameworkFromReferences(references);
+            technology ??= DetectTechnologyEnvironmentFromReferences(references);
+            targetFramework ??= DetectTargetFrameworkFromReferences(references);
 
             solution.WithDefaultAssemblies(
                 technology.Value,
@@ -617,7 +953,7 @@ namespace DebuggerIntegration
                 .RegisterAssemblies(references, projectId, targetFramework);
         }
 
-        private TargetFramework? DetectTargetFrameworkFromReferences(string[] references)
+        private static TargetFramework? DetectTargetFrameworkFromReferences(string[] references)
         {
             foreach (var reference in references)
             {
@@ -628,9 +964,28 @@ namespace DebuggerIntegration
             return null;
         }
 
-        private TechnologyEnvironment DetectTechnologyEnvironmentFromReferences(string[] references)
+#pragma warning disable
+        private static TechnologyEnvironment DetectTechnologyEnvironmentFromReferences(string[] references)
+#pragma warning restore
         {
             return TechnologyEnvironment.System;
+        }
+
+        public virtual IRoslynSolution? GetSolution(string extension)
+        {
+            switch (extension.ToLower())
+            {
+                case ".cs":
+                    return CsSolution.DefaultSolution;
+                case ".vb":
+                    return VbSolution.DefaultSolution;
+                case ".csx":
+                    return CsSolution.DefaultScriptSolution;
+                case ".vbx":
+                    return VbSolution.DefaultScriptSolution;
+                default:
+                    return null;
+            }
         }
 
         private void RegisterCode(string extension, string[] files, string? projectName = null)
@@ -639,36 +994,7 @@ namespace DebuggerIntegration
             if (solution == null)
                 return;
             var project = !string.IsNullOrEmpty(projectName) ? solution.GetProject(projectName) : null;
-            solution.RegisterCodeFiles(files, project != null ? project.Id : null);
-        }
-
-        private IRoslynSolution? GetSolution(string extension)
-        {
-            IRoslynSolution? result = null;
-            switch (extension.ToLower())
-            {
-                case ".cs":
-                    result = CsSolution.DefaultSolution;
-                    break;
-                case ".vb":
-                    result = VbSolution.DefaultSolution;
-                    break;
-                case ".csx":
-                    result = CsSolution.DefaultScriptSolution;
-                    break;
-                case ".vbx":
-                    result = VbSolution.DefaultScriptSolution;
-                    break;
-                default:
-                    result = null;
-                    break;
-            }
-
-            if (result is not null)
-            {
-            }
-
-            return result;
+            solution.RegisterCodeFiles(files, project?.Id);
         }
 
         private void StopDebugger()
@@ -695,6 +1021,16 @@ namespace DebuggerIntegration
 
             var extension = string.Format(".{0}", project.DefaultExtension);
 
+            var solution = GetSolution(extension);
+            if (solution is not null)
+            {
+                var myproj = solution.GetProject(project.ProjectName);
+                if (myproj != null)
+                {
+                    solution.RemoveProject(myproj.Id);
+                }
+            }
+
             Project?.Reset();
             scriptRun.ScriptSource?.Reset();
             UpdateToolbar();
@@ -703,17 +1039,20 @@ namespace DebuggerIntegration
 
         private void UpdateToolbar()
         {
-            debugMenu.IsEnabled = (Project != null && Project.HasProject)
+            var isToolEnabled = (Project != null && Project.HasProject)
                 || codeEditContainer.ActiveEditor != null;
-            debuggerControlToolBar.IsEnabled = (Project != null && Project.HasProject)
-                || codeEditContainer.ActiveEditor != null;
+
+            debugMenu.IsEnabled = isToolEnabled;
+            debuggerControlToolBar.DebugButtonsEnabled = isToolEnabled;
         }
 
         private void UpdateCommands()
         {
-            (CloseProjectCommand as Command)?.ChangeCanExecute();
-            (CloseCommand as Command)?.ChangeCanExecute();
-            (SaveCommand as Command)?.ChangeCanExecute();
+            (CloseProjectCommand as Alternet.UI.Command)?.ChangeCanExecute();
+            (CloseCommand as Alternet.UI.Command)?.ChangeCanExecute();
+            (SaveCommand as Alternet.UI.Command)?.ChangeCanExecute();
+            fileMenuBar?.UpdateCanExecute();
+            debugMenuBar?.UpdateCanExecute();
         }
 
         private ILexer? DoCreateParser(Type type)
@@ -739,18 +1078,20 @@ namespace DebuggerIntegration
             var customProjectTypeCs = new FilePickerFileType(
                     new Dictionary<DevicePlatform, IEnumerable<string>>
                     {
-                                    { DevicePlatform.WinUI, CSProjectExtensions },
+                        { DevicePlatform.WinUI, CSProjectExtensions },
                     });
 
+#pragma warning disable
             var customProjectTypeVb = new FilePickerFileType(
                     new Dictionary<DevicePlatform, IEnumerable<string>>
                     {
-                    { DevicePlatform.WinUI, VBProjectExtensions },
+                        { DevicePlatform.WinUI, VBProjectExtensions },
                     });
+#pragma warning restore
 
             PickOptions options = new()
             {
-                PickerTitle = "Select a C# project file",
+                PickerTitle = "Select a project file",
                 FileTypes = customProjectTypeCs,
             };
 
@@ -764,6 +1105,13 @@ namespace DebuggerIntegration
             OpenProject(dirPath, projectName);
         }
 
+        private Alternet.UI.AbstractControl? GetEditorOrEmptyPanel()
+        {
+            Alternet.UI.AbstractControl? uiControl = codeEditContainer.ActiveEditor;
+            uiControl ??= editorsTabControl.EmptyPanel.Control;
+            return uiControl;
+        }
+
         private async void OpenFileDialog()
         {
             var customFileTypeCs = new FilePickerFileType(
@@ -772,15 +1120,17 @@ namespace DebuggerIntegration
                     { DevicePlatform.WinUI, CSExtensions },
                 });
 
+#pragma warning disable
             var customFileTypeVb = new FilePickerFileType(
                     new Dictionary<DevicePlatform, IEnumerable<string>>
                     {
                     { DevicePlatform.WinUI, VBExtensions },
                     });
+#pragma warning restore
 
             PickOptions options = new()
             {
-                PickerTitle = "Select a C# file",
+                PickerTitle = "Select a file",
                 FileTypes = customFileTypeCs,
             };
 
@@ -789,15 +1139,39 @@ namespace DebuggerIntegration
             if (files == null)
                 return;
 
-            var edit = codeEditContainer.ActiveEditor;
+            codeEditContainer.TryActivateEditor(files.FullPath);
 
-            if (edit is not null)
-            {
-                edit.WordWrap = DefaultWordWrap;
-            }
-
-            LoadFile(edit?.Source, files.FullPath);
             UpdateToolbar();
+        }
+
+        [Conditional("DEBUG")]
+        private static void TestComplexToolTips()
+        {
+            var testComplexToolTips = false;
+
+            // This will register custom tooltip for on-screen toolbar, which is shown on mobile devices.
+            if (testComplexToolTips)
+            {
+                InitForMobileIfDebug = true;
+
+                var commandId = Alternet.Editor.AlternetUI.EditorCommands.KnownCommand.ToggleOnScreenKeyboard;
+                var existingFunc = Alternet.Editor.AlternetUI.EditorCommands.GetInfoFunc(commandId);
+
+                Alternet.Editor.AlternetUI.EditorCommands.SetInfo(commandId, () =>
+                {
+                    var result = existingFunc?.Invoke();
+
+                    Alternet.UI.RichToolTipParams prm = new()
+                    {
+                        Title = "Tooltip title",
+                        Text = LoremIpsumSmall,
+                        Icon = Alternet.UI.MessageBoxIcon.Information
+                    };
+
+                    result?.SetToolTip(prm);
+                    return result;
+                });
+            }
         }
     }
 }

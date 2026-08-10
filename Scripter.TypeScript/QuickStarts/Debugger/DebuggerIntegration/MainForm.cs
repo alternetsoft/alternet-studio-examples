@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.IO;
@@ -100,7 +100,9 @@ namespace DebuggerIntegration.TypeScript
 
         private void InitDefaultHostAssemblies()
         {
-            scriptRun.ScriptHost.HostItemsConfiguration.AddSystemAssemblies(options: HostItemOptions.GlobalMembers | HostItemOptions.GenerateDescriptions)
+            scriptRun.ScriptHost.HostItemsConfiguration.AddSystemAssemblies(
+                Alternet.Common.TechnologyEnvironment.WindowsForms,
+                options: HostItemOptions.GlobalMembers | HostItemOptions.GenerateDescriptions)
                 .AddObject("TestMenuItem", new MenuItemWrapper(this, testMenuItemToolStripMenuItem));
             TypeScriptProject.DefaultProject.HostItemsConfiguration = scriptRun.ScriptHost.HostItemsConfiguration;
         }

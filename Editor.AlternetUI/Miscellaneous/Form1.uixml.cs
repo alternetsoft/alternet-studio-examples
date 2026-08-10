@@ -17,9 +17,11 @@ using Alternet.UI;
 
 using Alternet.Drawing;
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
 using Alternet.Syntax.Parsers.Roslyn;
 using WeCantSpell.Hunspell;
 using Alternet.Editor.TextSource;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 using Alternet.Syntax.Lexer;
 using Alternet.Syntax.Parsers.Roslyn.CodeCompletion;
@@ -35,11 +37,22 @@ namespace Miscellaneous
         private readonly CsParser csParser1 = new(new CsSolution());
         private readonly SpellChecker spellChecker = new();
 
-        private Color gradientBeginColor = Color.Blue;
-        private Color gradientEndColor = Color.White;
+        private Color gradientBeginColor;
+        private Color gradientEndColor;
 
         public Form1()
         {
+            if (IsDarkBackground)
+            {
+                gradientBeginColor = Color.RebeccaPurple;
+                gradientEndColor = DefaultColors.ControlBackColor;
+            }
+            else
+            {
+                gradientBeginColor = Color.PaleTurquoise;
+                gradientEndColor = DefaultColors.ControlBackColor;
+            }
+
             InitializeComponent();
 
             if (CommandLineArgs.ParseAndGetIsDark())
@@ -47,48 +60,20 @@ namespace Miscellaneous
                 syntaxEdit1.VisualThemeType = VisualThemeType.Dark;
             }
 
-            Form1_Load(this, EventArgs.Empty);
-            tabControl.MinSizeGrowMode = WindowSizeToContentMode.Height;
-
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
-        }
-
-        protected override void DisposeManaged()
-        {
-            base.DisposeManaged();
-        }
-
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
             var textSource = new TextSource();
             syntaxEdit1.Source = textSource;
 
-            DirectoryInfo dirInfo = new(DemoUtils.ResourcesFolder + @"Editor/Text/");
-
-            if (textSource.LoadOrAddNotFound(dirInfo.FullName + @"spell.txt"))
-            {
-                textSource.Lexer = csParser1;
-            }
+            FileInfo fileInfo = new(DemoUtils.GetResourceFileFullPath(@"Editor/Text/spell.txt"));
 
             syntaxEdit1.Outlining.AllowOutlining = true;
 
             // background
-            cbBackgroundStyle.Items.Add(BackgroundStyleSolid);
-            cbBackgroundStyle.Items.Add(BackgroundStyleGradient);
-            cbBackgroundStyle.SelectedIndex = 0;
-            cbBackgroundColor.Value = syntaxEdit1.BackColor;
-            cbGradientBeginColor.Value = gradientBeginColor;
-            cbGradientEndColor.Value = gradientEndColor;
+            cbBackgroundStyle.EnumType = typeof(DemoBackgroundStyle);
+            cbBackgroundStyle.Value = DemoBackgroundStyle.Solid;
 
-            //string[] s = Enum.GetNames(typeof(EditBorderStyle));
-            //cbBorderStyle.Items.AddRange(s);
-            //cbBorderStyle.SelectedItem = syntaxEdit1.BorderStyle.ToString();
+            cbBackgroundColor.Select(syntaxEdit1.BackColor);
+            cbGradientBeginColor.Select(gradientBeginColor);
+            cbGradientEndColor.Select(gradientEndColor);
 
             // braces
             syntaxEdit1.Braces.BracesOptions = BracesOptions.Highlight;
@@ -99,41 +84,76 @@ namespace Miscellaneous
                 = (BracesOptions.TempHighlight & syntaxEdit1.Braces.BracesOptions) != 0;
             chbHighlightBounds.IsChecked
                 = (BracesOptions.HighlightBounds & syntaxEdit1.Braces.BracesOptions) != 0;
-            cbBracesColor.Value = syntaxEdit1.Braces.BackColor;
-            cbFontStyle.Items.Add(FontStyle.Regular);
-            cbFontStyle.Items.Add(FontStyle.Bold);
-            cbFontStyle.SelectedIndex = cbFontStyle.Items.IndexOf(syntaxEdit1.Braces.FontStyle);
+            cbBracesColor.Select(syntaxEdit1.Braces.BackColor);
+
+            syntaxEdit1.Braces.UseThemeBracesColors = false;
+            syntaxEdit1.Braces.UseThemeBracesOptions = false;
+
+            cbFontStyle.ExcludeValues = new[]
+            {
+                FontStyle.Italic,
+                FontStyle.Underline,
+                FontStyle.Strikeout
+            };
+
+            cbFontStyle.EnumType = typeof(FontStyle);
+            cbFontStyle.Value = syntaxEdit1.Braces.FontStyle;
 
             // spelling
             chbCheckSpelling.IsChecked = syntaxEdit1.Spelling.CheckSpelling;
-            cbSpellColor.Value = syntaxEdit1.Spelling.SpellColor;
+            cbSpellColor.Select(syntaxEdit1.Spelling.SpellColor);
             spellChecker.CheckSpelling(syntaxEdit1, chbCheckSpelling.IsChecked);
 
             // whitespace
             chbWhiteSpaceVisible.IsChecked = syntaxEdit1.WhiteSpace.Visible;
-            cbSymbolColor.Value = syntaxEdit1.WhiteSpace.SymbolColor;
+            cbSymbolColor.Select(syntaxEdit1.WhiteSpace.SymbolColor);
 
-            cbGradientBeginColor.SelectedIndexChanged += GradientBeginColor_SelectedIndexChanged;
-            cbGradientEndColor.SelectedIndexChanged += GradientEndColor_SelectedIndexChanged;
+            cbGradientBeginColor.ValueChanged += GradientBeginColor_SelectedIndexChanged;
+            cbGradientEndColor.ValueChanged += GradientEndColor_SelectedIndexChanged;
             chbSeparateLines.IsChecked
                 = (SeparatorOptions.SeparateLines & syntaxEdit1.LineSeparator.Options) != 0;
 
             chbCheckSpelling.CheckedChanged += CheckSpellingCheckBox_CheckedChanged;
-            cbSpellColor.SelectedIndexChanged += SpellColorComboBox_SelectedIndexChanged;
+            cbSpellColor.ValueChanged += SpellColorComboBox_SelectedIndexChanged;
             chbTransparent.CheckedChanged += TransparentCheckBox_CheckedChanged;
-            cbBackgroundStyle.SelectedIndexChanged += BackgroundStyleComboBox_SelectedIndexChanged;
-            chbHighlightBraces.CheckedChanged += HighlightBracesCheckBoxTextBox_CheckedChanged;
+            cbBackgroundStyle.ValueChanged += BackgroundStyleComboBox_SelectedIndexChanged;
+
             chbUseRoundRect.CheckedChanged += UseRoundRectCheckBox_CheckedChanged;
+            cbFontStyle.ValueChanged += FontStyleComboBox_SelectedIndexChanged;
+            chbWhiteSpaceVisible.CheckedChanged += WhiteSpaceVisibleCheckBox_CheckedChanged;
+            cbSymbolColor.ValueChanged += SymbolColorComboBox_SelectedIndexChanged;
+            chbSeparateLines.CheckedChanged += SeparateLinesCheckBox_CheckedChanged;
+            cbBackgroundColor.ValueChanged += CbBackgroundColor_SelectedIndexChanged;
+
+            chbHighlightBraces.CheckedChanged += HighlightBracesCheckBoxTextBox_CheckedChanged;
             chbHighlightBounds.CheckedChanged += HighlightBoundsCheckBoxTextBox_CheckedChanged;
             chbTempHighlightBraces.CheckedChanged += TempHighlightBracesCheckBoxTextBox_CheckedChanged;
-            cbFontStyle.SelectedIndexChanged += FontStyleComboBox_SelectedIndexChanged;
-            cbBracesColor.SelectedIndexChanged += BracesColorComboBox_SelectedIndexChanged;
-            chbWhiteSpaceVisible.CheckedChanged += WhiteSpaceVisibleCheckBox_CheckedChanged;
-            cbSymbolColor.SelectedIndexChanged += SymbolColorComboBox_SelectedIndexChanged;
-            chbSeparateLines.CheckedChanged += SeparateLinesCheckBox_CheckedChanged;
-            cbBackgroundColor.SelectedIndexChanged += CbBackgroundColor_SelectedIndexChanged;
+            cbBracesColor.ValueChanged += BracesColorComboBox_SelectedIndexChanged;
 
             ActiveControl = syntaxEdit1;
+            tabControl.MinSizeGrowMode = WindowSizeToContentMode.Height;
+            lbDescription.WordWrap = true;
+
+            syntaxEdit1.Text = "Text loading...";
+
+            FormUtils.BindShown(this, () =>
+            {
+                if (textSource.LoadOrAddNotFound(fileInfo.FullName))
+                {
+                    textSource.Lexer = csParser1;
+                }
+            });
+        }
+
+        protected override void DisposeManaged()
+        {
+            base.DisposeManaged();
+        }
+
+        public enum DemoBackgroundStyle
+        { 
+            Solid,
+            Gradient,
         }
 
         private void CbBackgroundColor_SelectedIndexChanged(object? sender, EventArgs e)
@@ -184,12 +204,13 @@ namespace Miscellaneous
 
             syntaxEdit1.BackgroundColor = cbBackgroundColor.Value;
 
-            switch (cbBackgroundStyle.Text)
+            switch ((DemoBackgroundStyle?)cbBackgroundStyle.Value ?? DemoBackgroundStyle.Solid)
             {
-                case BackgroundStyleSolid:
+                case DemoBackgroundStyle.Solid:
+                default:
                     syntaxEdit1.Background = null;
                     break;
-                case BackgroundStyleGradient:
+                case DemoBackgroundStyle.Gradient:
 
                     GradientStop[] gradientStops =
                     {
@@ -208,88 +229,58 @@ namespace Miscellaneous
             }
         }
 
-        //private void BorderStyleComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    object obj = Enum.Parse(typeof(EditBorderStyle), cbBorderStyle.Text);
-        //    if ((obj != null) && (obj is EditBorderStyle))
-        //        syntaxEdit1.BorderStyle = (EditBorderStyle)obj;
-        //}
+        private void UpdateBraces()
+        {
+            var bracesOptions = syntaxEdit1.Braces.BracesOptions;
 
-        //private void SyntaxEdit1_PaintBackground(object sender, PaintEventArgs e)
-        //{
-        //    switch (cbBackgroundStyle.SelectedIndex)
-        //    {
-        //        case 0:
-        //            {
-        //                // do nothing, painting background image specified by BackgroundImage property
-        //                break;
-        //            }
+            bracesOptions = chbHighlightBraces.IsChecked ? bracesOptions
+                | BracesOptions.Highlight : bracesOptions & ~BracesOptions.Highlight;
 
-        //        case 1:
-        //            {
-        //                // painting gradient using linear gradient brush
-        //                Rectangle r = syntaxEdit1.ClientRect;
-        //                e.Graphics.FillRectangle(new System.Drawing.Drawing2D.LinearGradientBrush(r.Location, new Point(r.Right, r.Bottom), cbGradientBeginColor.SelectedColor, cbGradientEndColor.SelectedColor), r);
-        //                break;
-        //            }
+            bracesOptions = chbHighlightBounds.IsChecked
+                ? bracesOptions | BracesOptions.HighlightBounds
+                : bracesOptions & ~BracesOptions.HighlightBounds;
 
-        //        case 2:
-        //            {
-        //                // painthing theme background
-        //                IPainter painter = new GdiPainter();
-        //                painter.BeginPaint(e.Graphics);
-        //                try
-        //                {
-        //                    Rectangle r = syntaxEdit1.ClientRect;
-        //                    XPThemes.DrawBackground(painter, r, cbGradientBeginColor.SelectedColor, cbGradientEndColor.SelectedColor);
-        //                }
-        //                finally
-        //                {
-        //                    painter.EndPaint();
-        //                }
+            bracesOptions = chbTempHighlightBraces.IsChecked
+                ? bracesOptions | BracesOptions.TempHighlight
+                : bracesOptions & ~BracesOptions.TempHighlight;
 
-        //                break;
-        //            }
-        //    }
-        //}
+            syntaxEdit1.Braces.BracesOptions = bracesOptions;
+            syntaxEdit1.Braces.UseRoundRect = chbUseRoundRect.IsChecked;
+            syntaxEdit1.Braces.ForeColor = chbUseRoundRect.IsChecked ? Color.Gray : Color.Black;
+            syntaxEdit1.Braces.BackColor = cbBracesColor.Value;
+
+            syntaxEdit1.Invalidate();
+        }
 
         private void HighlightBracesCheckBoxTextBox_CheckedChanged(object? sender, EventArgs e)
         {
-            syntaxEdit1.Braces.BracesOptions
-                = chbHighlightBraces.IsChecked ? syntaxEdit1.Braces.BracesOptions
-                | BracesOptions.Highlight : syntaxEdit1.Braces.BracesOptions & ~BracesOptions.Highlight;
+            UpdateBraces();
         }
 
         private void UseRoundRectCheckBox_CheckedChanged(object? sender, EventArgs e)
         {
-            syntaxEdit1.Braces.UseRoundRect = chbUseRoundRect.IsChecked;
-            syntaxEdit1.Braces.ForeColor = chbUseRoundRect.IsChecked ? Color.Gray : Color.Black;
+            UpdateBraces();
         }
 
         private void HighlightBoundsCheckBoxTextBox_CheckedChanged(object? sender, EventArgs e)
         {
-            syntaxEdit1.Braces.BracesOptions = chbHighlightBounds.IsChecked
-                ? syntaxEdit1.Braces.BracesOptions | BracesOptions.HighlightBounds
-                : syntaxEdit1.Braces.BracesOptions & ~BracesOptions.HighlightBounds;
+            UpdateBraces();
         }
 
         private void TempHighlightBracesCheckBoxTextBox_CheckedChanged(object? sender, EventArgs e)
         {
-            syntaxEdit1.Braces.BracesOptions = chbTempHighlightBraces.IsChecked
-                ? syntaxEdit1.Braces.BracesOptions | BracesOptions.TempHighlight
-                : syntaxEdit1.Braces.BracesOptions & ~BracesOptions.TempHighlight;
+            UpdateBraces();
         }
 
         private void FontStyleComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            object obj = Enum.Parse(typeof(FontStyle), cbFontStyle.Text);
-            if ((obj != null) && (obj is FontStyle))
-                syntaxEdit1.Braces.FontStyle = (FontStyle)obj;
+            var fontStyle = cbFontStyle.ValueAs<FontStyle>();
+            syntaxEdit1.Braces.FontStyle = fontStyle;
         }
 
         private void BracesColorComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            syntaxEdit1.Braces.BackColor = cbBracesColor.Value;
+            UpdateBraces();
         }
 
         private void WhiteSpaceVisibleCheckBox_CheckedChanged(object? sender, EventArgs e)

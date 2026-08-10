@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -141,7 +141,7 @@ namespace Alternet.Editor.Wpf.MainDemo_Wpf
 
         private IEnumerable<ScrollBarAnnotationPaintData> GetCustomAnnotations()
         {
-            for (int line = 1; line <= Editor.Source.Lines.Count; line++)
+            for (int line = 1; line <= Editor?.Source.Lines.Count; line++)
             {
                 if (line % 10 == 0)
                 {

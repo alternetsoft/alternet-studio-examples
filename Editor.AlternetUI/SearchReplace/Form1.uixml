@@ -6,14 +6,10 @@
         MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
         Icon="embres:SearchReplace.Sample.ico">
 
-  <Window.StatusBar>
-    <StatusBar Name="statusBar">
-      <StatusBarPanel/>
-    </StatusBar>
-  </Window.StatusBar>
-
-  <Label Name="lbDescription" Margin="5"
-   Text="This demo shows how to use built-in 'Search', 'Replace' and 'Go To Line' dialogs.  All dialogs can be localized."/>
+  <Panel>
+    <Label Name="lbDescription" Margin="5"
+     Text="This demo shows how to use built-in 'Search', 'Replace' and 'Go To Line' dialogs.  All dialogs can be localized."/>
+  </Panel>
 
   <TabControl Margin="5" >
     <Panel Title="Dialogs" Name="gbDialogs" Layout="Vertical" Padding="5">
@@ -38,9 +34,8 @@
       <HorizontalStackPanel>
         <Label Name="lbLanguages" RowColumn="2,0" VerticalAlignment="Center"
          Margin="5" Text="Dialog Language:"/>
-        <ComboBox Name="cbLanguages" RowColumn="2,1" VerticalAlignment="Center"
-          ToolTip = "Choose dialogs language"
-          DropDownStyle = "DropDownList" Margin="5"/>
+        <ListPicker Name="cbLanguages" RowColumn="2,1" VerticalAlignment="Center"
+          ToolTip = "Choose dialogs language" Margin="5"/>
       </HorizontalStackPanel>
     </Panel>
   </TabControl>

@@ -1,36 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.30" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.71" />
   </ItemGroup>
   <PropertyGroup>
-    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">net9.0-windows10.0.19041.0</TargetFrameworks>
-    <TargetFrameworks>$(TargetFrameworks);net9.0-maccatalyst;net9.0-ios;net9.0-android</TargetFrameworks>
-    <!-- Uncomment to also build the tizen app. You will need to install tizen
-      by following this: https://github.com/Samsung/Tizen.NET -->
-    <!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
+    <LangVersion>12.0</LangVersion>
+    <TargetFrameworks>net10.0-android;net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
     <!-- Note for MacCatalyst:
-		The default runtime is maccatalyst-x64, except in Release config, in which case
-        the default is maccatalyst-x64;maccatalyst-arm64.
-		When specifying both architectures, use the plural <RuntimeIdentifiers> instead
-        of the singular <RuntimeIdentifer>.
+		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
+		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
 		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
 		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
     <!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
-    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">28.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
     <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">28.0</SupportedOSPlatformVersion>
     <OutputType>Exe</OutputType>
     <RootNamespace>AllQuickStarts</RootNamespace>
+    <NoWarn>NU1608</NoWarn>
     <UseMaui>true</UseMaui>
     <SingleProject>true</SingleProject>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AssemblyName>AllQuickStarts.MAUI</AssemblyName>
+    <OutputName>$(AssemblyName)</OutputName>
     <!-- Display name -->
     <ApplicationTitle>All quick starts</ApplicationTitle>
     <!-- App Identifier -->
@@ -39,6 +36,13 @@
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
   </PropertyGroup>
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'"></PropertyGroup>
+  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+    <PackageReference Include="Microsoft.ClearScript.Windows" Version="7.5.1">
+      <!-- Prevent package from adding compile & runtime & native & build assets -->
+      <ExcludeAssets>compile;runtime;native;contentFiles;analyzers;build;buildTransitive</ExcludeAssets>
+    </PackageReference>
+  </ItemGroup>
   <ItemGroup>
     <!-- App Icon -->
     <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -53,24 +57,27 @@
     <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.10" />
     <PackageReference Include="WeCantSpell.Hunspell" Version="3.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.MAUI" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Generic" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.PowerFx" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TextMate" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Xaml" Version="10.0.8" />
-    <PackageReference Include="Alternet.UI.Maui" Version="0.9.736-beta" />
+    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.MAUI" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Generic" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.PowerFx" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Xaml" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TextMate" Version="11.0.0" />
+    <PackageReference Include="Alternet.UI.Maui" Version="1.1.0" />
   </ItemGroup>
+  <ItemGroup Condition="false" />
   <ItemGroup>
     <Compile Remove="Content\newfile.cs" />
     <Compile Remove="Content\TextMate\sample.cs" />
@@ -84,7 +91,13 @@
     <None Remove="Content\java_script.txt" />
     <None Remove="Content\JScript.NET.txt" />
     <None Remove="Content\json.txt" />
+    <None Remove="Content\newfile.js" />
+    <None Remove="Content\newfile.ts" />
     <None Remove="Content\newfile.vb" />
+    <None Remove="Content\OrderXml\customer.xsd" />
+    <None Remove="Content\OrderXml\order.xml" />
+    <None Remove="Content\OrderXml\order.xsd" />
+    <None Remove="Content\OrderXml\product.xsd" />
     <None Remove="Content\powershell.txt" />
     <None Remove="Content\Record.fx" />
     <None Remove="Content\Record.fx.json" />
@@ -127,7 +140,6 @@
     <None Remove="Content\TextMate\sample.clj" />
     <None Remove="Content\TextMate\sample.coffee" />
     <None Remove="Content\TextMate\sample.cpp" />
-    <None Remove="Content\TextMate\sample.cshtml" />
     <None Remove="Content\TextMate\sample.cu" />
     <None Remove="Content\TextMate\sample.dart" />
     <None Remove="Content\TextMate\sample.dockerfile" />
@@ -189,6 +201,12 @@
     <EmbeddedResource Include="Content\java_script.txt" />
     <EmbeddedResource Include="Content\JScript.NET.txt" />
     <EmbeddedResource Include="Content\json.txt" />
+    <EmbeddedResource Include="Content\newfile.js" />
+    <EmbeddedResource Include="Content\newfile.ts" />
+    <EmbeddedResource Include="Content\OrderXml\customer.xsd" />
+    <EmbeddedResource Include="Content\OrderXml\order.xml" />
+    <EmbeddedResource Include="Content\OrderXml\order.xsd" />
+    <EmbeddedResource Include="Content\OrderXml\product.xsd" />
     <EmbeddedResource Include="Content\powershell.txt" />
     <EmbeddedResource Include="Content\Schemas\powershell.xml" />
     <EmbeddedResource Include="Content\SQLDOM.txt" />
@@ -260,7 +278,7 @@
     <EmbeddedResource Include="Content\TextMate\sample.coffee" />
     <EmbeddedResource Include="Content\TextMate\sample.cpp" />
     <EmbeddedResource Include="Content\TextMate\sample.cs" />
-    <EmbeddedResource Include="Content\TextMate\sample.cshtml" />
+    <EmbeddedResource Include="Content\TextMate\sample.cshtml2" />
     <EmbeddedResource Include="Content\TextMate\sample.css" />
     <EmbeddedResource Include="Content\TextMate\sample.cu" />
     <EmbeddedResource Include="Content\TextMate\sample.dart" />
@@ -314,7 +332,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="NJsonSchema" Version="10.3.2" />
     <PackageReference Include="Microsoft.SqlServer.TransactSql.ScriptDom" Version="161.9123.0" />
   </ItemGroup>

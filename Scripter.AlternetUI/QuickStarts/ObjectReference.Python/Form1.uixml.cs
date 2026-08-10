@@ -17,6 +17,7 @@ using System.Linq;
 using Alternet.Common.DotNet;
 using Alternet.Common.Python;
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 using Alternet.Scripter.Python;
 using Alternet.Scripter.Python.Embedded;
@@ -66,8 +67,7 @@ namespace ObjectReference.Python
             TestButton.Click += TestButton_Click;
             UpdateButtons();
 
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
+            lbDescription.WordWrap = true;
         }
 
         protected override void DisposeManaged()
@@ -76,11 +76,6 @@ namespace ObjectReference.Python
             scriptRunning = false;
 
             base.DisposeManaged();
-        }
-
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
         }
 
         public void StartScript()
@@ -161,7 +156,7 @@ namespace ObjectReference.Python
         private string GetSourceFileFullPath(string sourceFileSubPath)
         {
             const string ResourcesFolderName = @"Scripter.AlternetUI";
-            var path = Path.Combine(DemoUtils.ResourcesFolder, ResourcesFolderName, sourceFileSubPath);
+            var path = DemoUtils.GetResourceFileFullPath(ResourcesFolderName, sourceFileSubPath);
             return path;
         }
 

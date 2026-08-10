@@ -6,19 +6,16 @@
         MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
         Icon="embres:CodeOutlining.Sample.ico">
 
-  <Window.StatusBar>
-    <StatusBar Name="statusBar">
-      <StatusBarPanel/>
-    </StatusBar>    
-  </Window.StatusBar>
-  
-  <Label Name="lbDescription" Margin="5"
-   Text="Code outlining is a text navigation feature that can make navigation of large structured texts more comfortable and effective."/>
+  <Panel>
+    <Label Name="lbDescription" Margin="5"
+     Text="Code outlining is a text navigation feature that can make navigation of large structured texts more comfortable and effective."/>
+  </Panel>
+
   <Panel Name="gbCodeOutlining" Margin="5">
 	  <Grid RowCount="2" ColumnCount="3">
-      <ComboBox Name="cbAutomatics" RowColumn="0,0"
+      <EnumPicker Name="cbAutomatics" RowColumn="0,0"
                 ToolTip = "Choose outlining mode: automatic or custom"
-                DropDownStyle = "DropDownList" Margin="5"/>
+                Margin="5"/>
       <CheckBox Name="chbDrawOnGutter" RowColumn="0,1"
                 Text="Draw on Gutter" ToolTip = "Draw outline images and lines on gutter"
                 Margin="5"/>

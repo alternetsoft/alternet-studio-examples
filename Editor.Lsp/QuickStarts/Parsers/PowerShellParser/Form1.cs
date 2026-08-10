@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 #pragma warning disable VSTHRD101 // Avoid unsupported async delegates
 
@@ -27,8 +27,11 @@ namespace PowerShellParsing
     {
         private string dir = Application.StartupPath + @"\..\";
 
+        private PowerShellParserEmbedded powerShellParser;
+
         public Form1()
         {
+            powerShellParser = new PowerShellParserEmbedded();
             DeployServer();
             InitializeComponent();
             var asm = this.GetType().Assembly;
@@ -106,7 +109,7 @@ namespace PowerShellParsing
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            syntaxEdit1.Lexer = powerShellParser1;
+            syntaxEdit1.Lexer = powerShellParser;
             syntaxEdit1.Outlining.AllowOutlining = true;
 
             DirectoryInfo dirInfo = new DirectoryInfo(Path.GetFullPath(dir) + @"Resources\Editor\Text");

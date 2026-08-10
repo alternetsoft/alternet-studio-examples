@@ -79,7 +79,7 @@ namespace AlternetStudio.Demo
             this.laAdress.Size = new System.Drawing.Size(140, 13);
             this.laAdress.TabIndex = 9;
             this.laAdress.Text = "http://www.alternetsoft.com";
-            this.laAdress.Click += new System.EventHandler(this.AdressLabel_Click);
+            this.laAdress.Click += new System.EventHandler(this.AddressLabel_Click);
             // 
             // laWWW
             // 
@@ -92,7 +92,6 @@ namespace AlternetStudio.Demo
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(110, 55);

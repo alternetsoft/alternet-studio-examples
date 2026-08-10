@@ -6,14 +6,10 @@
         MinimumSize="600, 400" Size="930,700" Layout="Vertical" Padding="10"
         Icon="embres:Gutter.Sample.ico">
 
-  <Window.StatusBar>
-    <StatusBar Name="statusBar">
-      <StatusBarPanel/>
-    </StatusBar>
-  </Window.StatusBar>
-
-  <Label Name="lbDescription" Margin="5"
-   Text="The gutter area can be used to display additional information related to the text content."/>
+  <Panel>
+    <Label Name="lbDescription" Margin="5"
+     Text="The gutter area can be used to display additional information related to the text content."/>
+  </Panel>
 
   <TabControl Name="pnSettings" Margin="5">
 
@@ -23,8 +19,8 @@
 
       <Label Name="lbGutterColor" RowColumn="1,0" VerticalAlignment="Center"
              Margin="5" Text="Gutter Color:"/>
-      <ColorComboBox Name="cbGutterColor" RowColumn="1,1"
-                     Margin="5" VerticalAlignment="Center"
+      <ColorPicker Name="cbGutterColor" RowColumn="1,1"
+                     Margin="5" VerticalAlignment="Center" 
                      ToolTip="Choose gutter background color"/>
 
       <Label Name="lbGutterWidth" RowColumn="2,0" VerticalAlignment="Center"
@@ -38,13 +34,13 @@
 
       <Label Name="lbGradientBegin" RowColumn="1,2" Margin="5"
              VerticalAlignment="Center" Text="Gradient Begin:"/>
-      <ColorComboBox Name="cbGradientBeginColor"  RowColumn="1,3"
+      <ColorPicker Name="cbGradientBeginColor"  RowColumn="1,3"
                      Margin="5" VerticalAlignment="Center"
                      ToolTip="Gutter gradient background start color"/>
 
       <Label Name="lbGradientEnd" RowColumn="2,2" Margin="5"
              VerticalAlignment="Center" Text="Gradient End:"/>
-      <ColorComboBox Name="cbGradientEndColor" RowColumn="2,3" VerticalAlignment="Center"
+      <ColorPicker Name="cbGradientEndColor" RowColumn="2,3" VerticalAlignment="Center"
                      Margin="5"
                      ToolTip="Gutter gradient background end color"/>
     </Grid>
@@ -59,12 +55,12 @@
 
       <Label Name="lbForeColor" RowColumn="1,0" Margin="5" VerticalAlignment="Center"
              Text="Foreground:"/>
-      <ColorComboBox Name="cbForeColor"  RowColumn="1,1" VerticalAlignment="Center"
+      <ColorPicker Name="cbForeColor"  RowColumn="1,1" VerticalAlignment="Center"
                      Margin="5" ToolTip="Foreground color of the line numbers"/>
 
       <Label Name="lbBackColor" RowColumn="2,0" VerticalAlignment="Center"
              Margin="5" Text="Background:"/>
-      <ColorComboBox Name="cbBackColor" RowColumn="2,1"
+      <ColorPicker Name="cbBackColor" RowColumn="2,1"
                      VerticalAlignment="Center"
                      Margin="5" ToolTip="Background color of the line numbers"/>
 
@@ -87,7 +83,7 @@
 
       <Label Name="lbAlign" RowColumn="3,2" VerticalAlignment="Center"
              Margin="5" Text="Align:"/>
-      <ComboBox Name="cbAlign"  RowColumn="3,3" Margin="5" VerticalAlignment="Center"
+      <EnumPicker Name="cbAlign"  RowColumn="3,3" Margin="5" VerticalAlignment="Center"
                 ToolTip="Choose line numbers alignment"/>
     </Grid>
 

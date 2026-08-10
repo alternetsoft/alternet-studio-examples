@@ -1,20 +1,21 @@
 #if NETCOREAPP
 
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
-using EasyPipes;
+using Alternet.Scripter.Communication;
+using Alternet.Scripter.Communication.EasyPipes;
 
 namespace DebugRemoteScript.Wpf
 {

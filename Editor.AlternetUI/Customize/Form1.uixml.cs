@@ -15,9 +15,10 @@ using System.IO;
 
 using Alternet.UI;
 
-using Customize.Dialogs.Classes;
-using Customize.Dialogs;
+using Alternet.Editor.CustomizeDialog.AlternetUI;
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 using Alternet.Syntax.Parsers.Roslyn;
 using Alternet.Syntax.Parsers.Roslyn.CodeCompletion;
@@ -26,7 +27,7 @@ namespace Customize
 {
     public partial class Form1 : Window
     {
-        private readonly Alternet.Editor.TextSource.TextSource cSharpSource = new();
+        private readonly TextSource cSharpSource = new();
         private readonly CsParser csParser1 = new(new CsSolution());
 
         private SyntaxSettings globalSettings = new();
@@ -56,29 +57,28 @@ namespace Customize
             globalSettings.LoadFromEdit(syntaxEdit1, false);
             globalSettings.ActiveTheme = syntaxEdit1.VisualThemeType;
 
-            DirectoryInfo dirInfo = new(DemoUtils.ResourcesFolder + @"Editor/Text/");
-
-            if (cSharpSource.LoadOrAddNotFound(dirInfo.FullName + @"c#.cs"))
-            {
-                cSharpSource.Lexer = csParser1;
-                cSharpSource.HighlightReferences = true;
-            }
+            FileInfo fileInfo = new(DemoUtils.GetResourceFileFullPath(@"Editor/Text/c#.cs"));
 
             btOptions.Click += OptionsButton_Click;
 
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
+            lbDescription.WordWrap = true;
             ActiveControl = syntaxEdit1;
+
+            syntaxEdit1.Text = "Loading text...";
+
+            FormUtils.BindShown(this, () =>
+            {
+                if (cSharpSource.LoadOrAddNotFound(fileInfo.FullName))
+                {
+                    cSharpSource.Lexer = csParser1;
+                    cSharpSource.HighlightReferences = true;
+                }
+            });
         }
 
         protected override void DisposeManaged()
         {
             base.DisposeManaged();
-        }
-
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
         }
 
         private void OptionsButton_Click(object? sender, EventArgs e)

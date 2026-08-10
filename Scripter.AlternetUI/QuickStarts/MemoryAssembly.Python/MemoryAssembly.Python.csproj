@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <LangVersion>12.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <Platforms>AnyCPU;x64</Platforms>
+    <ApplicationIcon>Sample.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>MemoryAssembly.Python.AlternetUI</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ExternalAssembly.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sample.ico" />
+    <!--
+      <ProjectReference Include="ExternalAssembly\ExternalAssembly\ExternalAssembly.csproj" />
+      -->
+    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python.Embedded" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.UI" Version="1.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="ExternalAssembly\**" />
+    <EmbeddedResource Remove="ExternalAssembly\**" />
+    <None Remove="ExternalAssembly\**" />
+    <UIXml Remove="ExternalAssembly\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="ExternalAssembly.dll" />
+  </ItemGroup>
+</Project>

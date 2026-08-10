@@ -3,27 +3,24 @@
         xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
         x:Class="WordWrap.Form1"
         Title="Word Wrap on Alternet.UI" StartLocation="CenterScreen"
-        MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
+        MinimumSize="600, 400" Size="900,700" Padding="10"
         Icon="embres:WordWrap.Sample.ico">
 
-  <Window.StatusBar>
-    <StatusBar Name="statusBar">
-      <StatusBarPanel/>
-    </StatusBar>
-  </Window.StatusBar>
+  <Panel Layout="Vertical">
+    <Label Name="lbDescription" Margin="5"
+     Text="Code Editor allows to automatically wrap words to the beginning of the next line."/>
 
-  <Label Name="lbDescription" Margin="5"
-   Text="Code Editor allows to automatically wrap words to the beginning of the next line."/>
+    <CheckBox Name="chbWordWrap" Text="Word Wrap"
+              ToolTip = "Automatically wraps words to the beginning of the next line when necessary"
+              Margin="5"/>
 
-  <CheckBox Name="chbWordWrap" Text="Word Wrap"
-            ToolTip = "Automatically wraps words to the beginning of the next line when necessary"
-            Margin="5"/>
+    <CheckBox Name="chbWrapAtMargin" Text="Wrap at Margin"
+              ToolTip = "Automatically wraps words at margin position" Margin="5"/>
 
-  <CheckBox Name="chbWrapAtMargin" Text="Wrap at Margin"
-            ToolTip = "Automatically wraps words at margin position" Margin="5"/>
+    <Border VerticalAlignment="Fill" Margin="5">
+      <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>
+    </Border>
+  </Panel>
 
-  <Border VerticalAlignment="Fill" Margin="5">
-    <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>
-  </Border>
 </Window>
 

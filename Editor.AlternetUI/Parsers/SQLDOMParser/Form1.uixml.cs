@@ -16,6 +16,7 @@ using System.IO;
 using Alternet.UI;
 
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 
 namespace SQLDOMParser
@@ -37,24 +38,17 @@ namespace SQLDOMParser
 
             Form1_Load(this, EventArgs.Empty);
 
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
+            lbDescription.WordWrap = true;
         }
         protected override void DisposeManaged()
         {
             base.DisposeManaged();
         }
 
-        private void Form1_Idle(object sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             FileInfo dataFileInfo
-                = new(DemoUtils.ResourcesFolder
-                + @"Editor/QuickStarts/Parsers/SQLDOM/databaseObjects.xml");
+                = new(DemoUtils.GetResourceFileFullPath(@"Editor/QuickStarts/Parsers/SQLDOM/databaseObjects.xml"));
 
             if (dataFileInfo.Exists)
             {
@@ -62,7 +56,7 @@ namespace SQLDOMParser
                     .LoadDataFromXml(dataFileInfo.FullName);
             }
 
-            FileInfo fileInfo = new(DemoUtils.ResourcesFolder + @"Editor/Text/SQLDOM.txt");
+            FileInfo fileInfo = new(DemoUtils.GetResourceFileFullPath(@"Editor/Text/SQLDOM.txt"));
             if (fileInfo.Exists)
                 syntaxEdit1.LoadFile(fileInfo.FullName);
         }

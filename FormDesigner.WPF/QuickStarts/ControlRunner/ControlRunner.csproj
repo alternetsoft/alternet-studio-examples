@@ -7,6 +7,7 @@
     <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows;net10.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
+    <LangVersion>12.0</LangVersion>
     <UseWPF>true</UseWPF>
     <OutputType>WinExe</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -22,14 +23,14 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration.Wpf" Version="10.0.8" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration.Wpf" Version="11.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

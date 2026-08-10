@@ -1,18 +1,19 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Windows.Forms;
 
+using Alternet.Common;
 using Alternet.Editor;
 
 namespace AlternetStudio.Demo
@@ -28,15 +29,7 @@ namespace AlternetStudio.Demo
         {
             Application.EnableVisualStyles();
 
-#if NET9_0_OR_GREATER
-#pragma warning disable
-            if (args.Length > 0 && args[0] == "-IsDark=true")
-            {
-                SyntaxEdit.DefaultVisualThemeType = VisualThemeType.Auto;
-                Application.SetColorMode(SystemColorMode.Dark);
-            }
-#pragma warning restore
-#endif
+            SyntaxEditUtils.EnableDarkModeIfArgs();
 
             Application.SetCompatibleTextRenderingDefault(false);
 

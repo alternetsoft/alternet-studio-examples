@@ -6,12 +6,6 @@
         MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
         Icon="embres:CallMethod.Sample.ico">
 
-	<Window.StatusBar>
-		<StatusBar Name="statusBar">
-			<StatusBarPanel/>
-		</StatusBar>
-	</Window.StatusBar>
-
 	<Panel Name="pnSettings" Layout="Vertical" Padding = "5">
 		<Panel Name="pnDescription" Layout="Vertical" Padding = "5">
 			<Label Name="lbDescription"
@@ -19,10 +13,11 @@
 		</Panel>
 
 		<Panel Name="pnLanguages" Layout="Horizontal" Padding = "5">
-          <Button Name="ScriptButton" Text="Run Script" HorizontalAlignment = "Left" VerticalAlignment="Center"/>
+          <Button Name="ScriptButton" Text="Run Script"
+                  HorizontalAlignment = "Left" VerticalAlignment="Center"/>
           <Label Name="lbLanguages" Text="Language:" VerticalAlignment="Center" Margin="5"/>
-			<ComboBox Name="cbLanguages" Margin="5" VerticalAlignment="Center"
-				ToolTip = "Choose programming language" DropDownStyle = "DropDownList"/>
+			<ListPicker Name="cbLanguages" Margin="5" VerticalAlignment="Center"
+				ToolTip = "Choose programming language" UseContextMenuAsPopup="true"/>
 		</Panel>
 	</Panel>
 

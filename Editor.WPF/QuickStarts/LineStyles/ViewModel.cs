@@ -1,20 +1,21 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 using Alternet.Editor.Wpf;
 using Alternet.Syntax.Parsers.Roslyn;
@@ -37,6 +38,9 @@ namespace LineStyles
         private int startLine = 44;
         private int endLine = 0;
         private int index;
+        private int breakpointStyleIndex;
+        private int customStyleIndex;
+        private int traceLineStyleIndex;
 
         public ViewModel()
         {
@@ -56,6 +60,7 @@ namespace LineStyles
             StartDebug = new RelayCommand(StartDebugClick);
             StepOver = new RelayCommand(StepOverClick);
             SetBreakpoint = new RelayCommand(SetBreakpointClick);
+            ToggleCustom = new RelayCommand(ToggleCustomClick);
         }
 
         public ViewModel(TextEditor edit)
@@ -63,23 +68,40 @@ namespace LineStyles
         {
             if (edit != null)
             {
-                var style = new EditLineStyle();
-                style.BackColor = System.Drawing.Color.Black;
-                style.ForeColor = System.Drawing.Color.FromArgb(255, 241, 129);
-                style.Options = LineStyleOptions.BeyondEol | LineStyleOptions.InvertColors;
-                style.ImageIndex = (int)KnownImageIndex.TraceLine;
-                edit.LineStyles.Add(style);
+                IEditLineStyle traceLineStyle = new EditLineStyle
+                {
+                    BackColor = Color.Black,
+                    ForeColor = Color.FromArgb(255, 241, 129),
+                    Options = LineStyleOptions.BeyondEol | LineStyleOptions.InvertColors,
+                    ImageIndex = (int)KnownImageIndex.TraceLine,
+                };
+                edit.LineStyles.Add(traceLineStyle);
+                traceLineStyleIndex = edit.LineStyles.Count - 1;
+                LineStyleBeyond = (LineStyleOptions.BeyondEol & traceLineStyle.Options) != 0;
+                LineStyleColor = System.Windows.Media.Color.FromRgb(traceLineStyle.ForeColor.R, traceLineStyle.ForeColor.G, traceLineStyle.ForeColor.B);
 
-                edit.LineStyles.Add(new EditLineStyle() // breakpoint style
+                var breakpointStyle = new EditLineStyle() // breakpoint style
                 {
                     BackColor = Color.White,
                     ForeColor = Color.FromArgb(171, 97, 107),
                     Options = LineStyleOptions.BeyondEol | LineStyleOptions.InvertColors,
                     ImageIndex = (int)KnownImageIndex.Breakpoint,
-                });
+                };
 
-                LineStyleBeyond = (LineStyleOptions.BeyondEol & style.Options) != 0;
-                LineStyleColor = System.Windows.Media.Color.FromRgb(style.ForeColor.R, style.ForeColor.G, style.ForeColor.B);
+                edit.LineStyles.Add(breakpointStyle);
+                breakpointStyleIndex = edit.LineStyles.Count - 1;
+                var customImageIndex = SetImage("gear16green.png", edit.GutterImages);
+
+                var customLineStyle = new EditLineStyle
+                {
+                    BackColor = Color.Green,
+                    ForeColor = Color.White,
+                    Options = LineStyleOptions.BeyondEol,
+                    ImageIndex = customImageIndex,
+                };
+
+                edit.LineStyles.Add(customLineStyle);
+                customStyleIndex = edit.LineStyles.Count - 1;
 
                 this.edit = edit;
                 edit.Source = csharpSource;
@@ -194,6 +216,8 @@ namespace LineStyles
 
         public ICommand SetBreakpoint { get; set; }
 
+        public ICommand ToggleCustom { get; set; }
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -220,6 +244,11 @@ namespace LineStyles
         private void SetBreakpointClick()
         {
             DoSetBreakpoint();
+        }
+
+        private void ToggleCustomClick()
+        {
+            DoCustomLineStyle();
         }
 
         private void Debug()
@@ -266,6 +295,29 @@ namespace LineStyles
             if (edit != null)
             {
                 edit.Source.LineStyles.ToggleLineStyle(edit.Position.Y, 0, 1);
+            }
+        }
+
+        private void DoCustomLineStyle()
+        {
+            if (edit != null)
+            {
+                edit.Source.LineStyles.ToggleLineStyle(edit.Position.Y, 0, customStyleIndex);
+            }
+        }
+
+        private int SetImage(string name, ImageSourceCollection images)
+        {
+            var assembly = this.GetType().Assembly;
+            using (var stream = assembly.GetManifestResourceStream(string.Format("LineStyles.Resources.{0}", name)))
+            {
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.StreamSource = stream;
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+                images.Add(bitmap);
+                return images.Count - 1;
             }
         }
     }

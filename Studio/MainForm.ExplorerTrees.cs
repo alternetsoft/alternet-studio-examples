@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -74,6 +74,7 @@ namespace AlternetStudio.Demo
         {
             propertyGrid.HelpVisible = false;
             propertyGrid.ToolbarVisible = false;
+            propertyGrid.ViewBorderColor = propertyGrid.BackColor;
         }
 
         private void InitializeExplorerTrees()
@@ -83,6 +84,70 @@ namespace AlternetStudio.Demo
 
             codeExplorer.ExplorerTree = codeExplorerTreeView;
             codeExplorer.NavigateToNodeRequested += CodeExplorer_NavigateToNodeRequested;
+            projectExplorerTreeView.KeyDown += ProjectExplorerTreeView_KeyDown;
+        }
+
+        private void ViewDesignerExplorerMenuItem_Click(object sender, EventArgs e)
+        {
+            var node = projectExplorerTreeView.SelectedNode;
+            if (node == null)
+                return;
+
+            var codeFileName = GetCodeFileName();
+
+            if (!string.IsNullOrEmpty(codeFileName) && FormFilesUtility.CheckIfFormFilesExist(codeFileName))
+                OpenDesigner(codeFileName);
+        }
+
+        private void OpenProjectCodeFileMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenProjectFile(projectExplorerTreeView.SelectedNode);
+        }
+
+        private void ViewCodeExplorerMenuItem_Click(object sender, EventArgs e)
+        {
+            var node = projectExplorerTreeView.SelectedNode;
+            if (node == null)
+                return;
+
+            var codeFileName = GetCodeFileName();
+
+            if (!IsReferenceNode(node) && !string.IsNullOrEmpty(codeFileName) && new FileInfo(codeFileName).Exists)
+                OpenFile(codeFileName);
+        }
+
+        private string GetCodeFileName()
+        {
+            var node = projectExplorerTreeView.SelectedNode;
+            if (node == null)
+                return string.Empty;
+
+            var tag = node.Tag;
+            var formNodeData = tag as FormNodeData;
+
+            string codeFileName;
+            if (formNodeData != null)
+            {
+                codeFileName = formNodeData.FileName;
+            }
+            else
+                codeFileName = tag as string;
+
+            return codeFileName;
+        }
+
+        private void ProjectExplorerTreeView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F7)
+            {
+                var node = projectExplorerTreeView.SelectedNode;
+                if (node == null)
+                    return;
+
+                var codeFileName = GetCodeFileName();
+                if (!IsReferenceNode(node) && !string.IsNullOrEmpty(codeFileName) && new FileInfo(codeFileName).Exists)
+                    OpenFile(codeFileName);
+            }
         }
 
         private void UpdateFileProperty()
@@ -294,8 +359,10 @@ namespace AlternetStudio.Demo
 
         private void ProjectExplorerTreeView_BeforeCollapse(object sender, TreeViewCancelEventArgs e)
         {
+            bool openProject = false;
             if (projectExplorerTreeDoubleClicked && e.Action == TreeViewAction.Collapse)
             {
+                openProject = ProjectExplorer.IsProjectNode(e.Node);
                 projectExplorerTreeDoubleClicked = false;
                 e.Cancel = true;
             }
@@ -305,12 +372,19 @@ namespace AlternetStudio.Demo
                 e.Node.ImageIndex = GetFolderIcon(e.Node.Name, false);
                 e.Node.SelectedImageIndex = e.Node.ImageIndex;
             }
+            else
+                if (openProject)
+                {
+                    OpenProjectFile(e.Node);
+                }
         }
 
         private void ProjectExplorerTreeView_BeforeExpand(object sender, TreeViewCancelEventArgs e)
         {
+            bool openProject = false;
             if (projectExplorerTreeDoubleClicked && e.Action == TreeViewAction.Expand)
             {
+                openProject = ProjectExplorer.IsProjectNode(e.Node);
                 projectExplorerTreeDoubleClicked = false;
                 e.Cancel = true;
             }
@@ -320,6 +394,11 @@ namespace AlternetStudio.Demo
                 e.Node.ImageIndex = GetFolderIcon(e.Node.Name, true);
                 e.Node.SelectedImageIndex = e.Node.ImageIndex;
             }
+            else
+                if (openProject)
+                {
+                    OpenProjectFile(e.Node);
+                }
         }
 
         private void ProjectExplorerTreeView_MouseDown(object sender, MouseEventArgs e)
@@ -407,7 +486,7 @@ namespace AlternetStudio.Demo
             string codeFileName;
             if (formNodeData != null)
             {
-                if (formNodeData.OpenMode == FormOpenMode.Design)
+                if ((formNodeData.OpenMode == FormOpenMode.Design) && FormFilesUtility.IsSupportedLanguage(formNodeData.FileName))
                 {
                     OpenDesigner(formNodeData.FileName);
                     return;
@@ -451,10 +530,45 @@ namespace AlternetStudio.Demo
 
             removeProjectItemMenuItem.Visible = project != null && projectExplorerTreeView.SelectedNode != null && IsValidNodeToRemove(project, projectExplorerTreeView.SelectedNode);
 
+            bool isDesigner = IsDesignerNode();
+            string fileName = ProjectExplorer.GetFileNameFromNode(projectExplorerTreeView.SelectedNode);
+            viewCodeExplorerMenuItem.Visible = !string.IsNullOrEmpty(fileName);
+            viewDesignerExplorerMenuItem.Visible = isDesigner;
+            openProjectFileMenuItem.Visible = IsProjectNode();
+
             if (project != null && (project.HasProject || project.IsFolder) && projectExplorerTreeView.SelectedNode != null)
             {
                 filePropertiesMenuItem.Enabled = IsFileNode(projectExplorerTreeView.SelectedNode);
             }
+
+            var firstMenuItemsVisible = !string.IsNullOrEmpty(fileName) || isDesigner || IsProjectNode();
+            viewSeparator.Visible = firstMenuItemsVisible;
+        }
+
+        private bool IsDesignerNode()
+        {
+            var node = projectExplorerTreeView.SelectedNode;
+            if (node == null)
+                return false;
+
+            var tag = node.Tag;
+            var formNodeData = tag as FormNodeData;
+
+            if (formNodeData != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsProjectNode()
+        {
+            var node = projectExplorerTreeView.SelectedNode;
+            if (node == null)
+                return false;
+
+            return ProjectExplorer.IsProjectNode(node);
         }
 
         private bool IsValidNodeToRemove(DotNetProject project, TreeNode node)
@@ -702,16 +816,16 @@ namespace AlternetStudio.Demo
             if (IsProjectFolderNode(projectExplorerTreeView.SelectedNode))
                 RemoveProjectFolder(project);
             else
-            if (IsReferenceNode(projectExplorerTreeView.SelectedNode))
-                RemoveReference(project);
-            else
-                if (IsFileNode(projectExplorerTreeView.SelectedNode))
-                RemoveFile(project);
-            else
-                if (project.IsFolder && solution != null)
-                RemoveSolutionFolder(project);
-            else
-                RemoveProject(project);
+                if (IsReferenceNode(projectExplorerTreeView.SelectedNode))
+                    RemoveReference(project);
+                else
+                    if (IsFileNode(projectExplorerTreeView.SelectedNode))
+                        RemoveFile(project);
+                    else
+                        if (project.IsFolder && solution != null)
+                            RemoveSolutionFolder(project);
+                        else
+                            RemoveProject(project);
         }
 
         private void SetDefaultProjectMenuItem_Click(object sender, EventArgs e)

@@ -10,6 +10,8 @@ namespace DebuggerIntegration.Python
         [STAThread]
         public static void Main()
         {
+            AssemblyUtils.InvokeMethodWithResult(typeof(AppUtils), "SetSystemAppearanceIfDebug");
+
             var application = new Application();
             var window = new Form1();
 

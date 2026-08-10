@@ -2,18 +2,21 @@
 using CommunityToolkit.Maui;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using Alternet.Editor;
+using Alternet.Editor.Maui;
 using Alternet.UI;
 using Alternet.Maui;
 
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Hosting;
+using Microsoft.Maui.Controls.Hosting;
+
 namespace DebuggerIntegration;
+
 public static class MauiProgram
 {
     static MauiProgram()
     {
-        BaseLogView.CreateLogView = () =>
-        {
-            return new SyntaxEditLogView();
-        };
     }
 
     public static MauiApp CreateMauiApp()

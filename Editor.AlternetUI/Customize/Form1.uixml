@@ -3,23 +3,20 @@
         xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
         x:Class="Customize.Form1"
         Title="Customize on Alternet.UI" StartLocation="CenterScreen"
-        MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
+        MinimumSize="600, 400" Size="900,700"  Padding="10"
         Icon="embres:Customize.Sample.ico">
 
-  <Window.StatusBar>
-    <StatusBar Name="statusBar">
-      <StatusBarPanel/>
-    </StatusBar>    
-  </Window.StatusBar>
+  <Panel Layout="Vertical">
+    <Label Name="lbDescription" Margin="5"
+	 Text="Code Editor can customize its appearance and behaviour."/>
 
-	<Label Name="lbDescription" Margin="5"
-	 Text="Code Editor can Customize its appearance and behaviour."/>
-
-	<Button Name="btOptions" Text = "Customize with Dialog..." HorizontalAlignment = "Left"
+    <Button Name="btOptions" Text = "Customize with dialog..." HorizontalAlignment = "Left"
 		ToolTip = "Display Editor options dialog" Margin="5"  VerticalAlignment="Center"/>
 
-  <Border VerticalAlignment="Fill" Margin="5">
-    <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>
-  </Border>
+    <Border VerticalAlignment="Fill" Margin="5">
+      <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>
+    </Border>
+  </Panel>
+
 </Window>
 

@@ -6,36 +6,36 @@
         MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
         Icon="embres:LineStyles.Sample.ico">
 
-  <Window.StatusBar>
-    <StatusBar Name="statusBar">
-      <StatusBarPanel/>
-    </StatusBar>
-  </Window.StatusBar>
-
-  <Label Name="lbDescription" Margin="5"
-   Text="Single line or continuous text range can be associated with the line style represented by visual indicator in gutter area and different background color."/>
+  <Panel>
+    <Label Name="lbDescription" Margin="5"
+     Text="Single line or continuous text range can be associated with the line style represented by visual indicator in gutter area and different background color."/>
+  </Panel>
 
   <TabControl Margin="5">
-    <Panel Title="Line Styles" Name="gbLineStyles" Padding="5">
-      <Grid RowCount="2" ColumnCount="5">
-        <Button Name="btStart" RowColumn="0,0" Text="Start"
+    <Panel Title="Line Styles" Name="gbLineStyles" Padding="5" Layout="Vertical">
+      <HorizontalStackPanel>
+        <Button Name="btStart" Text="Start"
                 ToolTip = "Display line style" Margin="5"/>
-        <Button Name="btStepOver" RowColumn="0,1" Text="Step Over"
+        <Button Name="btStepOver" Text="Step Over"
                 ToolTip = "Move line style to the next line" Margin="5"/>
-        <Button Name="btSetBreakpoint" RowColumn="0,2" Text="Toggle Breakpoint"
-                ToolTip = "Set breakpoint bookmark" Margin="5"/>
+        <Button Name="btSetBreakpoint" Text="Breakpoint"
+                ToolTip = "Toggle breakpoint bookmark" Margin="5"/>
+        <Button Name="btSetCustom" Text="Custom"
+                ToolTip = "Set custom line style" Margin="5"/>
+      </HorizontalStackPanel>
 
-        <CheckBox Name="chbLineStyleBeyondEol" RowColumn="1,0"
+      <HorizontalStackPanel>
+        <CheckBox Name="chbLineStyleBeyondEol"
                   Text="Line Style Beyond Eol" VerticalAlignment="Center"
                   ToolTip = "Line style applicable beyond end of line" Margin="5"/>
-        <Label Name="lbLineStyleColor" RowColumn="1,1" Margin="5"
+        <Label Name="lbLineStyleColor" Margin="5"
                Text="Line Style Color:" VerticalAlignment="Center"/>
-        <ColorComboBox Name="cbLineStyleColor" RowColumn="1,2" Margin="5"
+        <ColorPicker Name="cbLineStyleColor" Margin="5"
                        VerticalAlignment="Center"
-                       ToolTip="Line style color"></ColorComboBox>
-      </Grid>
-      </Panel>
-    </TabControl>
+                       ToolTip="Line style color"></ColorPicker>
+      </HorizontalStackPanel>
+    </Panel>
+  </TabControl>
 
   <Border VerticalAlignment="Fill" Margin="5" >
     <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>

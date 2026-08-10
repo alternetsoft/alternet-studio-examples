@@ -41,7 +41,6 @@
             this.source = new Alternet.Editor.TextSource.TextSource(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.xmlParser = new Alternet.Syntax.Parsers.Lsp.Xml.Embedded.XmlParserEmbedded(this.components);
             this.pnSettings.SuspendLayout();
             this.pnDescription.SuspendLayout();
             this.SuspendLayout();
@@ -105,8 +104,6 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            this.xmlParser.CodeCompletionChars = new char[] {
-        '.'};
             // 
             // Form1
             // 
@@ -135,6 +132,5 @@
         private Alternet.Editor.TextSource.TextSource source;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolTip toolTip1;
-        private Alternet.Syntax.Parsers.Lsp.Xml.Embedded.XmlParserEmbedded xmlParser;
     }
 }

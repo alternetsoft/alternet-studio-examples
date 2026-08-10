@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.4.11626.88 stable
+VisualStudioVersion = 18.4.11626.88
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoslynSyntaxParsing", "Editor.Wpf\QuickStarts\Parsers\RoslynSyntaxParsing\RoslynSyntaxParsing.csproj", "{F852DFE9-08AF-4D34-8C49-747D6001F3FE}"
 EndProject
@@ -117,7 +117,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScriptHostObject", "Scripte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerFxSyntaxParsing", "Editor.Wpf\QuickStarts\Parsers\PowerFxSyntaxParsing\PowerFxSyntaxParsing.csproj", "{EDC52D41-E7E3-45BA-BFD5-DCB6F8152E19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopilotIntegration.Wpf", "Editor.Wpf\QuickStarts\Copilot\CopilotIntegration\CopilotIntegration.Wpf.csproj", "{39EE7BE0-8008-1571-8B74-3092AB895BFC}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlRunner", "FormDesigner.Wpf\QuickStarts\ControlRunner\ControlRunner.csproj", "{B21C8DF8-2F5F-68DF-8E24-7263613225A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopilotChat.Wpf", "Editor.Wpf\QuickStarts\Copilot\CopilotChat\CopilotChat.Wpf.csproj", "{F3B5E630-4937-6486-98E6-87A2D993C988}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Copilot", "Copilot", "{F021EFCA-628E-4A58-9F43-6DB5E04EC369}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlParsing", "Editor.Wpf\QuickStarts\Parsers\XmlParsing\XmlParsing.csproj", "{12A9F8AE-D4B5-07E5-B5EB-3135CB9601D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -495,6 +503,14 @@ Global
 		{EDC52D41-E7E3-45BA-BFD5-DCB6F8152E19}.Runtime|Any CPU.Build.0 = Release|Any CPU
 		{EDC52D41-E7E3-45BA-BFD5-DCB6F8152E19}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
 		{EDC52D41-E7E3-45BA-BFD5-DCB6F8152E19}.Trial|Any CPU.Build.0 = Debug|Any CPU
+		{39EE7BE0-8008-1571-8B74-3092AB895BFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39EE7BE0-8008-1571-8B74-3092AB895BFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39EE7BE0-8008-1571-8B74-3092AB895BFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39EE7BE0-8008-1571-8B74-3092AB895BFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39EE7BE0-8008-1571-8B74-3092AB895BFC}.Runtime|Any CPU.ActiveCfg = Debug|Any CPU
+		{39EE7BE0-8008-1571-8B74-3092AB895BFC}.Runtime|Any CPU.Build.0 = Debug|Any CPU
+		{39EE7BE0-8008-1571-8B74-3092AB895BFC}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
+		{39EE7BE0-8008-1571-8B74-3092AB895BFC}.Trial|Any CPU.Build.0 = Debug|Any CPU
 		{B21C8DF8-2F5F-68DF-8E24-7263613225A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B21C8DF8-2F5F-68DF-8E24-7263613225A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B21C8DF8-2F5F-68DF-8E24-7263613225A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -503,6 +519,22 @@ Global
 		{B21C8DF8-2F5F-68DF-8E24-7263613225A8}.Runtime|Any CPU.Build.0 = Debug|Any CPU
 		{B21C8DF8-2F5F-68DF-8E24-7263613225A8}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
 		{B21C8DF8-2F5F-68DF-8E24-7263613225A8}.Trial|Any CPU.Build.0 = Debug|Any CPU
+		{F3B5E630-4937-6486-98E6-87A2D993C988}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3B5E630-4937-6486-98E6-87A2D993C988}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3B5E630-4937-6486-98E6-87A2D993C988}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3B5E630-4937-6486-98E6-87A2D993C988}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3B5E630-4937-6486-98E6-87A2D993C988}.Runtime|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3B5E630-4937-6486-98E6-87A2D993C988}.Runtime|Any CPU.Build.0 = Debug|Any CPU
+		{F3B5E630-4937-6486-98E6-87A2D993C988}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3B5E630-4937-6486-98E6-87A2D993C988}.Trial|Any CPU.Build.0 = Debug|Any CPU
+		{12A9F8AE-D4B5-07E5-B5EB-3135CB9601D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12A9F8AE-D4B5-07E5-B5EB-3135CB9601D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12A9F8AE-D4B5-07E5-B5EB-3135CB9601D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12A9F8AE-D4B5-07E5-B5EB-3135CB9601D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12A9F8AE-D4B5-07E5-B5EB-3135CB9601D4}.Runtime|Any CPU.ActiveCfg = Debug|Any CPU
+		{12A9F8AE-D4B5-07E5-B5EB-3135CB9601D4}.Runtime|Any CPU.Build.0 = Debug|Any CPU
+		{12A9F8AE-D4B5-07E5-B5EB-3135CB9601D4}.Trial|Any CPU.ActiveCfg = Debug|Any CPU
+		{12A9F8AE-D4B5-07E5-B5EB-3135CB9601D4}.Trial|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -559,7 +591,11 @@ Global
 		{1FCCDC49-83FE-4255-814B-723D24685817} = {6976F994-F8DA-4882-A91C-ED1494389851}
 		{C1102F04-1129-46CE-AD7F-CDFBE6E7C589} = {6976F994-F8DA-4882-A91C-ED1494389851}
 		{EDC52D41-E7E3-45BA-BFD5-DCB6F8152E19} = {ED3BD100-BAF6-4A7A-AD26-1664556CDE1A}
+		{39EE7BE0-8008-1571-8B74-3092AB895BFC} = {F021EFCA-628E-4A58-9F43-6DB5E04EC369}
 		{B21C8DF8-2F5F-68DF-8E24-7263613225A8} = {E6568BF0-3A23-45A7-8C54-7D784D27EAD8}
+		{F3B5E630-4937-6486-98E6-87A2D993C988} = {F021EFCA-628E-4A58-9F43-6DB5E04EC369}
+		{F021EFCA-628E-4A58-9F43-6DB5E04EC369} = {49A48863-861B-4169-9BF0-825A21C05FF1}
+		{12A9F8AE-D4B5-07E5-B5EB-3135CB9601D4} = {ED3BD100-BAF6-4A7A-AD26-1664556CDE1A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BCFBB455-6B67-4FAA-B215-0D142C25C4BC}

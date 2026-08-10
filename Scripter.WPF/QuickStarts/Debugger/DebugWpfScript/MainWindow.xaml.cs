@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Scripter Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Diagnostics;
@@ -20,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Threading;
 
 using Alternet.Scripter;
+using Alternet.Scripter.Communication;
 using Alternet.Scripter.Debugger;
 
 namespace DebugWpfScript
@@ -296,6 +297,13 @@ namespace DebugWpfScript
 
         private void StartDebuggerButton_Click(object sender, RoutedEventArgs e)
         {
+            if (Debugger.IsAttached)
+            {
+                MessageBox.Show(
+                    "Debugger is already attached. You need to run this demo without attaching another debugger.");
+                return;
+            }
+
             const string ExeName = "AlternetStudio.Wpf.exe";
             var pathToDebugDemo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ExeName);
             if (!new FileInfo(pathToDebugDemo).Exists)

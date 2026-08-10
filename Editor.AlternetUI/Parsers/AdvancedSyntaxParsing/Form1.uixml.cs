@@ -20,6 +20,7 @@ using Alternet.Syntax.CodeCompletion;
 using Alternet.Syntax.Lexer;
 using Alternet.Syntax.Parsers.Advanced;
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 using NJsonSchema;
 
@@ -27,6 +28,8 @@ namespace AdvancedSyntaxParsing
 {
     public partial class Form1 : Window
     {
+        internal bool UseNullTemporaryParser = false;
+
         private const string typeCSharp = "c#";
         private const string typeVBNet = "vb_net";
         private const string typeJava = "java";
@@ -104,36 +107,82 @@ namespace AdvancedSyntaxParsing
             if (CommandLineArgs.ParseAndGetIsDark())
                 syntaxEdit1.VisualThemeType = VisualThemeType.Dark;
 
-            cbLanguages.Items.AddRange(new object[] {
-            "C#",
-            "Visual Basic",
-            "Java#",
-            "JScript NET",
-            "VB Script",
-            "JavaScript",
-            "JSON",
-            "Ansi-C",
-            "SQL",
-            "HTML",
-            "Css",
-            "XML"});
+            cbLanguages.AddRange(new object[] {
+                "C#",
+                "Visual Basic",
+                "Java#",
+                "JScript NET",
+                "VB Script",
+                "JavaScript",
+                "JSON",
+                "Ansi-C",
+                "SQL",
+                "HTML",
+                "Css",
+                "XML",
+                "None",
+            });
 
-            cbLanguages.SelectedIndexChanged += LanguagesComboBox_SelectedIndexChanged;
+            cbLanguages.ValueChanged += LanguagesComboBox_SelectedIndexChanged;
             btLoad.Click += LoadButton_Click;
 
             syntaxEdit1.Outlining.AllowOutlining = true;
 
-            Form1_Load(this, EventArgs.Empty);
+            var dialogFilter = FileMaskUtils.ToFileDialogFilter(
+                new("C# Files", "cs"),
+                new("VB Files", "vb"),
+                new("Java Files", "java"),
+                new("JScript.NET Files", "jscript"),
+                new("VB Script Files", "vbs"),
+                new("Java Script Files", "js"),
+                new("Ansi-C Files", ["h","c"]),
+                new("SQL Files", "sql"),
+                new("HTML Files", ["htm", "html"]),
+                new("XML Files", "xml"),
+                new(FileDialogFilterItem.Kind.AllFiles)
+            );
 
-            cbLanguages.SelectedIndex = 0;
+            openFileDialog1.Filter = dialogFilter;
 
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
+            var dirInfo = new DirectoryInfo(DemoUtils.GetResourceFolderFullPath(@"Editor/Text"));
+            openFileDialog1.InitialDirectory = dirInfo.FullName;
+            if (dirInfo.Exists)
+            {
+                FileInfo[] files = dirInfo.GetFiles();
+                for (int j = 0; j < files.Length; j++)
+                {
+                    int idx = FindLangByName(RemoveFileExt(files[j].Name));
+                    if (idx >= 0)
+                        langItems[idx].FileName = files[j].FullName;
+                }
+            }
+
+            LogUtils.RegisterLogAction("Check Demo Files", CheckFiles);
+
+            cbLanguages.Value = cbLanguages.Items[9].Value;
+
+            lbDescription.WordWrap = true;
+
             ActiveControl = syntaxEdit1;
+
+            cbTheme.ExcludeValues = new VisualThemeType[] {
+                VisualThemeType.Custom,
+            };
+
+            cbTheme.EnumType = typeof(VisualThemeType);
+
+            cbTheme.Value = syntaxEdit1.VisualThemeType;
+            cbTheme.ValueChanged += (s, e) =>
+            {
+                syntaxEdit1.VisualThemeType = (VisualThemeType)cbTheme.Value;
+            };
         }
+
+        Action<ILexer?>? UpdateLexerAction { get; set; }
 
         protected override void DisposeManaged()
         {
+            UpdateLexerAction = null;
             base.DisposeManaged();
         }
 
@@ -155,26 +204,45 @@ namespace AdvancedSyntaxParsing
             }
         }
 
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
-        }
-
-        private ILexer GetLexer(int index)
+        private void SetLexer(int index, Action<ILexer?>? setAction)
         {
             LanguageInfo info = (index >= 0) && (index < langItems.Length)
                 ? langItems[index] : new LanguageInfo(string.Empty, string.Empty, string.Empty);
-            ILexer result;
+            ILexer? result;
             string schemaFileName;
+            bool codeCompletion = true;
 
             switch (info.FileType)
             {
                 default:
                 case typeCSharp:
-                    result = LexerDemoUtils.CreateSyntaxParserAdvancedCs();
+                    if (UseNullTemporaryParser)
+                        result = null;
+                    else
+                        result = LexerDemoUtils.CreateSyntaxParserAdvancedCs(false);
+                    codeCompletion = false;
+
+                    var slowLexer = LexerDemoUtils.CreateSyntaxParserAdvancedCs(true, (lexer) =>
+                    {
+                        codeCompletion = true;
+                        SendResult(lexer);
+                    });
                     break;
                 case typeVBNet:
-                    result = LexerDemoUtils.CreateSyntaxParserAdvancedVb();
+                    if (UseNullTemporaryParser)
+                        result = null;
+                    else
+                        result = LexerDemoUtils.CreateSyntaxParserAdvancedVb(false);
+                    codeCompletion = false;
+
+                    var slowLexerVB = LexerDemoUtils.CreateSyntaxParserAdvancedVb(
+                        true,
+                        (lexer) =>
+                        {
+                            codeCompletion = true;
+                            SendResult(lexer);
+                            // cbLanguages.Enabled = true;
+                        });
                     break;
                 case typeJava:
                     result = new JsParser();
@@ -204,7 +272,7 @@ namespace AdvancedSyntaxParsing
                 case typeSql:
                     result = new SqlParser();
                     FileInfo fileInfo = new(
-                        DemoUtils.ResourcesFolder + @"Editor/QuickStarts/Parsers/SQL/databaseObjects.xml");
+                        DemoUtils.GetResourceFileFullPath(@"Editor/QuickStarts/Parsers/SQL", "databaseObjects.xml"));
                     if (fileInfo.Exists)
                     {
                         ((SqlRepositoryBase)((SqlParser)result)
@@ -224,13 +292,21 @@ namespace AdvancedSyntaxParsing
                     break;
             }
 
-            if (result is ISyntaxParser sp)
+            void SendResult(ILexer? lexer)
             {
-                sp.Options |= SyntaxOptions.CodeCompletion | SyntaxOptions.QuickInfoTips
-                    | SyntaxOptions.SyntaxErrors;
+                if (DisposingOrDisposed)
+                    return;
+
+                if (lexer is ISyntaxParser sp && codeCompletion)
+                {
+                    sp.Options |= SyntaxOptions.CodeCompletion | SyntaxOptions.QuickInfoTips
+                        | SyntaxOptions.SyntaxErrors;
+                }
+
+                setAction?.Invoke(lexer);
             }
 
-            return result;
+            SendResult(result);
         }
 
         private int FindLangByName(string name)
@@ -250,43 +326,39 @@ namespace AdvancedSyntaxParsing
             return (p >= 0) ? fileName.Substring(0, p) : fileName;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            openFileDialog1.Filter = "C # files (*.cs)|*.cs|VB files (*.vb)|*.vb|JS files (*.java)|*.js|JScript.NET files (*.jscript.NET)|*.jscript.NET|VB Script files (*.vbs)|*.vbs|Java Script files (*.js)|*.js|Ansi-C files (*.h;*.c)|*.h;*.c|SQL files (*.sql)|*.sql|HTML files (*.htm;*.html)|*.htm;*.html|XML files (*.xml)|*.xml|All files (*.*)|*.*";
-
-            var dirInfo = new DirectoryInfo(DemoUtils.ResourcesFolder + @"Editor/Text");
-            openFileDialog1.InitialDirectory = dirInfo.FullName;
-            if (dirInfo.Exists)
-            {
-                FileInfo[] files = dirInfo.GetFiles();
-                for (int j = 0; j < files.Length; j++)
-                {
-                    int idx = FindLangByName(RemoveFileExt(files[j].Name));
-                    if (idx >= 0)
-                        langItems[idx].FileName = files[j].FullName;
-                }
-            }
-
-            LogUtils.RegisterLogAction("Check Demo Files", CheckFiles);
-        }
-
         private void LanguagesComboBox_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            if (cbLanguages.SelectedIndex >= 0)
+            var index = cbLanguages.IndexOfValue;
+            if (index is null)
+                return;
+
+            syntaxEdit1.Source.Lexer = null;
+
+            if(cbLanguages.Value?.ToString() == "None")
             {
-                syntaxEdit1.Source.Lexer = GetLexer(cbLanguages.SelectedIndexAsInt);
-                string fileName = langItems[cbLanguages.SelectedIndexAsInt].FileName;
-                if (fileName != string.Empty)
-                {
-                    syntaxEdit1.Source.LoadFile(fileName);
-                    syntaxEdit1.Source.FileName = fileName;
-                }
+                return;
+            }
+
+            UpdateLexerAction = (lexer) =>
+            {
+                if (syntaxEdit1.DisposingOrDisposed)
+                    return;
+                syntaxEdit1.Source.Lexer = lexer;
+            };
+
+            SetLexer(index.Value, UpdateLexerAction);
+
+            string fileName = langItems[index.Value].FileName;
+            if (fileName != string.Empty)
+            {
+                syntaxEdit1.Source.LoadFile(fileName);
+                syntaxEdit1.Source.FileName = fileName;
             }
         }
 
         private void LoadButton_Click(object? sender, EventArgs e)
         {
-            openFileDialog1.FilterIndex = cbLanguages.SelectedIndexAsInt;
+            openFileDialog1.FilterIndex = 10;
 
             openFileDialog1.ShowAsync(() =>
             {

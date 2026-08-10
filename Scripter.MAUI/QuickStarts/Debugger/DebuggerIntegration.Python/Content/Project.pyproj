@@ -22,6 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ScriptSimple.py" />
+    <Compile Include="MyModule.py" />
   </ItemGroup>
   <ItemGroup>
       <Import Include="System" />

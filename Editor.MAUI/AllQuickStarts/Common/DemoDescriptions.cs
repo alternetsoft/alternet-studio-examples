@@ -20,6 +20,8 @@ namespace AllQuickStarts
             "This demo shows how to use Microsoft TSql100Parser parser to support automatic code completion, code outlining, smart formatting, and syntax error underlining.";
         public const string TextMateSyntaxParsing =
             "This demo shows how to use predefined syntax highlighting TextMate schemes for various languages.";
+        public const string TypeScriptSyntaxParsing =
+            "This demo shows how to use the dedicated parsers for Javascript/Typescript languages based on Microsoft ClearScript. This parser supports automatic code completion, code outlining, smart formatting, and syntax error underlining.";
 
         public const string Miscellaneous
             = "Code Editor can display watermarks or background image. Can display white-space symbols such as spalies, tabs, end-of-line and the end-of-file markers. Supports highlighting of the matching braces. Spell-as-you-type spellchecker integration with thirt-party spelling engines is supported.";

@@ -17,8 +17,10 @@ using Alternet.UI;
 
 using Alternet.Drawing;
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 using Alternet.Editor.TextSource;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Syntax.Parsers.Roslyn;
 using Alternet.Syntax.Parsers.Roslyn.CodeCompletion;
 
@@ -27,6 +29,7 @@ namespace Selection
     public partial class Form1 : Window
     {
         private readonly CsParser csParser1 = new(new CsSolution());
+        private readonly TextSource textSource = new TextSource();
 
         public Form1()
         {
@@ -43,7 +46,7 @@ namespace Selection
 
             Form1_Load(this, EventArgs.Empty);
 
-            static void AddNoneColor(ColorComboBox comboBox)
+            static void AddNoneColor(ColorPicker comboBox)
             {
                 comboBox.AddColor(Color.Transparent, "Transparent");
                 comboBox.AddColor(Color.Empty, "Empty");
@@ -51,8 +54,19 @@ namespace Selection
 
             tabControl.MinSizeGrowMode = WindowSizeToContentMode.Height;
             ActiveControl = syntaxEdit1;
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
+            lbDescription.WordWrap = true;
+
+            syntaxEdit1.Text = "Text loading...";
+
+            FormUtils.BindShown(this, () =>
+            {
+                DirectoryInfo dirInfo = new(DemoUtils.GetResourceFolderFullPath(@"Editor/Text/"));
+
+                if (textSource.LoadOrAddNotFound(Path.Combine(dirInfo.FullName, "c#.cs")))
+                {
+                    syntaxEdit1.Source.Lexer = csParser1;
+                }
+            });
         }
 
         protected override void DisposeManaged()
@@ -60,25 +74,13 @@ namespace Selection
             base.DisposeManaged();
         }
 
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            var textSource = new TextSource();
             syntaxEdit1.Source = textSource;
 
-            DirectoryInfo dirInfo = new(DemoUtils.ResourcesFolder + @"Editor/Text/");
-
-            if (textSource.LoadOrAddNotFound(dirInfo.FullName + @"c#.cs"))
-            {
-                textSource.Lexer = csParser1;
-            }
-
             syntaxEdit1.Outlining.AllowOutlining = true;
-            syntaxEdit1.Selection.Options |= SelectionOptions.DrawBorder;
+            syntaxEdit1.Selection.Options |= SelectionOptions.DrawBorder
+                | SelectionOptions.PersistentBlocks;
 /*
 We can't assign selection colors like that as we don't know editor theme (dark or light)
             syntaxEdit1.Selection.ForeColor = Color.White;
@@ -102,22 +104,33 @@ We can't assign selection colors like that as we don't know editor theme (dark o
                 = (SelectionOptions.PersistentBlocks & syntaxEdit1.Selection.Options) != 0;
             chbOverwriteBlocks.IsChecked
                 = (SelectionOptions.OverwriteBlocks & syntaxEdit1.Selection.Options) != 0;
-            cbSelectionForeColor.Value = syntaxEdit1.Selection.ForeColor;
-            cbSelectionBackColor.Value = syntaxEdit1.Selection.BackColor;
-            cbSelectionBorderColor.Value = syntaxEdit1.Selection.BorderColor;
+
+            var fc = syntaxEdit1.Selection.ForeColor;
+            if (fc == Color.Empty || fc == Color.Transparent)
+            {
+                fc = Color.DarkOrange;
+                syntaxEdit1.Selection.ForeColor = fc;
+            }
+
+            syntaxEdit1.Selection.InActiveBackColor = Color.Gray;
+            syntaxEdit1.Selection.InActiveForeColor = Color.Black;
+
+            cbSelectionForeColor.Select(fc);
+            cbSelectionBackColor.Select(syntaxEdit1.Selection.BackColor);
+            cbSelectionBorderColor.Select(syntaxEdit1.Selection.BorderColor);
 
             chbDisableSelection.CheckedChanged += DisableSelectionCheckBox_CheckedChanged;
             chbDisableDragging.CheckedChanged += DisableDraggingCheckBox_CheckedChanged;
-            chbSelectBeyondEol.CheckedChanged += SelectByondEolCheckBoxTextBox_CheckedChanged;
+            chbSelectBeyondEol.CheckedChanged += SelectBeyondEolCheckBoxTextBox_CheckedChanged;
             chbUseColors.CheckedChanged += UseColorsCheckBox_CheckedChanged;
             chbHideSelection.CheckedChanged += HideSelectionCheckBox_CheckedChanged;
             chbSelectLineOnDblClick.CheckedChanged += SelectLineOnDblClickCheckBox_CheckedChanged;
             chbHighlightSelectedWords.CheckedChanged += HighlightSelectedWordsCheckBox_CheckedChanged;
             chbPersistentBlocks.CheckedChanged += PersistentBlocksCheckBoxTextBox_CheckedChanged;
             chbOverwriteBlocks.CheckedChanged += OverwriteBlocksCheckBox_CheckedChanged;
-            cbSelectionForeColor.SelectedIndexChanged += SelectionForeColorComboBox_SelectedIndexChanged;
-            cbSelectionBackColor.SelectedIndexChanged += SelectionBackColorComboBox_SelectedIndexChanged;
-            cbSelectionBorderColor.SelectedIndexChanged
+            cbSelectionForeColor.ValueChanged += SelectionForeColorComboBox_SelectedIndexChanged;
+            cbSelectionBackColor.ValueChanged += SelectionBackColorComboBox_SelectedIndexChanged;
+            cbSelectionBorderColor.ValueChanged
                 += SelectionBorderColorComboBox_SelectedIndexChanged;
         }
 
@@ -135,7 +148,7 @@ We can't assign selection colors like that as we don't know editor theme (dark o
                 : syntaxEdit1.Selection.Options & ~SelectionOptions.DisableDragging;
         }
 
-        private void SelectByondEolCheckBoxTextBox_CheckedChanged(object? sender, EventArgs e)
+        private void SelectBeyondEolCheckBoxTextBox_CheckedChanged(object? sender, EventArgs e)
         {
             syntaxEdit1.Selection.Options = chbSelectBeyondEol.IsChecked
                 ? syntaxEdit1.Selection.Options | SelectionOptions.SelectBeyondEol
@@ -147,6 +160,8 @@ We can't assign selection colors like that as we don't know editor theme (dark o
             syntaxEdit1.Selection.Options = chbUseColors.IsChecked
                 ? syntaxEdit1.Selection.Options | SelectionOptions.UseColors
                 : syntaxEdit1.Selection.Options & ~SelectionOptions.UseColors;
+            syntaxEdit1.Selection.Clear();
+            syntaxEdit1.Refresh();
         }
 
         private void HideSelectionCheckBox_CheckedChanged(object? sender, EventArgs e)

@@ -3,20 +3,17 @@
         xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
         x:Class="XAMLParsing.Form1"
         Title="XAML Syntax Parsing on Alternet.UI" StartLocation="CenterScreen"
-        MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
+        MinimumSize="600, 400" Size="900,700" Padding="10"
         Icon="embres:XamlParsing.Sample.ico">
 
-  <Window.StatusBar>
-    <StatusBar Name="statusBar">
-      <StatusBarPanel/>
-    </StatusBar>
-  </Window.StatusBar>
+  <Panel Layout="Vertical" >
+    <Label Name="lbDescription"
+           Text="This demo shows how to link text edit controls to the XAML parser for the XAML language. These parsers support automatic code completion, code outlining, smart formatting and syntax error underlining."/>
 
-  <Label Name="lbDescription"
-         Text="This demo shows how to link text edit controls to the XAML parser for the XAML language. These parsers support automatic code completion, code outlining, smart formatting and syntax error underlining."/>
+    <Border VerticalAlignment="Fill" Margin="5">
+      <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true" />
+    </Border>
+  </Panel>
 
-  <Border VerticalAlignment="Fill" Margin="5">
-    <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true" />
-  </Border>
 </Window>
 

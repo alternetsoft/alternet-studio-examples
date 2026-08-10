@@ -15,6 +15,15 @@ namespace AllDemos
         [STAThread]
         public static void Main()
         {
+            var forceLicenseCheck = false;
+
+            if (forceLicenseCheck)
+            {
+                Alternet.Common.License.ComponentLicenseProvider.ForceWarningWhenDebuggerIsAttached = true;
+            }
+
+            AssemblyUtils.InvokeMethodWithResult(typeof(AppUtils), "SetSystemAppearanceIfDebug");
+
             var application = new Application();
             var window = new MainWindowSimple();
 

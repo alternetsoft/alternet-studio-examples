@@ -2,7 +2,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>12.0</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
@@ -12,6 +12,6 @@
     <EmbeddedResource Include="Alter_DarkLogo2_110px.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.UI" Version="0.9.623-beta" />
+    <PackageReference Include="Alternet.UI" Version="1.1.0" />
   </ItemGroup>
 </Project>

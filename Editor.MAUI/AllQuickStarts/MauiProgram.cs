@@ -4,6 +4,7 @@ using CommunityToolkit.Maui;
 
 using Alternet.UI;
 using Alternet.Editor;
+using Alternet.Editor.Maui;
 
 namespace AllQuickStarts;
 public static class MauiProgram

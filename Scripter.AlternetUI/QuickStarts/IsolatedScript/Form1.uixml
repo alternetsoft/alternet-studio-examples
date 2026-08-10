@@ -1,0 +1,37 @@
+<Window xmlns="http://schemas.alternetsoft.com/ui/2021"
+        xmlns:x="http://schemas.alternetsoft.com/ui/2021/uixml"
+        xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+        x:Class="IsolatedScript.Form1"
+        Title="Isolated Script on Alternet.UI" StartLocation="CenterScreen"
+        MinimumSize="600, 400" Size="900,700" Layout="Vertical" Padding="10"
+        Icon="embres:IsolatedScript.Sample.ico">
+
+  <Panel Name="pnSettings" Layout="Vertical" Padding = "5">
+    <Panel Name="pnDescription" Layout="Vertical" Padding = "5">
+      <Label Name="lbDescription"
+             Text="This demo shows how to load script in the separate AppDomain, and execute methods in it."/>
+    </Panel>
+
+    <Panel Name="pnLanguages" Layout="Horizontal" Padding = "5">
+      <Button Name="ScriptButton" Text="Run Script"
+              HorizontalAlignment = "Left" VerticalAlignment="Center"/>
+      <Label Name="lbLanguages" Text="Language:" VerticalAlignment="Center" Margin="5"/>
+      <ListPicker Name="cbLanguages" Margin="5" VerticalAlignment="Center"
+          ToolTip = "Choose programming language" UseContextMenuAsPopup="true"/>
+      <Label Text="Current angle:" HorizontalAlignment="Left" Margin="5"
+               VerticalAlignment="Center"/>
+      <Border MinWidth="90" VerticalAlignment="Center" Margin="5">
+        <Label Name="laAngle" HorizontalAlignment="Left" />
+      </Border>
+    </Panel>
+  </Panel>
+
+  <Panel Name="displayPanel" Background="Gray" Layout="Vertical"
+         HorizontalAlignment="Center" SuggestedHeight="100" SuggestedWidth="100"
+         Padding = "5" >
+  </Panel>
+
+  <Border VerticalAlignment="Fill" Margin="5">
+    <editor:SyntaxEdit Name="syntaxEdit1" WordWrap = "true"/>
+  </Border>
+</Window>

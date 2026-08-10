@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Alternet.Common;
 using Alternet.Editor;
 
 #if NET5_0
@@ -22,15 +23,9 @@ namespace DebuggerIntegration
         static void Main(string[] args)
         {
             Application.EnableVisualStyles();
-#if NET9_0_OR_GREATER
-#pragma warning disable
-            if (args.Length > 0 && args[0] == "-IsDark=true")
-            {
-                SyntaxEdit.DefaultVisualThemeType = VisualThemeType.Auto;
-                Application.SetColorMode(SystemColorMode.Dark);
-            }
-#pragma warning restore
-#endif
+
+            SyntaxEditUtils.EnableDarkModeIfArgs();
+
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }

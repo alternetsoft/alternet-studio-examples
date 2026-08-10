@@ -11,14 +11,14 @@ namespace ScriptSpace
         static SolidBrush arenaBackgroundBrush;
         static SolidBrush dotBrush;
 
-        static double currentAngle;
-        static double radius;
-        static double dotRadius;
+        static float currentAngle;
+        static float radius;
+        static float dotRadius;
         static PointD center;
 
-        static double DegreesToRadians(double degrees)
+        static float DegreesToRadians(float degrees)
         {
-            double radians = (Math.PI / 180) * degrees;
+            float radians = (MathF.PI / 180) * degrees;
             return radians;
         }
 
@@ -30,7 +30,7 @@ namespace ScriptSpace
             arenaBackgroundBrush = new SolidBrush(Color.DarkBlue);
             dotBrush = new SolidBrush(Color.White);
 
-            double maxSide = Math.Max(bounds.Width, bounds.Height);
+            float maxSide = Math.Max(bounds.Width, bounds.Height);
             radius = (maxSide - (maxSide / 3)) / 2;
             dotRadius = maxSide / 20;
 
@@ -59,11 +59,11 @@ namespace ScriptSpace
                 dotBrush,
                 new RectD(
                     new PointD(dotCenter.X - dotRadius, dotCenter.Y - dotRadius), 
-                    new SizeD(new PointD(dotRadius * 2, dotRadius * 2)))
+                    new SizeD(dotRadius * 2, dotRadius * 2))
                 );
         }
 
-        static double ConstrainAngle(double x)
+        static float ConstrainAngle(float x)
         {
             x %= 360;
             if (x < 0)
@@ -74,7 +74,7 @@ namespace ScriptSpace
 
         public static void OnUpdate(int deltaTimeMs)
         {
-            currentAngle += deltaTimeMs * 0.1;
+            currentAngle += deltaTimeMs * 0.1f;
             currentAngle = ConstrainAngle(currentAngle);
             Debug.WriteLine("Current Angle: " + currentAngle);
         }

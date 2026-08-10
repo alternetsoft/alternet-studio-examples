@@ -1,0 +1,36 @@
+<Solution>
+  <Folder Name="/Library/">
+    <Project Path="../../../../../Source/Common.Winforms/Alternet.Common.Winforms.csproj" />
+    <Project Path="../../../../../Source/Common.Wpf/Alternet.Common.Wpf.csproj" />
+    <Project Path="../../../../../Source/Common/Alternet.Common.csproj" />
+    <Project Path="../../../../../Source/Editor.Wpf/Alternet.Editor.Wpf.csproj" />
+    <Project Path="../../../../../Source/Editor/Alternet.Editor.csproj" />
+    <Project Path="../../../../../Source/Libraries.Wpf/Editor.Common.Wpf/Alternet.Editor.Common.Wpf.csproj" />
+    <Project Path="../../../../../Source/Libraries.Wpf/Editor.Roslyn.Wpf/Alternet.Editor.Roslyn.Wpf.csproj" />
+    <Project Path="../../../../../Source/Libraries.Wpf/Scripter.Integration.Wpf/Alternet.Scripter.Integration.Wpf.csproj" />
+    <Project Path="../../../../../Source/Libraries/Editor.Common/Alternet.Editor.Common.csproj" />
+    <Project Path="../../../../../Source/Libraries/Editor.Roslyn/Alternet.Editor.Roslyn.csproj" />
+    <Project Path="../../../../../Source/Libraries/Scripter.Integration/Alternet.Scripter.Integration.csproj" />
+    <Project Path="../../../../../Source/Parsers/Alternet.Syntax.csproj" />
+    <Project Path="../../../../../Source/Parsers/Roslyn/Alternet.Syntax.Parsers.Roslyn.csproj" />
+    <Project Path="../../../../../Source/Parsers/Xaml/Alternet.Syntax.Parsers.Xaml.csproj" />
+    <Project Path="../../../../../Source/Scripter/Alternet.Scripter.csproj" />
+    <Project Path="../../../../../Source/Scripter/Common/Alternet.Scripter.Common.csproj" />
+    <Project Path="../../../../../Source/Scripter/Debugger.Universal/Alternet.Scripter.Debugger.Universal.csproj" />
+    <Project Path="../../../../../Source/Scripter/Debugger/Alternet.Scripter.Debugger.csproj" />
+    <Project Path="../../../../../Source/Scripter/Debugger/Common/Alternet.Scripter.Debugger.Common.csproj" />
+    <Project Path="../../../../../Source/Scripter/Debugger/mdbg/corapi/corapi.csproj" />
+    <Project Path="../../../../../Source/Scripter/Debugger/mdbg/mdbgeng/mdbgeng.csproj" />
+    <Project Path="../../../../../Source/Scripter/Debugger/mdbg/NativeDebugWrappers/NativeDebugWrappers.csproj" />
+    <Project Path="../../../../../Source/Scripter/Debugger/mdbg/raw/raw.csproj" />
+    <Project Path="../../../../../Source/Scripter/Debugger/UI.Wpf/Alternet.Scripter.Debugger.UI.Wpf.csproj" />
+    <Project Path="../../../../../Source/Scripter/Debugger/UI/Alternet.Scripter.Debugger.UI.csproj" />
+  </Folder>
+  <Folder Name="/WinFroms/">
+    <Project Path="../DebuggerIntegration/DebuggerIntegration.csproj" />
+    <Project Path="DebuggerNamedPipes.csproj" />
+  </Folder>
+  <Folder Name="/Wpf/">
+    <Project Path="../../../../Scripter.Wpf/QuickStarts/Debugger/DebuggerNamedPipes/DebuggerNamedPipes.csproj" />
+  </Folder>
+</Solution>

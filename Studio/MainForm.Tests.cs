@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Alternet.Common;
+using Alternet.Common.License;
+using Alternet.Editor;
 using Alternet.FormDesigner;
 
 namespace AlternetStudio.Demo
@@ -17,6 +19,14 @@ namespace AlternetStudio.Demo
         private static readonly bool CallTestAction = true;
 
         private bool testEnvironmentPrepared;
+
+        public static bool IsDark
+        {
+            get
+            {
+                return Alternet.Editor.SyntaxEdit.IsDarkModeEnabled();
+            }
+        }
 
         public static void ForEachComponent(Action<Type> action)
         {
@@ -36,7 +46,6 @@ namespace AlternetStudio.Demo
             {
                 if (e.Alt && e.Control && e.Shift && e.KeyCode == Keys.F12 && CallTestAction)
                 {
-                    TestCopyPasteControls();
                     e.Handled = true;
                 }
             }
@@ -44,7 +53,7 @@ namespace AlternetStudio.Demo
 
         private void LogToOutput(string s)
         {
-            outputControl.CustomLog(s + Environment.NewLine);
+            outputControl?.CustomLog(s + Environment.NewLine);
         }
 
         private void ClearComponentsOnTheForm()

@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections;
@@ -184,7 +184,7 @@ namespace Alternet.CodeEditorSyntax.Demo
 
         private void ScaleControls()
         {
-            if (!DisplayScaling.NeedsScaling)
+            if (!DisplayScaling.NeedImageScaling)
                 return;
 
             lvErrors.SmallImageList = DisplayImageScaling.CloneAndAutoScaleImageList(lvErrors.SmallImageList);

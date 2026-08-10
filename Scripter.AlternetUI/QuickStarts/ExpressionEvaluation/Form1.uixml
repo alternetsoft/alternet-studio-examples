@@ -1,0 +1,28 @@
+<Window xmlns="http://schemas.alternetsoft.com/ui/2021"
+        xmlns:x="http://schemas.alternetsoft.com/ui/2021/uixml"
+        xmlns:editor="http://schemas.alternetsoft.com/editor/2024"
+        x:Class="ExpressionEvaluation.Form1"
+        Title="Expression Evaluation on Alternet.UI" StartLocation="CenterScreen"
+        MinimumSize="600, 250" Size="600,400" Layout="Vertical" Padding="10"
+        Icon="embres:ExpressionEvaluation.Sample.ico">
+
+	<Panel Name="pnSettings" Layout="Vertical" Padding = "5">
+		<Panel Name="pnDescription" Layout="Vertical" Padding = "5">
+			<Label Name="lbDescription"
+				   Text="This demo shows how to execute script expressions."/>
+		</Panel>
+
+		<Panel Name="pnLanguages" Layout="Horizontal" Padding = "5">
+          <Button Name="ScriptButton" Text="Run Script"
+                  HorizontalAlignment = "Left" VerticalAlignment="Center"/>
+          <Label Name="lbLanguages" Text="Language:" VerticalAlignment="Center" Margin="5"/>
+			<ListPicker Name="cbLanguages" Margin="5" VerticalAlignment="Center"
+				ToolTip = "Choose programming language" UseContextMenuAsPopup="true"/>
+		</Panel>
+	</Panel>
+
+	<Border VerticalAlignment="Fill" Margin="5">
+		<MultilineTextBox Name="Expression" Grid.Row="1" 
+                          Text="(5+4)*2 - 9/3 + 10 + tbExpression.Text.Length" Margin="10"/>
+	</Border>
+</Window>

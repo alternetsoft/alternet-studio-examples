@@ -1,14 +1,14 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections;
@@ -451,54 +451,54 @@ namespace Alternet.CodeEditor.Demo
                 }
                 else
                     if (root.Index == 1)
-                {
-                    switch (node.Index)
                     {
-                        case 0:
-                            return pnOutlining;
-                        case 1:
-                            return pnTextSource;
-                        case 2:
-                            return pnNavigate;
-                        case 3:
-                            return pnSelection;
-                        case 4:
-                            return pnWordWrap;
-                        case 5:
-                            return pnSpellAndUrl;
-                        case 6:
-                            return pnScrollbarAnnotations;
-                        default:
-                            return pnOutlining;
+                        switch (node.Index)
+                        {
+                            case 0:
+                                return pnOutlining;
+                            case 1:
+                                return pnTextSource;
+                            case 2:
+                                return pnNavigate;
+                            case 3:
+                                return pnSelection;
+                            case 4:
+                                return pnWordWrap;
+                            case 5:
+                                return pnSpellAndUrl;
+                            case 6:
+                                return pnScrollbarAnnotations;
+                            default:
+                                return pnOutlining;
+                        }
                     }
-                }
-                else
+                    else
                         if (root.Index == 2)
-                {
-                    switch (node.Index)
-                    {
-                        case 0:
-                            return pnDialogs;
-                        case 1:
-                            return pnPrinting;
-                        default:
-                            return pnDialogs;
-                    }
-                }
-                else
-                if (root.Index == 3 && node.Index == 8)
-                {
-                    textSource1.Lexer = textMateParser;
-                    return pnTextMate;
-                }
-                else
-                            if (root.Index == 5)
-                    return pnProperties;
-                else
-                                if (root.Index == 6)
-                    return pnCompanyInfo;
-                else
-                    return null;
+                        {
+                            switch (node.Index)
+                            {
+                                case 0:
+                                    return pnDialogs;
+                                case 1:
+                                    return pnPrinting;
+                                default:
+                                    return pnDialogs;
+                            }
+                        }
+                        else
+                            if (root.Index == 3 && node.Index == 8)
+                            {
+                                textSource1.Lexer = textMateParser;
+                                return pnTextMate;
+                            }
+                            else
+                                if (root.Index == 5)
+                                    return pnProperties;
+                                else
+                                    if (root.Index == 6)
+                                        return pnCompanyInfo;
+                                    else
+                                        return null;
             }
 
             return pnGutter;
@@ -530,24 +530,24 @@ namespace Alternet.CodeEditor.Demo
             }
             else
                 if (panel == null)
-            {
-                pnManage.Visible = false;
-                pnEditContainer.Visible = true;
-                UpdateEditContent(node);
-                UpdateEditorVisibility(!isAbout, isTextSource, pnMain.Height);
-            }
-            else
-            {
-                pnManage.Visible = true;
-                pnManage.Dock = DockStyle.Top;
-                panel.Dock = DockStyle.Top;
-                pnManage.Height = panel.Height;
-                pnEditContainer.Visible = true;
-                if (isTextMate)
                 {
-                    UpdateTextMateContent();
+                    pnManage.Visible = false;
+                    pnEditContainer.Visible = true;
+                    UpdateEditContent(node);
+                    UpdateEditorVisibility(!isAbout, isTextSource, pnMain.Height);
                 }
-            }
+                else
+                {
+                    pnManage.Visible = true;
+                    pnManage.Dock = DockStyle.Top;
+                    panel.Dock = DockStyle.Top;
+                    pnManage.Height = panel.Height;
+                    pnEditContainer.Visible = true;
+                    if (isTextMate)
+                    {
+                        UpdateTextMateContent();
+                    }
+                }
 
             pnPropertyGrid.Visible = isProperties;
             splitter2.Visible = isProperties;
@@ -1758,6 +1758,7 @@ namespace Alternet.CodeEditor.Demo
             if (str != HighlightSelectedWordsDesc)
                 toolTip1.SetToolTip(HighlightSelectedWordsCheckBox, HighlightSelectedWordsDesc);
         }
+
         private void BeyondEolCheckBox_MouseMove(object sender, MouseEventArgs e)
         {
             string str = toolTip1.GetToolTip(chbBeyondEol);

@@ -1,17 +1,18 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,7 @@ using Alternet.Editor.TextSource;
 using Alternet.FormDesigner.Integration;
 using Alternet.FormDesigner.WinForms;
 using Alternet.Scripter.Integration;
+using Alternet.Syntax;
 using Alternet.Syntax.Parsers.XAML;
 
 namespace AlternetStudio.Demo
@@ -57,9 +59,14 @@ namespace AlternetStudio.Demo
                 openFileDialog.InitialDirectory = Path.GetFullPath(startupDirectory);
                 saveFileDialog.InitialDirectory = Path.GetFullPath(startupDirectory);
                 string suffix = string.Empty;
-#if NETCOREAPP
+#if NET10_0_OR_GREATER
+                suffix += "-dotnetcore10";
+#elif NET9_0
+                suffix += "-dotnetcore9";
+#elif NETCOREAPP
                 suffix += "-dotnetcore";
 #endif
+
                 var projectDirectory = Path.Combine(startupDirectory, @"Debugger\cs\HelloWorld" + suffix);
                 var projectFile = Path.GetFullPath(Path.Combine(projectDirectory, "HelloWorld.csproj"));
                 if (File.Exists(projectFile))
@@ -78,6 +85,7 @@ namespace AlternetStudio.Demo
             editorsMenu.Items.Add(miCloseEditor);
             editorsMenu.Items.Add(miCloseAllEditors);
             editorsTabControl.ContextMenuStrip = editorsMenu;
+            runParametersMenuItem.Text = StringConsts.RunParametersCaption;
         }
 
         protected void DoCloseEditor(object sender, System.EventArgs e)
@@ -122,13 +130,54 @@ namespace AlternetStudio.Demo
             return OpenFile(fileName, false);
         }
 
+        protected virtual IScriptEdit NewProjectFile(string fileName)
+        {
+            var page = new TabPage(Path.GetFileName(fileName));
+
+            page.ToolTipText = fileName;
+
+            editorsTabControl.TabPages.Add(page);
+
+            var edit = new ScriptCodeEdit();
+            edit.ReadOnly = true;
+
+            if (IsDark)
+            {
+                SetTabPageColor(page);
+            }
+
+            edit.BorderStyle = EditBorderStyle.None;
+            editors.Add(page, edit);
+
+            if (File.Exists(fileName))
+                edit.LoadFile(fileName);
+
+            edit.Lexer = new XmlParser();
+
+            edit.Dock = DockStyle.Fill;
+            edit.Bounds = new Rectangle(0, 0, page.ClientRectangle.Width, page.ClientRectangle.Height);
+            edit.HighlightReferences = true;
+            page.Controls.Add(edit as Control);
+
+            editorsTabControl.SelectedTab = page;
+            return edit;
+        }
+
         protected virtual IScriptEdit NewFile(string fileName)
         {
             var page = new TabPage(Path.GetFileName(fileName));
+
             page.ToolTipText = fileName;
 
             editorsTabControl.TabPages.Add(page);
             var edit = CreateDebugEdit();
+
+            if (IsDark)
+            {
+                SetTabPageColor(page);
+            }
+
+            edit.BorderStyle = EditBorderStyle.None;
             edit.ParserChanged += DoParserChanged;
             editors.Add(page, edit);
 
@@ -199,6 +248,7 @@ namespace AlternetStudio.Demo
             UpdateBookmarks();
             UpdateCodeNavigation();
             edit.UpdateBreakpoints();
+
             return edit;
         }
 
@@ -322,10 +372,10 @@ namespace AlternetStudio.Demo
                         GetDisplayFilesForProject(result, proj, newFiles);
                 }
                 else
-                if (Project.HasProject)
-                {
-                    GetDisplayFilesForProject(result, Project, newFiles);
-                }
+                    if (Project.HasProject)
+                    {
+                        GetDisplayFilesForProject(result, Project, newFiles);
+                    }
             }
 
             foreach (var file in newFiles)
@@ -437,11 +487,11 @@ namespace AlternetStudio.Demo
                 }
             }
             else
-            if (Project.HasProject && Project.IsModified)
-            {
-                if (ContainsFile(files, Project.ProjectFileName))
-                    AddFiles(result, Project.ProjectFileName);
-            }
+                if (Project.HasProject && Project.IsModified)
+                {
+                    if (ContainsFile(files, Project.ProjectFileName))
+                        AddFiles(result, Project.ProjectFileName);
+                }
 
             return result;
         }
@@ -596,11 +646,11 @@ namespace AlternetStudio.Demo
                     SaveBookmarks(GetBookmarkFile(solution));
                 }
                 else
-                if ((Project != null) && Project.HasProject && FileBelongsToProject(Project, edit.FileName))
-                {
-                    SaveBreakpoints(GetBreakpointFile(Project));
-                    SaveBookmarks(GetBookmarkFile(Project));
-                }
+                    if ((Project != null) && Project.HasProject && FileBelongsToProject(Project, edit.FileName))
+                    {
+                        SaveBreakpoints(GetBreakpointFile(Project));
+                        SaveBookmarks(GetBookmarkFile(Project));
+                    }
             }
             else
             {
@@ -626,11 +676,11 @@ namespace AlternetStudio.Demo
                 SaveBookmarks(GetBookmarkFile(solution));
             }
             else
-            if ((Project != null) && Project.HasProject)
-            {
-                SaveBreakpoints(GetBreakpointFile(Project));
-                SaveBookmarks(GetBookmarkFile(Project));
-            }
+                if ((Project != null) && Project.HasProject)
+                {
+                    SaveBreakpoints(GetBreakpointFile(Project));
+                    SaveBookmarks(GetBookmarkFile(Project));
+                }
         }
 
         private string GetBreakpointFile(DotNetProject project)
@@ -812,7 +862,10 @@ namespace AlternetStudio.Demo
             {
                 var edit = FindFile(fileName);
                 if (edit != null)
+                {
+                    editorsTabControl.SelectedTab = (TabPage)edit.Parent;
                     return edit as ISyntaxEdit;
+                }
             }
 
             if (Project != null && Project.HasProject)
@@ -875,6 +928,12 @@ namespace AlternetStudio.Demo
                 FindAllImplementations(edit);
         }
 
+        private void UseUniversalDebuggerMenuItem_Click(object sender, System.EventArgs e)
+        {
+            if (ChangeDebuggerMode(!useUniversalDebuggerMenuItem.Checked))
+                useUniversalDebuggerMenuItem.Checked = UseNewDebugger;
+        }
+
         private void DebugEdit_FindAllReferences(object sender, EventArgs e)
         {
             var edit = ActiveSyntaxEdit;
@@ -920,6 +979,45 @@ namespace AlternetStudio.Demo
             UpdateControls();
             if (!recentFiles.Contains(fileName))
                 recentFiles.Insert(0, fileName);
+            AutoSaveRecentFiles();
+            return edit;
+        }
+
+        private void OpenProjectFile(TreeNode node)
+        {
+            if (node == null)
+                return;
+
+            if (!ProjectExplorer.IsProjectNode(node, out var project))
+                return;
+
+            OpenProjectFile(project.ProjectFileName, false);
+        }
+
+        private IScriptEdit OpenProjectFile(string fileName, bool forceReopen)
+        {
+            var edit = FindFile(fileName);
+            if ((edit != null) && (edit.Parent is TabPage))
+            {
+                if (forceReopen)
+                {
+                    if (edit.Modified && !ConfirmSaveBeforeClosing(edit.FileName))
+                        return edit;
+                    CloseFile(edit.FileName);
+                }
+                else
+                {
+                    editorsTabControl.SelectedTab = (TabPage)edit.Parent;
+                    return edit;
+                }
+            }
+
+            edit = NewProjectFile(fileName);
+
+            UpdateControls();
+            if (!recentFiles.Contains(fileName))
+                recentFiles.Insert(0, fileName);
+            AutoSaveRecentFiles();
             return edit;
         }
 
@@ -965,8 +1063,7 @@ namespace AlternetStudio.Demo
                 }
             }
 
-            if (!FileBelongsToProject(fileName))
-                edit.FileName = string.Empty;
+            edit.FileName = string.Empty;
 
             ((IDisposable)edit).Dispose();
         }
@@ -1214,23 +1311,38 @@ namespace AlternetStudio.Demo
 
         private void LoadRecentFiles()
         {
-            recentFiles.Clear();
-            recentProjects.Clear();
-            var fileName = GetRecentFilesAutoSaveFileName();
-            if (File.Exists(fileName))
+            try
             {
-                FilesData data = FilesDataService.LoadData(fileName);
-                recentFiles = data.Files.ToList();
-                recentProjects = data.Projects.ToList();
-                UpdateRecentFiles();
+                recentFiles.Clear();
+                recentProjects.Clear();
+                var fileName = GetRecentFilesAutoSaveFileName();
+                if (File.Exists(fileName))
+                {
+                    FilesData data = FilesDataService.LoadData(fileName);
+                    recentFiles = data.Files.ToList();
+                    recentProjects = data.Projects.ToList();
+                    UpdateRecentFiles();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error occurred while loading recent files: {ex.Message}");
+                throw;
             }
         }
 
         private void AutoSaveRecentFiles()
         {
-            var fileName = GetRecentFilesAutoSaveFileName();
-            FilesData data = new FilesData(recentFiles, recentProjects);
-            FilesDataService.SaveData(data, fileName);
+            try
+            {
+                var fileName = GetRecentFilesAutoSaveFileName();
+                FilesData data = new FilesData(recentFiles, recentProjects);
+                FilesDataService.SaveData(data, fileName);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error occurred while auto-saving recent files: {ex.Message}");
+            }
         }
     }
 }

@@ -16,8 +16,10 @@ using System.IO;
 using Alternet.UI;
 
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 using Alternet.Editor.TextSource;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Syntax.Parsers.Roslyn;
 using Alternet.Syntax.Parsers.Roslyn.CodeCompletion;
 
@@ -29,21 +31,30 @@ namespace WordWrap
 
         public Form1()
         {
-            InitializeComponent();
-
-            if (CommandLineArgs.ParseAndGetIsDark())
+            try
             {
-                syntaxEdit1.VisualThemeType = VisualThemeType.Dark;
+                InitializeComponent();
+
+                if (CommandLineArgs.ParseAndGetIsDark())
+                {
+                    syntaxEdit1.VisualThemeType = VisualThemeType.Dark;
+                }
+
+                syntaxEdit1.EditMargin.Position = 80;
+                syntaxEdit1.EditMargin.Visible = true;
+                syntaxEdit1.Outlining.AllowOutlining = true;
+
+                lbDescription.WordWrap = true;
+
+                FormUtils.BindShown(this, () =>
+                {
+                    Form1_Load(this, EventArgs.Empty);
+                    ActiveControl = syntaxEdit1;
+                });
             }
-
-            syntaxEdit1.EditMargin.Position = 80;
-            syntaxEdit1.EditMargin.Visible = true;
-            syntaxEdit1.Outlining.AllowOutlining = true;
-
-            Idle += Form1_Idle;
-
-            Form1_Load(this, EventArgs.Empty);
-            ActiveControl = syntaxEdit1;
+            finally
+            {
+            }
         }
 
         protected override void DisposeManaged()
@@ -51,19 +62,14 @@ namespace WordWrap
             base.DisposeManaged();
         }
 
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            DirectoryInfo dirInfo = new(DemoUtils.ResourcesFolder + @"Editor/Text/");
+            FileInfo fileInfo = new(DemoUtils.GetResourceFileFullPath(@"Editor/Text/spell.txt"));
 
             var textSource = new TextSource();
             syntaxEdit1.Source = textSource;
 
-            if (textSource.LoadOrAddNotFound(dirInfo.FullName + @"spell.txt"))
+            if (textSource.LoadOrAddNotFound(fileInfo.FullName))
             {
                 textSource.Lexer = csParser1;
             }
@@ -73,6 +79,12 @@ namespace WordWrap
 
             chbWordWrap.CheckedChanged += WordWrapCheckBox_CheckedChanged;
             chbWrapAtMargin.CheckedChanged += WrapAtMarginCheckBox_CheckedChanged;
+
+            syntaxEdit1.ContextMenuStrip = syntaxEdit1.DefaultMenu;
+
+            if (DebugUtils.IsDebugDefinedAndAttached)
+            {
+            }
         }
 
         private void WordWrapCheckBox_CheckedChanged(object? sender, EventArgs e)

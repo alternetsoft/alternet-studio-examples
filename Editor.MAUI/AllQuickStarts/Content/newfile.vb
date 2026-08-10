@@ -1,8 +1,8 @@
-#Region "Copyright (c) 2016-2019 Alternet Software"
+#Region "Copyright (c) 2016-2025 Alternet Software"
 '
 '	AlterNET Code Editor Library
 '
-'	Copyright (c) 2016-2019 Alternet Software
+'	Copyright (c) 2016-2025 Alternet Software
 '	ALL RIGHTS RESERVED
 '
 '	http://www.alternetsoft.com

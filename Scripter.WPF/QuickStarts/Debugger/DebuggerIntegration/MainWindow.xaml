@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="http://schemas.alternetsoft.com/Scripter.Debugger.UI.Wpf"
-        xmlns:si="clr-namespace:Alternet.Scripter.Integration.Wpf;assembly=Alternet.Scripter.Integration.Wpf.v10"
+        xmlns:si="clr-namespace:Alternet.Scripter.Integration.Wpf;assembly=Alternet.Scripter.Integration.Wpf.v11"
         mc:Ignorable="d"
         TextOptions.TextFormattingMode="Display"
         Icon="/DebuggerIntegration.Wpf;component/Images/Icon.Ico" 
@@ -30,7 +30,10 @@
                 <Separator />
                 <MenuItem Header="E_xit" Name="ExitMenuItem" Click="ExitMenuItem_Click" />
             </MenuItem>
-            <ui:DebugMenu x:Name="DebugMenu" />
+            <ui:DebugMenu Name="DebugMenu">
+                <Separator/>
+                <MenuItem x:Name="useUniversalDebuggerMenuItem" IsChecked="False" Header="Use Universal Debugger" Click="UseUniversalDebuggerMenuItem_Click"/>
+            </ui:DebugMenu>
         </Menu>
 
         <ui:DebuggerControlToolbar Grid.Row="1" x:Name="DebuggerControlToolbar"/>

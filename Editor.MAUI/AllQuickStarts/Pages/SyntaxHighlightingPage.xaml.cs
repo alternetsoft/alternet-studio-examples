@@ -10,9 +10,15 @@
 */
 #endregion Copyright (c) 2016-2024 Alternet Software
 
+using System;
+using System.Collections.Generic;
+
 using AllQuickStarts.Pages;
 using Alternet.Editor;
+using Alternet.Editor.Maui;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.TextSource;
+using Alternet.Editor.TextSource.AlternetUI;
 
 using Alternet.UI;
 using Alternet.Maui;
@@ -27,6 +33,9 @@ using System.Runtime;
 using ExCSS;
 using Microsoft.Maui.Storage;
 using Microsoft.Maui.Layouts;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Devices;
+using Microsoft.Maui.Graphics;
 
 namespace AllQuickStarts;
 
@@ -46,7 +55,7 @@ public partial class SyntaxHighlightingPage : DemoPage
     {
         langItems = new LanguageInfo[]
         {
-                new LanguageInfo("csharp.txt", "c#", "*.cs", "C#", ()=> InitParser(new Cs_SchemeParser())),
+                new LanguageInfo("csharp.txt", "c#", "*.cs", "C#", () => InitParser(new Cs_SchemeParser())),
 
                 new LanguageInfo("assembler.txt", "assembler", "*.assembler", "Assembler",
                 ()=> InitParser(new AssemblerParser())),
@@ -142,6 +151,7 @@ public partial class SyntaxHighlightingPage : DemoPage
         AbsoluteLayout.SetLayoutFlags(MainGrid, AbsoluteLayoutFlags.All);
         AbsoluteLayout.SetLayoutBounds(MainGrid, new Rect(0, 0, 1, 1));
 
+        LanguagesListView.SelectionMode = Microsoft.Maui.Controls.SelectionMode.Single;
         LanguagesListView.ItemsSource = Languages;
 
         InitEdit();
@@ -149,6 +159,8 @@ public partial class SyntaxHighlightingPage : DemoPage
         syntaxEdit1.Outlining.AllowOutlining = true;
 
         LoadScheme(powerShellParser, NewFileNameNoExt + "Schemas.powershell.xml");
+
+        LanguagesListView.SelectionChanged += LanguagesListView_ItemSelected;
 
         LanguagesListView.SelectedItem = langItems[0];
 
@@ -207,7 +219,7 @@ public partial class SyntaxHighlightingPage : DemoPage
         }
     }
 
-    public static void LoadFile(Alternet.Editor.TextSource.ITextSource source, string url)
+    public static void LoadFile(ITextSource source, string url)
     {
         if (source is null)
             return;
@@ -253,7 +265,7 @@ new Dictionary<DevicePlatform, IEnumerable<string>>
         base.DisposeResources();
     }
 
-    private void LanguagesListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    private void LanguagesListView_ItemSelected(object? sender, EventArgs e)
     {
         UpdateLanguage(LanguagesListView.SelectedItem as LanguageInfo);
     }

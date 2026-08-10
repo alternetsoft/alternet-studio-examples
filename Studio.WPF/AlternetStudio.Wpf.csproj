@@ -4,9 +4,10 @@
     <TargetFrameworks>$(FastBuildTargets)</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(FastBuildTargets)'==''">
-    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net471;net8.0-windows;net9.0-windows;net10.0-windows</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
+    <LangVersion>12.0</LangVersion>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <OutputType>WinExe</OutputType>
@@ -26,7 +27,6 @@
     <None Remove="Auxilary\**" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="AttachToProcessDialog.xaml" />
     <None Remove="Images\DependencyGraph_16x.png" />
     <None Remove="Images\DotNetImages.png" />
     <None Remove="Images\DotNetImagesAlpha.png" />
@@ -132,27 +132,29 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>10.0.8</Version>
+      <Version>11.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Common" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Xaml" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="10.0.8" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="10.0.8" />
+    <PackageReference Include="Alternet.Scripter.Communication" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.Wpf" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Xaml" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Universal" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.Wpf" Version="11.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -160,7 +162,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AssemblyHelper.cs" />
-    <Compile Include="AttachToProcessDialog.xaml.cs" />
     <Compile Include="CodeNavigationBar.cs" />
     <Compile Include="CustomToolboxControl.cs" />
     <Compile Include="MainWindow.CodeNavigation.cs" />
@@ -184,9 +185,6 @@
     </Page>
     <Page Include="AddReferenceDialog.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="AttachToProcessDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
@@ -227,7 +225,6 @@
     </Compile>
     <EmbeddedResource Include="Images\DotNetImagesAlpha.png" />
     <EmbeddedResource Include="Images\DotNetImagesAlphaHighDpi.png" />
-    <EmbeddedResource Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

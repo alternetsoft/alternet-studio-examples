@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Drawing;
@@ -26,7 +26,7 @@ namespace Gutter
         private const string ShowGutterDesc = "Display gutter area";
         private const string GutterColorDesc = "Choose gutter background color";
         private const string PenColorDesc = "Choose gutter border color";
-        private const string GradientGutterDesc = "Customize gutter backgound";
+        private const string GradientGutterDesc = "Customize gutter background";
         private const string GradientBeginColorDesc = "Gutter gradient background start color";
         private const string GradientEndColorDesc = "Gutter gradient background end color";
         private const string LinesOnGutterDesc = "Draw numbers of lines on gutter area";

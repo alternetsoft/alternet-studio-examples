@@ -1,14 +1,14 @@
-﻿#region Copyright (c) 2016-2025 Alternet Software
+﻿#region Copyright (c) 2016-2026 Alternet Software
 /*
     AlterNET Code Editor Library
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Drawing;
@@ -28,7 +28,7 @@ namespace Miscellaneous
     public partial class Form1 : Form
     {
         private const string CheckSpellingDesc = "Perform spelling check of the text content in the editor";
-        private const string SpellColorDesc = "Color of wavy underlines under mispelled words";
+        private const string SpellColorDesc = "Color of wavy underlines under misspelled words";
         private const string TransparentDesc = "Draw edit control background";
         private const string BackgroundStyleDesc = "Background style for the Edit control";
         private const string BorderStyleDesc = "Border style for the Edit control";
@@ -37,15 +37,18 @@ namespace Miscellaneous
         private const string HighlightBracesDesc = "Highlight matching braces in the text";
         private const string HighlightBoundsDesc = "Highlight matching braces only if caret is positioned on the brace";
         private const string TempHighlightBracesDesc = "Remove highlighting of the matched brace after small delay";
-        private const string UseRoundRectDesc = "Draw rectanguar frame around matching braces";
+        private const string UseRoundRectDesc = "Draw rectangular frame around matching braces";
         private const string FontStyleDesc = "Font style for matching braces";
         private const string BracesColorDesc = "Background color for matching braces";
         private const string WhiteSpaceVisibleDesc = "Display white-space symbols such as spaces, tabs, end-of line or end-of-file markers";
-        private const string SeparateLinesDesc = "Draw horizontal lines to visualy separate lines in Edit control";
+        private const string SeparateLinesDesc = "Draw horizontal lines to visually separate lines in Edit control";
         private const string SymbolColorDesc = "Color used to paint special symbols";
         private SpellChecker spellChecker = new SpellChecker();
         private CsParser csParser1 = new CsParser();
         private string dir = Application.StartupPath + @"\";
+
+        private Color savedBackColor;
+        private Image image;
 
         public Form1()
         {
@@ -96,6 +99,49 @@ namespace Miscellaneous
             cbSymbolColor.SelectedColor = syntaxEdit1.WhiteSpace.SymbolColor;
 
             chbSeparateLines.Checked = (SeparatorOptions.SeparateLines & syntaxEdit1.LineSeparator.Options) != 0;
+
+#pragma warning disable
+            var s1 = "Miscellaneous.Resources.syntaxEdit1.BackgroundImage.png";
+            var s2 = "Miscellaneous.Resources.SmallBackground.png";
+            var s3 = "Miscellaneous.Resources.SmallBackgroundTransparent.png";
+            var s4 = "Miscellaneous.Resources.syntaxEdit1.BackgroundImage.WhiteBkSolid.png";
+#pragma warning restore
+
+            image = ControlUtilities.LoadImageFromAssembly(GetType().Assembly, s4);
+
+            syntaxEdit1.VisualThemeType = VisualThemeType.Light;
+            syntaxEdit1.BackgroundRendering = SyntaxEdit.BackgroundRenderingMode.Internal;
+            syntaxEdit1.BackgroundImage = image;
+
+            syntaxEdit1.DefaultMenu.Items.Add("-");
+
+            savedBackColor = syntaxEdit1.BackColor;
+
+            syntaxEdit1.DefaultMenu.Items.Add(new ToolStripMenuItem("Toggle Transparency", null, (s1a, e1) =>
+            {
+                chbTransparent.Checked = !chbTransparent.Checked;
+            }));
+
+            syntaxEdit1.DefaultMenu.Items.Add(new ToolStripMenuItem("Set form background", null, (s1a, e1) =>
+            {
+                BackColor = Color.LightSeaGreen;
+            }));
+
+            BackColor = SystemColors.Control;
+            ForeColor = SystemColors.ControlText;
+
+            UpdateBackColor();
+
+            cbGradientEndColor.SelectedIndexChanged += (s1a, e1) => syntaxEdit1.Invalidate();
+            cbGradientBeginColor.SelectedIndexChanged += (s1a, e1) => syntaxEdit1.Invalidate();
+        }
+
+        private void UpdateBackColor()
+        {
+            if (syntaxEdit1.Transparent)
+                syntaxEdit1.BackColor = Color.Empty;
+            else
+                syntaxEdit1.BackColor = savedBackColor;
         }
 
         private void CheckSpellingCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -125,10 +171,17 @@ namespace Miscellaneous
         private void TransparentCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             syntaxEdit1.Transparent = chbTransparent.Checked;
+            UpdateBackColor();
         }
 
         private void BackgroundStyleComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if(cbBackgroundStyle.SelectedIndex == 0)
+            {
+                syntaxEdit1.BackgroundImage = image;
+            }
+            else
+                syntaxEdit1.BackgroundImage = null;
             syntaxEdit1.Invalidate();
         }
 
@@ -159,7 +212,7 @@ namespace Miscellaneous
 
                 case 2:
                     {
-                        // painthing theme background
+                        // painting theme background
                         IPainter painter = new GdiPainter();
                         painter.BeginPaint(e.Graphics);
                         try

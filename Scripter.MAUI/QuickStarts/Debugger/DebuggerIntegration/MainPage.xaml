@@ -5,11 +5,7 @@
              x:Class="DebuggerIntegration.MainPage">
     <AbsoluteLayout>
         <Grid x:Name="MainGrid" RowDefinitions="auto, *" ColumnDefinitions="*">
-            <Label Grid.Row="1" Grid.Column="0"
-               Text="This demo shows how to embed debugger into your application." Margin="5"
-                           HorizontalTextAlignment="Start"
-               VerticalTextAlignment="Center"/>
-            <Grid x:Name="panel" Grid.Row="2" Grid.Column="0" RowDefinitions="*, 200">
+            <Grid x:Name="panel" Grid.Row="2" Grid.Column="0" RowDefinitions="*, Auto">
 
             </Grid>
         </Grid>

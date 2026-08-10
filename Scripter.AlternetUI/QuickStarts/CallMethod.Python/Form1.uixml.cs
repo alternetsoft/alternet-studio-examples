@@ -19,6 +19,7 @@ using Alternet.Drawing;
 using Alternet.Common.DotNet;
 using Alternet.Common.Python;
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
 using Alternet.Scripter.Python;
 using Alternet.Scripter.Python.Embedded;
@@ -68,8 +69,7 @@ namespace CallMethod.Python
             displayPanel.Paint += DisplayPanel_Paint;
             UpdateButtons();
 
-            Idle += Form1_Idle;
-            Form1_Idle(this, EventArgs.Empty);
+            lbDescription.WordWrap = true;
         }
 
         protected override void DisposeManaged()
@@ -78,11 +78,6 @@ namespace CallMethod.Python
             SafeDispose(ref updateTimer);
 
             base.DisposeManaged();
-        }
-
-        private void Form1_Idle(object? sender, EventArgs e)
-        {
-            lbDescription.WrapToParent();
         }
 
         private void Form1_Load(object? sender, EventArgs e)
@@ -172,7 +167,7 @@ namespace CallMethod.Python
         private string GetSourceFileFullPath(string sourceFileSubPath)
         {
             const string ResourcesFolderName = @"Scripter.AlternetUI";
-            var path = Path.Combine(DemoUtils.ResourcesFolder, ResourcesFolderName, sourceFileSubPath);
+            var path = DemoUtils.GetResourceFileFullPath(ResourcesFolderName, sourceFileSubPath);
             return path;
         }
 

@@ -32,18 +32,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pnSettings = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbLineStyleColor = new Alternet.Editor.Common.ColorBox(this.components);
             this.chbLineStyleBeyondEol = new System.Windows.Forms.CheckBox();
             this.laLineStyleColor = new System.Windows.Forms.Label();
             this.btSetBreakpoint = new System.Windows.Forms.Button();
+            this.btSetCustom = new System.Windows.Forms.Button();
             this.btStepOver = new System.Windows.Forms.Button();
             this.btStart = new System.Windows.Forms.Button();
             this.pnDescription = new System.Windows.Forms.Panel();
             this.laDescription = new System.Windows.Forms.Label();
-            this.contextMenu1 = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenu1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmStart = new System.Windows.Forms.ToolStripMenuItem();
             this.cmStepOver = new System.Windows.Forms.ToolStripMenuItem();
             this.cmSetBreakpoint = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,6 +53,7 @@
             this.pnSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.pnDescription.SuspendLayout();
+            this.contextMenu1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnSettings
@@ -63,7 +64,7 @@
             this.pnSettings.Location = new System.Drawing.Point(0, 0);
             this.pnSettings.Name = "pnSettings";
             this.pnSettings.Padding = new System.Windows.Forms.Padding(5);
-            this.pnSettings.Size = new System.Drawing.Size(667, 125);
+            this.pnSettings.Size = new System.Drawing.Size(667, 135);
             this.pnSettings.TabIndex = 4;
             // 
             // groupBox1
@@ -72,12 +73,13 @@
             this.groupBox1.Controls.Add(this.chbLineStyleBeyondEol);
             this.groupBox1.Controls.Add(this.laLineStyleColor);
             this.groupBox1.Controls.Add(this.btSetBreakpoint);
+            this.groupBox1.Controls.Add(this.btSetCustom);
             this.groupBox1.Controls.Add(this.btStepOver);
             this.groupBox1.Controls.Add(this.btStart);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(5, 44);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(657, 76);
+            this.groupBox1.Size = new System.Drawing.Size(657, 86);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Line Styles";
@@ -86,9 +88,8 @@
             // 
             this.cbLineStyleColor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cbLineStyleColor.FormattingEnabled = true;
-            this.cbLineStyleColor.Location = new System.Drawing.Point(385, 40);
+            this.cbLineStyleColor.Location = new System.Drawing.Point(256, 56);
             this.cbLineStyleColor.Name = "cbLineStyleColor";
-            this.cbLineStyleColor.SelectedColor = System.Drawing.Color.Empty;
             this.cbLineStyleColor.Size = new System.Drawing.Size(121, 21);
             this.cbLineStyleColor.TabIndex = 5;
             this.cbLineStyleColor.SelectedIndexChanged += new System.EventHandler(this.LineStyleColorComboBox_SelectedIndexChanged);
@@ -96,7 +97,7 @@
             // 
             // chbLineStyleBeyondEol
             // 
-            this.chbLineStyleBeyondEol.Location = new System.Drawing.Point(298, 16);
+            this.chbLineStyleBeyondEol.Location = new System.Drawing.Point(8, 54);
             this.chbLineStyleBeyondEol.Name = "chbLineStyleBeyondEol";
             this.chbLineStyleBeyondEol.Size = new System.Drawing.Size(144, 24);
             this.chbLineStyleBeyondEol.TabIndex = 3;
@@ -107,7 +108,7 @@
             // laLineStyleColor
             // 
             this.laLineStyleColor.AutoSize = true;
-            this.laLineStyleColor.Location = new System.Drawing.Point(296, 43);
+            this.laLineStyleColor.Location = new System.Drawing.Point(158, 60);
             this.laLineStyleColor.Name = "laLineStyleColor";
             this.laLineStyleColor.Size = new System.Drawing.Size(83, 13);
             this.laLineStyleColor.TabIndex = 4;
@@ -119,9 +120,17 @@
             this.btSetBreakpoint.Name = "btSetBreakpoint";
             this.btSetBreakpoint.Size = new System.Drawing.Size(106, 23);
             this.btSetBreakpoint.TabIndex = 2;
-            this.btSetBreakpoint.Text = "Toggle Breakpoint";
+            this.btSetBreakpoint.Text = "Breakpoint";
             this.btSetBreakpoint.Click += new System.EventHandler(this.SetBreakpointTextBoxButton_Click);
-            this.btSetBreakpoint.MouseMove += new System.Windows.Forms.MouseEventHandler(this.SereakpointTextBoxButton_MouseMove);
+            this.btSetBreakpoint.MouseMove += new System.Windows.Forms.MouseEventHandler(this.BreakpointTextBoxButton_MouseMove);
+            // 
+            // btSetCustom
+            // 
+            this.btSetCustom.Location = new System.Drawing.Point(280, 24);
+            this.btSetCustom.Name = "btSetCustom";
+            this.btSetCustom.Size = new System.Drawing.Size(106, 23);
+            this.btSetCustom.TabIndex = 6;
+            this.btSetCustom.Text = "Custom";
             // 
             // btStepOver
             // 
@@ -170,35 +179,41 @@
             this.cmStart,
             this.cmStepOver,
             this.cmSetBreakpoint});
+            this.contextMenu1.Name = "contextMenu1";
+            this.contextMenu1.Size = new System.Drawing.Size(170, 70);
             // 
             // cmStart
             // 
+            this.cmStart.Name = "cmStart";
             this.cmStart.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.cmStart.Size = new System.Drawing.Size(169, 22);
             this.cmStart.Text = "Start";
             this.cmStart.Click += new System.EventHandler(this.StartMenuItem_Click);
             // 
             // cmStepOver
             // 
+            this.cmStepOver.Name = "cmStepOver";
             this.cmStepOver.ShortcutKeys = System.Windows.Forms.Keys.F10;
+            this.cmStepOver.Size = new System.Drawing.Size(169, 22);
             this.cmStepOver.Text = "Step Over";
             this.cmStepOver.Click += new System.EventHandler(this.StepOverMenuItem_Click);
             // 
             // cmSetBreakpoint
             // 
+            this.cmSetBreakpoint.Name = "cmSetBreakpoint";
             this.cmSetBreakpoint.ShortcutKeys = System.Windows.Forms.Keys.F9;
+            this.cmSetBreakpoint.Size = new System.Drawing.Size(169, 22);
             this.cmSetBreakpoint.Text = "Set Breakpoint";
             this.cmSetBreakpoint.Click += new System.EventHandler(this.SetBreakpointTextBoxMenuItem_Click);
             // 
             // syntaxEdit1
             // 
             this.syntaxEdit1.BackColor = System.Drawing.SystemColors.Window;
-            this.syntaxEdit1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.syntaxEdit1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.syntaxEdit1.Location = new System.Drawing.Point(0, 125);
+            this.syntaxEdit1.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.syntaxEdit1.Location = new System.Drawing.Point(0, 135);
             this.syntaxEdit1.Name = "syntaxEdit1";
-            this.syntaxEdit1.Outlining.ImageSize = 8;
-            this.syntaxEdit1.SearchGlobal = false;
-            this.syntaxEdit1.Size = new System.Drawing.Size(667, 259);
+            this.syntaxEdit1.Size = new System.Drawing.Size(667, 249);
             this.syntaxEdit1.TabIndex = 11;
             this.syntaxEdit1.Text = "";
             // 
@@ -217,6 +232,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.pnDescription.ResumeLayout(false);
+            this.contextMenu1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -228,6 +244,7 @@
         private System.Windows.Forms.CheckBox chbLineStyleBeyondEol;
         private System.Windows.Forms.Label laLineStyleColor;
         private System.Windows.Forms.Button btSetBreakpoint;
+        private System.Windows.Forms.Button btSetCustom;
         private System.Windows.Forms.Button btStepOver;
         private System.Windows.Forms.Button btStart;
         private System.Windows.Forms.Panel pnDescription;

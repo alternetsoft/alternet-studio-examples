@@ -1,0 +1,1 @@
+dotnet run --framework net10.0 /p:WarningsAsErrors=false /p:NoWarn=all

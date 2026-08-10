@@ -12,7 +12,10 @@
 
 using AllQuickStarts.Pages;
 using Alternet.Editor;
+using Alternet.Editor.AlternetUI;
+using Alternet.Editor.Maui;
 using Alternet.Editor.TextSource;
+using Alternet.Editor.TextSource.AlternetUI;
 
 using Alternet.UI;
 using Alternet.Maui;
@@ -78,7 +81,7 @@ public partial class AdvancedSyntaxParsingPage : DemoPage
         = new LanguageInfo("Css.txt", typeCss, "*.css", "CSS files");
 
     private static LanguageInfo infoXml
-        = new LanguageInfo("xml.txt", typeXml, "*.xml", "XML");
+        = new LanguageInfo("OrderXml.order.xml", typeXml, "*.xml", "XML");
 
     private LanguageInfo[] langItems =
     {
@@ -112,6 +115,8 @@ public partial class AdvancedSyntaxParsingPage : DemoPage
 
     internal string NewFileNameNoExt = "embres:AllQuickStarts.Content.";
 
+    Action<ILexer?>? UpdateLexerAction { get; set; }
+
     static AdvancedSyntaxParsingPage()
     {
     }
@@ -126,7 +131,7 @@ public partial class AdvancedSyntaxParsingPage : DemoPage
 
         syntaxEdit1.Outlining.AllowOutlining = true;
 
-        LanguagesPicker.SelectedIndex = 0;
+        LanguagesPicker.SelectedIndex = 9;
 
         if (!Alternet.UI.App.IsWindowsOS)
         {
@@ -153,12 +158,20 @@ public partial class AdvancedSyntaxParsingPage : DemoPage
 
         if (selIndex >= 0)
         {
-            syntaxEdit1.Source.Lexer = GetLexer(selIndex);
+            UpdateLexerAction = (lexer) =>
+            {
+                if (DisposingOrDisposed)
+                    return;
+                syntaxEdit1.Source.Lexer = lexer;
+            };
+
+            SetLexer(selIndex, UpdateLexerAction);
 
             string fileName = langItems[LanguagesPicker.SelectedIndex].FileName;
             if (fileName != string.Empty)
             {
-                LoadFile(syntaxEdit1.Source, NewFileNameNoExt + fileName);
+                var s = NewFileNameNoExt + fileName;
+                LoadFile(syntaxEdit1.Source, s);
                 syntaxEdit1.Source.FileName = fileName;
             }
         }
@@ -176,21 +189,38 @@ public partial class AdvancedSyntaxParsingPage : DemoPage
         syntaxEdit1.Gutter.Options &= ~GutterOptions.PaintCodeActionsOnGutter;
     }
 
-    private ILexer GetLexer(int index)
+    private void SetLexer(int index, Action<ILexer?> setAction)
     {
         LanguageInfo info = (index >= 0) && (index < langItems.Length)
             ? langItems[index]
             : new LanguageInfo(string.Empty, string.Empty, string.Empty, string.Empty);
-        ILexer result;
+        ILexer? result;
+        var codeCompletion = true;
 
         switch (info.FileType)
         {
             default:
             case typeCSharp:
-                result = LexerDemoUtils.CreateSyntaxParserAdvancedCs();
+                result = null;
+                result = LexerDemoUtils.CreateSyntaxParserAdvancedCs(false);
+                codeCompletion = false;
+                var slowLexer = LexerDemoUtils.CreateSyntaxParserAdvancedCs(true, (lexer) =>
+                {
+                    codeCompletion = true;
+                    SendResult(lexer);
+                });
                 break;
             case typeVBNet:
-                result = LexerDemoUtils.CreateSyntaxParserAdvancedVb();
+                result = null;
+                result = LexerDemoUtils.CreateSyntaxParserAdvancedVb(false);
+                codeCompletion = false;
+                var slowLexer2 = LexerDemoUtils.CreateSyntaxParserAdvancedVb(
+                    true,
+                    (lexer) =>
+                    {
+                        codeCompletion = true;
+                        SendResult(lexer);
+                    });
                 break;
             case typeJava:
                 result = new JsParser();
@@ -243,43 +273,75 @@ public partial class AdvancedSyntaxParsingPage : DemoPage
                 {
                     if (s is not XmlParserWithSchema xmlParser)
                         return;
-
-                    var schemaName = e.SchemaName;
-                    var schemaUrl = e.SchemaURL;
-
-                    if (schemaUrl != "XmlSchema.xsd")
-                    {
+                    if (e.SchemaURLs is null)
                         return;
+
+                    e.Handled = true;
+
+                    (string Name, string Url)[] schemaResources = new (string, string)[]
+                    {
+                        ("order.xsd", "embres:AllQuickStarts.Content.OrderXml.order.xsd"),
+                        ("customer.xsd", "embres:AllQuickStarts.Content.OrderXml.customer.xsd"),
+                        ("product.xsd", "embres:AllQuickStarts.Content.OrderXml.product.xsd"),
+                        ("XmlSchema.xsd", "embres:AllQuickStarts.Schemas.XmlSchema.xsd"),
+                    };
+
+                    XmlSchemaSet schemaSet = new();
+
+                    foreach (var url in e.SchemaURLs)
+                    {
+                        foreach (var (name, resourceUrl) in schemaResources)
+                        {
+                            if (url == name)
+                            {
+                                var schemaStream = Alternet.UI.ResourceLoader.StreamFromUrlOrDefault(resourceUrl);
+                                if (schemaStream is not null)
+                                {
+                                    using var reader = new StreamReader(schemaStream);
+                                    var schema = XmlSchema.Read(reader, (s, e) =>
+                                    {
+                                        // process schema read errors here.
+                                    });
+
+                                    if (schema != null)
+                                        schemaSet.Add(schema);
+                                }
+
+                                break;
+                            }
+                        }
                     }
 
-                    var schemaStream = Alternet.UI.ResourceLoader.StreamFromUrlOrDefault(
-                        "embres:AllQuickStarts.Schemas.XmlSchema.xsd");
-                    if(schemaStream is not null)
-                    {
-                        using var reader = new StreamReader(schemaStream);
-                        var schema = XmlSchema.Read(reader, (s, e) =>
-                        {
-                            // process schema read errors here.
-                        });
-                        
-                        xmlParser.Schema = schema;
-                        e.Handled = true;
-                    }
+                    xmlParser.Schemas = schemaSet;
                 };
 
                 break;
         }
 
-        if (result is ISyntaxParser sp)
+        void SendResult(ILexer? lexer)
         {
-            sp.Options |= SyntaxOptions.CodeCompletion | SyntaxOptions.QuickInfoTips
-                | SyntaxOptions.SyntaxErrors;
+            if(DisposingOrDisposed)
+                return;
+            if (lexer is ISyntaxParser sp && codeCompletion)
+            {
+                sp.Options |= SyntaxOptions.CodeCompletion | SyntaxOptions.QuickInfoTips
+                    | SyntaxOptions.SyntaxErrors;
+            }
+
+            setAction(lexer);
         }
 
-        return result;
+        SendResult(result);
     }
 
-    public static void LoadFile(Alternet.Editor.TextSource.ITextSource source, string url)
+    protected override void DisposeResources()
+    {
+        UpdateLexerAction = null;
+        base.DisposeResources();
+    }
+
+
+    public static void LoadFile(ITextSource source, string url)
     {
         if (source is null)
             return;
@@ -398,11 +460,6 @@ public partial class AdvancedSyntaxParsingPage : DemoPage
             return;
 
         LoadFile(syntaxEdit1.Source, files.FullPath);
-    }
-
-    protected override void DisposeResources()
-    {
-        base.DisposeResources();
     }
 
     private struct LanguageInfo

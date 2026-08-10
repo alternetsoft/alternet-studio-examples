@@ -1,16 +1,16 @@
-#region Copyright (c) 2016-2025 Alternet Software
+#region Copyright (c) 2016-2026 Alternet Software
 
 /*
     AlterNET Studio
 
-    Copyright (c) 2016-2025 Alternet Software
+    Copyright (c) 2016-2026 Alternet Software
     ALL RIGHTS RESERVED
 
     http://www.alternetsoft.com
     contact@alternetsoft.com
 */
 
-#endregion Copyright (c) 2016-2025 Alternet Software
+#endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
 using System.Collections.Generic;
@@ -136,7 +136,7 @@ namespace AlternetStudio.Demo
 
         private string GetToolboxAutoSaveFileName()
         {
-            var directory = Path.Combine(Path.GetTempPath(), "AlternetStudio.IronPythoh.Demo", "dotnet-" + Environment.Version.ToString(2));
+            var directory = Path.Combine(Path.GetTempPath(), "AlternetStudio.IronPython.Demo", "dotnet-" + Environment.Version.ToString(2));
             if (!Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
 

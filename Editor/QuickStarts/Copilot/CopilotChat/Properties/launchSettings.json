@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "CopilotChat": {
+      "commandName": "Project"
+    },
+    "IsDark": {
+      "commandName": "Project",
+      "commandLineArgs": "-IsDark=true"
+    }
+  }
+}

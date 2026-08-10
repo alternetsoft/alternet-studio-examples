@@ -5,17 +5,27 @@ using System.Reflection;
 
 using Alternet.UI;
 using Alternet.Editor.Common.AlternetUI;
+using Alternet.Editor.AlternetUI;
 using Alternet.Common;
+using Microsoft.CSharp.RuntimeBinder;
 
 namespace AllDemos
 {
     public partial class InternalSamplesPage : PanelFormSelector
     {
-        private static bool ExceptionsLogger = false;
+        private static bool ExceptionsLogger = DebugUtils.IsDebugOnWindows;
 
         static InternalSamplesPage()
         {
             EditorTests.Init();
+            GlobalEditorInitializer.Bind();
+
+            SyntaxEdit.InstanceCreated += (s, e) =>
+            {
+                if (s is not SyntaxEdit edit)
+                    return;
+
+            };
         }
 
         public InternalSamplesPage()
@@ -27,6 +37,9 @@ namespace AllDemos
             {
                 DebugUtils.RegisterExceptionsLoggerIfDebug((e) =>
                 {
+                    if (e is OperationCanceledException)
+                        return;
+
                     if (e is FileNotFoundException)
                         return;
 
@@ -38,28 +51,24 @@ namespace AllDemos
 
                     if (e is System.Xml.XmlException xmlException)
                     {
-                        Debug.WriteLineIf(false, xmlException);
+                        LogUtils.DebugWriteLineIf(false, xmlException);
                         return;
                     }
+
+                    if(e is RuntimeBinderException)
+                    {
+                        LogUtils.DebugWriteLineIf(false, e);
+                        return;
+                    }
+
+                    LogUtils.DebugWriteLineIf(false, e);
 
                     Nop();
                 });
                 ExceptionsLogger = false;
             }
-        }
 
-        public bool IsNet471OrGreater
-        {
-            get
-            {
-                if (!Consts.IsWindows || !Consts.IsNetFramework)
-                    return true;
-#if NET471_OR_GREATER
-                return true;
-#else
-                    return false;
-#endif
-            }
+            View.RootItem.CollapseItems();
         }
 
         protected override void HandleOpenButtonClick(object? sender, EventArgs e)
@@ -90,6 +99,7 @@ namespace AllDemos
             Add("Code Completion", () => new CodeCompletion.Form1());
             Add("Code Snippets", () => new CodeSnippets.Form1());
             Add("Undo and Redo", () => new UndoRedo.Form1());
+            Add("Selection Anchors", () => new SelectionAnchors.Form1());
 
             /* Section: Syntax Parsers */
 
@@ -104,12 +114,9 @@ namespace AllDemos
                 return new AdvancedSyntaxParsing.Form1();
             });
 
-            if (IsNet471OrGreater)
-            {
-                Add("TextMate Parsing", () => {
-                    return new TextMateParsing.Form1();
-                });
-            }
+            Add("TextMate Parsing", () => {
+                return new TextMateParsing.Form1();
+            });
 
             Add("XAML Parsing", () => {
                 return new XAMLParsing.Form1();
@@ -123,41 +130,51 @@ namespace AllDemos
                 return new PowerFxSyntaxParsing.Form1();
             });
 
+            Add("TypeScript Parser", () => {
+                return new TypeScriptParsing.Form1();
+            });
+
             /* Section: Scripter */
 
-            AddGroup("Scripter");
+            AddGroup("Scripter for C# and Visual Basic");
 
-            Add("Call Method", () => {
-                return new CallMethod.Form1();
-            });
+            Add("Call Method", () => { return new CallMethod.Form1(); });
+            Add("Object Reference", () => { return new ObjectReference.Form1(); });
+            Add("Custom Assembly", () => { return new CustomAssembly.Form1(); });
+            Add("Expression Evaluation", () => { return new ExpressionEvaluation.Form1(); });
+            Add("Isolated Script", () => { return new IsolatedScript.Form1(); });
+            Add("Threading", () => { return new Threading.Form1(); });
 
-            Add("Object Reference", () => {
-                return new ObjectReference.Form1();
-            });
+            Add("Memory Assembly", () => { return new MemoryAssembly.Form1(); });
+            Add("Package Reference", () => { return new PackageReference.Form1(); });
+            Add("Script Host Object", () => { return new ScriptHostObject.Form1(); });
 
             /* Section: Scripter for Python */
 
             AddGroup("Scripter for Python");
 
-            Add("Call Method for Python", () => {
-                return new CallMethod.Python.Form1();
-            });
+            Add("Call Method for Python", () => { return new CallMethod.Python.Form1(); });
+            Add("Expression Evaluation for Python", () => { return new ExpressionEvaluation.Python.Form1(); });
+            Add("Object Reference for Python", () => { return new ObjectReference.Python.Form1(); });
+            Add("Threading for Python", () => { return new Threading.Python.Form1(); });
 
-            Add("Object Reference for Python", () => {
-                return new ObjectReference.Python.Form1();
-            });
+            Add("Custom Assembly for Python", () => { return new CustomAssembly.Python.Form1(); });
+            Add("Memory Assembly for Python", () => { return new MemoryAssembly.Python.Form1(); });
 
             /* Section: Debugger */
 
             AddGroup("Debugger");
 
-            Add("Debugger Integration C#", () => {
-                return new DebuggerIntegration.Form1();
-            });
+            Add("Debugger Integration C#", () => { return new DebuggerIntegration.Form1(); });
+            Add("Debugger Integration Python", () => { return new DebuggerIntegration.Python.Form1(); });
 
-            Add("Debugger Integration Python", () => {
-                return new DebuggerIntegration.Python.Form1();
-            });            
+            /* Section: Scripter for JavaScript and TypeScript */
+
+            AddGroup("Scripter for JavaScript and TypeScript");
+
+            Add("Mini scripts for JavaScript and TypeScript", () => { return new Mini.TypeScript.Form1(); });
+            Add("Call Method for JavaScript and TypeScript", () => { return new CallMethod.TypeScript.Form1(); });
+            Add("Object Reference for JavaScript and TypeScript", () => { return new ObjectReference.TypeScript.Form1(); });
         }
     }
 }
