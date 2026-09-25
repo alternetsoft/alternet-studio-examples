@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -50,6 +51,31 @@ namespace PowerShellParsing
             this.edit = edit;
             edit.Lexer = powerShellParser1;
             edit.Outlining.AllowOutlining = true;
+
+            var useDarkMode = Environment.GetCommandLineArgs().Contains("-IsDark=true");
+
+            if (useDarkMode)
+            {
+                edit.VisualThemeType = VisualThemeType.Dark;
+                powerShellParser1.ThemeName = "Dark";
+                var list = edit?.CodeCompletionBox?.List;
+
+                list.Loaded += (s, e) =>
+                {
+                    var border = list.Template.FindName("NoSuggestionsMessageBorder", list) as Border;
+
+                    if (border != null)
+                    {
+                        border.Background = edit.Background;
+
+                        foreach (var child in LogicalTreeHelper.GetChildren(border))
+                        {
+                            if (child is TextBlock textBlock)
+                                textBlock.Foreground = edit.Foreground;
+                        }
+                    }
+                };
+            }
 
             DirectoryInfo dirInfo = new DirectoryInfo(Path.GetFullPath(dir) + @"Resources\Editor\Text");
             if (!dirInfo.Exists)

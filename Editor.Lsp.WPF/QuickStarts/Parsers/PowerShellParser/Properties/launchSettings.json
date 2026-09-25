@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "PowerShellParsing": {
+      "commandName": "Project"
+    },
+    "IsDark": {
+      "commandName": "Project",
+      "commandLineArgs": "-IsDark=true"
+    }
+  }
+}
