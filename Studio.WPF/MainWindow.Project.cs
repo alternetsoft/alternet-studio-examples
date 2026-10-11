@@ -116,6 +116,9 @@ namespace AlternetStudio.Wpf.Demo
 
         protected void RemoveWatcher(string filePath)
         {
+            if (string.IsNullOrEmpty(filePath))
+                return;
+
             filePath = Path.GetFullPath(filePath);
 
             if (!watchers.TryGetValue(filePath, out var watcher))

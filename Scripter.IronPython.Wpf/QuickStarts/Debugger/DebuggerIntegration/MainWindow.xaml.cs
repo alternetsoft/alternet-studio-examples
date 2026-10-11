@@ -9,15 +9,15 @@
     contact@alternetsoft.com
 */
 #endregion Copyright (c) 2016-2026 Alternet Software
-
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
-
+using Alternet.Common;
 using Alternet.Common.Python;
 using Alternet.Editor.IronPython.Wpf;
+using Alternet.Editor.Wpf;
 using Alternet.Scripter.Debugger.IronPython;
 using Alternet.Scripter.Integration.Wpf;
 using Alternet.Scripter.IronPython;
@@ -154,7 +154,20 @@ namespace DebuggerIntegration.IronPython.Wpf
             edit.LoadFile(e.FileName);
             edit.Lexer = pythonParser;
             edit.AllowedActions &= ~AllowedActions.SetNextStatement;
+            edit.OpenSharedEditorFunc = OpenSharedEditorFunc;
             e.DebugEdit = edit;
+        }
+
+        private TextEditor OpenSharedEditorFunc(string fileName)
+        {
+            TextEditor result = null;
+            bool fullPath = PathUtilities.IsPathFullyQualified(fileName);
+            if (fullPath)
+            {
+                result = codeEditContainer.TryActivateEditor(fileName) as TextEditor;
+            }
+
+            return result;
         }
 
         private bool SetScriptSource()

@@ -29,12 +29,12 @@
     <EmbeddedResource Include="Resources\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.IronPython" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.1" />
   </ItemGroup>
   <ItemGroup />
 </Project>

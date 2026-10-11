@@ -9,7 +9,6 @@
     contact@alternetsoft.com
 */
 #endregion Copyright (c) 2016-2026 Alternet Software
-
 using System;
 using System.Collections;
 using System.Collections.ObjectModel;
@@ -20,16 +19,16 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-
+using Alternet.Common;
 using Alternet.Common.TypeScript;
 using Alternet.Common.TypeScript.HostObjects;
 using Alternet.Editor.Common.Wpf;
 using Alternet.Editor.TypeScript.Wpf;
+using Alternet.Editor.Wpf;
 using Alternet.Scripter.Debugger;
 using Alternet.Scripter.Debugger.TypeScript;
 using Alternet.Scripter.Integration.Wpf;
 using Alternet.Scripter.TypeScript;
-
 using Microsoft.Win32;
 
 namespace DebuggerIntegration.TypeScript
@@ -280,9 +279,21 @@ namespace DebuggerIntegration.TypeScript
             var edit = new DebugCodeEdit();
             edit.InitSyntax();
             LoadFile(edit, e.FileName);
-
+            edit.OpenSharedEditorFunc = OpenSharedEditorFunc;
             e.DebugEdit = edit;
             this.edit = edit;
+        }
+
+        private TextEditor OpenSharedEditorFunc(string fileName)
+        {
+            TextEditor result = null;
+            bool fullPath = PathUtilities.IsPathFullyQualified(fileName);
+            if (fullPath)
+            {
+                result = codeEditContainer.TryActivateEditor(fileName) as TextEditor;
+            }
+
+            return result;
         }
 
         private string ExtractCommandLineArg(string arg)

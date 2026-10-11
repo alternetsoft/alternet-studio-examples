@@ -23,7 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Alternet.Studio.Roslyn.Features">
-      <Version>11.0.0</Version>
+      <Version>11.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -93,24 +93,24 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Scripter.Communication" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.WindowsForms" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Xaml" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Universal" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Scripter.Communication" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.WindowsForms" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Xaml" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Universal" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="11.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dialogs\AddReferenceDialog.cs" />

@@ -8,6 +8,7 @@ using System.Windows.Media;
 using Alternet.Common;
 using Alternet.Common.Projects.DotNet;
 using Alternet.Editor.Roslyn.Wpf;
+using Alternet.Editor.Wpf;
 using Alternet.FormDesigner.Integration.Wpf;
 using Alternet.FormDesigner.Wpf;
 using Alternet.Scripter;
@@ -260,6 +261,9 @@ namespace DebuggerIntegration.Wpf
 
         private void CloseProject(DotNetProject project)
         {
+            if (!TryResetDebuggerOnProjectChange())
+                return;
+
             foreach (string fileName in project.Files)
             {
                 CloseFile(fileName);
@@ -300,7 +304,20 @@ namespace DebuggerIntegration.Wpf
             var projectName = GetProjectName(e.FileName);
             edit.SetFileNameAndProject(e.FileName, projectName);
             edit.LoadFile(e.FileName);
+            edit.OpenSharedEditorFunc = OpenSharedEditorFunc;
             e.DebugEdit = edit;
+        }
+
+        private TextEditor OpenSharedEditorFunc(string fileName)
+        {
+            TextEditor result = null;
+            bool fullPath = PathUtilities.IsPathFullyQualified(fileName);
+            if (fullPath)
+            {
+                result = codeEditContainer.TryActivateEditor(fileName) as TextEditor;
+            }
+
+            return result;
         }
 
         private void UseUniversalDebuggerMenuItem_Click(object sender, System.EventArgs e)

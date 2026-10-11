@@ -15,9 +15,11 @@
 using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Alternet.Common;
+using Alternet.Editor;
 using Alternet.Syntax;
 using Alternet.Syntax.Parsers.Lsp.PowerShell.Embedded;
 
@@ -111,6 +113,14 @@ namespace PowerShellParsing
         {
             syntaxEdit1.Lexer = powerShellParser;
             syntaxEdit1.Outlining.AllowOutlining = true;
+
+            var useDarkMode = Environment.GetCommandLineArgs().Contains("-IsDark=true");
+
+            if (useDarkMode)
+            {
+                powerShellParser.ThemeName = "Dark";
+                syntaxEdit1.VisualThemeType = VisualThemeType.Dark;
+            }
 
             DirectoryInfo dirInfo = new DirectoryInfo(Path.GetFullPath(dir) + @"Resources\Editor\Text");
             if (!dirInfo.Exists)

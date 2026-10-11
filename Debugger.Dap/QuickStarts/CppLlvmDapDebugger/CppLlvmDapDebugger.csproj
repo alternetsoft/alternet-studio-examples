@@ -36,19 +36,19 @@
     <EmbeddedResource Include="Resources\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Cpp.Lldb.Embedded" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Cpp.Lldb" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd.Embedded" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Cpp.Lldb.Embedded" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Dap.Cpp.Lldb" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd.Embedded" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Clangd" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="11.0.1" />
   </ItemGroup>
   <ItemGroup />
 </Project>

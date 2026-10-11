@@ -56,25 +56,8 @@ namespace PowerShellParsing
 
             if (useDarkMode)
             {
-                edit.VisualThemeType = VisualThemeType.Dark;
                 powerShellParser1.ThemeName = "Dark";
-                var list = edit?.CodeCompletionBox?.List;
-
-                list.Loaded += (s, e) =>
-                {
-                    var border = list.Template.FindName("NoSuggestionsMessageBorder", list) as Border;
-
-                    if (border != null)
-                    {
-                        border.Background = edit.Background;
-
-                        foreach (var child in LogicalTreeHelper.GetChildren(border))
-                        {
-                            if (child is TextBlock textBlock)
-                                textBlock.Foreground = edit.Foreground;
-                        }
-                    }
-                };
+                edit.VisualThemeType = VisualThemeType.Dark;
             }
 
             DirectoryInfo dirInfo = new DirectoryInfo(Path.GetFullPath(dir) + @"Resources\Editor\Text");

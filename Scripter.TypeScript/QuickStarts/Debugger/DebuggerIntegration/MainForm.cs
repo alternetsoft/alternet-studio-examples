@@ -17,6 +17,7 @@ using System.Windows.Forms;
 using Alternet.Common;
 using Alternet.Common.TypeScript;
 using Alternet.Common.TypeScript.HostObjects;
+using Alternet.Editor;
 using Alternet.Editor.Common;
 using Alternet.Editor.TypeScript;
 using Alternet.Scripter.Debugger.TypeScript;
@@ -154,7 +155,21 @@ namespace DebuggerIntegration.TypeScript
             edit.InitSyntax();
             LoadFile(edit, e.FileName);
             e.DebugEdit = edit;
+            edit.OpenSharedEditorFunc = OpenSharedEditorFunc;
+
             this.edit = edit;
+        }
+
+        private ISyntaxEdit OpenSharedEditorFunc(string fileName)
+        {
+            ISyntaxEdit result = null;
+            bool fullPath = PathUtilities.IsPathFullyQualified(fileName);
+            if (fullPath)
+            {
+                result = codeEditContainer.TryActivateEditor(fileName) as ISyntaxEdit;
+            }
+
+            return result;
         }
 
         private void MainForm_Load(object sender, EventArgs e)

@@ -26,6 +26,7 @@ using Alternet.Common.DotNet.DefaultAssemblies;
 using Alternet.Common.Projects.DotNet;
 
 using Alternet.Editor.TextSource.AlternetUI;
+using Alternet.Editor.AlternetUI;
 using Alternet.Maui;
 using Alternet.Maui.Extensions;
 using Alternet.Scripter;
@@ -793,6 +794,8 @@ namespace DebuggerIntegration
             SetFileNameAndProject(debugCodeEdit, e.FileName, projectName);
 
             edit.Editor.LoadFileOrShowErrorInText(e.FileName);
+            edit.OpenSharedEditorFunc = OpenSharedEditorFunc;
+
             e.DebugEdit = edit.Editor;
             UpdateCommands();
         }
@@ -842,6 +845,18 @@ namespace DebuggerIntegration
 
                 parser.ReparseText();
             }
+        }
+
+        private ISyntaxEdit OpenSharedEditorFunc(string fileName)
+        {
+            ISyntaxEdit result = null;
+            bool fullPath = PathUtilities.IsPathFullyQualified(fileName);
+            if (fullPath)
+            {
+                result = codeEditContainer.TryActivateEditor(fileName) as ISyntaxEdit;
+            }
+
+            return result;
         }
 
         private void OpenProject(string? projectPathUrl, string projectName)

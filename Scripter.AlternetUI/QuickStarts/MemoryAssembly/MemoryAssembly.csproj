@@ -18,14 +18,14 @@
     <!--
       <ProjectReference Include="ExternalAssembly\ExternalAssembly\ExternalAssembly.csproj" />
       -->
-    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Roslyn" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.1" />
     <PackageReference Include="Alternet.UI" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>

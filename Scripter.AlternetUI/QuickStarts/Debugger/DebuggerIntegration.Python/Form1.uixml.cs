@@ -11,29 +11,27 @@
 #endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
-using System.IO;
-
-using Alternet.Scripter.Debugger.UI.AlternetUI;
-using Alternet.UI;
-
-using Alternet.Scripter.Debugger;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
-
 using Alternet.Common;
 using Alternet.Common.Projects;
 using Alternet.Common.Python;
+using Alternet.Editor.AlternetUI;
 using Alternet.Editor.Common.AlternetUI;
+using Alternet.Scripter;
+using Alternet.Scripter.Debugger;
 using Alternet.Scripter.Debugger.Python;
+using Alternet.Scripter.Debugger.UI.AlternetUI;
 using Alternet.Scripter.Integration;
+using Alternet.Scripter.Integration.AlternetUI;
 using Alternet.Scripter.Python;
 using Alternet.Syntax.Lexer;
 using Alternet.Syntax.Parsers.Python;
-using Alternet.Scripter.Integration.AlternetUI;
-using System.Diagnostics;
-using Python.Runtime;
-using Alternet.Scripter;
+using Alternet.UI;
 using Alternet.UI.Localization;
+using Python.Runtime;
 
 namespace DebuggerIntegration.Python
 {
@@ -439,8 +437,21 @@ namespace DebuggerIntegration.Python
             edit.LoadFile(e.FileName);
             edit.Lexer = parser;
             edit.AllowedActions &= ~DebugEditAllowedActions.SetNextStatement;
+            edit.OpenSharedEditorFunc = OpenSharedEditorFunc;
 
             e.DebugEdit = edit;
+        }
+
+        private ISyntaxEdit OpenSharedEditorFunc(string fileName)
+        {
+            ISyntaxEdit result = null;
+            bool fullPath = PathUtilities.IsPathFullyQualified(fileName);
+            if (fullPath)
+            {
+                result = codeEditContainer.TryActivateEditor(fileName);
+            }
+
+            return result;
         }
 
         private void OpenProjectMenuItem_Click(object? sender, EventArgs e)

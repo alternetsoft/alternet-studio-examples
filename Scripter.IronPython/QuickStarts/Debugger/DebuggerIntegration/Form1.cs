@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Alternet.Common;
+using Alternet.Editor;
 using Alternet.Editor.IronPython;
 using Alternet.Scripter.Debugger.IronPython;
 using Alternet.Scripter.Integration;
@@ -127,8 +128,21 @@ namespace DebuggerIntegration.IronPython
             edit.LoadFile(e.FileName);
             edit.Lexer = parser;
             edit.AllowedActions &= ~AllowedActions.SetNextStatement;
+            edit.OpenSharedEditorFunc = OpenSharedEditorFunc;
 
             e.DebugEdit = edit;
+        }
+
+        private ISyntaxEdit OpenSharedEditorFunc(string fileName)
+        {
+            ISyntaxEdit result = null;
+            bool fullPath = PathUtilities.IsPathFullyQualified(fileName);
+            if (fullPath)
+            {
+                result = editorTabContainer.TryActivateEditor(fileName) as ISyntaxEdit;
+            }
+
+            return result;
         }
 
         private void SaveAllModifiedFiles()

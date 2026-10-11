@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
 using Alternet.Common;
 using Alternet.Common.Projects.DotNet;
+using Alternet.Editor.AlternetUI;
 using Alternet.Scripter.Debugger;
 using Alternet.Scripter.Debugger.UI.AlternetUI;
 using Alternet.Scripter.Roslyn;
@@ -392,9 +392,21 @@ namespace Alternet.Scripter.Integration.AlternetUI
             };
 
             edit.LoadFile(e.FileName);
+            edit.OpenSharedEditorFunc = OpenSharedEditorFunc;
             e.DebugEdit = edit;
         }
 
+        private ISyntaxEdit OpenSharedEditorFunc(string fileName)
+        {
+            ISyntaxEdit result = null;
+            bool fullPath = PathUtilities.IsPathFullyQualified(fileName);
+            if (fullPath)
+            {
+                result = CodeEditContainer.TryActivateEditor(fileName);
+            }
+
+            return result;
+        }
         protected virtual void OnDebuggerPreStartup(object? sender, System.EventArgs e)
         {
             SaveAllModifiedFiles();

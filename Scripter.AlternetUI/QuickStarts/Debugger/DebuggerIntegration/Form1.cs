@@ -11,16 +11,16 @@
 #endregion Copyright (c) 2016-2024 Alternet Software
 
 using System;
-using System.IO;
-
-using Alternet.UI;
-using Alternet.Common;
-using Alternet.Editor.Common.AlternetUI;
-using Alternet.Scripter.Integration.AlternetUI;
-using Alternet.Scripter;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
+
+using Alternet.Common;
 using Alternet.Drawing;
+using Alternet.Editor.Common.AlternetUI;
+using Alternet.Scripter;
+using Alternet.Scripter.Integration.AlternetUI;
+using Alternet.UI;
 
 namespace DebuggerIntegration
 {

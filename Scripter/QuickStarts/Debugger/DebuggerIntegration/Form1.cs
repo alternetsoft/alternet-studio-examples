@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -300,7 +298,20 @@ namespace DebuggerIntegration
             var projectName = GetProjectName(e.FileName);
             edit.SetFileNameAndProject(e.FileName, projectName);
             edit.LoadFile(e.FileName);
+            edit.OpenSharedEditorFunc = OpenSharedEditorFunc;
             e.DebugEdit = edit;
+        }
+
+        private ISyntaxEdit OpenSharedEditorFunc(string fileName)
+        {
+            ISyntaxEdit result = null;
+            bool fullPath = PathUtilities.IsPathFullyQualified(fileName);
+            if (fullPath)
+            {
+                result = codeEditContainer.TryActivateEditor(fileName) as ISyntaxEdit;
+            }
+
+            return result;
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)

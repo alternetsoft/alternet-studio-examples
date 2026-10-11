@@ -24,14 +24,14 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Winforms" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Winforms" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Roslyn" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.vb"></Compile>

@@ -77,22 +77,22 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.TypeScript.WindowsForms" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.TypeScript" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Common.TypeScript" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Common.WindowsForms" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.TypeScript.WindowsForms" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.WindowsForms" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.TypeScript" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.FormDesigner.Integration" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.TypeScript" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.TypeScript" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.TypeScript" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.WindowsForms" Version="11.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutBox.cs">

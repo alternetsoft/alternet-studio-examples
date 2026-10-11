@@ -21,13 +21,13 @@
     <None Remove="StyleCop.Cache" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.PowerShell" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.PowerShell.Embedded" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.Wpf" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Wpf" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Lsp" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.PowerShell" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.PowerShell.Embedded" Version="11.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

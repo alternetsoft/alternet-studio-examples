@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Alternet.Common;
 using Alternet.Common.Python;
+using Alternet.Editor;
 using Alternet.Editor.Python;
 using Alternet.Scripter.Debugger.Python;
 using Alternet.Scripter.Integration;
@@ -199,8 +200,20 @@ namespace DebuggerIntegration.Python
             edit.LoadFile(e.FileName);
             edit.Lexer = parser;
             edit.AllowedActions &= ~AllowedActions.SetNextStatement;
-
+            edit.OpenSharedEditorFunc = OpenSharedEditorFunc;
             e.DebugEdit = edit;
+        }
+
+        private ISyntaxEdit OpenSharedEditorFunc(string fileName)
+        {
+            ISyntaxEdit result = null;
+            bool fullPath = PathUtilities.IsPathFullyQualified(fileName);
+            if (fullPath)
+            {
+                result = editorTabContainer.TryActivateEditor(fileName) as ISyntaxEdit;
+            }
+
+            return result;
         }
 
         private void SaveAllModifiedFiles()

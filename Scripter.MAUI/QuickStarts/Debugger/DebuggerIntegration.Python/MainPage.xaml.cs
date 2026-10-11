@@ -11,38 +11,35 @@
 #endregion Copyright (c) 2016-2026 Alternet Software
 
 using System;
-using System.IO;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows.Input;
-
+using System.Xml;
+using Alternet.Common;
 using Alternet.Common.Projects.DotNet;
+using Alternet.Common.Python;
+using Alternet.Editor.AlternetUI;
+using Alternet.Editor.TextSource.AlternetUI;
 using Alternet.Maui;
-
+using Alternet.Maui.Extensions;
 using Alternet.Scripter.Debugger;
 using Alternet.Scripter.Debugger.UI.MAUI;
 using Alternet.Scripter.Integration.MAUI;
-using Alternet.Syntax.Lexer;
 using Alternet.Scripter.Python;
-using Alternet.Syntax.Parsers.Python;
-using Alternet.Common.Python;
-using Alternet.Maui.Extensions;
-using Microsoft.Maui.Layouts;
-using Alternet.Common;
-using System.Diagnostics;
 using Alternet.Syntax;
-
-using Microsoft.Maui.Controls;
+using Alternet.Syntax.Lexer;
+using Alternet.Syntax.Parsers.Python;
 using Microsoft.Maui;
+using Microsoft.Maui.Controls;
 using Microsoft.Maui.Devices;
 using Microsoft.Maui.Dispatching;
 using Microsoft.Maui.Graphics;
+using Microsoft.Maui.Layouts;
 using Microsoft.Maui.Storage;
-
-using Alternet.Editor.TextSource.AlternetUI;
-using System.Reflection;
-using System.Xml;
-using System.Runtime.InteropServices;
 
 namespace DebuggerIntegration
 {
@@ -658,6 +655,7 @@ namespace DebuggerIntegration
             editor.FileName = e.FileName;
             edit.Lexer = parser;
             e.DebugEdit = editor;
+            edit.OpenSharedEditorFunc = OpenSharedEditorFunc;
             UpdateCommands();
 
             var logMouseEvents = false;
@@ -677,6 +675,18 @@ namespace DebuggerIntegration
                     Alternet.UI.App.Log($"LongTap gesture");
                 };
             }
+        }
+
+        private ISyntaxEdit OpenSharedEditorFunc(string fileName)
+        {
+            ISyntaxEdit result = null;
+            bool fullPath = PathUtilities.IsPathFullyQualified(fileName);
+            if (fullPath)
+            {
+                result = codeEditContainer.TryActivateEditor(fileName) as ISyntaxEdit;
+            }
+
+            return result;
         }
 
         private void OpenProject(string? projectPathUrl, string projectName)

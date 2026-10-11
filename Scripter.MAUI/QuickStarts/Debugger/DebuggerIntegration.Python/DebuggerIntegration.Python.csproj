@@ -64,20 +64,20 @@ For .NET MAUI and Xamarin.Forms, ApplicationTitle's direct effect is mostly on W
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.10" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Common.Python" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.MAUI" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Integration.MAUI" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Python" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="11.0.0" />
-    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.MAUI" Version="11.0.0" />
+    <PackageReference Include="Alternet.Studio.Common.AlternetUI" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Common.Python" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.MAUI" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.AlternetUI" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Editor.Common.AlternetUI" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Integration.MAUI" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Syntax.Parsers.Advanced.Python" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Python" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Python" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.Common" Version="11.0.1" />
+    <PackageReference Include="Alternet.Studio.Scripter.Debugger.UI.MAUI" Version="11.0.1" />
     <PackageReference Include="Alternet.UI.Maui" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>
